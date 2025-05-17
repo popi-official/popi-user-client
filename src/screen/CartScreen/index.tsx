@@ -1,6 +1,7 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Text, View} from 'react-native';
 import {CartStackWithParams} from '../../@types/StackNavigationType';
+import {S} from './CartScreen.style';
 
 type Props = {
   navigation: NativeStackNavigationProp<CartStackWithParams>;
@@ -8,11 +9,11 @@ type Props = {
 
 export default function CartScreen({navigation}: Props) {
   return (
-    <View>
+    <S.CartScreenContainer>
       <Text>Cart</Text>
       <View>
         <Text onPress={() => navigation.navigate('Test')}>Test</Text>
       </View>
-    </View>
+    </S.CartScreenContainer>
   );
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {HomeStackWithParams} from '../../@types/StackNavigationType';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {S} from './HomeScreen.style';
 
 type Props = {
   navigation: NativeStackNavigationProp<HomeStackWithParams>;
@@ -10,8 +10,7 @@ type Props = {
 
 export default function HomeScreen({navigation}: Props) {
   return (
-    <SafeAreaView
-      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <S.HomeScreenContainer>
       <Text>Home Screen</Text>
       <View>
         <Text onPress={() => navigation.navigate('PopUpList', {PopUpId: 1})}>
@@ -21,6 +20,6 @@ export default function HomeScreen({navigation}: Props) {
       <View>
         <Text onPress={() => navigation.navigate('Test')}>Test</Text>
       </View>
-    </SafeAreaView>
+    </S.HomeScreenContainer>
   );
 }

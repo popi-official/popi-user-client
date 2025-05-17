@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator<BottomTabStackWithParams>();
 
 export default function BottomTabNavigator() {
   return (
-    <Tab.Navigator screenOptions={{lazy: true}}>
+    <Tab.Navigator screenOptions={{lazy: true, headerShown: false}}>
       <Tab.Screen
         name="HomeTab"
         component={HomeNavigator}

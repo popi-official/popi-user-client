@@ -1,9 +1,10 @@
-import {Text, View} from 'react-native';
+import {Text} from 'react-native';
+import {S} from './MapScreen.style';
 
 export default function MapScreen() {
   return (
-    <View>
+    <S.MapScreenContainer>
       <Text>Map</Text>
-    </View>
+    </S.MapScreenContainer>
   );
 }
