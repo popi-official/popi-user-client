@@ -1,13 +1,14 @@
-import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {HomeStackWithParams} from '../../@types/StackNavigationType';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-export default function HomeScreen() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<HomeStackWithParams>>();
+type Props = {
+  navigation: NativeStackNavigationProp<HomeStackWithParams>;
+};
+
+export default function HomeScreen({navigation}: Props) {
   return (
     <SafeAreaView
       style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -16,6 +17,9 @@ export default function HomeScreen() {
         <Text onPress={() => navigation.navigate('PopUpList', {PopUpId: 1})}>
           Item1
         </Text>
+      </View>
+      <View>
+        <Text onPress={() => navigation.navigate('Test')}>Test</Text>
       </View>
     </SafeAreaView>
   );

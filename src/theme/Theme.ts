@@ -2,7 +2,6 @@ const theme = {
   colors: {
     slate50: 'string',
     slate100: 'string',
-    // ... 기존 colors 속성들
   },
   mediaSize: {
     /* ... */
@@ -13,7 +12,6 @@ const theme = {
   size: {
     /* ... */
   },
-  // 누락된 속성들 추가
   spacing: {
     xs: 4,
     sm: 8,

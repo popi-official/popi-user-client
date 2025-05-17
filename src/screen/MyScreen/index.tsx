@@ -1,17 +1,15 @@
-import {useNavigation} from '@react-navigation/native';
 import {Text, View} from 'react-native';
 import {Button} from 'react-native-paper';
-import {RootStackNavigationType} from '../../@types/StackNavigationType';
+import {HomeStackWithParams} from '../../@types/StackNavigationType';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-export default function MyScreen() {
-  const navigation =
-    useNavigation<
-      NativeStackNavigationProp<RootStackNavigationType, 'Home' | 'Test'>
-    >();
+type Props = {
+  navigation: NativeStackNavigationProp<HomeStackWithParams>;
+};
 
+export default function MyScreen({navigation}: Props) {
   const handleRouteTest = () => {
-    navigation.navigate('Home', {screen: 'PopUpList', params: {PopUpId: 1}});
+    navigation.navigate('HomeTab', {screen: 'Home'});
   };
 
   return (
@@ -20,7 +18,15 @@ export default function MyScreen() {
       <Button onPress={handleRouteTest}>
         <Text>버튼</Text>
       </Button>
-      <Button onPress={() => navigation.navigate('Test')}>버튼2</Button>
+      <Button
+        onPress={() =>
+          navigation.navigate('HomeTab', {
+            screen: 'PopUpList',
+            params: {PopUpId: 1},
+          })
+        }>
+        버튼2
+      </Button>
     </View>
   );
 }

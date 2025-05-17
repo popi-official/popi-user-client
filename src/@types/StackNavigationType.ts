@@ -1,25 +1,26 @@
 import {ParamListBase} from '@react-navigation/native';
-
-type StackParamType<T> = {
-  screen?: keyof T;
-  params?: T[keyof T];
-};
-
-export interface BottomTabStackWithParams extends ParamListBase {
-  Home: undefined;
-  Cart: undefined;
-  Map: undefined;
-  My: undefined;
-}
+import {NavigatorScreenParams} from '@react-navigation/native';
 
 export interface HomeStackWithParams extends ParamListBase {
+  Home: undefined;
   PopUpList: {
     PopUpId: number;
   };
+  Test: undefined;
+}
+
+export interface CartStackWithParams extends ParamListBase {
+  Cart: undefined;
+  Test: undefined;
+}
+
+export interface BottomTabStackWithParams extends ParamListBase {
+  HomeTab: NavigatorScreenParams<HomeStackWithParams>;
+  CartTab: NavigatorScreenParams<CartStackWithParams>;
+  MapTab: undefined;
+  MyTab: undefined;
 }
 
 export interface RootStackNavigationType extends ParamListBase {
-  BottomTab: StackParamType<BottomTabStackWithParams>;
-  Home: StackParamType<HomeStackWithParams>;
-  Test: undefined;
+  BottomTab: NavigatorScreenParams<BottomTabStackWithParams>;
 }
