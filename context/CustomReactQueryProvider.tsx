@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClinet = new QueryClient();
 
@@ -7,7 +7,5 @@ type Props = {
 };
 
 export default function CustomReactQueryProvider({ children }: Props) {
-  return (
-    <QueryClientProvider client={queryClinet}>{children}</QueryClientProvider>
-  );
+  return <QueryClientProvider client={queryClinet}>{children}</QueryClientProvider>;
 }
