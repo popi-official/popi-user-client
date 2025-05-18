@@ -1,15 +1,15 @@
-import { DefaultTheme } from "styled-components/native";
+import { DefaultTheme } from 'styled-components/native';
 
 export const Theme: DefaultTheme = {
   colors: {
-    primary: "#007AFF",
-    secondary: "#5AC8FA",
-    background: "#FFFFFF",
-    text: "#000000",
-    textSecondary: "#8E8E93",
-    border: "#CECED2",
-    error: "#FF3B30",
-    success: "#34C759",
+    primary: '#007AFF',
+    secondary: '#5AC8FA',
+    background: '#FFFFFF',
+    text: '#000000',
+    textSecondary: '#8E8E93',
+    border: '#CECED2',
+    error: '#FF3B30',
+    success: '#34C759',
   },
   spacing: {
     xs: 4,
@@ -26,9 +26,9 @@ export const Theme: DefaultTheme = {
       xlarge: 24,
     },
     fontWeights: {
-      regular: "400",
-      medium: "500",
-      bold: "700",
+      regular: '400',
+      medium: '500',
+      bold: '700',
     },
   },
   radius: {
