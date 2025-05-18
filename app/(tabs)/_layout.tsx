@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Tabs } from 'expo-router';
 
 export default function BottomTabLayout() {
   return (
@@ -6,12 +6,12 @@ export default function BottomTabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: { paddingBottom: 4 },
-        tabBarInactiveTintColor: "#8E8E93",
-        tabBarActiveTintColor: "#007AFF",
+        tabBarInactiveTintColor: '#8E8E93',
+        tabBarActiveTintColor: '#007AFF',
       }}
     >
-      <Tabs.Screen name="home" options={{ title: "홈" }} />
-      <Tabs.Screen name="cart" options={{ title: "장바구니" }} />
+      <Tabs.Screen name="home" options={{ title: '홈' }} />
+      <Tabs.Screen name="cart" options={{ title: '장바구니' }} />
     </Tabs>
   );
 }

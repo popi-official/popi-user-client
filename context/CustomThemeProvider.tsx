@@ -1,6 +1,6 @@
-import { Theme } from "@/theme/Theme";
-import React from "react";
-import { ThemeProvider } from "styled-components";
+import { Theme } from '@/theme/Theme';
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
 
 type Props = {
   children: React.ReactNode;
