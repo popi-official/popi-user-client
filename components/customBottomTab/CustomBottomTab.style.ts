@@ -1,5 +1,4 @@
 import { getThemeColor, getThemeFont, getThemeFontWeight } from '@/@types';
-import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 
 interface TabItemContainerProps {
@@ -24,7 +23,6 @@ export const S = {
     padding-top: 14px;
     overflow: hidden;
     background-color: ${getThemeColor('gray10')};
-    padding-bottom: ${Platform.OS === 'ios' ? '20px' : '25px'};
     gap: 60px;
     border-width: 1px;
     border-bottom-width: 0px;
