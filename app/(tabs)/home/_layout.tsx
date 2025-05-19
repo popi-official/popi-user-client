@@ -5,7 +5,6 @@ export default function HomeLayout() {
   return (
     <Stack>
       <Stack.Screen name="index" options={DEFAULT_STACK_OPTIONS} />
-      <Stack.Screen name="popup-list/index" options={DEFAULT_STACK_OPTIONS} />
     </Stack>
   );
 }

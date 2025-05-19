@@ -1,5 +1,10 @@
+import { DEFAULT_STACK_OPTIONS } from '@/constants/Options';
 import { Stack } from 'expo-router';
 
 export default function CommonLayout() {
-  return <Stack />;
+  return (
+    <Stack screenOptions={DEFAULT_STACK_OPTIONS}>
+      <Stack.Screen name="onBoarding" />
+    </Stack>
+  );
 }

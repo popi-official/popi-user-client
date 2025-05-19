@@ -1,13 +1,13 @@
 import { useRouter } from 'expo-router';
-import { Button, Text, View } from 'react-native';
+import { Button } from 'react-native';
+import { Text, View } from 'react-native';
 
 export default function HomeScreen() {
   const router = useRouter();
-
   return (
     <View>
-      <Text>홈 화면</Text>
-      <Button title="팝업 리스트" onPress={() => router.push('/home/popup-list')} />
+      <Text>asdg</Text>
+      <Button title="온보딩" onPress={() => router.push('/(common)/onBoarding')} />
     </View>
   );
 }

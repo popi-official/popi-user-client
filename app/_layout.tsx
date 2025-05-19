@@ -3,8 +3,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
-import RootContext from '@/context';
 import { useFonts } from 'expo-font';
+import RootContext from '@/context';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -23,6 +23,7 @@ export default function RootLayout() {
   useEffect(() => {
     const hideSplash = async () => {
       if (fontsLoaded) {
+        await new Promise(resolve => setTimeout(resolve, 3000));
         await SplashScreen.hideAsync();
       }
     };

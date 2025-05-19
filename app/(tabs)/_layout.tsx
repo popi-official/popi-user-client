@@ -11,7 +11,7 @@ export default function BottomTabLayout() {
   return (
     <>
       <StatusBar style="light" />
-      <SafeAreaView style={{ backgroundColor: `#${Theme.colors.gray10}`, flex: 1 }}>
+      <SafeAreaView style={{ backgroundColor: `${Theme.colors.gray10}`, flex: 1 }}>
         <Tabs tabBar={tabBar} screenOptions={{ headerShown: false }}>
           <Tabs.Screen name="home" options={{ title: 'Home' }} />
           <Tabs.Screen name="map" options={{ title: 'Map' }} />
