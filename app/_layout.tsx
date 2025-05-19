@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import RootContext from '@/context';
+import { useFonts } from 'expo-font';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -14,13 +15,24 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    GmarketSansTTFMedium: require('@/assets/fonts/GmarketSansTTFMedium.ttf'),
+    PretendardVariable: require('@/assets/fonts/PretendardVariable.ttf'),
+  });
+
   useEffect(() => {
     const hideSplash = async () => {
-      await SplashScreen.hideAsync();
+      if (fontsLoaded) {
+        await SplashScreen.hideAsync();
+      }
     };
 
     hideSplash();
-  }, []);
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <RootContext>

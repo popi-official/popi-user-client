@@ -1,4 +1,3 @@
-// app/(tabs)/home/_layout.tsx
 import { DEFAULT_STACK_OPTIONS } from '@/constants/Options';
 import { Stack } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';

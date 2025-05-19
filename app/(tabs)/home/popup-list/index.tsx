@@ -1,5 +1,4 @@
 import BottomSheetExample from '@/components/BottomSheetExample';
-import CustomBottomTab from '@/components/customBottomTab/CustomBottomTab';
 import SwiperExample from '@/components/Example';
 import { Text, View, StyleSheet } from 'react-native';
 
@@ -11,17 +10,15 @@ export default function PopUpListScreen() {
         <SwiperExample />
       </View>
       <BottomSheetExample />
-      <CustomBottomTab />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // 전체 화면 차지
+    flex: 1,
   },
   swiperContainer: {
-    height: 300, // 명시적인 높이 지정
-    // 또는 flex: 1을 사용해도 됩니다
+    height: 300,
   },
 });
