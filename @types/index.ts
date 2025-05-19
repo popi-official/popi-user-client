@@ -1,19 +1,8 @@
-import styled from 'styled-components/native';
+import { ThemeProps } from 'styled-components/native';
 import { DefaultTheme } from 'styled-components/native';
 
 export type ThemeProps = {
   theme: DefaultTheme;
-};
-
-type StyledComponent =
-  | ReturnType<typeof styled.View>
-  | ReturnType<typeof styled.Text>
-  | ReturnType<typeof styled.TouchableOpacity>
-  | ReturnType<typeof styled.Image>
-  | ReturnType<typeof styled.ScrollView>;
-
-export type StyledComponents = {
-  [key: string]: StyledComponent;
 };
 
 type ThemeSpacingKey = keyof DefaultTheme['spacing'];
@@ -21,6 +10,7 @@ type ThemeColorKey = keyof DefaultTheme['colors'];
 type ThemeFontSizeKey = keyof DefaultTheme['typography']['fontSizes'];
 type ThemeFontWeightKey = keyof DefaultTheme['typography']['fontWeights'];
 type ThemeRadiusKey = keyof DefaultTheme['radius'];
+type ThemeFontKey = keyof DefaultTheme['typography']['fonts'];
 
 export const getThemeSpacing =
   <K extends ThemeSpacingKey>(key: K) =>
@@ -46,3 +36,8 @@ export const getThemeRadius =
   <K extends ThemeRadiusKey>(key: K) =>
   ({ theme }: ThemeProps) =>
     `${theme.radius[key]}px`;
+
+export const getThemeFont =
+  <K extends ThemeFontKey>(key: K) =>
+  ({ theme }: ThemeProps) =>
+    `${theme.typography.fonts[key]}`;

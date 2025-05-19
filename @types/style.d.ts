@@ -31,7 +31,12 @@ declare module 'styled-components/native' {
       fontWeights: {
         regular: string;
         medium: string;
+        semibold: string;
         bold: string;
+      };
+      fonts: {
+        gmarket: string;
+        pretendard: string;
       };
     };
     radius: {

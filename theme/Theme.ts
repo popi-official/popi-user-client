@@ -30,7 +30,12 @@ export const Theme: DefaultTheme = {
     fontWeights: {
       regular: '400',
       medium: '500',
+      semibold: '600',
       bold: '700',
+    },
+    fonts: {
+      gmarket: 'GmarketSansTTFMedium',
+      pretendard: 'PretendardVariable',
     },
   },
   radius: {
