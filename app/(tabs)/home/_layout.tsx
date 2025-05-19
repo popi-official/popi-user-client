@@ -8,7 +8,7 @@ export default function HomeLayout() {
     <SafeAreaView style={{ flex: 1 }}>
       <Stack>
         <Stack.Screen name="index" options={DEFAULT_STACK_OPTIONS} />
-        <Stack.Screen name="popup-list" options={DEFAULT_STACK_OPTIONS} />
+        <Stack.Screen name="popup-list/index" options={DEFAULT_STACK_OPTIONS} />
       </Stack>
     </SafeAreaView>
   );

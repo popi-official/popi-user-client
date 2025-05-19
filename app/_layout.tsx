@@ -2,6 +2,8 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import 'react-native-gesture-handler';
+import RootContext from '@/context';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -21,9 +23,11 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="(common)" options={{ headerShown: false }} />
-    </Stack>
+    <RootContext>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(common)" options={{ headerShown: false }} />
+      </Stack>
+    </RootContext>
   );
 }

@@ -3,14 +3,16 @@ import 'styled-components/native';
 declare module 'styled-components/native' {
   export interface DefaultTheme {
     colors: {
-      primary: string;
-      secondary: string;
-      background: string;
-      text: string;
-      textSecondary: string;
-      border: string;
-      error: string;
-      success: string;
+      gray01: string;
+      gray02: string;
+      gray03: string;
+      gray04: string;
+      gray05: string;
+      gray06: string;
+      gray07: string;
+      gray08: string;
+      gray09: string;
+      gray10: string;
     };
     spacing: {
       xs: number;
