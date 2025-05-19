@@ -2,14 +2,16 @@ import { DefaultTheme } from 'styled-components/native';
 
 export const Theme: DefaultTheme = {
   colors: {
-    primary: '#007AFF',
-    secondary: '#5AC8FA',
-    background: '#FFFFFF',
-    text: '#000000',
-    textSecondary: '#8E8E93',
-    border: '#CECED2',
-    error: '#FF3B30',
-    success: '#34C759',
+    gray01: 'FFFFFF',
+    gray02: 'F9F9FA',
+    gray03: 'EDEDF1',
+    gray04: 'DFDFE0',
+    gray05: 'D8D8DA',
+    gray06: 'C9C9CA',
+    gray07: 'BCBCBE',
+    gray08: '939494',
+    gray09: '59595A',
+    gray10: '1B1A1B',
   },
   spacing: {
     xs: 4,
