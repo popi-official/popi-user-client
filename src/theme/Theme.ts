@@ -4,14 +4,15 @@ export const Theme: DefaultTheme = {
   colors: {
     gray01: '#FFFFFF',
     gray02: '#F9F9FA',
-    gray03: '#EDEDF1',
-    gray04: '#DFDFE0',
-    gray05: '#D8D8DA',
-    gray06: '#C9C9CA',
-    gray07: '#BCBCBE',
-    gray08: '#939494',
-    gray09: '#59595A',
-    gray10: '#1B1A1B',
+    gray03: '#D9D9D9',
+    gray04: '#BCBCBE',
+    gray05: '#929292',
+    gray06: '#767676',
+    gray07: '#5C5C5C',
+    gray08: '#383838',
+    gray09: '#2E2E2E',
+    gray10: '#202020',
+    gray11: '#000000',
   },
   gradients: {
     button: {
