@@ -5,8 +5,6 @@ import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import { useFonts } from 'expo-font';
 import RootContext from '@/context';
-import { useFonts } from 'expo-font';
-import RootContext from '@/context';
 
 export { ErrorBoundary } from 'expo-router';
 
