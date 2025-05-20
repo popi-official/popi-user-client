@@ -6,7 +6,7 @@ import { S } from './TestScreen.style';
 export default function BottomSheetExample() {
   const sheetRef = useRef<BottomSheet>(null);
 
-  const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
+  const snapPoints = useMemo(() => ['10%', '50%', '90%'], []);
 
   const handleSnapPress = useCallback((index: number) => {
     sheetRef.current?.snapToIndex(index);
@@ -14,7 +14,6 @@ export default function BottomSheetExample() {
   const handleClosePress = useCallback(() => {
     sheetRef.current?.close();
   }, []);
-
   return (
     <S.TestScreenContainer>
       <Button title="Snap To 90%" onPress={() => handleSnapPress(2)} />
