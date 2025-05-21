@@ -28,8 +28,8 @@ export const S = {
 
   Overlay: styled(LinearGradient).attrs({
     colors: ['rgba(0, 0, 0, 0)', '#000000'],
-    start: { x: 0.7, y: 0 },
-    end: { x: 0.7, y: 1 },
+    start: { x: 0, y: 0 },
+    end: { x: 0, y: 1 },
   })`
     position: absolute;
     top: 0;
@@ -37,6 +37,19 @@ export const S = {
     width: 100%;
     height: 100%;
     border-radius: 10px;
+    z-index: 1;
+  `,
+
+  BannerOverlay: styled(LinearGradient).attrs({
+    colors: ['rgba(0, 0, 0, 0)', '#000000'],
+    start: { x: 0, y: 0 },
+    end: { x: 0, y: 1 },
+  })`
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 160px;
     z-index: 1;
   `,
 

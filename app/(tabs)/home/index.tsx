@@ -1,6 +1,7 @@
 import { FlatList } from 'react-native-gesture-handler';
 import { S } from './HomeScreen.style';
-import { Dimensions, Image, View } from 'react-native';
+import { Dimensions, Image, Text, View } from 'react-native';
+import Swiper from 'react-native-swiper';
 
 const Images = {
   popUp01: require('@/assets/images/home/popUp01.webp'),
@@ -9,6 +10,29 @@ const Images = {
   calendarGray: require('@/assets/images/common/calendar-gray.webp'),
   locationGray: require('@/assets/images/common/location-gray.webp'),
 };
+
+const bannerItems = [
+  {
+    image: Images.popUp01,
+    title: 'THE HOT HOUSE',
+    subtitle: 'LE SSERAFIM 2025 S/S POP-UP',
+  },
+  {
+    image: Images.popUp02,
+    title: 'Season of Memories',
+    subtitle: 'GFRIEND SPECIAL ALBUM POP-UP',
+  },
+  {
+    image: Images.popUp03,
+    title: 'BORN PINK',
+    subtitle: 'BLACKPINK POP-UP EXPERIENCE',
+  },
+  {
+    image: Images.popUp01,
+    title: 'DREAMSCAPE',
+    subtitle: 'NCT DREAM x LINE FRIENDS',
+  },
+];
 
 const hotItems = [
   {
@@ -118,10 +142,77 @@ export default function HomeScreen() {
 
   return (
     <S.HomeScreenContainer>
-      <Image
-        source={Images.popUp02}
-        style={{ width: screenWidth, height: undefined, aspectRatio: 3 / 4 }}
-      />
+      <View style={{ width: screenWidth, aspectRatio: 3 / 4 }}>
+        <Swiper
+          autoplay
+          loop
+          showsPagination
+          paginationStyle={{
+            bottom: 10,
+          }}
+          dot={
+            <View
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: 'white',
+                backgroundColor: 'transparent',
+                marginHorizontal: 6,
+              }}
+            />
+          }
+          activeDot={
+            <View
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor: 'white',
+                marginHorizontal: 6,
+              }}
+            />
+          }
+          autoplayTimeout={4}
+        >
+          {bannerItems.map((item, idx) => (
+            <View
+              key={idx}
+              style={{
+                flex: 1,
+                position: 'relative',
+              }}
+            >
+              <Image
+                source={item.image}
+                style={{
+                  width: screenWidth,
+                  height: '100%',
+                  resizeMode: 'cover',
+                }}
+              />
+              <S.BannerOverlay />
+              <View
+                style={{
+                  position: 'absolute',
+                  zIndex: 15,
+                  bottom: 32,
+                  width: '100%',
+                  alignItems: 'center',
+                }}
+              >
+                <Text style={{ color: 'white', fontSize: 24, fontWeight: 'bold' }}>
+                  {item.title}
+                </Text>
+                <Text style={{ color: '#D9D9D9', fontSize: 16, marginTop: 6, fontWeight: 600 }}>
+                  {item.subtitle}
+                </Text>
+              </View>
+            </View>
+          ))}
+        </Swiper>
+      </View>
       {/* WHAT'S HOT */}
       <S.SectionTitle>WHAT’S HOT</S.SectionTitle>
       <FlatList
