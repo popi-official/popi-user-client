@@ -24,7 +24,7 @@ declare module 'styled-components/native' {
       gray08: string;
       gray09: string;
       gray10: string;
-      // gray11: string;
+      gray11: string;
     };
     gradients: {
       button: GradientType;
