@@ -65,6 +65,32 @@ export const S = {
 
   HotCardSubText: styled.Text`
     color: ${getThemeColor('gray02')};
+    font-weight: 400;
     font-size: 11px;
+  `,
+
+  PopUpCardTitle: styled.Text`
+    color: ${getThemeColor('gray01')};
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    width: 208px;
+  `,
+
+  PopUpCardSubTextContainer: styled.View`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  `,
+
+  PopUpCardSubText: styled.Text`
+    color: ${getThemeColor('gray04')};
+    font-size: 10px;
+    font-weight: 400;
+  `,
+
+  BottomArea: styled.View`
+    height: 72px;
+    width: 100%;
   `,
 };

@@ -1,5 +1,6 @@
 import { Theme } from '@/theme/Theme';
 import React from 'react';
+import { Text } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 
 type Props = {
@@ -7,5 +8,9 @@ type Props = {
 };
 
 export default function CustomThemeProvider({ children }: Props) {
-  return <ThemeProvider theme={Theme}>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider theme={Theme}>
+      {typeof children === 'string' ? <Text>{children}</Text> : children}
+    </ThemeProvider>
+  );
 }
