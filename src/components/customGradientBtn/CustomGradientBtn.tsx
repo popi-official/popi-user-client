@@ -3,6 +3,7 @@ import { ViewStyle, TextStyle } from 'react-native';
 import { S } from './CustomGradientBtn.style';
 import { Theme } from '@/theme/Theme';
 import { ImageSourcePropType } from 'react-native';
+import { GradientType } from '@/types/style';
 
 type Props = {
   title: string;
@@ -32,7 +33,16 @@ export default function CustomGradientBtn({
   fontWeight,
   icon,
 }: Props) {
-  const gradient = useMemo(() => Theme.gradients.button, []);
+  const gradient = useMemo<GradientType>(() => {
+    if (disabled) {
+      return {
+        colors: ['#888888', '#AAAAAA'],
+        start: { x: 0, y: 0 },
+        end: { x: 1, y: 0 },
+      };
+    }
+    return Theme.gradients.button;
+  }, [disabled]);
   return (
     <S.ButtonContainer
       onPress={onPress}
