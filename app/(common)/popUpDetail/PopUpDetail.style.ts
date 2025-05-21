@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
-import { getThemeColor, getThemeFont, getThemeFontSize, getThemeFontWeight } from '@/types';
-import { Image } from 'react-native';
+import { getThemeColor, getThemeFont, getThemeFontWeight } from '@/types';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export const S = {

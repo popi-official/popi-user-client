@@ -61,7 +61,10 @@ export default function PopUpDetailScreen() {
             <CustomGradientBtn
               title="팝업 예약하기"
               height={54}
-              onPress={() => {}}
+              onPress={() => {
+                // TODO: 라우팅 구현 후 아래 줄 주석 해제
+                // navigation.navigate('PopupReservation');
+              }}
               icon={require('@/assets/images/common/store-gray.webp')}
             />
           </S.BottomButtonWrapper>
