@@ -3,5 +3,7 @@
   <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
   <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
   <string name="expo_system_ui_user_interface_style" translatable="false">automatic</string>
-  <string name="kakao_app_key">901478f25e364a7e04b4b22ff7b6d957</string>
+  <resources>
+    <string name="kakao_app_key">901478f25e364a7e04b4b22ff7b6d957</string>
+</resources>
 </resources>

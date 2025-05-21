@@ -13,8 +13,10 @@ export const S = {
   CustomBottomTabContainer: styled.View`
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: -0.5%;
     right: 0;
+    width: 101%;
+    align-items: center;
     flex-direction: row;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -26,7 +28,7 @@ export const S = {
     gap: 60px;
     border-width: 1px;
     border-bottom-width: 0px;
-    border-color: ${getThemeColor('gray09')};
+    border-color: ${getThemeColor('gray05')};
   `,
   TabItemContainer: styled.TouchableOpacity<TabItemContainerProps>`
     flex: 1;

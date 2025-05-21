@@ -39,7 +39,7 @@ export const S = {
   `,
   TitleText: styled(Animated.Text)`
     font-style: ${getThemeFont('pretendard')};
-    font-size: 26px;
+    font-size: 30px;
     height: 80px;
     font-weight: ${getThemeFontWeight('semibold')};
     color: ${getThemeColor('gray02')};
@@ -50,7 +50,7 @@ export const S = {
     margin-top: 40px;
   `,
   InputLabel: styled.Text`
-    color: white;
+    color: ${getThemeColor('gray04')};
   `,
   InputTouchable: styled.TouchableOpacity`
     flex-direction: row;
@@ -68,8 +68,8 @@ export const S = {
   `,
   StyledTextInput: styled.TextInput`
     color: white;
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 26px;
+    font-weight: ${getThemeFontWeight('semibold')};
   `,
   ClearButton: styled.TouchableOpacity`
     z-index: 1;

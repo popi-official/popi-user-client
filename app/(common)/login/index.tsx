@@ -9,7 +9,7 @@ const Images = {
 };
 
 export default function LoginScreen() {
-  const { handleKakaoLogin, handleGoogleLogin } = useOAuth();
+  const { handleKakaoLogin } = useOAuth();
 
   return (
     <S.LoginScreenContainer>
@@ -27,7 +27,7 @@ export default function LoginScreen() {
             <S.OAuthLogoImg source={Images.kakaoLogo} resizeMode="contain" />
             <S.ButtonText>카카오 로그인</S.ButtonText>
           </S.OAuthLoginBtn>
-          <S.OAuthLoginBtn color={'white'} onPress={handleGoogleLogin}>
+          <S.OAuthLoginBtn color={'white'}>
             <S.OAuthLogoImg source={Images.googleLogo} resizeMode="contain" />
             <S.ButtonText>구글 로그인</S.ButtonText>
           </S.OAuthLoginBtn>
