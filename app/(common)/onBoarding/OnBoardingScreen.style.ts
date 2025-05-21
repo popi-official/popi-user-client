@@ -13,7 +13,6 @@ export const S = {
     position: relative;
     width: ${width}px;
     height: ${height}px;
-    background-color: ${getThemeColor('gray11')};
   `,
 
   BackgroundImageContainer: styled.View`

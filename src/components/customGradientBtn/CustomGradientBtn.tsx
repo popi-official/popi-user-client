@@ -2,6 +2,9 @@ import React, { useMemo } from 'react';
 import { ViewStyle, TextStyle } from 'react-native';
 import { S } from './CustomGradientBtn.style';
 import { Theme } from '@/theme/Theme';
+import styled from 'styled-components/native';
+import { ImageSourcePropType } from 'react-native';
+
 
 type Props = {
   title: string;
@@ -15,6 +18,7 @@ type Props = {
   borderRadius?: number;
   fontSize?: number;
   fontWeight?: string;
+  icon?: ImageSourcePropType; // ← 추가
 };
 
 export default function CustomGradientBtn({
@@ -28,6 +32,7 @@ export default function CustomGradientBtn({
   borderRadius = 30,
   fontSize,
   fontWeight,
+  icon, // ← 추가
 }: Props) {
   const gradient = useMemo(() => Theme.gradients.button, []);
   return (
@@ -43,10 +48,25 @@ export default function CustomGradientBtn({
         end={gradient.end}
         style={{ borderRadius }}
       >
-        <S.ButtonText style={textStyle} fontSize={fontSize} fontWeight={fontWeight}>
-          {title}
-        </S.ButtonText>
+        <S.ButtonContent>
+          {icon && <S.Icon source={icon} resizeMode="contain" />}
+          <S.ButtonText style={textStyle} fontSize={fontSize} fontWeight={fontWeight}>
+            {title}
+          </S.ButtonText>
+        </S.ButtonContent>
       </S.GradientBackground>
     </S.ButtonContainer>
   );
 }
+
+export const ButtonContent = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+export const Icon = styled.Image`
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+`;
+

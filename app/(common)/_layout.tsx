@@ -6,6 +6,7 @@ export default function CommonLayout() {
     <Stack screenOptions={DEFAULT_STACK_OPTIONS}>
       <Stack.Screen name="onBoarding" />
       <Stack.Screen name="login" />
+      <Stack.Screen name="popUpDetail" />
     </Stack>
   );
 }
