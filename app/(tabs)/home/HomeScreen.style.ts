@@ -4,16 +4,15 @@ import styled from 'styled-components/native';
 
 export const S = {
   HomeScreenContainer: styled.ScrollView`
-    flex: 1;
     background-color: ${getThemeColor('gray11')};
   `,
 
   SectionTitle: styled.Text`
     color: white;
     font-style: italic;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 900;
-    margin: 46px 0 20px 24px;
+    margin: 60px 0 30px 12px;
     font-style: ${getThemeFont('gmarket')}; /* inter로 변경 예정 */
   `,
 
@@ -23,7 +22,7 @@ export const S = {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
-    margin-left: ${(props: { isFirst: boolean }) => (props.isFirst ? '24px' : '0px')};
+    margin-left: ${(props: { isFirst: boolean }) => (props.isFirst ? '12px' : '0px')};
     margin-right: 18px;
   `,
 
@@ -45,47 +44,35 @@ export const S = {
     position: absolute;
     bottom: 11px;
     left: 10px;
-    width: 208px;
     z-index: 2;
   `,
 
   HotCardTitle: styled.Text`
     color: ${getThemeColor('gray01')};
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
-    margin-bottom: 2px;
-    width: 208px;
-  `,
-
-  HotCardSubTextContainer: styled.View`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  `,
-
-  HotCardSubText: styled.Text`
-    color: ${getThemeColor('gray02')};
-    font-weight: 400;
-    font-size: 11px;
+    margin-bottom: 10px;
+    margin-right: 10px;
   `,
 
   PopUpCardTitle: styled.Text`
     color: ${getThemeColor('gray01')};
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 600;
     margin-bottom: 2px;
-    width: 208px;
   `,
 
   PopUpCardSubTextContainer: styled.View`
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 4px;
+    margin-top: 2px;
   `,
 
   PopUpCardSubText: styled.Text`
     color: ${getThemeColor('gray04')};
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 400;
   `,
 
