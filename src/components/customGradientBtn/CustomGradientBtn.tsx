@@ -5,7 +5,6 @@ import { Theme } from '@/theme/Theme';
 import styled from 'styled-components/native';
 import { ImageSourcePropType } from 'react-native';
 
-
 type Props = {
   title: string;
   onPress: () => void;
@@ -18,7 +17,7 @@ type Props = {
   borderRadius?: number;
   fontSize?: number;
   fontWeight?: string;
-  icon?: ImageSourcePropType; // ← 추가
+  icon?: ImageSourcePropType;
 };
 
 export default function CustomGradientBtn({
@@ -32,7 +31,7 @@ export default function CustomGradientBtn({
   borderRadius = 30,
   fontSize,
   fontWeight,
-  icon, // ← 추가
+  icon,
 }: Props) {
   const gradient = useMemo(() => Theme.gradients.button, []);
   return (
@@ -69,4 +68,3 @@ export const Icon = styled.Image`
   height: 18px;
   margin-right: 6px;
 `;
-

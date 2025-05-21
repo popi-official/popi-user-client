@@ -28,8 +28,7 @@ export const S = {
     color: #000000;
   `,
 
-    // ✅ 새로 추가되는 요소들
-    ButtonContent: styled.View`
+  ButtonContent: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: center;

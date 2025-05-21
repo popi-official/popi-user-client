@@ -9,10 +9,8 @@ export default function PopUpDetailScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
       <ScrollView>
-        {/* 상단 배너 */}
         <S.Banner source={require('@/assets/images/common/popupimg.png')} />
 
-        {/* 팝업 제목 및 정보 */}
         <S.PopUpContentBox>
           <S.PopupTitle>아이브 EMPATHY 팝업스토어</S.PopupTitle>
           <S.SubInfoRow>
@@ -25,7 +23,6 @@ export default function PopUpDetailScreen() {
           </S.SubInfoRow>
         </S.PopUpContentBox>
 
-        {/* 운영시간, 위치정보 */}
         <S.Divider />
         <S.PopUpContentBox>
           <S.SectionTitle style={{ marginBottom: 8 }}>운영시간</S.SectionTitle>
@@ -40,7 +37,6 @@ export default function PopUpDetailScreen() {
 
         <S.DividerWide />
 
-        {/* WHAT'S HOT */}
         <S.ItemContentBox>
           <S.ItemCategory style={{ marginTop: 40, marginBottom: 20 }}>WHAT’S HOT</S.ItemCategory>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -48,7 +44,6 @@ export default function PopUpDetailScreen() {
           </ScrollView>
         </S.ItemContentBox>
 
-        {/* 전체 상품 */}
         <S.ItemContentBox>
           <S.RowBetween>
             <S.ItemCategory>전체 상품</S.ItemCategory>
@@ -85,7 +80,6 @@ const renderHotItemWithIndex = (item: Item, index: number) => (
   </S.HotCardContainer>
 );
 
-// 전체 상품 아이템 렌더
 const renderItem = (item: Item) => (
   <S.ItemCard key={item.id}>
     <S.ItemImage source={{ uri: item.image }} style={item.image} />

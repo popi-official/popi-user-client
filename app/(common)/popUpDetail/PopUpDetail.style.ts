@@ -9,23 +9,20 @@ export const S = {
     background-color: black;
   `,
 
-  //ok
   Banner: styled.Image`
     width: 100%;
     height: 466px;
     margin-bottom: 14px;
   `,
-  //ok
+
   PopUpContentBox: styled.View`
     padding: 0 12px;
   `,
 
-  //ok
   ItemContentBox: styled.View`
     padding-left: 12px;
   `,
 
-  //ok
   PopupTitle: styled.Text`
     color: ${getThemeColor('gray01')};
     font-family: ${getThemeFont('pretendard')};
@@ -34,7 +31,6 @@ export const S = {
     margin-bottom: 5px;
   `,
 
-  //ok
   PopupInfo: styled.Text`
     color: ${getThemeColor('gray04')};
     font-family: ${getThemeFont('pretendard')};
@@ -42,22 +38,19 @@ export const S = {
     font-size: 16px;
   `,
 
-  //ok
   SectionTitle: styled.Text`
     color: ${getThemeColor('gray01')};
     font-family: ${getThemeFont('pretendard')};
     font-weight: ${getThemeFontWeight('bold')};
     font-size: 18px;
-
   `,
 
-  //ok
   MapImage: styled.Image`
     width: 100%;
     height: 163px;
     border-radius: 10px;
   `,
-  //ok
+
   RowBetween: styled.View`
     flex-direction: row;
     align-items: flex-end;
@@ -66,14 +59,12 @@ export const S = {
     margin-bottom: 20px;
   `,
 
-  //ok
   Icon: styled.Image`
     width: 16px;
     height: 16px;
     margin-right: 4px;
   `,
 
-  //ok
   RightArrow: styled.Image`
     width: 26px;
     height: 26px;
@@ -129,7 +120,6 @@ export const S = {
     position: relative;
     margin-right: 18px;
   `,
-
 
   Overlay: styled(LinearGradient).attrs({
     colors: ['rgba(0, 0, 0, 0)', '#000000'],
