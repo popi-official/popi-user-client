@@ -40,7 +40,7 @@ export const S = {
   TitleText: styled(Animated.Text)`
     font-style: ${getThemeFont('pretendard')};
     font-size: 26px;
-    height: 64px;
+    height: 80px;
     font-weight: ${getThemeFontWeight('semibold')};
     color: ${getThemeColor('gray02')};
   `,

@@ -37,7 +37,8 @@ export default function SignUpScreen() {
   const titleAniRef = useRef(new Animated.Value(0)).current;
   const router = useRouter();
 
-  const snapPoints = useMemo(() => ['50%'], []);
+  const snapPoints = useMemo(() => ['30%'], []);
+  // 30, 45
 
   const handleAnimate = useCallback(() => {
     Animated.timing(titleAniRef, {
@@ -232,19 +233,19 @@ export default function SignUpScreen() {
         index={-1}
         backdropComponent={renderBackdrop}
         backgroundStyle={{
-          backgroundColor: '#1A1A1A',
+          backgroundColor: '#1C1B28',
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
-          borderColor: '#D9D9D9',
-          borderWidth: 1,
-          borderBottomWidth: 0,
+          // borderColor: '#D9D9D9',
+          // borderWidth: 1,
+          // borderBottomWidth: 0,
         }}
         handleStyle={{
-          backgroundColor: '#1A1A1A',
+          backgroundColor: '#1C1B28',
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
           borderColor: '#D9D9D9',
-          borderWidth: 1,
+          // borderWidth: 1,
           borderBottomWidth: 0,
         }}
         handleIndicatorStyle={{ backgroundColor: '#555555', width: 60 }}
@@ -274,19 +275,22 @@ export default function SignUpScreen() {
         index={-1}
         backdropComponent={renderBackdrop}
         backgroundStyle={{
-          backgroundColor: '#1A1A1A',
+          backgroundColor: '#1C1B28',
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
           borderColor: '#D9D9D9',
-          borderWidth: 1,
+          // borderWidth: 1,
           borderBottomWidth: 0,
         }}
         handleStyle={{
-          backgroundColor: '#1A1A1A',
+          backgroundColor: '#1C1B28',
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
           borderColor: '#D9D9D9',
-          borderWidth: 1,
+          // borderWidth: 1,
+          // borderTopWidth: 0,
+          // borderLeftWidth: 0,
+          // borderRightWidth: 0,
           borderBottomWidth: 0,
         }}
         handleIndicatorStyle={{ backgroundColor: '#555555', width: 60 }}

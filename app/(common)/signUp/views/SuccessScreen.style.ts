@@ -22,6 +22,8 @@ export const S = {
     flex: 1;
     align-items: center;
     justify-content: center;
+    padding-left: 12px;
+    padding-right: 12px;
     z-index: 1;
   `,
   Title: styled.Text`

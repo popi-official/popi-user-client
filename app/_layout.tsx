@@ -5,6 +5,7 @@ import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import { useFonts } from 'expo-font';
 import RootContext from '@/context';
+import * as WebBrowser from 'expo-web-browser';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -13,7 +14,7 @@ export const unstable_settings = {
 };
 
 SplashScreen.preventAutoHideAsync();
-
+WebBrowser.maybeCompleteAuthSession();
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     GmarketSansTTFMedium: require('@/assets/fonts/GmarketSansTTFMedium.ttf'),

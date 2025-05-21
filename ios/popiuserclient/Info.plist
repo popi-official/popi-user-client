@@ -49,6 +49,7 @@
       <string>kakaokompassauth</string>
       <string>storykompassauth</string>
       <string>kakaolink</string>
+      <string>kakaoplus</string>
     </array>
     <key>LSMinimumSystemVersion</key>
     <string>12.0</string>

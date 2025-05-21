@@ -1,4 +1,5 @@
 import Expo
+import RNCKakaoUser
 import React
 import ReactAppDependencyProvider
 
@@ -38,6 +39,7 @@ public class AppDelegate: ExpoAppDelegate {
     open url: URL,
     options: [UIApplication.OpenURLOptionsKey: Any] = [:]
   ) -> Bool {
+  if(RNCKakaoUserUtil.isKakaoTalkLoginUrl(url)) { return RNCKakaoUserUtil.handleOpen(url) }
     return super.application(app, open: url, options: options) || RCTLinkingManager.application(app, open: url, options: options)
   }
 
