@@ -46,18 +46,20 @@ export const S = {
   `,
 
   InputSection: styled.View`
-    gap: 6px;
     margin-top: 40px;
   `,
   InputLabel: styled.Text`
     color: ${getThemeColor('gray04')};
+    margin-bottom: 6px;
   `,
   InputTouchable: styled.TouchableOpacity`
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     border-bottom-width: 1px;
     padding-bottom: 10px;
     border-bottom-color: white;
+    position: relative;
   `,
   InputWrapper: styled.View`
     flex-direction: row;
@@ -68,12 +70,20 @@ export const S = {
   `,
   StyledTextInput: styled.TextInput`
     color: white;
-    font-size: 26px;
-    font-weight: ${getThemeFontWeight('semibold')};
+    font-size: 22px;
+    font-weight: 600;
+    flex: 1;
+    padding-right: 40px;
   `,
   ClearButton: styled.TouchableOpacity`
-    z-index: 1;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
     justify-content: center;
+    align-items: center;
+    width: 30px;
+    z-index: 1;
   `,
   ClearButtonText: styled.Text`
     color: white;
@@ -86,7 +96,7 @@ export const S = {
   `,
   SelectText: styled.Text<SelectedOption>`
     color: white;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 600;
   `,
   ArrowIcon: styled(Image)`
@@ -110,9 +120,8 @@ export const S = {
   `,
   CloseButton: styled.TouchableOpacity``,
   CloseIcon: styled(Image)`
-    width: 15px;
-    height: 15px;
-    tint-color: white;
+    width: 20px;
+    height: 20px;
   `,
   CloseButtonText: styled.Text`
     color: white;
@@ -122,14 +131,16 @@ export const S = {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-vertical: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
   `,
   OptionText: styled.Text<SelectedOption>`
     color: ${(props: SelectedOption) => (props.isSelected ? '#C3E4F5' : 'white')};
-    font-size: 22px;
+    font-size: 24px;
+    font-family: ${getThemeFont('pretendard')};
+    font-weight: 500;
   `,
-  CheckText: styled.Text`
-    color: #c3e4f5;
-    font-size: 20px;
+  CheckImg: styled(Image)`
+    /* tint-color: #c3e4f5; */
   `,
 };

@@ -19,6 +19,7 @@ export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     GmarketSansTTFMedium: require('@/assets/fonts/GmarketSansTTFMedium.ttf'),
     PretendardVariable: require('@/assets/fonts/PretendardVariable.ttf'),
+    InterVariable: require('@/assets/fonts/InterVariable.ttf'),
   });
 
   useEffect(() => {

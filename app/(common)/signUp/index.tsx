@@ -173,10 +173,12 @@ export default function SignUpScreen() {
                       textInputRef.current.focus();
                     }
                   }}
+                  style={{ position: 'relative' }}
                 >
                   <S.StyledTextInput
                     ref={textInputRef}
                     placeholder="닉네임을 입력해주세요"
+                    placeholderTextColor={'#929292'}
                     onChangeText={(e: string) => setNickName(e)}
                     value={nickName}
                   />
@@ -254,7 +256,7 @@ export default function SignUpScreen() {
               {AGE_OPTIONS.map((item, idx) => (
                 <S.OptionButton key={idx} onPress={() => handleAgeClosePress(item)}>
                   <S.OptionText isSelected={age === item}>{item}</S.OptionText>
-                  {age === item && <S.CheckText>✓</S.CheckText>}
+                  {age === item && <S.CheckImg source={images.check} />}
                 </S.OptionButton>
               ))}
             </S.BottomSheetContent>
@@ -294,7 +296,7 @@ export default function SignUpScreen() {
               {GENDER_OPTIONS.map((item, idx) => (
                 <S.OptionButton key={idx} onPress={() => handleGenderClosePress(item)}>
                   <S.OptionText isSelected={gender === item}>{item}</S.OptionText>
-                  {gender === item && <S.CheckText>✓</S.CheckText>}
+                  {gender === item && <S.CheckImg source={images.check} />}
                 </S.OptionButton>
               ))}
             </S.BottomSheetContent>
