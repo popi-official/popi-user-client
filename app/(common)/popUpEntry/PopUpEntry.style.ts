@@ -117,7 +117,6 @@ export const S = {
     flex-direction: row;
     align-self: center;
     gap: 24px;
-    margin-bottom: 20px;
   `,
 
   Button: styled.TouchableOpacity`
@@ -149,7 +148,7 @@ export const S = {
     font-weight: 500;
     font-size: 15px;
     margin-top: 4px;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
   `,
 
   GoodsContainer: styled.View`

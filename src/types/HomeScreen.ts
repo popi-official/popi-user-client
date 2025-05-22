@@ -1,10 +1,10 @@
-export type BannerItem = {
+export type BannerItemType = {
   image: number;
   title: string;
   subTitle: string;
 };
 
-export type HotItem = {
+export type HotItemType = {
   popupId: number;
   popupName: string;
   imageUrl: number; // 추후 string으로 변경
@@ -13,7 +13,7 @@ export type HotItem = {
   address: string;
 };
 
-export type popUpItem = {
+export type PopUpItemType = {
   popupId: number;
   popupName: string;
   imageUrl: number; // 추후 string으로 변경

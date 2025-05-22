@@ -1,6 +1,7 @@
 import { Image } from 'react-native';
 import { S } from './PopUpEntry.style';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { popularItemList, recommendedItemList } from '@/mocks/PopUpEntryMocks';
 
 const Images = {
   cameraBoy: require('@/assets/images/popUpEntry/camera-boy.webp'),
@@ -14,7 +15,7 @@ const Images = {
 const PopUpEntryScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
-      <S.PopUpEntryScreenContainer>
+      <S.PopUpEntryScreenContainer showsVerticalScrollIndicator={false}>
         <S.Card>
           {/* TopCard */}
           <S.TopCard>
@@ -50,47 +51,41 @@ const PopUpEntryScreen = () => {
             </S.ButtonRow>
           </S.QrCard>
         </S.Card>
+
         {/* 취향저격 */}
         <S.SectionTitle>몽몽님의 취향 저격</S.SectionTitle>
         <S.SectionDescription>
           예약하실 때 작성하셨던 설문지 내용을 기반으로 추천드려요
         </S.SectionDescription>
         <S.GoodsContainer>
-          <S.GoodsItem>
-            <S.GoodsImage source={Images.item} />
-            <S.GoodsName>KRUNK ORANGE</S.GoodsName>
-            <S.GoodsPrice>20,000원</S.GoodsPrice>
-          </S.GoodsItem>
-          <S.GoodsItem>
-            <S.GoodsImage source={Images.item} />
-            <S.GoodsName>KRUNK ORANGE</S.GoodsName>
-            <S.GoodsPrice>20,000원</S.GoodsPrice>
-          </S.GoodsItem>
-          <S.GoodsItem>
-            <S.GoodsImage source={Images.item} />
-            <S.GoodsName>KRUNK ORANGE</S.GoodsName>
-            <S.GoodsPrice>20,000원</S.GoodsPrice>
-          </S.GoodsItem>
+          {recommendedItemList.map(item => (
+            <S.GoodsItem key={item.itemId}>
+              <S.GoodsImage source={item.imagePath} />
+              <S.GoodsName numberOfLines={1} ellipsizeMode="tail">
+                {item.title}
+              </S.GoodsName>
+              <S.GoodsPrice numberOfLines={1} ellipsizeMode="tail">
+                {item.price.toLocaleString()}원
+              </S.GoodsPrice>
+            </S.GoodsItem>
+          ))}
         </S.GoodsContainer>
+
         {/* 인기 상품 TOP 3 */}
         <S.SectionTitle>인기 상품 TOP 3</S.SectionTitle>
         <S.SectionDescription>매장 방문 전에 인기있는 상품을 확인해보세요</S.SectionDescription>
         <S.GoodsContainer>
-          <S.GoodsItem>
-            <S.GoodsImage source={Images.item} />
-            <S.GoodsName>KRUNK ORANGE</S.GoodsName>
-            <S.GoodsPrice>20,000원</S.GoodsPrice>
-          </S.GoodsItem>
-          <S.GoodsItem>
-            <S.GoodsImage source={Images.item} />
-            <S.GoodsName>KRUNK ORANGE</S.GoodsName>
-            <S.GoodsPrice>20,000원</S.GoodsPrice>
-          </S.GoodsItem>
-          <S.GoodsItem>
-            <S.GoodsImage source={Images.item} />
-            <S.GoodsName>KRUNK ORANGE</S.GoodsName>
-            <S.GoodsPrice>20,000원</S.GoodsPrice>
-          </S.GoodsItem>
+          {popularItemList.map(item => (
+            <S.GoodsItem key={item.itemId}>
+              <S.GoodsImage source={Images.item} />
+              <S.GoodsName numbernumberOfLines={1} ellipsizeMode="tail">
+                {item.title}
+              </S.GoodsName>
+              <S.GoodsPrice numberOfLines={1} ellipsizeMode="tail">
+                {item.price.toLocaleString()}원
+              </S.GoodsPrice>
+            </S.GoodsItem>
+          ))}
         </S.GoodsContainer>
         <S.BottomArea />
       </S.PopUpEntryScreenContainer>

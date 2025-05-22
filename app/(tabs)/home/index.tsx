@@ -27,7 +27,7 @@ const HomeScreen = () => {
   );
 
   return (
-    <S.HomeScreenContainer>
+    <S.HomeScreenContainer showsVerticalScrollIndicator={false}>
       <S.SwiperContainer>
         <Swiper
           autoplay

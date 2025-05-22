@@ -1,4 +1,4 @@
-import { BannerItem, HotItem, popUpItem } from '@/types/HomeScreen';
+import { BannerItemType, HotItemType, PopUpItemType } from '@/types/HomeScreen';
 
 const Images = {
   popUp01: require('@/assets/images/home/popUp01.webp'),
@@ -7,7 +7,7 @@ const Images = {
 };
 
 // bannerItems는 프론트에서 임의로 지정
-export const bannerItems: BannerItem[] = [
+export const bannerItems: BannerItemType[] = [
   {
     image: Images.popUp01,
     title: 'THE HOT HOUSE',
@@ -30,7 +30,7 @@ export const bannerItems: BannerItem[] = [
   },
 ];
 
-export const hotItems: HotItem[] = [
+export const hotItems: HotItemType[] = [
   {
     popupId: 1,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
@@ -65,7 +65,7 @@ export const hotItems: HotItem[] = [
   },
 ];
 
-export const popUpItems: popUpItem[] = [
+export const popUpItems: PopUpItemType[] = [
   {
     popupId: 1,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
