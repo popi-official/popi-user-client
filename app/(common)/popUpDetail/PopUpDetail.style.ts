@@ -168,12 +168,15 @@ export const S = {
   `,
 
   ItemTitle: styled.Text`
+  font-family: ${getThemeFont('pretendard')};
+    font-weight: 600;
     font-size: 14px;
     color: ${getThemeColor('gray01')};
     margin-bottom: 4px;
   `,
 
   ItemPrice: styled.Text`
+    font-family: ${getThemeFont('pretendard')};
     font-size: 13px;
     color: ${getThemeColor('gray01')};
     font-weight: 600;

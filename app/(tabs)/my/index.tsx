@@ -20,6 +20,8 @@ export default function MyScreen() {
       <Button title="로그인 페이지 이동" onPress={() => router.push('/(common)/login')} />
       <Button title="로그아웃" onPress={handleLogout} />
       <Button title="회원탈퇴" onPress={handleDeleteProfile} />
+      <Button title="팝업 상세 페이지 이동" onPress={() => router.push('/(common)/popUpDetail')} />
+      <Button title="설문지" onPress={() => router.push('/(common)/survey')} />
     </View>
   );
 }
