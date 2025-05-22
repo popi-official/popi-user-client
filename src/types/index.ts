@@ -10,7 +10,8 @@ type ThemeColorKey = keyof DefaultTheme['colors'];
 type ThemeFontSizeKey = keyof DefaultTheme['typography']['fontSizes'];
 type ThemeFontWeightKey = keyof DefaultTheme['typography']['fontWeights'];
 type ThemeRadiusKey = keyof DefaultTheme['radius'];
-type ThemeFontKey = keyof DefaultTheme['typography']['fonts'];
+type ThemePretendardKey = keyof DefaultTheme['typography']['fonts']['pretendard'];
+type ThemeInterKey = keyof DefaultTheme['typography']['fonts']['inter'];
 type ThemeGradient = keyof DefaultTheme['gradients'];
 
 export const getThemeSpacing =
@@ -38,10 +39,15 @@ export const getThemeRadius =
   ({ theme }: ThemeProps) =>
     `${theme.radius[key]}px`;
 
-export const getThemeFont =
-  <K extends ThemeFontKey>(key: K) =>
+export const getThemePretendardFont =
+  <K extends ThemePretendardKey>(key: K) =>
   ({ theme }: ThemeProps) =>
-    `${theme.typography.fonts[key]}`;
+    theme.typography.fonts.pretendard[key];
+
+export const getThemeInterFont =
+  <K extends ThemeInterKey>(key: K) =>
+  ({ theme }: ThemeProps) =>
+    theme.typography.fonts.inter[key];
 
 export const getThemeGradient =
   <K extends ThemeGradient>(key: K) =>

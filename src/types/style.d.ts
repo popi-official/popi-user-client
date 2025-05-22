@@ -51,9 +51,38 @@ declare module 'styled-components/native' {
         bold: string;
       };
       fonts: {
-        gmarket: string;
-        pretendard: string;
-        inter: string;
+        pretendard: {
+          thin: string;
+          extralight: string;
+          light: string;
+          regular: string;
+          medium: string;
+          semibold: string;
+          bold: string;
+          black: string;
+          extrabold: string;
+        };
+        inter: {
+          variable: string;
+          thin: string;
+          thinItalic: string;
+          extralight: string;
+          extralightItalic: string;
+          light: string;
+          lightItalic: string;
+          regular: string;
+          italic: string;
+          medium: string;
+          mediumItalic: string;
+          semibold: string;
+          semiboldItalic: string;
+          bold: string;
+          boldItalic: string;
+          extrabold: string;
+          extraboldItalic: string;
+          black: string;
+          blackItalic: string;
+        };
       };
     };
     radius: {

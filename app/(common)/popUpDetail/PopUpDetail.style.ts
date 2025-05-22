@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { getThemeColor, getThemeFont, getThemeFontWeight } from '@/types';
+import { getThemeColor, getThemeInterFont, getThemePretendardFont } from '@/types';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export const S = {
@@ -24,23 +24,20 @@ export const S = {
 
   PopupTitle: styled.Text`
     color: ${getThemeColor('gray01')};
-    font-family: ${getThemeFont('pretendard')};
-    font-weight: ${getThemeFontWeight('bold')};
+    font-family: ${getThemePretendardFont('bold')};
     font-size: 22px;
     margin-bottom: 5px;
   `,
 
   PopupInfo: styled.Text`
     color: ${getThemeColor('gray04')};
-    font-family: ${getThemeFont('pretendard')};
-    font-weight: ${getThemeFontWeight('regular')};
+    font-family: ${getThemePretendardFont('regular')};
     font-size: 16px;
   `,
 
   SectionTitle: styled.Text`
     color: ${getThemeColor('gray01')};
-    font-family: ${getThemeFont('pretendard')};
-    font-weight: ${getThemeFontWeight('bold')};
+    font-family: ${getThemePretendardFont('bold')};
     font-size: 18px;
   `,
 
@@ -95,14 +92,19 @@ export const S = {
   ItemCategory: styled.Text`
     color: ${getThemeColor('gray01')};
     font-size: 26px;
-    font-family: ${getThemeFont('pretendard')};
-    font-weight: ${getThemeFontWeight('semibold')};
+    font-family: ${getThemeInterFont('blackItalic')};
+  `,
+
+  ItemCategoryAll: styled.Text`
+    color: ${getThemeColor('gray01')};
+    font-size: 26px;
+    font-family: ${getThemePretendardFont('extrabold')};
   `,
 
   ItemCategoryEng: styled.Text`
     color: ${getThemeColor('gray01')};
     font-size: 26px;
-    font-family: 'Inter-BlackItalic';
+    font-family: ${getThemeInterFont('blackItalic')};
   `,
 
   HotItemImage: styled.Image`
@@ -140,8 +142,7 @@ export const S = {
     z-index: 2;
     color: ${getThemeColor('gray01')};
     font-size: 15px;
-    font-family: ${getThemeFont('pretendard')};
-    font-weight: ${getThemeFontWeight('semibold')};
+    font-family: ${getThemePretendardFont('semibold')};
   `,
 
   HotItemPrice: styled.Text`
@@ -151,8 +152,7 @@ export const S = {
     z-index: 2;
     color: ${getThemeColor('gray01')};
     font-size: 13px;
-    font-family: ${getThemeFont('pretendard')};
-    font-weight: ${getThemeFontWeight('semibold')};
+    font-family: ${getThemePretendardFont('semibold')};
   `,
 
   ItemCard: styled.View`

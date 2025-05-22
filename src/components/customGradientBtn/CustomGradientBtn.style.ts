@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { getThemeFontSize, getThemeFontWeight } from '@/types';
+import { getThemeColor, getThemeFontSize, getThemeFontWeight } from '@/types';
 
 interface ButtonTextProps {
   fontSize?: number;
@@ -25,7 +25,7 @@ export const S = {
       props.fontSize ? `${props.fontSize}px` : getThemeFontSize('medium')(props)};
     font-weight: ${(props: ButtonTextProps) =>
       props.fontWeight ? props.fontWeight : getThemeFontWeight('semibold')(props)};
-    color: #000000;
+    color: ${getThemeColor('gray11')};
   `,
 
   ButtonContent: styled.View`

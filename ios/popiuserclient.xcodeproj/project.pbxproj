@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 // !$*UTF8*$!
 {
 	archiveVersion = 1;
@@ -10,26 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		17A24B46A7A19D3A97A45887 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B9DA28ADD2086EEDDB08D8 /* ExpoModulesProvider.swift */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
+		8502FED5EB3BF0CC50A1AB98 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD1F69EABD5431DBD1A148 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		E6CEFABCB5C73677B89BCD51 /* libPods-popiuserclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0095F8BF0D0B42AA62D58678 /* libPods-popiuserclient.a */; };
+		C2AB2710179D0386C289B0B9 /* libPods-popiuserclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C46629123D5AB7BC4E00C3 /* libPods-popiuserclient.a */; };
+		F0748005CC10AE8FEC789066 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = EDBD7F952B566C607BC8F211 /* PrivacyInfo.xcprivacy */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
-		FA45C7FDF38466319D972244 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 5E2356FAA0CBD5A1DCAD35CA /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0095F8BF0D0B42AA62D58678 /* libPods-popiuserclient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-popiuserclient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1121D49E59BD498DDB62A98B /* Pods-popiuserclient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-popiuserclient.release.xcconfig"; path = "Target Support Files/Pods-popiuserclient/Pods-popiuserclient.release.xcconfig"; sourceTree = "<group>"; };
+		07113A71F70CAC83D433CD7F /* Pods-popiuserclient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-popiuserclient.release.xcconfig"; path = "Target Support Files/Pods-popiuserclient/Pods-popiuserclient.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* popiuserclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = popiuserclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = popiuserclient/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = popiuserclient/Info.plist; sourceTree = "<group>"; };
-		53B9DA28ADD2086EEDDB08D8 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-popiuserclient/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		5E2356FAA0CBD5A1DCAD35CA /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = popiuserclient/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		3D90002ABAE1C6356B377E46 /* Pods-popiuserclient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-popiuserclient.debug.xcconfig"; path = "Target Support Files/Pods-popiuserclient/Pods-popiuserclient.debug.xcconfig"; sourceTree = "<group>"; };
+		9EBD1F69EABD5431DBD1A148 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-popiuserclient/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = popiuserclient/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		E41EB0308E3F20AF4D77E51D /* Pods-popiuserclient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-popiuserclient.debug.xcconfig"; path = "Target Support Files/Pods-popiuserclient/Pods-popiuserclient.debug.xcconfig"; sourceTree = "<group>"; };
+		E5C46629123D5AB7BC4E00C3 /* libPods-popiuserclient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-popiuserclient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EDBD7F952B566C607BC8F211 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = popiuserclient/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = popiuserclient/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* popiuserclient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "popiuserclient-Bridging-Header.h"; path = "popiuserclient/popiuserclient-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -39,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6CEFABCB5C73677B89BCD51 /* libPods-popiuserclient.a in Frameworks */,
+				C2AB2710179D0386C289B0B9 /* libPods-popiuserclient.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,7 +53,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				5E2356FAA0CBD5A1DCAD35CA /* PrivacyInfo.xcprivacy */,
+				EDBD7F952B566C607BC8F211 /* PrivacyInfo.xcprivacy */,
 			);
 			name = popiuserclient;
 			sourceTree = "<group>";
@@ -64,15 +62,15 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				0095F8BF0D0B42AA62D58678 /* libPods-popiuserclient.a */,
+				E5C46629123D5AB7BC4E00C3 /* libPods-popiuserclient.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3E45EB549175E78D92E37653 /* popiuserclient */ = {
+		2E43589E0BBF0CAC098BDD7C /* popiuserclient */ = {
 			isa = PBXGroup;
 			children = (
-				53B9DA28ADD2086EEDDB08D8 /* ExpoModulesProvider.swift */,
+				9EBD1F69EABD5431DBD1A148 /* ExpoModulesProvider.swift */,
 			);
 			name = popiuserclient;
 			sourceTree = "<group>";
@@ -91,8 +89,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				A4AD6288EA7CBE19D0ADF5B4 /* Pods */,
-				88E468858B547A3152D46A38 /* ExpoModulesProviders */,
+				C2D63CD1D5CEEC4C1E81DCDF /* Pods */,
+				846F025561BCBCF5FCB5B86A /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -107,22 +105,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		88E468858B547A3152D46A38 /* ExpoModulesProviders */ = {
+		846F025561BCBCF5FCB5B86A /* ExpoModulesProviders */ = {
 			isa = PBXGroup;
 			children = (
-				3E45EB549175E78D92E37653 /* popiuserclient */,
+				2E43589E0BBF0CAC098BDD7C /* popiuserclient */,
 			);
 			name = ExpoModulesProviders;
-			sourceTree = "<group>";
-		};
-		A4AD6288EA7CBE19D0ADF5B4 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E41EB0308E3F20AF4D77E51D /* Pods-popiuserclient.debug.xcconfig */,
-				1121D49E59BD498DDB62A98B /* Pods-popiuserclient.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
@@ -134,6 +122,16 @@
 			path = popiuserclient/Supporting;
 			sourceTree = "<group>";
 		};
+		C2D63CD1D5CEEC4C1E81DCDF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3D90002ABAE1C6356B377E46 /* Pods-popiuserclient.debug.xcconfig */,
+				07113A71F70CAC83D433CD7F /* Pods-popiuserclient.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -142,13 +140,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "popiuserclient" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				059A547594F5BD0FF7669DA2 /* [Expo] Configure project */,
+				BC20189CC2D355F80D2194D4 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				DDA81E28CA25D865BCCF7EF0 /* [CP] Embed Pods Frameworks */,
+				0CC23D89D6D589AB5D735E6C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -198,7 +196,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				FA45C7FDF38466319D972244 /* PrivacyInfo.xcprivacy in Resources */,
+				F0748005CC10AE8FEC789066 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,25 +218,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios absolute | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli', { paths: [require.resolve('expo/package.json')] })\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n# Source .xcode.env.updates if it exists to allow\n# SKIP_BUNDLING to be unset if needed\nif [[ -f \"$PODS_ROOT/../.xcode.env.updates\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.updates\"\nfi\n# Source local changes to allow overrides\n# if needed\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n\n";
 		};
-		059A547594F5BD0FF7669DA2 /* [Expo] Configure project */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-popiuserclient/expo-configure-project.sh\"\n";
-		};
 		08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -259,6 +238,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0CC23D89D6D589AB5D735E6C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-popiuserclient/Pods-popiuserclient-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-popiuserclient/Pods-popiuserclient-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
@@ -315,23 +312,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-popiuserclient/Pods-popiuserclient-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DDA81E28CA25D865BCCF7EF0 /* [CP] Embed Pods Frameworks */ = {
+		BC20189CC2D355F80D2194D4 /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-popiuserclient/Pods-popiuserclient-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			inputFileListPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-popiuserclient/Pods-popiuserclient-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-popiuserclient/expo-configure-project.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -341,7 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				17A24B46A7A19D3A97A45887 /* ExpoModulesProvider.swift in Sources */,
+				8502FED5EB3BF0CC50A1AB98 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +348,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E41EB0308E3F20AF4D77E51D /* Pods-popiuserclient.debug.xcconfig */;
+			baseConfigurationReference = 3D90002ABAE1C6356B377E46 /* Pods-popiuserclient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -386,7 +384,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1121D49E59BD498DDB62A98B /* Pods-popiuserclient.release.xcconfig */;
+			baseConfigurationReference = 07113A71F70CAC83D433CD7F /* Pods-popiuserclient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -563,4 +561,3 @@
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }
->>>>>>> 24c9c84 ([LCR-173] feat: 회원가입 플로우 UI 구현)

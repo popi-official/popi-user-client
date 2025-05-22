@@ -1,4 +1,4 @@
-import { getThemeColor, getThemeFont, getThemeFontWeight } from '@/types';
+import { getThemeColor, getThemePretendardFont } from '@/types';
 import styled from 'styled-components/native';
 
 interface TabItemContainerProps {
@@ -37,8 +37,7 @@ export const S = {
   `,
   Label: styled.Text<LabelProps>`
     font-size: 9px;
-    font-weight: ${getThemeFontWeight('medium')};
-    font-family: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('medium')};
     color: ${(props: TabItemContainerProps) =>
       props.isFocused ? getThemeColor('gray01') : getThemeColor('gray07')};
   `,

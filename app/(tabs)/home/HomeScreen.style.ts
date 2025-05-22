@@ -1,4 +1,4 @@
-import { getThemeColor, getThemeFont } from '@/types';
+import { getThemeColor, getThemeInterFont, getThemePretendardFont } from '@/types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
@@ -48,17 +48,15 @@ export const S = {
 
   BannerTitle: styled.Text`
     color: ${getThemeColor('gray01')};
-    font-family: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('bold')};
     font-size: 24px;
-    font-weight: 700;
   `,
 
   BannerSubtitle: styled.Text`
-    font-family: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('bold')};
     color: #d9d9d9;
     font-size: 16px;
     margin-top: 4px;
-    font-weight: 700;
   `,
 
   SwiperDot: styled.View`
@@ -82,11 +80,9 @@ export const S = {
   // Section Title
   SectionTitle: styled.Text`
     color: ${getThemeColor('gray01')};
-    font-style: italic;
     font-size: 26px;
-    font-weight: 900;
+    font-family: ${getThemeInterFont('blackItalic')};
     margin: 60px 0 30px 12px;
-    font-family: ${getThemeFont('gmarket')}; /* inter로 변경 예정 */
   `,
 
   // Hot Card
@@ -122,16 +118,14 @@ export const S = {
   `,
 
   HotCardTitle: styled.Text`
-    font-family: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('bold')};
     color: ${getThemeColor('gray01')};
     font-size: 17px;
-    font-weight: 700;
     margin-bottom: 10px;
     margin-right: 10px;
   `,
 
   // Pop-Up Card
-
   PopUpWrapper: styled.View`
     padding: 0 12px;
     margin-bottom: 40px;
@@ -160,10 +154,9 @@ export const S = {
   `,
 
   PopUpCardTitle: styled.Text`
-    font-family: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('bold')};
     color: ${getThemeColor('gray01')};
     font-size: 15px;
-    font-weight: 700;
     margin-bottom: 2px;
   `,
 
@@ -176,10 +169,10 @@ export const S = {
   `,
 
   PopUpCardSubText: styled.Text`
-    font-family: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('light')};
+    font-weight: 400;
     color: ${getThemeColor('gray04')};
     font-size: 13px;
-    font-weight: 400;
     flex-shrink: 1;
   `,
 
