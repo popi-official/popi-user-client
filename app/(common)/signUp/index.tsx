@@ -12,6 +12,8 @@ import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from '@gor
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { useRouter } from 'expo-router';
 import { KeyboardAvoidingView } from 'react-native';
+import { useOAuth } from '@/hooks/useOAuth';
+import { FormatSignDataAgeGender } from '@/utils/FormatSignDataAgeGender';
 
 const images = {
   backGround: require('@/assets/images/signUp/background.png'),
@@ -20,8 +22,8 @@ const images = {
   close: require('@/assets/images/signUp/close.png'),
 };
 
-type AgeType = '10대' | '20대' | '30대' | '40대 이상' | null;
-type GenderType = '여성' | '남성' | null;
+export type AgeType = '10대' | '20대' | '30대' | '40대 이상' | null;
+export type GenderType = '여성' | '남성' | null;
 
 const SignUpDesc: Record<number, string> = {
   1: '안녕하세요! \n어떻게 불러드리면 될까요?',
@@ -31,7 +33,7 @@ const SignUpDesc: Record<number, string> = {
 
 export default function SignUpScreen() {
   const [step, setStep] = useState<number>(1);
-  const [nickName, setNickName] = useState<string>('');
+  const [nickname, setnickname] = useState<string>('');
   const [age, setAge] = useState<AgeType>(null);
   const [gender, setGender] = useState<GenderType>(null);
   const ageBottomSheetRef = useRef<BottomSheet>(null);
@@ -46,6 +48,8 @@ export default function SignUpScreen() {
 
   const ageSnapPoints = useMemo(() => ['30%'], []);
   const genderSnapPoints = useMemo(() => ['45%'], []);
+
+  const { handleSignUp } = useOAuth();
 
   const handleAnimate = useCallback(() => {
     Animated.timing(titleAniRef, {
@@ -91,16 +95,24 @@ export default function SignUpScreen() {
     genderBottomSheetRef.current?.close();
   }, []);
 
-  const handleBtnPress = useCallback(() => {
+  const handleBtnPress = useCallback(async () => {
     if (step === 3) {
+      const { formattedAge, formattedGender } = FormatSignDataAgeGender({ age, gender });
+
+      if (!formattedAge || !formattedGender) {
+        return null;
+      }
+
+      await handleSignUp({ nickname, age: formattedAge, gender: formattedGender });
+
       router.replace({
         pathname: '/(common)/signUp/views/SuccessScreen',
-        params: { nickName },
+        params: { nickname },
       });
       return;
     }
     setStep(prev => prev + 1);
-  }, [router, step, nickName]);
+  }, [router, step, nickname, age, gender, handleSignUp]);
 
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
@@ -125,13 +137,13 @@ export default function SignUpScreen() {
 
   const validateStep = () => {
     if (step === 1) {
-      return nickName && true;
+      return nickname && true;
     }
     if (step === 2) {
       return age && true;
     }
     if (step === 3) {
-      return nickName && age && gender;
+      return nickname && age && gender;
     }
     return false;
   };
@@ -179,11 +191,11 @@ export default function SignUpScreen() {
                     ref={textInputRef}
                     placeholder="닉네임을 입력해주세요"
                     placeholderTextColor={'#929292'}
-                    onChangeText={(e: string) => setNickName(e)}
-                    value={nickName}
+                    onChangeText={(e: string) => setnickname(e)}
+                    value={nickname}
                   />
-                  {nickName.length > 0 && (
-                    <S.ClearButton onPress={() => setNickName('')}>
+                  {nickname.length > 0 && (
+                    <S.ClearButton onPress={() => setnickname('')}>
                       <S.CloseIcon source={images.close} />
                     </S.ClearButton>
                   )}

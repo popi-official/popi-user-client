@@ -10,6 +10,12 @@ export type GlobalResponse<T> = {
 
 export type NoResponse = null;
 
-export type LoginResponse = {
+export type SignedLoginResponse = {
   accessToken: string;
+  isRegistered: true;
+};
+
+export type UnSignedLoginResponse = {
+  registerToken: string;
+  isRegistered: false;
 };

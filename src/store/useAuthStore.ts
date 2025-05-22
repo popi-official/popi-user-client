@@ -4,7 +4,9 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 type AuthState = {
   accessToken: string | null;
   isLogin: boolean;
+  registorToken?: string | null;
   setLogin: (_token: string) => void;
+  setRegistorToken: (_token: string) => void;
   setLogout: () => void;
 };
 
@@ -18,6 +20,7 @@ export const useAuthStore = create<AuthState>()(
           accessToken: token,
           isLogin: true,
         }),
+      setRegistorToken: token => set({ registorToken: token }),
       setLogout: () =>
         set({
           accessToken: null,

@@ -38,7 +38,7 @@ export const S = {
   Label: styled.Text<LabelProps>`
     font-size: 9px;
     font-weight: ${getThemeFontWeight('medium')};
-    font-style: ${getThemeFont('pretendard')};
+    font-family: ${getThemeFont('pretendard')};
     color: ${(props: TabItemContainerProps) =>
       props.isFocused ? getThemeColor('gray01') : getThemeColor('gray07')};
   `,
