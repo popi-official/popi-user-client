@@ -117,6 +117,7 @@ export const S = {
     flex-direction: row;
     align-self: center;
     gap: 24px;
+    margin-bottom: 20px;
   `,
 
   Button: styled.TouchableOpacity`
@@ -132,5 +133,68 @@ export const S = {
     color: ${(props: { isCancel?: boolean }) =>
       props.isCancel ? getThemeColor('gray04') : getThemeColor('gray07')};
     font-weight: 700;
+  `,
+
+  SectionTitle: styled.Text`
+    font-family: ${getThemeFont('pretendard')};
+    color: ${getThemeColor('gray01')};
+    font-weight: 800;
+    font-size: 26px;
+    margin-top: 46px;
+  `,
+
+  SectionDescription: styled.Text`
+    font-family: ${getThemeFont('pretendard')};
+    color: ${getThemeColor('gray05')};
+    font-weight: 500;
+    font-size: 15px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+  `,
+
+  GoodsContainer: styled.View`
+    width: ${Dimensions.get('window').width - 24}px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+  `,
+
+  GoodsItem: styled.View`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: ${(Dimensions.get('window').width - 24 - 12 * 2) / 3}px;
+  `,
+
+  GoodsImage: styled.Image`
+    width: ${(Dimensions.get('window').width - 24 - 12 * 2) / 3}px;
+    height: ${(Dimensions.get('window').width - 24 - 12 * 2) / 3}px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  `,
+
+  GoodsName: styled.Text`
+    font-family: ${getThemeFont('pretendard')};
+    color: ${getThemeColor('gray01')};
+    width: ${(Dimensions.get('window').width - 24 - 12 * 2) / 3}px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+  `,
+
+  GoodsPrice: styled.Text`
+    font-family: ${getThemeFont('pretendard')};
+    color: ${getThemeColor('gray05')};
+    width: ${(Dimensions.get('window').width - 24 - 12 * 2) / 3}px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 13px;
+  `,
+
+  // Bottom
+  BottomArea: styled.View`
+    height: 72px;
+    width: 100%;
   `,
 };

@@ -8,9 +8,10 @@ const Images = {
   locationDarkGray: require('@/assets/images/popUpEntry/location-dark-gray.webp'),
   clockDarkGray: require('@/assets/images/popUpEntry/clock-dark-gray.webp'),
   qrCode: require('@/assets/images/popUpEntry/qr-code.webp'),
+  item: require('@/assets/images/popUpEntry/item.webp'),
 };
 
-const PopUpDetailScreen = () => {
+const PopUpEntryScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
       <S.PopUpEntryScreenContainer>
@@ -36,11 +37,9 @@ const PopUpDetailScreen = () => {
           {/* QrCard */}
           <S.QrCard>
             <S.Description>이용하려는 팝업에 QR로 체크인하세요</S.Description>
-
             <S.QRWrapper>
               <Image source={Images.qrCode} style={{ width: 180, height: 180 }} />
             </S.QRWrapper>
-
             <S.ButtonRow>
               <S.Button isCancel>
                 <S.ButtonText isCancel>예약 취소</S.ButtonText>
@@ -51,9 +50,52 @@ const PopUpDetailScreen = () => {
             </S.ButtonRow>
           </S.QrCard>
         </S.Card>
+        {/* 취향저격 */}
+        <S.SectionTitle>몽몽님의 취향 저격</S.SectionTitle>
+        <S.SectionDescription>
+          예약하실 때 작성하셨던 설문지 내용을 기반으로 추천드려요
+        </S.SectionDescription>
+        <S.GoodsContainer>
+          <S.GoodsItem>
+            <S.GoodsImage source={Images.item} />
+            <S.GoodsName>KRUNK ORANGE</S.GoodsName>
+            <S.GoodsPrice>20,000원</S.GoodsPrice>
+          </S.GoodsItem>
+          <S.GoodsItem>
+            <S.GoodsImage source={Images.item} />
+            <S.GoodsName>KRUNK ORANGE</S.GoodsName>
+            <S.GoodsPrice>20,000원</S.GoodsPrice>
+          </S.GoodsItem>
+          <S.GoodsItem>
+            <S.GoodsImage source={Images.item} />
+            <S.GoodsName>KRUNK ORANGE</S.GoodsName>
+            <S.GoodsPrice>20,000원</S.GoodsPrice>
+          </S.GoodsItem>
+        </S.GoodsContainer>
+        {/* 인기 상품 TOP 3 */}
+        <S.SectionTitle>인기 상품 TOP 3</S.SectionTitle>
+        <S.SectionDescription>매장 방문 전에 인기있는 상품을 확인해보세요</S.SectionDescription>
+        <S.GoodsContainer>
+          <S.GoodsItem>
+            <S.GoodsImage source={Images.item} />
+            <S.GoodsName>KRUNK ORANGE</S.GoodsName>
+            <S.GoodsPrice>20,000원</S.GoodsPrice>
+          </S.GoodsItem>
+          <S.GoodsItem>
+            <S.GoodsImage source={Images.item} />
+            <S.GoodsName>KRUNK ORANGE</S.GoodsName>
+            <S.GoodsPrice>20,000원</S.GoodsPrice>
+          </S.GoodsItem>
+          <S.GoodsItem>
+            <S.GoodsImage source={Images.item} />
+            <S.GoodsName>KRUNK ORANGE</S.GoodsName>
+            <S.GoodsPrice>20,000원</S.GoodsPrice>
+          </S.GoodsItem>
+        </S.GoodsContainer>
+        <S.BottomArea />
       </S.PopUpEntryScreenContainer>
     </SafeAreaView>
   );
 };
 
-export default PopUpDetailScreen;
+export default PopUpEntryScreen;
