@@ -48,11 +48,13 @@ export const S = {
 
   BannerTitle: styled.Text`
     color: ${getThemeColor('gray01')};
+    font-family: ${getThemeFont('pretendard')};
     font-size: 24px;
     font-weight: bold;
   `,
 
   BannerSubtitle: styled.Text`
+    font-family: ${getThemeFont('pretendard')};
     color: #d9d9d9;
     font-size: 16px;
     margin-top: 6px;
@@ -84,7 +86,7 @@ export const S = {
     font-size: 26px;
     font-weight: 900;
     margin: 60px 0 30px 12px;
-    font-style: ${getThemeFont('gmarket')}; /* inter로 변경 예정 */
+    font-family: ${getThemeFont('gmarket')}; /* inter로 변경 예정 */
   `,
 
   // Hot Card
@@ -120,6 +122,7 @@ export const S = {
   `,
 
   HotCardTitle: styled.Text`
+    font-family: ${getThemeFont('pretendard')};
     color: ${getThemeColor('gray01')};
     font-size: 17px;
     font-weight: 600;
@@ -157,6 +160,7 @@ export const S = {
   `,
 
   PopUpCardTitle: styled.Text`
+    font-family: ${getThemeFont('pretendard')};
     color: ${getThemeColor('gray01')};
     font-size: 15px;
     font-weight: 600;
@@ -172,6 +176,7 @@ export const S = {
   `,
 
   PopUpCardSubText: styled.Text`
+    font-family: ${getThemeFont('pretendard')};
     color: ${getThemeColor('gray04')};
     font-size: 13px;
     font-weight: 400;
