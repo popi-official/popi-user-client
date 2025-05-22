@@ -10,6 +10,7 @@ export const S = {
     padding: 12px;
   `,
 
+  // Card
   Card: styled.View`
     width: ${Dimensions.get('window').width - 24}px;
     border-radius: 30px;
@@ -17,6 +18,7 @@ export const S = {
     aspect-ratio: 1 / 1.59;
   `,
 
+  // TopCard
   TopCard: styled(LinearGradient).attrs({
     colors: ['#EDF9FF', '#EEFAFF', '#B0CFFF'],
     locations: [0, 0.42, 0.77],
@@ -74,6 +76,7 @@ export const S = {
     color: ${getThemeColor('gray06')};
   `,
 
+  //QrCard
   QrCard: styled(LinearGradient).attrs({
     colors: ['#EDF9FF', '#EEFAFF', '#B0CFFF'],
     locations: [0, 0.42, 0.77],
@@ -88,32 +91,46 @@ export const S = {
   `,
 
   Description: styled.Text`
-    font-size: 13px;
-    color: #777;
-    margin-bottom: 20px;
+    font-family: ${getThemeFont('pretendard')};
+    font-weight: 500;
+    font-size: 14px;
+    color: ${getThemeColor('gray06')};
+    margin-top: 16px;
+    text-align: center;
   `,
 
   QRWrapper: styled.View`
-    background-color: #fff;
-    padding: 12px;
-    border-radius: 16px;
-    margin-bottom: 24px;
+    width: 240px;
+    height: 240px;
+    align-self: center;
+    margin: 16px 0 20px;
+    background-color: ${getThemeColor('gray01')};
+    padding: 30px;
+    border-radius: 50px;
+    display: center;
+    justify-content: center;
+    align-items: center;
   `,
 
   ButtonRow: styled.View`
+    margin-top: 20px;
     flex-direction: row;
-    gap: 16px;
+    align-self: center;
+    gap: 24px;
   `,
 
-  Button: styled.TouchableOpacity<{ disabled?: boolean }>`
-    background-color: ${(props: { disabled?: boolean }) => (props.disabled ? '#eee' : '#fff')};
-    padding: 12px 24px;
+  Button: styled.TouchableOpacity`
+    background-color: ${getThemeColor('gray01')};
+    width: 100px;
+    height: 40px;
     border-radius: 20px;
-    border: 1px solid #ccc;
+    justify-content: center;
+    align-items: center;
   `,
 
-  ButtonText: styled.Text<{ disabled?: boolean }>`
-    color: ${(props: { disabled?: boolean }) => (props.disabled ? '#aaa' : '#000')};
-    font-weight: 600;
+  ButtonText: styled.Text<{ isCancel?: boolean }>`
+    color: ${(props: { isCancel?: boolean }) =>
+      props.isCancel ? getThemeColor('gray04') : getThemeColor('gray07')};
+    font-weight: 700;
   `,
 };
