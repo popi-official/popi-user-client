@@ -175,6 +175,7 @@ export const S = {
     color: ${getThemeColor('gray04')};
     font-size: 13px;
     font-weight: 400;
+    flex-shrink: 1;
   `,
 
   // Bottom

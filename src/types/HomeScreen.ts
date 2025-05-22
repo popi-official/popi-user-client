@@ -1,5 +1,5 @@
 export type BannerItem = {
-  image: string;
+  image: number;
   title: string;
   subTitle: string;
 };
@@ -7,7 +7,7 @@ export type BannerItem = {
 export type HotItem = {
   popupId: number;
   popupName: string;
-  imageUrl: string;
+  imageUrl: number; // 추후 string으로 변경
   popupOpenDate: string;
   popupCloseDate: string;
   address: string;
@@ -16,7 +16,7 @@ export type HotItem = {
 export type popUpItem = {
   popupId: number;
   popupName: string;
-  imageUrl: string;
+  imageUrl: number; // 추후 string으로 변경
   popupOpenDate: string;
   popupCloseDate: string;
   address: string;

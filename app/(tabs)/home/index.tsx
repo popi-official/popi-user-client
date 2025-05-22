@@ -60,7 +60,7 @@ const HomeScreen = () => {
         renderItem={({ item, index }) => (
           <S.HotCardContainer isFirst={index === 0}>
             <Image
-              source={{ uri: item.imageUrl }}
+              source={item.imageUrl}
               style={{ width: 228, height: undefined, aspectRatio: 3 / 4 }}
             />
             <S.Overlay />
@@ -77,11 +77,7 @@ const HomeScreen = () => {
           <S.PopUpRow key={`row-${rowIdx}`}>
             {row.map(item => (
               <S.PopUpCard key={item.popupId} cardWidth={cardWidth}>
-                <S.PopUpImage
-                  source={{ uri: item.imageUrl }}
-                  cardWidth={cardWidth}
-                  resizeMode="cover"
-                />
+                <S.PopUpImage source={item.imageUrl} cardWidth={cardWidth} resizeMode="cover" />
                 <S.PopUpInfo cardWidth={cardWidth}>
                   <S.PopUpCardTitle numberOfLines={1}>{item.popupName}</S.PopUpCardTitle>
                   <S.PopUpCardSubTextContainer>
