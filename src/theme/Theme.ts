@@ -44,6 +44,7 @@ export const Theme: DefaultTheme = {
     fonts: {
       gmarket: 'GmarketSansTTFMedium',
       pretendard: 'PretendardVariable',
+      inter: 'InterVariable',
     },
   },
   radius: {

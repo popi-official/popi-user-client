@@ -10,6 +10,7 @@ declare module '*.png';
 declare module '*.svg';
 declare module '*.jpeg';
 declare module '*.jpg';
+declare module '*.webp';
 
 declare module 'styled-components/native' {
   export interface DefaultTheme {
@@ -52,6 +53,7 @@ declare module 'styled-components/native' {
       fonts: {
         gmarket: string;
         pretendard: string;
+        inter: string;
       };
     };
     radius: {

@@ -1,3 +1,4 @@
+import { useOAuth } from '@/hooks/useOAuth';
 import { S } from './LoginScreen.style';
 
 const Images = {
@@ -8,6 +9,8 @@ const Images = {
 };
 
 export default function LoginScreen() {
+  const { handleKakaoLogin } = useOAuth();
+
   return (
     <S.LoginScreenContainer>
       <S.BackGroundContainer>
@@ -20,7 +23,7 @@ export default function LoginScreen() {
         </S.LoginLogoContainer>
 
         <S.ButtonContainer>
-          <S.OAuthLoginBtn color={'#FEE500'}>
+          <S.OAuthLoginBtn color={'#FEE500'} onPress={handleKakaoLogin}>
             <S.OAuthLogoImg source={Images.kakaoLogo} resizeMode="contain" />
             <S.ButtonText>카카오 로그인</S.ButtonText>
           </S.OAuthLoginBtn>
