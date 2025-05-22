@@ -1,7 +1,7 @@
-import { FlatList } from 'react-native-gesture-handler';
-import { S } from './HomeScreen.style';
-import { Dimensions, Image, Text, View } from 'react-native';
 import Swiper from 'react-native-swiper';
+import { FlatList } from 'react-native-gesture-handler';
+import { Dimensions, Image } from 'react-native';
+import { S } from './HomeScreen.style';
 import { bannerItems, hotItems, popUpItems } from '@/constants/Home';
 import { formatDateRange } from '@/utils/FormatDate';
 
@@ -10,7 +10,7 @@ const Images = {
   locationGray: require('@/assets/images/common/location-gray.webp'),
 };
 
-export default function HomeScreen() {
+const HomeScreen = () => {
   const screenWidth = Dimensions.get('window').width;
   const horizontalPadding = 12 * 2;
   const cardGap = 12;
@@ -28,77 +28,28 @@ export default function HomeScreen() {
 
   return (
     <S.HomeScreenContainer>
-      <View style={{ width: screenWidth, aspectRatio: 3 / 4 }}>
+      <S.SwiperContainer>
         <Swiper
           autoplay
           loop
           showsPagination
-          paginationStyle={{
-            bottom: 10,
-          }}
-          dot={
-            <View
-              style={{
-                width: 8,
-                height: 8,
-                borderRadius: 4,
-                borderWidth: 1,
-                borderColor: 'white',
-                backgroundColor: 'transparent',
-                marginHorizontal: 6,
-              }}
-            />
-          }
-          activeDot={
-            <View
-              style={{
-                width: 8,
-                height: 8,
-                borderRadius: 4,
-                backgroundColor: 'white',
-                marginHorizontal: 6,
-              }}
-            />
-          }
+          paginationStyle={{ bottom: 10 }}
+          dot={<S.SwiperDot />}
+          activeDot={<S.SwiperActiveDot />}
           autoplayTimeout={4}
         >
           {bannerItems.map((item, idx) => (
-            <View
-              key={idx}
-              style={{
-                flex: 1,
-                position: 'relative',
-              }}
-            >
-              <Image
-                source={item.image}
-                style={{
-                  width: screenWidth,
-                  height: '100%',
-                  resizeMode: 'cover',
-                }}
-              />
+            <S.SwiperItem key={idx}>
+              <S.BannerImage source={item.image} />
               <S.BannerOverlay />
-              <View
-                style={{
-                  position: 'absolute',
-                  zIndex: 15,
-                  bottom: 32,
-                  width: '100%',
-                  alignItems: 'center',
-                }}
-              >
-                <Text style={{ color: 'white', fontSize: 24, fontWeight: 'bold' }}>
-                  {item.title}
-                </Text>
-                <Text style={{ color: '#D9D9D9', fontSize: 16, marginTop: 6, fontWeight: 600 }}>
-                  {item.subtitle}
-                </Text>
-              </View>
-            </View>
+              <S.BannerTextContainer>
+                <S.BannerTitle>{item.title}</S.BannerTitle>
+                <S.BannerSubtitle>{item.subtitle}</S.BannerSubtitle>
+              </S.BannerTextContainer>
+            </S.SwiperItem>
           ))}
         </Swiper>
-      </View>
+      </S.SwiperContainer>
       {/* WHAT'S HOT */}
       <S.SectionTitle>WHAT’S HOT</S.SectionTitle>
       <FlatList
@@ -121,28 +72,13 @@ export default function HomeScreen() {
       />
       {/* POP-UP NOW! */}
       <S.SectionTitle>POP-UP NOW!</S.SectionTitle>
-      <View style={{ paddingHorizontal: 12, marginBottom: 40 }}>
+      <S.PopUpWrapper>
         {groupedPopUps.map((row, rowIdx) => (
-          <View
-            key={`row-${rowIdx}`}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginBottom: 20,
-            }}
-          >
+          <S.PopUpRow key={`row-${rowIdx}`}>
             {row.map(item => (
-              <View key={item.popupId} style={{ width: cardWidth }}>
-                <Image
-                  source={item.imageUrl}
-                  style={{
-                    width: cardWidth,
-                    height: cardWidth * (4 / 3),
-                    borderRadius: 10,
-                  }}
-                  resizeMode="cover"
-                />
-                <View style={{ width: cardWidth, overflow: 'hidden', marginTop: 10 }}>
+              <S.PopUpCard key={item.popupId} cardWidth={cardWidth}>
+                <S.PopUpImage source={item.imageUrl} cardWidth={cardWidth} resizeMode="cover" />
+                <S.PopUpInfo cardWidth={cardWidth}>
                   <S.PopUpCardTitle numberOfLines={1}>{item.popupName}</S.PopUpCardTitle>
                   <S.PopUpCardSubTextContainer>
                     <Image source={Images.calendarGray} style={{ width: 15, height: 15 }} />
@@ -156,15 +92,16 @@ export default function HomeScreen() {
                       {item.address}
                     </S.PopUpCardSubText>
                   </S.PopUpCardSubTextContainer>
-                </View>
-              </View>
+                </S.PopUpInfo>
+              </S.PopUpCard>
             ))}
-            {/* 홀수 개수일 때 오른쪽에 빈 박스 채우기 */}
-            {row.length === 1 && <View style={{ width: cardWidth }} />}
-          </View>
+            {row.length === 1 && <S.PopUpCard cardWidth={cardWidth} />}
+          </S.PopUpRow>
         ))}
-      </View>
+      </S.PopUpWrapper>
       <S.BottomArea />
     </S.HomeScreenContainer>
   );
-}
+};
+
+export default HomeScreen;
