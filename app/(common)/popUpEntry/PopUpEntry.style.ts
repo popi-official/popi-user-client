@@ -1,4 +1,4 @@
-import { getThemeColor } from '@/types';
+import { getThemeColor, getThemeFont } from '@/types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
@@ -14,58 +14,77 @@ export const S = {
     width: ${Dimensions.get('window').width - 24}px;
     border-radius: 30px;
     position: relative;
+    aspect-ratio: 1 / 1.59;
   `,
 
   TopCard: styled(LinearGradient).attrs({
-    colors: ['#EEFAFF', '#B0CFFF'],
-    start: { x: 0.4, y: 0.6 },
-    end: { x: 1, y: 0.4 },
+    colors: ['#EDF9FF', '#EEFAFF', '#B0CFFF'],
+    locations: [0, 0.42, 0.77],
+    start: { x: 0.6, y: 1 },
+    end: { x: 0.8, y: -0.2 },
   })`
     position: absolute;
+    top: 0;
     width: ${Dimensions.get('window').width - 24}px;
     aspect-ratio: 2 / 1;
     border-radius: 30px 30px 20px 20px;
   `,
 
-  QrCard: styled(LinearGradient).attrs({
-    colors: ['rgba(0, 255, 238, 1)', '#ffffff'],
-    start: { x: 0, y: 0 },
-    end: { x: 0, y: 1 },
-  })`
-    position: absolute;
-    width: ${Dimensions.get('window').width - 24}px;
-    aspect-ratio: 9 / 10;
-    border-radius: 30px 20px;
-  `,
-
   Title: styled.Text`
-    font-size: 24px;
+    font-family: ${getThemeFont('pretendard')};
+    font-size: 30px;
     font-weight: bold;
-    color: #000;
-    margin-bottom: 12px;
+    color: ${getThemeColor('gray10')};
+    margin: 21px 0 0 28px;
   `,
 
-  InfoSection: styled.View`
+  CameraBoy: styled.Image`
+    position: absolute;
+    right: 12px;
+    top: 6px;
+  `,
+
+  PopUpTitleContainer: styled.View`
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    margin-bottom: 16px;
+    gap: 3px;
+    margin: 11px 0 5px 24px;
   `,
 
   PopupTitle: styled.Text`
+    font-family: ${getThemeFont('pretendard')};
     font-weight: bold;
-    font-size: 16px;
-    color: #333;
+    font-size: 18px;
+    color: ${getThemeColor('gray08')};
   `,
 
-  Address: styled.Text`
-    font-size: 14px;
-    color: #666;
-    margin-top: 4px;
+  InfoTextContainer: styled.View`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    margin: 1px 0 0 24px;
   `,
 
-  Time: styled.Text`
-    font-size: 14px;
-    color: #666;
-    margin-top: 2px;
+  InfoText: styled.Text`
+    font-family: ${getThemeFont('pretendard')};
+    font-weight: 500;
+    font-size: 15px;
+    color: ${getThemeColor('gray06')};
+  `,
+
+  QrCard: styled(LinearGradient).attrs({
+    colors: ['#EDF9FF', '#EEFAFF', '#B0CFFF'],
+    locations: [0, 0.42, 0.77],
+    start: { x: 0.3, y: 0.4 },
+    end: { x: 0, y: 1.2 },
+  })`
+    position: absolute;
+    bottom: 0;
+    width: ${Dimensions.get('window').width - 24}px;
+    aspect-ratio: 9 / 10;
+    border-radius: 20px 20px 30px 30px;
   `,
 
   Description: styled.Text`
