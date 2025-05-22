@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { ViewStyle, TextStyle } from 'react-native';
 import { S } from './CustomGradientBtn.style';
 import { Theme } from '@/theme/Theme';
-import styled from 'styled-components/native';
 import { ImageSourcePropType } from 'react-native';
 
 type Props = {
@@ -57,14 +56,3 @@ export default function CustomGradientBtn({
     </S.ButtonContainer>
   );
 }
-
-export const ButtonContent = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`;
-export const Icon = styled.Image`
-  width: 18px;
-  height: 18px;
-  margin-right: 6px;
-`;

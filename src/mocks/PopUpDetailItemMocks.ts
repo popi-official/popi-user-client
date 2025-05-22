@@ -1,6 +1,6 @@
-import { Item } from '@/types/detailScreen';
+import { PopUpDetailItem } from '@/types/DetailScreenItem';
 
-export const MockItems: Item[] = [
+export const MockItems: PopUpDetailItem[] = [
   {
     id: '1',
     title: '[BLACKPINK THE GAME COUPON CARD COLLECTION] MOON ...',

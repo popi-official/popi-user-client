@@ -2,37 +2,64 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { S } from './PopUpDetail.style';
-import { MockItems } from '@/mocks/PopUpDetailScreenMocks';
-import { Item } from '@/types/detailScreen';
+import { MockItems } from '@/mocks/PopUpDetailItemMocks';
+import { PopUpDetailItem } from '@/types/DetailScreenItem';
+import { useCallback } from 'react';
+import { PopUpDetailMock } from '@/mocks/PopUpDetailMocks';
 
 export default function PopUpDetailScreen() {
+  const data = PopUpDetailMock;
+  const renderHotItemWithIndex = useCallback(
+    (item: PopUpDetailItem, index: number) => (
+      <S.HotCardContainer key={item.id} isFirst={index === 0}>
+        <S.HotItemImage source={{ uri: item.image }} style={item.image} />
+        <S.Overlay />
+        <S.HotItemTitle numberOfLines={1}>{item.title}</S.HotItemTitle>
+        <S.HotItemPrice>{item.price}</S.HotItemPrice>
+      </S.HotCardContainer>
+    ),
+    [],
+  );
+
+  const renderItem = useCallback(
+    (item: PopUpDetailItem) => (
+      <S.ItemCard key={item.id}>
+        <S.ItemImage source={{ uri: item.image }} style={item.image} />
+        <S.ItemTitle numberOfLines={1}>{item.title}</S.ItemTitle>
+        <S.ItemPrice>{item.price}</S.ItemPrice>
+      </S.ItemCard>
+    ),
+    [],
+  );
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
       <ScrollView>
         <S.Banner source={require('@/assets/images/common/popupimg.png')} />
 
         <S.PopUpContentBox>
-          <S.PopupTitle>아이브 EMPATHY 팝업스토어</S.PopupTitle>
+          <S.PopupTitle>{data.popupName}</S.PopupTitle>
           <S.SubInfoRow>
             <S.Icon source={require('@/assets/images/common/location-gray.webp')} />
-            <S.PopupInfo>24.11.15 - 24.11.29</S.PopupInfo>
+            <S.PopupInfo>{`${data.popupOpenDate} - ${data.popupCloseDate}`}</S.PopupInfo>
           </S.SubInfoRow>
           <S.SubInfoRow>
             <S.Icon source={require('@/assets/images/common/calendar-gray.webp')} />
-            <S.PopupInfo>서울 영등포구 여의대로 108 타임컨시티서울</S.PopupInfo>
+            <S.PopupInfo>{data.address}</S.PopupInfo>
           </S.SubInfoRow>
         </S.PopUpContentBox>
 
         <S.Divider />
+
         <S.PopUpContentBox>
           <S.SectionTitle style={{ marginBottom: 8 }}>운영시간</S.SectionTitle>
           <S.SubInfoRow>
             <S.Icon source={require('@/assets/images/common/clock-gray.webp')} />
-            <S.PopupInfo>월~일 · 10:30 - 22:00 </S.PopupInfo>
+            <S.PopupInfo>{`${data.runOpenTime.slice(0, 5)} - ${data.runCloseTime.slice(0, 5)}`}</S.PopupInfo>
           </S.SubInfoRow>
 
           <S.SectionTitle style={{ marginTop: 20, marginBottom: 12 }}>위치정보</S.SectionTitle>
-          <S.MapImage source={require('@/assets/images/login/google-logo.png')} />
+          <S.MapImage source={{ uri: /* 나중에 지도로 변경 */ data.imageUrl }} />
         </S.PopUpContentBox>
 
         <S.DividerWide />
@@ -73,20 +100,3 @@ export default function PopUpDetailScreen() {
     </SafeAreaView>
   );
 }
-
-const renderHotItemWithIndex = (item: Item, index: number) => (
-  <S.HotCardContainer key={item.id} isFirst={index === 0}>
-    <S.HotItemImage source={{ uri: item.image }} style={item.image} />
-    <S.Overlay />
-    <S.HotItemTitle numberOfLines={1}>{item.title}</S.HotItemTitle>
-    <S.HotItemPrice>{item.price}</S.HotItemPrice>
-  </S.HotCardContainer>
-);
-
-const renderItem = (item: Item) => (
-  <S.ItemCard key={item.id}>
-    <S.ItemImage source={{ uri: item.image }} style={item.image} />
-    <S.ItemTitle numberOfLines={1}>{item.title}</S.ItemTitle>
-    <S.ItemPrice>{item.price}</S.ItemPrice>
-  </S.ItemCard>
-);

@@ -75,7 +75,6 @@ export const S = {
   SubInfoRow: styled.View`
     flex-direction: row;
     align-items: center;
-    margin-bottom: 4px;
   `,
 
   Divider: styled.View`
