@@ -1,5 +1,8 @@
 import {
   ApiResponse,
+  GetProfileResponse,
+  NoResponse,
+  ReIssueTokenResponse,
   SignedLoginResponse,
   UnSignedLoginResponse,
 } from '@/types/api/ApiResponseType';
@@ -31,5 +34,25 @@ export const postSignUp = async ({
       },
     },
   );
+  return response.data;
+};
+
+export const postReissue = async (): ApiResponse<ReIssueTokenResponse> => {
+  const response = await api.post('/auth/reissue');
+  return response.data;
+};
+
+export const postLogout = async (): ApiResponse<NoResponse> => {
+  const response = await api.post('/auth/logout');
+  return response.data;
+};
+
+export const deleteProfile = async (): ApiResponse<NoResponse> => {
+  const response = await api.delete('/auth/withdrawal');
+  return response.data;
+};
+
+export const getProfile = async (): ApiResponse<GetProfileResponse> => {
+  const response = await api.get('/members/me');
   return response.data;
 };
