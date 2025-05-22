@@ -41,7 +41,7 @@ export const S = {
   BannerTextContainer: styled.View`
     position: absolute;
     z-index: 15;
-    bottom: 32px;
+    bottom: 40px;
     width: 100%;
     align-items: center;
   `,
@@ -50,15 +50,15 @@ export const S = {
     color: ${getThemeColor('gray01')};
     font-family: ${getThemeFont('pretendard')};
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 700;
   `,
 
   BannerSubtitle: styled.Text`
     font-family: ${getThemeFont('pretendard')};
     color: #d9d9d9;
     font-size: 16px;
-    margin-top: 6px;
-    font-weight: 600;
+    margin-top: 4px;
+    font-weight: 700;
   `,
 
   SwiperDot: styled.View`
@@ -125,7 +125,7 @@ export const S = {
     font-family: ${getThemeFont('pretendard')};
     color: ${getThemeColor('gray01')};
     font-size: 17px;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 10px;
     margin-right: 10px;
   `,
@@ -163,7 +163,7 @@ export const S = {
     font-family: ${getThemeFont('pretendard')};
     color: ${getThemeColor('gray01')};
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 2px;
   `,
 

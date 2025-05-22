@@ -81,13 +81,19 @@ const HomeScreen = () => {
                 <S.PopUpInfo cardWidth={cardWidth}>
                   <S.PopUpCardTitle numberOfLines={1}>{item.popupName}</S.PopUpCardTitle>
                   <S.PopUpCardSubTextContainer>
-                    <Image source={Images.calendarGray} style={{ width: 15, height: 15 }} />
+                    <Image
+                      source={Images.calendarGray}
+                      style={{ width: 15, height: 15, marginTop: 2 }}
+                    />
                     <S.PopUpCardSubText>
                       {formatDateRange(item.popupOpenDate, item.popupCloseDate)}
                     </S.PopUpCardSubText>
                   </S.PopUpCardSubTextContainer>
                   <S.PopUpCardSubTextContainer>
-                    <Image source={Images.locationGray} style={{ width: 15, height: 15 }} />
+                    <Image
+                      source={Images.locationGray}
+                      style={{ width: 15, height: 15, marginTop: 3 }}
+                    />
                     <S.PopUpCardSubText numberOfLines={1} ellipsizeMode="tail">
                       {item.address}
                     </S.PopUpCardSubText>
