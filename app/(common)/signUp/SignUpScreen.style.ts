@@ -1,4 +1,4 @@
-import { getThemeColor, getThemeFont, getThemeFontWeight } from '@/types';
+import { getThemeColor, getThemePretendardFont } from '@/types';
 import { Animated, Dimensions, Image } from 'react-native';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import styled from 'styled-components/native';
@@ -38,10 +38,9 @@ export const S = {
     align-items: center;
   `,
   TitleText: styled(Animated.Text)`
-    font-style: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('semibold')};
     font-size: 30px;
     height: 80px;
-    font-weight: ${getThemeFontWeight('semibold')};
     color: ${getThemeColor('gray02')};
   `,
 
@@ -50,6 +49,8 @@ export const S = {
   `,
   InputLabel: styled.Text`
     color: ${getThemeColor('gray04')};
+    font-family: ${getThemePretendardFont('semibold')};
+    font-size: 16px;
     margin-bottom: 6px;
   `,
   InputTouchable: styled.TouchableOpacity`
@@ -70,8 +71,8 @@ export const S = {
   `,
   StyledTextInput: styled.TextInput`
     color: white;
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 26px;
+    font-family: ${getThemePretendardFont('semibold')};
     flex: 1;
     padding-right: 40px;
   `,
@@ -97,7 +98,7 @@ export const S = {
   SelectText: styled.Text<SelectedOption>`
     color: white;
     font-size: 26px;
-    font-weight: 600;
+    font-family: ${getThemePretendardFont('semibold')};
   `,
   ArrowIcon: styled(Image)`
     width: 26px;
@@ -123,10 +124,6 @@ export const S = {
     width: 20px;
     height: 20px;
   `,
-  CloseButtonText: styled.Text`
-    color: white;
-    font-size: 24px;
-  `,
   OptionButton: styled.TouchableOpacity`
     flex-direction: row;
     justify-content: space-between;
@@ -137,8 +134,7 @@ export const S = {
   OptionText: styled.Text<SelectedOption>`
     color: ${(props: SelectedOption) => (props.isSelected ? '#C3E4F5' : 'white')};
     font-size: 24px;
-    font-family: ${getThemeFont('pretendard')};
-    font-weight: 500;
+    font-family: ${getThemePretendardFont('medium')};
   `,
   CheckImg: styled(Image)`
     /* tint-color: #c3e4f5; */

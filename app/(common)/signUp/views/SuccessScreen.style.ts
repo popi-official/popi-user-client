@@ -1,4 +1,4 @@
-import { getThemeColor, getThemeFontWeight } from '@/types';
+import { getThemeColor, getThemePretendardFont } from '@/types';
 import { Dimensions, Image } from 'react-native'; // Image 추가
 import styled from 'styled-components/native';
 
@@ -29,18 +29,18 @@ export const S = {
   Title: styled.Text`
     color: ${getThemeColor('gray04')};
     font-size: 14px;
-    font-weight: ${getThemeFontWeight('semibold')};
+    font-family: ${getThemePretendardFont('semibold')};
     margin-bottom: 10px;
   `,
   Nickname: styled.Text`
     color: ${getThemeColor('gray02')};
     font-size: 26px;
-    font-weight: ${getThemeFontWeight('semibold')};
+    font-family: ${getThemePretendardFont('semibold')};
   `,
   Welcome: styled.Text`
     color: ${getThemeColor('gray02')};
     font-size: 26px;
-    font-weight: ${getThemeFontWeight('semibold')};
+    font-family: ${getThemePretendardFont('semibold')};
     margin-bottom: 30px;
     margin-top: 4px;
   `,

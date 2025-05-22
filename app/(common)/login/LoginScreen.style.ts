@@ -1,4 +1,4 @@
-import { getThemeFont } from '@/types';
+import { getThemePretendardFont } from '@/types';
 import { Image } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -71,8 +71,7 @@ export const S = {
 
   ButtonText: styled.Text`
     font-size: 16px;
-    font-weight: 600;
     color: 'black';
-    font-style: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('semibold')};
   `,
 };

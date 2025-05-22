@@ -1,4 +1,4 @@
-import { getThemeColor, getThemeFont, getThemeFontSize, getThemeFontWeight } from '@/types';
+import { getThemeColor, getThemePretendardFont } from '@/types';
 import styled from 'styled-components/native';
 import { Dimensions, Image } from 'react-native';
 
@@ -49,8 +49,8 @@ export const S = {
   `,
 
   ContentText: styled.Text`
-    font-size: ${getThemeFontSize('large')};
-    font-family: ${getThemeFont('pretendard')};
+    font-size: 20px;
+    font-family: ${getThemePretendardFont('semibold')};
     color: ${getThemeColor('gray01')};
     text-align: center;
   `,
@@ -58,11 +58,5 @@ export const S = {
   ButtonContainer: styled.View`
     width: 90%;
     align-items: center;
-  `,
-
-  ButtonText: styled.Text`
-    font-size: ${getThemeFontSize('medium')};
-    font-weight: ${getThemeFontWeight('semibold')};
-    color: ${getThemeColor('gray10')};
   `,
 };

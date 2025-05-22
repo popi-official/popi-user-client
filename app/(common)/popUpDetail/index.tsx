@@ -73,7 +73,7 @@ export default function PopUpDetailScreen() {
 
         <S.ItemContentBox>
           <S.RowBetween>
-            <S.ItemCategory>전체 상품</S.ItemCategory>
+            <S.ItemCategoryAll>전체 상품</S.ItemCategoryAll>
             <S.RightArrow source={require('@/assets/images/common/right-arrow.webp')} />
           </S.RowBetween>
           <ScrollView
