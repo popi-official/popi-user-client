@@ -244,16 +244,21 @@ export default function SignUpScreen() {
             index={-1}
             backdropComponent={renderBackdrop}
             backgroundStyle={{
-              backgroundColor: '#1C1B28',
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
+              backgroundColor: '#1B1B1C',
+              borderBottomWidth: 0,
             }}
             handleStyle={{
-              backgroundColor: '#1C1B28',
+              backgroundColor: '#1B1B1C',
               borderTopLeftRadius: 30,
               borderTopRightRadius: 30,
               borderColor: '#D9D9D9',
-              borderBottomWidth: 0,
+              borderTopWidth: 1,
+              borderLeftWidth: 1,
+              borderRightWidth: 1,
+            }}
+            containerStyle={{
+              width: '101%',
+              transform: [{ translateX: '-0.5%' }],
             }}
             handleIndicatorStyle={{ backgroundColor: '#555555', width: 60 }}
           >
@@ -282,18 +287,21 @@ export default function SignUpScreen() {
             index={-1}
             backdropComponent={renderBackdrop}
             backgroundStyle={{
-              backgroundColor: '#1C1B28',
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
-              borderColor: '#D9D9D9',
+              backgroundColor: '#1B1B1C',
               borderBottomWidth: 0,
             }}
             handleStyle={{
-              backgroundColor: '#1C1B28',
+              backgroundColor: '#1B1B1C',
               borderTopLeftRadius: 30,
               borderTopRightRadius: 30,
               borderColor: '#D9D9D9',
-              borderBottomWidth: 0,
+              borderTopWidth: 1,
+              borderLeftWidth: 1,
+              borderRightWidth: 1,
+            }}
+            containerStyle={{
+              width: '101%',
+              transform: [{ translateX: '-0.5%' }],
             }}
             handleIndicatorStyle={{ backgroundColor: '#555555', width: 60 }}
           >
@@ -301,7 +309,7 @@ export default function SignUpScreen() {
               <S.BottomSheetHeader>
                 <S.BottomSheetTitle>성별을 알려주세요</S.BottomSheetTitle>
                 <S.CloseButton onPress={closeGenderBottomSheet}>
-                  <S.CloseButtonText>✕</S.CloseButtonText>
+                  <S.CloseIcon source={images.close} />
                 </S.CloseButton>
               </S.BottomSheetHeader>
 

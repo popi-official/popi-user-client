@@ -11,7 +11,7 @@ const images = {
 
 export default function SuccessScreen() {
   const params = useLocalSearchParams();
-  const nickName = params.nickName as string;
+  const nickname = params.nickname as string;
   const router = useRouter();
 
   return (
@@ -23,7 +23,7 @@ export default function SuccessScreen() {
       <SafeAreaView style={{ flex: 1 }}>
         <S.ContentContainer>
           <S.Title>회원가입이 완료되었어요</S.Title>
-          <S.Nickname>{nickName}님</S.Nickname>
+          <S.Nickname>{nickname}님</S.Nickname>
           <S.Welcome>환영합니다!</S.Welcome>
           <S.ContentImage source={images.content} />
           <View style={{ height: 54, width: '100%', position: 'absolute', bottom: 20 }}>
