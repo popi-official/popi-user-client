@@ -1,3 +1,5 @@
+import { BannerItem, HotItem, popUpItem } from '@/types/HomeScreen';
+
 const Images = {
   popUp01: require('@/assets/images/home/popUp01.webp'),
   popUp02: require('@/assets/images/home/popUp02.webp'),
@@ -5,32 +7,32 @@ const Images = {
 };
 
 // bannerItems는 프론트에서 임의로 지정
-export const bannerItems = [
+export const bannerItems: BannerItem[] = [
   {
     image: Images.popUp01,
     title: 'THE HOT HOUSE',
-    subtitle: 'LE SSERAFIM 2025 S/S POP-UP',
+    subTitle: 'LE SSERAFIM 2025 S/S POP-UP',
   },
   {
     image: Images.popUp02,
     title: 'Season of Memories',
-    subtitle: 'GFRIEND SPECIAL ALBUM POP-UP',
+    subTitle: 'GFRIEND SPECIAL ALBUM POP-UP',
   },
   {
     image: Images.popUp03,
     title: 'BORN PINK',
-    subtitle: 'BLACKPINK POP-UP EXPERIENCE',
+    subTitle: 'BLACKPINK POP-UP EXPERIENCE',
   },
   {
     image: Images.popUp01,
     title: 'DREAMSCAPE',
-    subtitle: 'NCT DREAM x LINE FRIENDS',
+    subTitle: 'NCT DREAM x LINE FRIENDS',
   },
 ];
 
-export const hotItems = [
+export const hotItems: HotItem[] = [
   {
-    popupId: '1',
+    popupId: 1,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp01,
     popupOpenDate: '2025-05-01',
@@ -38,7 +40,7 @@ export const hotItems = [
     address: '서울 영등포구 여의대로 108 더현대서울',
   },
   {
-    popupId: '2',
+    popupId: 2,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp02,
     popupOpenDate: '2025-05-01',
@@ -46,7 +48,7 @@ export const hotItems = [
     address: '서울 영등포구 여의대로 108 더현대서울',
   },
   {
-    popupId: '3',
+    popupId: 3,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp03,
     popupOpenDate: '2025-05-01',
@@ -54,7 +56,7 @@ export const hotItems = [
     address: '서울 영등포구 여의대로 108 더현대서울',
   },
   {
-    popupId: '4',
+    popupId: 4,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp01,
     popupOpenDate: '2025-05-01',
@@ -63,9 +65,9 @@ export const hotItems = [
   },
 ];
 
-export const popUpItems = [
+export const popUpItems: popUpItem[] = [
   {
-    popupId: '1',
+    popupId: 1,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp01,
     popupOpenDate: '2025-05-01',
@@ -73,7 +75,7 @@ export const popUpItems = [
     address: '서울 영등포구 여의대로 108 더현대서울',
   },
   {
-    popupId: '2',
+    popupId: 2,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp01,
     popupOpenDate: '2025-05-01',
@@ -81,7 +83,7 @@ export const popUpItems = [
     address: '서울 영등포구 여의대로 108 더현대서울',
   },
   {
-    popupId: '3',
+    popupId: 3,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp01,
     popupOpenDate: '2025-05-01',
@@ -89,7 +91,7 @@ export const popUpItems = [
     address: '서울 영등포구 여의대로 108 더현대서울',
   },
   {
-    popupId: '4',
+    popupId: 4,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp01,
     popupOpenDate: '2025-05-01',
@@ -97,7 +99,7 @@ export const popUpItems = [
     address: '서울 영등포구 여의대로 108 더현대서울',
   },
   {
-    popupId: '5',
+    popupId: 5,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp01,
     popupOpenDate: '2025-05-01',
@@ -105,7 +107,7 @@ export const popUpItems = [
     address: '서울 영등포구 여의대로 108 더현대서울',
   },
   {
-    popupId: '6',
+    popupId: 6,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp01,
     popupOpenDate: '2025-05-01',
@@ -113,7 +115,7 @@ export const popUpItems = [
     address: '서울 영등포구 여의대로 108 더현대서울',
   },
   {
-    popupId: '7',
+    popupId: 7,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp01,
     popupOpenDate: '2025-05-01',
@@ -121,7 +123,7 @@ export const popUpItems = [
     address: '서울 영등포구 여의대로 108 더현대서울',
   },
   {
-    popupId: '8',
+    popupId: 8,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp01,
     popupOpenDate: '2025-05-01',

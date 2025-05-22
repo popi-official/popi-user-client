@@ -2,7 +2,7 @@ import Swiper from 'react-native-swiper';
 import { FlatList } from 'react-native-gesture-handler';
 import { Dimensions, Image } from 'react-native';
 import { S } from './HomeScreen.style';
-import { bannerItems, hotItems, popUpItems } from '@/constants/Home';
+import { bannerItems, hotItems, popUpItems } from '@/mocks/HomeScreenMocks';
 import { formatDateRange } from '@/utils/FormatDate';
 
 const Images = {
@@ -44,7 +44,7 @@ const HomeScreen = () => {
               <S.BannerOverlay />
               <S.BannerTextContainer>
                 <S.BannerTitle>{item.title}</S.BannerTitle>
-                <S.BannerSubtitle>{item.subtitle}</S.BannerSubtitle>
+                <S.BannerSubtitle>{item.subTitle}</S.BannerSubtitle>
               </S.BannerTextContainer>
             </S.SwiperItem>
           ))}
@@ -54,13 +54,13 @@ const HomeScreen = () => {
       <S.SectionTitle>WHAT’S HOT</S.SectionTitle>
       <FlatList
         data={hotItems}
-        keyExtractor={item => item.popupId}
+        keyExtractor={item => String(item.popupId)}
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
           <S.HotCardContainer isFirst={index === 0}>
             <Image
-              source={item.imageUrl}
+              source={{ uri: item.imageUrl }}
               style={{ width: 228, height: undefined, aspectRatio: 3 / 4 }}
             />
             <S.Overlay />
@@ -77,7 +77,11 @@ const HomeScreen = () => {
           <S.PopUpRow key={`row-${rowIdx}`}>
             {row.map(item => (
               <S.PopUpCard key={item.popupId} cardWidth={cardWidth}>
-                <S.PopUpImage source={item.imageUrl} cardWidth={cardWidth} resizeMode="cover" />
+                <S.PopUpImage
+                  source={{ uri: item.imageUrl }}
+                  cardWidth={cardWidth}
+                  resizeMode="cover"
+                />
                 <S.PopUpInfo cardWidth={cardWidth}>
                   <S.PopUpCardTitle numberOfLines={1}>{item.popupName}</S.PopUpCardTitle>
                   <S.PopUpCardSubTextContainer>
