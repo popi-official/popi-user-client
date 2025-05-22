@@ -4,12 +4,12 @@
     "slug": "popi-user-client",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./src/assets/images/icon.png",
     "scheme": "popiuserclient",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/splash-icon.png",
+      "image": "./src/assets/images/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,14 +20,14 @@
         "ITSAppUsesNonExemptEncryption": false
       },
       "splash": {
-        "image": "./assets/images/splash-icon.png",
+        "image": "./src/assets/images/splash-icon.png",
         "resizeMode": "contain",
         "backgroundColor": "#ffffff"
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/splash-icon.png",
+        "foregroundImage": "./src/assets/images/splash-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
@@ -36,7 +36,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./src/assets/images/favicon.png"
     },
     "plugins": [
       "expo-router",

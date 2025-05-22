@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { ViewStyle, TextStyle } from 'react-native';
 import { S } from './CustomGradientBtn.style';
 import { Theme } from '@/theme/Theme';
+import { ImageSourcePropType } from 'react-native';
 
 type Props = {
   title: string;
@@ -15,6 +16,7 @@ type Props = {
   borderRadius?: number;
   fontSize?: number;
   fontWeight?: string;
+  icon?: ImageSourcePropType;
 };
 
 export default function CustomGradientBtn({
@@ -28,6 +30,7 @@ export default function CustomGradientBtn({
   borderRadius = 30,
   fontSize,
   fontWeight,
+  icon,
 }: Props) {
   const gradient = useMemo(() => Theme.gradients.button, []);
   return (
@@ -43,9 +46,12 @@ export default function CustomGradientBtn({
         end={gradient.end}
         style={{ borderRadius }}
       >
-        <S.ButtonText style={textStyle} fontSize={fontSize} fontWeight={fontWeight}>
-          {title}
-        </S.ButtonText>
+        <S.ButtonContent>
+          {icon && <S.Icon source={icon} resizeMode="contain" />}
+          <S.ButtonText style={textStyle} fontSize={fontSize} fontWeight={fontWeight}>
+            {title}
+          </S.ButtonText>
+        </S.ButtonContent>
       </S.GradientBackground>
     </S.ButtonContainer>
   );

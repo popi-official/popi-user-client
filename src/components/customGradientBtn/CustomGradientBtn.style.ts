@@ -27,4 +27,16 @@ export const S = {
       props.fontWeight ? props.fontWeight : getThemeFontWeight('semibold')(props)};
     color: #000000;
   `,
+
+  ButtonContent: styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  `,
+
+  Icon: styled.Image`
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+  `,
 };
