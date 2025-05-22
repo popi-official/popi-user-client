@@ -22,6 +22,7 @@ export default function MyScreen() {
       <Button title="회원탈퇴" onPress={handleDeleteProfile} />
       <Button title="팝업 상세 페이지 이동" onPress={() => router.push('/(common)/popUpDetail')} />
       <Button title="팝업 입장 페이지 이동" onPress={() => router.push('/(common)/popUpEntry')} />
+      <Button title="설문지" onPress={() => router.push('/(common)/survey')} />
     </View>
   );
 }
