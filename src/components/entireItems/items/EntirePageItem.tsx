@@ -1,11 +1,7 @@
 import { PopUpDetailItem } from '@/types/DetailScreenType';
 import React from 'react';
-<<<<<<< HEAD
 import { Dimensions } from 'react-native';
 import { S } from './EntirePageItem.style';
-=======
-import { Image, Text, View, Dimensions } from 'react-native';
->>>>>>> 4cc5d34 ([LCR-202] feat: 팝업 전체 상품 조회 페이지 구현)
 
 type Props = {
   item: PopUpDetailItem;
