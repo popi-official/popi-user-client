@@ -8,6 +8,7 @@ export default function CommonLayout() {
       <Stack.Screen name="login" />
       <Stack.Screen name="popUpDetail" />
       <Stack.Screen name="signUp" />
+      <Stack.Screen name="popUpEntry" />
     </Stack>
   );
 }
