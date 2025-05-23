@@ -3,7 +3,7 @@ import { getThemeColor, getThemeInterFont, getThemePretendardFont } from '@/type
 import { LinearGradient } from 'expo-linear-gradient';
 
 export const S = {
-  Container: styled.View`
+  Container: styled.SafeAreaView`
     flex: 1;
     background-color: black;
   `,

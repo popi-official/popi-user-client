@@ -1,3 +1,4 @@
+import { PopUpDetailItem } from '../DetailScreenType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 
 export type ApiResponse<T> = Promise<GlobalResponse<T>>;
@@ -31,4 +32,21 @@ export type GetProfileResponse = {
   nickname: string | null;
   age: AgeOption | null;
   gender: GenderOption | null;
+};
+
+export type GetHotItemsResponse = PopUpDetailItem[];
+
+export type GetPopUpDetailResponse = {
+  popupId: number;
+  popupName: string;
+  imageUrl: string;
+  popupOpenDate: string;
+  popupCloseDate: string;
+  reservationOpenDateTime: string;
+  reservationCloseDateTime: string;
+  address: string;
+  runOpenTime: string;
+  runCloseTime: string;
+  latitude: number;
+  longitude: number;
 };

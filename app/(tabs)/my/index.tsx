@@ -17,7 +17,7 @@ export default function MyScreen() {
       <Text>{data?.nickname}</Text>
       <S.TextTest>Inter</S.TextTest>
       <S.TextInterTest>Inter</S.TextInterTest>
-      <Button title="로그인 페이지 이동" onPress={() => router.push('/(common)/login')} />
+      <Button title="사이트맵" onPress={() => router.replace('/_sitemap')} />
       <Button title="로그아웃" onPress={handleLogout} />
       <Button title="회원탈퇴" onPress={handleDeleteProfile} />
       <Button title="팝업 상세 페이지 이동" onPress={() => router.push('/(common)/popUpDetail')} />
