@@ -1,4 +1,4 @@
-import { getThemeColor, getThemeFont } from '@/types';
+import { getThemeColor, getThemePretendardFont } from '@/types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
@@ -33,9 +33,8 @@ export const S = {
   `,
 
   Title: styled.Text`
-    font-family: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('bold')};
     font-size: 30px;
-    font-weight: bold;
     color: ${getThemeColor('gray10')};
     margin: 21px 0 0 28px;
   `,
@@ -55,8 +54,7 @@ export const S = {
   `,
 
   PopupTitle: styled.Text`
-    font-family: ${getThemeFont('pretendard')};
-    font-weight: bold;
+    font-family: ${getThemePretendardFont('bold')};
     font-size: 18px;
     color: ${getThemeColor('gray08')};
   `,
@@ -70,8 +68,7 @@ export const S = {
   `,
 
   InfoText: styled.Text`
-    font-family: ${getThemeFont('pretendard')};
-    font-weight: 500;
+    font-family: ${getThemePretendardFont('medium')};
     font-size: 15px;
     color: ${getThemeColor('gray06')};
   `,
@@ -91,8 +88,7 @@ export const S = {
   `,
 
   Description: styled.Text`
-    font-family: ${getThemeFont('pretendard')};
-    font-weight: 500;
+    font-family: ${getThemePretendardFont('medium')};
     font-size: 14px;
     color: ${getThemeColor('gray06')};
     margin-top: 16px;
@@ -135,15 +131,14 @@ export const S = {
   `,
 
   SectionTitle: styled.Text`
-    font-family: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('extrabold')};
     color: ${getThemeColor('gray01')};
-    font-weight: 800;
     font-size: 26px;
     margin-top: 46px;
   `,
 
   SectionDescription: styled.Text`
-    font-family: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('medium')};
     color: ${getThemeColor('gray05')};
     font-weight: 500;
     font-size: 15px;
@@ -174,20 +169,18 @@ export const S = {
   `,
 
   GoodsName: styled.Text`
-    font-family: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('medium')};
     color: ${getThemeColor('gray01')};
     width: ${(Dimensions.get('window').width - 24 - 12 * 2) / 3}px;
     text-align: center;
-    font-weight: 500;
     font-size: 14px;
   `,
 
   GoodsPrice: styled.Text`
-    font-family: ${getThemeFont('pretendard')};
+    font-family: ${getThemePretendardFont('medium')};
     color: ${getThemeColor('gray05')};
     width: ${(Dimensions.get('window').width - 24 - 12 * 2) / 3}px;
     text-align: center;
-    font-weight: 500;
     font-size: 13px;
   `,
 
