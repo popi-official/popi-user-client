@@ -37,6 +37,7 @@ export const Card = styled.View`
   align-items: center;
   padding-left: 30px;
   padding-right: 30px;
+  margin-bottom: -2px;
 `;
 
 export const ProgressBarContainer = styled.View`
