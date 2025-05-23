@@ -1,6 +1,7 @@
 import { ItemPathType, ItemUrlType } from '../DetailScreen';
 import { PostItemSearch, PostPopUpSearch } from '../SearchScreenType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
+import { SurveyChoice } from '../SurveyQuestions';
 
 export type ApiResponse<T> = Promise<GlobalResponse<T>>;
 export type ApiResult<T> = Promise<T>;
@@ -66,3 +67,4 @@ export type PostItemSearchResponse = {
   content: ItemUrlType[];
   isLast: boolean;
 };
+export type SurveyQuestionsResponse = SurveyChoice[];

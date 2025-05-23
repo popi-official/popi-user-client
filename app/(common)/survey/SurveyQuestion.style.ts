@@ -1,9 +1,8 @@
-// SurveyQuestion.style.ts
 import styled from 'styled-components/native';
-import { getThemeColor, getThemeFont, getThemeFontWeight } from '@/types';
+import { getThemeColor, getThemeFontWeight, getThemePretendardFont } from '@/types';
 import { Dimensions } from 'react-native';
 
-// 화면 너비 계산
+
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export const Container = styled.View`
@@ -15,8 +14,7 @@ export const Container = styled.View`
 
 export const Title = styled.Text`
   color: ${getThemeColor('gray01')};
-  font-family: ${getThemeFont('pretendard')};
-  font-weight: ${getThemeFontWeight('bold')};
+  font-family: ${getThemePretendardFont('bold')};
   font-size: 16px;
   margin-bottom: -10px;
 `;
@@ -29,8 +27,10 @@ export const GiftImage = styled.Image`
 `;
 
 export const Card = styled.View`
+  flex: 1;
   width: 101%;
   background-color: black;
+  justify-content: space-between;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   border: 1px solid ${getThemeColor('gray03')};
@@ -95,8 +95,7 @@ export const StepText = styled.Text`
 export const QuestionText = styled.Text`
   color: ${getThemeColor('gray01')};
   font-size: 24px;
-  font-family: ${getThemeFont('pretendard')};
-  font-weight: ${getThemeFontWeight('bold')};
+  font-family: ${getThemePretendardFont('semibold')};
   text-align: center;
   margin-bottom: 40px;
 `;
