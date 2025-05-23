@@ -17,6 +17,7 @@ type Props = {
   fontSize?: number;
   fontWeight?: string;
   icon?: ImageSourcePropType;
+  noPadding?: boolean;
 };
 
 export default function CustomGrayBtn({
@@ -30,7 +31,7 @@ export default function CustomGrayBtn({
   borderRadius = 30,
   fontSize,
   fontWeight,
-  icon,
+  noPadding = false,
 }: Props) {
   const gradient = useMemo(() => Theme.gradients.button, []);
   return (
@@ -38,6 +39,7 @@ export default function CustomGrayBtn({
       onPress={onPress}
       disabled={disabled}
       style={[{ width, height, borderRadius }, style]}
+      
     >
       <S.ButtonText style={textStyle} fontSize={fontSize} fontWeight={fontWeight}>
         {title}
