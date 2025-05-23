@@ -95,17 +95,12 @@ export const S = {
     text-align: center;
   `,
 
-  QRWrapper: styled.View`
+  QRImage: styled.Image`
     width: 240px;
     height: 240px;
     align-self: center;
     margin: 16px 0 20px;
-    background-color: ${getThemeColor('gray01')};
-    padding: 30px;
     border-radius: 50px;
-    display: center;
-    justify-content: center;
-    align-items: center;
   `,
 
   ButtonRow: styled.View`

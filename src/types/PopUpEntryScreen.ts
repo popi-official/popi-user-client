@@ -1,3 +1,12 @@
+export type ReservationDetailType = {
+  popupName: string;
+  popupDate: string;
+  popupDay: string;
+  popupTime: string;
+  address: string;
+  qrCodeBase64: string;
+};
+
 export type RecommendedItemType = {
   itemId: number;
   title: string;
