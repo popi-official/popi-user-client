@@ -169,6 +169,7 @@ export const S = {
 
   ItemTitle: styled.Text`
     font-size: 14px;
+    font-family: ${getThemePretendardFont('semibold')};
     color: ${getThemeColor('gray01')};
     margin-bottom: 4px;
   `,
@@ -176,7 +177,7 @@ export const S = {
   ItemPrice: styled.Text`
     font-size: 13px;
     color: ${getThemeColor('gray01')};
-    font-weight: 600;
+    font-family: ${getThemePretendardFont('semibold')};
     margin-right: 2px;
     align-self: flex-end;
   `,

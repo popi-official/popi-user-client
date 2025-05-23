@@ -1,6 +1,7 @@
 import { PopUpDetailItem } from '@/types/DetailScreenType';
 import React from 'react';
-import { Image, Text, View, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
+import { S } from './EntirePageItem.style';
 
 type Props = {
   item: PopUpDetailItem;
@@ -9,34 +10,21 @@ type Props = {
 const screenWidth = Dimensions.get('window').width;
 
 const EntirePageItem = ({ item }: Props) => {
+  const PADDING = 12;
+  const GAP = 12;
+  const itemWidth = (screenWidth - 2 * PADDING - GAP) / 2;
   if (!item) {
     return null;
   }
-  const itemWidth = (screenWidth - 36) / 2;
 
   return (
-    <View
-      style={{
-        flex: 1,
-        width: itemWidth,
-      }}
-    >
-      <Image
-        source={{ uri: item.imagePath }}
-        style={{
-          width: '100%',
-          height: itemWidth,
-          borderRadius: 8,
-        }}
-        resizeMode="cover"
-      />
-      <Text numberOfLines={2} ellipsizeMode="tail" style={{ marginTop: 10, color: 'white' }}>
+    <S.Container itemWidth={itemWidth}>
+      <S.ItemImage source={{ uri: item.imagePath }} itemWidth={itemWidth} resizeMode="cover" />
+      <S.TitleText numberOfLines={2} ellipsizeMode="tail">
         {item.title}
-      </Text>
-      <Text style={{ marginTop: 8, fontWeight: 'bold', textAlign: 'right', color: 'white' }}>
-        {item.price}
-      </Text>
-    </View>
+      </S.TitleText>
+      <S.PriceText>{item.price}</S.PriceText>
+    </S.Container>
   );
 };
 

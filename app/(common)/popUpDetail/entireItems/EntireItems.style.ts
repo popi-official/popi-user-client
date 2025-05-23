@@ -16,7 +16,7 @@ export const S = {
     font-family: ${getThemePretendardFont('extrabold')};
     margin-bottom: 16px;
     margin-top: 20px;
-    font-size: 22px;
+    font-size: 26px;
     color: ${getThemeColor('gray01')};
   `,
 };
