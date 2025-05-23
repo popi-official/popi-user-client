@@ -1,6 +1,6 @@
 export type PopUpDetailItem = {
-  id: string;
+  itemId: number;
   title: string;
   price: string;
-  image: string;
+  imagePath: string;
 };

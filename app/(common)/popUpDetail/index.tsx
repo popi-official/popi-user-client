@@ -1,36 +1,17 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { S } from './PopUpDetail.style';
-import { MockItems } from '@/mocks/PopUpDetailItemMocks';
-import { PopUpDetailItem } from '@/types/DetailScreenItem';
-import { useCallback } from 'react';
 import { PopUpDetailMock } from '@/mocks/PopUpDetailMocks';
+import { useRouter } from 'expo-router';
+import { ParseJsonToString } from '@/utils/JsonParser';
+import { PopUpDetailItem } from '@/types/DetailScreenType';
+import HotItems from '@/components/entireItems/hotItems/HotItems';
+import { PopUpDetailItemsMock } from '@/mocks/PopUpDetailItemMocks';
 
 export default function PopUpDetailScreen() {
   const data = PopUpDetailMock;
-  const renderHotItemWithIndex = useCallback(
-    (item: PopUpDetailItem, index: number) => (
-      <S.HotCardContainer key={item.id} isFirst={index === 0}>
-        <S.HotItemImage source={{ uri: item.image }} style={item.image} />
-        <S.Overlay />
-        <S.HotItemTitle numberOfLines={1}>{item.title}</S.HotItemTitle>
-        <S.HotItemPrice>{item.price}</S.HotItemPrice>
-      </S.HotCardContainer>
-    ),
-    [],
-  );
-
-  const renderItem = useCallback(
-    (item: PopUpDetailItem) => (
-      <S.ItemCard key={item.id}>
-        <S.ItemImage source={{ uri: item.image }} style={item.image} />
-        <S.ItemTitle numberOfLines={1}>{item.title}</S.ItemTitle>
-        <S.ItemPrice>{item.price}</S.ItemPrice>
-      </S.ItemCard>
-    ),
-    [],
-  );
+  const router = useRouter();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
@@ -67,21 +48,38 @@ export default function PopUpDetailScreen() {
         <S.ItemContentBox>
           <S.ItemCategory style={{ marginTop: 40, marginBottom: 20 }}>WHAT’S HOT</S.ItemCategory>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {MockItems.slice(0, 4).map((item, index) => renderHotItemWithIndex(item, index))}
+            {PopUpDetailItemsMock.map((item, index) => (
+              <HotItems key={index} item={item} index={index} />
+            ))}
           </ScrollView>
         </S.ItemContentBox>
 
         <S.ItemContentBox>
           <S.RowBetween>
             <S.ItemCategoryAll>전체 상품</S.ItemCategoryAll>
-            <S.RightArrow source={require('@/assets/images/common/right-arrow.webp')} />
+            <TouchableOpacity
+              onPress={() =>
+                router.push({
+                  pathname: '/(common)/popUpDetail/entireItems/EntireItemsScreen',
+                  params: { hotItems: ParseJsonToString(PopUpDetailItemsMock) },
+                })
+              }
+            >
+              <S.RightArrow source={require('@/assets/images/common/right-arrow.webp')} />
+            </TouchableOpacity>
           </S.RowBetween>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ paddingRight: 24 }}
           >
-            {MockItems.slice(0, 4).map(renderItem)}
+            {PopUpDetailItemsMock.slice(0, 4).map((item: PopUpDetailItem, idx: number) => (
+              <S.ItemCard key={idx}>
+                <S.ItemImage source={{ uri: item.imagePath }} style={item.imagePath} />
+                <S.ItemTitle numberOfLines={1}>{item.title}</S.ItemTitle>
+                <S.ItemPrice>{item.price}</S.ItemPrice>
+              </S.ItemCard>
+            ))}
           </ScrollView>
 
           <S.BottomButtonWrapper>
