@@ -2,14 +2,13 @@ import styled from 'styled-components/native';
 import { getThemeColor, getThemeFontWeight, getThemePretendardFont } from '@/types';
 import { Dimensions } from 'react-native';
 
-
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export const Container = styled.View`
   flex: 1;
   background-color: black;
   align-items: center;
-  padding-top: 35px;
+  padding-top: 75px;
 `;
 
 export const Title = styled.Text`
@@ -29,7 +28,7 @@ export const GiftImage = styled.Image`
 export const Card = styled.View`
   flex: 1;
   width: 101%;
-  background-color: black;
+  background-color: #1a1a1a;
   justify-content: space-between;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
