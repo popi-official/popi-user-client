@@ -1,12 +1,12 @@
-import { useRouter } from 'expo-router';
-import { Button, Text, View } from 'react-native';
+import { Text } from 'react-native';
+import { NaverMapView } from '@mj-studio/react-native-naver-map';
+import { S } from './MapScreen.style';
 
 export default function MapScreen() {
-  const router = useRouter();
   return (
-    <View>
+    <S.MapScreenContainer showsVerticalScrollIndicator={false}>
       <Text>지도 화면</Text>
-      <Button title="질문지 이동" onPress={() => router.push('/(common)/survey')} />
-    </View>
+      <NaverMapView style={{ flex: 1 }} />
+    </S.MapScreenContainer>
   );
 }
