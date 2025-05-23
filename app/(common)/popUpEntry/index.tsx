@@ -22,7 +22,7 @@ const PopUpEntryScreen = () => {
             <S.Title>입장 QR</S.Title>
             <S.CameraBoy source={Images.cameraBoy} style={{ width: 76, height: 76 }} />
             <S.PopUpTitleContainer>
-              <Image source={Images.store} style={{ width: 18, height: 18, marginTop: 4 }} />
+              <Image source={Images.store} style={{ width: 18, height: 18, marginTop: 2 }} />
               <S.PopupTitle>블랙핑크 IN YOUR AREA</S.PopupTitle>
             </S.PopUpTitleContainer>
             <S.InfoTextContainer>
