@@ -1,4 +1,5 @@
 import { AgeOption, GenderOption } from '../SignUpScreenType';
+import { SurveyChoice } from '../SurveyQuestions';
 
 export type ApiResponse<T> = Promise<GlobalResponse<T>>;
 export type ApiResult<T> = Promise<T>;
@@ -32,3 +33,5 @@ export type GetProfileResponse = {
   age: AgeOption | null;
   gender: GenderOption | null;
 };
+
+export type SurveyQuestionsResponse = SurveyChoice[];
