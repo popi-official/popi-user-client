@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { S } from './HomeHeader.style';
+import { S } from './HomeHeaderRight.style';
 
 const images = {
   searchIcon: require('@/assets/images/popupDetailItems/search-icon.webp'),

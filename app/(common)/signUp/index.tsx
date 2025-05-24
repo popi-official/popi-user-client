@@ -106,7 +106,7 @@ export default function SignUpScreen() {
       await handleSignUp({ nickname, age: formattedAge, gender: formattedGender });
 
       router.replace({
-        pathname: '/(common)/signUp/views/SuccessScreen',
+        pathname: '/(common)/signUp/successScreen',
         params: { nickname },
       });
       return;

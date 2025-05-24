@@ -7,14 +7,13 @@ import { ParseJsonToString } from '@/utils/JsonParser';
 import { PopUpDetailItem } from '@/types/DetailScreenType';
 import HotItems from '@/components/entireItems/hotItems/HotItems';
 import { PopUpDetailItemsMock } from '@/mocks/PopUpDetailItemMocks';
-import { getThemeColor } from '@/types';
 
 export default function PopUpDetailScreen() {
   const data = PopUpDetailMock;
   const router = useRouter();
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: `${getThemeColor('gray11')}` }}>
+    <S.Container>
       <S.Banner source={require('@/assets/images/common/popupimg.png')} />
 
       <S.PopUpContentBox>
@@ -59,8 +58,11 @@ export default function PopUpDetailScreen() {
           <TouchableOpacity
             onPress={() =>
               router.push({
-                pathname: '/(common)/popUpDetail/entireItems/EntireItemsScreen',
-                params: { hotItems: ParseJsonToString(PopUpDetailItemsMock) },
+                pathname: '/(common)/popUpDetail/entireItems',
+                params: {
+                  hotItems: ParseJsonToString(PopUpDetailItemsMock),
+                  title: data.popupName,
+                },
               })
             }
           >
@@ -93,6 +95,6 @@ export default function PopUpDetailScreen() {
           />
         </S.BottomButtonWrapper>
       </S.ItemContentBox>
-    </ScrollView>
+    </S.Container>
   );
 }

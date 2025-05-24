@@ -4,6 +4,7 @@ import { Dimensions, Image } from 'react-native';
 import { S } from './HomeScreen.style';
 import { bannerItems, hotItems, popUpItems } from '@/mocks/HomeScreenMocks';
 import { formatDateRange } from '@/utils/FormatDate';
+import { useRouter } from 'expo-router';
 
 const Images = {
   calendarGray: require('@/assets/images/common/calendar-gray.webp'),
@@ -15,6 +16,7 @@ const HomeScreen = () => {
   const horizontalPadding = 12 * 2;
   const cardGap = 12;
   const cardWidth = (screenWidth - horizontalPadding - cardGap) / 2;
+  const router = useRouter();
 
   const groupedPopUps = popUpItems.reduce(
     (acc, cur, i) => {
@@ -76,7 +78,11 @@ const HomeScreen = () => {
         {groupedPopUps.map((row, rowIdx) => (
           <S.PopUpRow key={`row-${rowIdx}`}>
             {row.map(item => (
-              <S.PopUpCard key={item.popupId} cardWidth={cardWidth}>
+              <S.PopUpCard
+                key={item.popupId}
+                cardWidth={cardWidth}
+                onPress={() => router.push('/(common)/popUpDetail')}
+              >
                 <S.PopUpImage source={item.imageUrl} cardWidth={cardWidth} resizeMode="cover" />
                 <S.PopUpInfo cardWidth={cardWidth}>
                   <S.PopUpCardTitle numberOfLines={1}>{item.popupName}</S.PopUpCardTitle>
