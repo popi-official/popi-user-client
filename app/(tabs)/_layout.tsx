@@ -10,10 +10,10 @@ export default function BottomTabLayout() {
     <>
       <StatusBar style="light" />
       <Tabs tabBar={tabBar} screenOptions={{ headerShown: false }}>
-        <Tabs.Screen name="home" />
-        <Tabs.Screen name="map" />
-        <Tabs.Screen name="cart" />
-        <Tabs.Screen name="my" />
+        <Tabs.Screen name="home" options={{ title: 'HOME' }} />
+        <Tabs.Screen name="map" options={{ title: 'MAP' }} />
+        <Tabs.Screen name="cart" options={{ title: 'CART' }} />
+        <Tabs.Screen name="my" options={{ title: 'MY' }} />
       </Tabs>
     </>
   );
