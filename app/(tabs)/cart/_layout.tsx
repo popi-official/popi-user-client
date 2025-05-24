@@ -1,8 +1,8 @@
 import CartRightBtn from '@/components/header/cartRightBtn/CartRightBtn';
 import { DEFAULT_STACK_OPTIONS } from '@/constants/Options';
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
-import { Stack, useRouter } from 'expo-router';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Stack } from 'expo-router';
+import { Image, Text, View } from 'react-native';
 
 const images = {
   cartIcon: require('@/assets/images/cart/cart-icon.webp'),
