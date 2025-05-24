@@ -13,7 +13,7 @@ const POPUP_DETAIL_OPTIONS: NativeStackNavigationOptions = {
   headerTintColor: 'white',
   headerLeft: () => <HeaderBackBtn />,
   headerRight: () => <TicketHeaderRight />,
-  headerTitle: () => null,
+  headerTitle: '',
 };
 
 const POPUP_ENTIRE_ITMES_OPTIONS = ({

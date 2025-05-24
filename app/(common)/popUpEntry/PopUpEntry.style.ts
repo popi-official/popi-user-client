@@ -4,6 +4,10 @@ import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 
 export const S = {
+  Container: styled.View`
+    flex: 1;
+    background-color: ${getThemeColor('gray11')};
+  `,
   // screen
   PopUpEntryScreenContainer: styled.ScrollView`
     background-color: ${getThemeColor('gray11')};

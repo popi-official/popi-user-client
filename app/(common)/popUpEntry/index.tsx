@@ -1,6 +1,5 @@
 import { Image } from 'react-native';
 import { S } from './PopUpEntry.style';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { popularItemList, recommendedItemList, reservationDetail } from '@/mocks/PopUpEntryMocks';
 
 const Images = {
@@ -14,7 +13,7 @@ const Images = {
 
 const PopUpEntryScreen = () => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
+    <S.Container>
       <S.PopUpEntryScreenContainer showsVerticalScrollIndicator={false}>
         <S.Card>
           {/* TopCard */}
@@ -93,7 +92,7 @@ const PopUpEntryScreen = () => {
         </S.GoodsContainer>
         <S.BottomArea />
       </S.PopUpEntryScreenContainer>
-    </SafeAreaView>
+    </S.Container>
   );
 };
 

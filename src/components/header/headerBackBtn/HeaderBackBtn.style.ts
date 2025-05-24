@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 export const S = {
   BackButtonContainer: styled.TouchableOpacity`
-    align-self: flex-start;
+    justify-content: center;
     margin-left: 0px;
     padding-left: 0px;
   `,
