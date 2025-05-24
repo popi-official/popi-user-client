@@ -137,7 +137,7 @@ export const S = {
     margin-bottom: 20px;
   `,
 
-  PopUpCard: styled.View<{ cardWidth: number }>`
+  PopUpCard: styled.TouchableOpacity<{ cardWidth: number }>`
     width: ${(props: { cardWidth: number }) => `${props.cardWidth}px`};
   `,
 

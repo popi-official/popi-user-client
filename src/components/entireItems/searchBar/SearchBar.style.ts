@@ -11,7 +11,7 @@ export const S = {
     align-items: center;
     padding-left: 18px;
     padding-right: 18px;
-    margin-top: 32px;
+    margin-top: 16px;
   `,
 
   PlaceholderText: styled.Text`

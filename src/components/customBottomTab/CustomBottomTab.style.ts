@@ -9,8 +9,12 @@ interface LabelProps {
   isFocused: boolean;
 }
 
+interface BottomTabInset {
+  insetBottom: number;
+}
+
 export const S = {
-  CustomBottomTabContainer: styled.View`
+  CustomBottomTabContainer: styled.View<BottomTabInset>`
     position: absolute;
     bottom: 0;
     left: -0.5%;
@@ -23,6 +27,7 @@ export const S = {
     padding-left: 41px;
     padding-right: 41px;
     padding-top: 14px;
+    padding-bottom: ${({ insetBottom }: BottomTabInset) => insetBottom};
     overflow: hidden;
     background-color: ${getThemeColor('gray10')};
     gap: 60px;
@@ -37,8 +42,8 @@ export const S = {
   `,
   Label: styled.Text<LabelProps>`
     font-size: 9px;
-    font-family: ${getThemePretendardFont('medium')};
+    font-family: ${getThemePretendardFont('semibold')};
     color: ${(props: TabItemContainerProps) =>
-      props.isFocused ? getThemeColor('gray01') : getThemeColor('gray07')};
+      props.isFocused ? getThemeColor('gray01') : getThemeColor('gray04')};
   `,
 };

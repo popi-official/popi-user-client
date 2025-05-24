@@ -2,7 +2,7 @@ import { getThemeColor, getThemeInterFont, getThemePretendardFont } from '@/type
 import styled from 'styled-components/native';
 
 export const S = {
-  EntireItemsContainer: styled.SafeAreaView`
+  EntireItemsContainer: styled.View`
     flex: 1;
     background-color: ${getThemeColor('gray11')};
   `,

@@ -3,9 +3,9 @@ import { getThemeColor, getThemeInterFont, getThemePretendardFont } from '@/type
 import { LinearGradient } from 'expo-linear-gradient';
 
 export const S = {
-  Container: styled.SafeAreaView`
+  Container: styled.ScrollView`
     flex: 1;
-    background-color: black;
+    background-color: ${getThemeColor('gray11')};
   `,
 
   Banner: styled.Image`
