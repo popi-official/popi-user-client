@@ -2,12 +2,12 @@ import { DEFAULT_STACK_OPTIONS } from '@/constants/Options';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
-import HeaderBackBtn from '@/components/header/headerBackBtn/HeaderBackBtn';
+import BackBtn from '@/components/header/left/backBtn/BackBtn';
 
 const QR_ENTRY_OPTIONS: NativeStackNavigationOptions = {
   ...DEFAULT_STACK_OPTIONS,
   title: '',
-  headerLeft: () => <HeaderBackBtn />,
+  headerLeft: () => <BackBtn />,
 };
 
 export default function CommonLayout() {

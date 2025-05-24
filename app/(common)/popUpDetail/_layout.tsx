@@ -1,8 +1,8 @@
 import { DEFAULT_STACK_OPTIONS } from '@/constants/Options';
 import { Stack } from 'expo-router';
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
-import HeaderBackBtn from '@/components/header/headerBackBtn/HeaderBackBtn';
-import TicketHeaderRight from '@/components/header/TicketHeaderRight/TicketHeaderRight';
+import BackBtn from '@/components/header/left/backBtn/BackBtn';
+import TicketRightBtn from '@/components/header/right/ticketRightBtn/TicketRightBtn';
 
 type RouteParams = {
   title?: string;
@@ -11,8 +11,8 @@ type RouteParams = {
 const POPUP_DETAIL_OPTIONS: NativeStackNavigationOptions = {
   ...DEFAULT_STACK_OPTIONS,
   headerTintColor: 'white',
-  headerLeft: () => <HeaderBackBtn />,
-  headerRight: () => <TicketHeaderRight />,
+  headerLeft: () => <BackBtn />,
+  headerRight: () => <TicketRightBtn />,
   headerTitle: '',
 };
 
@@ -23,7 +23,7 @@ const POPUP_ENTIRE_ITMES_OPTIONS = ({
 }): NativeStackNavigationOptions => ({
   ...DEFAULT_STACK_OPTIONS,
   headerTintColor: 'white',
-  headerLeft: () => <HeaderBackBtn />,
+  headerLeft: () => <BackBtn />,
   title: route.params?.title || '',
   headerTitleAlign: 'center',
   headerTitleStyle: {

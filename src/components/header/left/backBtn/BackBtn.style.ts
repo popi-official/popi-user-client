@@ -2,7 +2,7 @@ import { getThemeColor } from '@/types';
 import styled from 'styled-components/native';
 
 export const S = {
-  BackButtonContainer: styled.TouchableOpacity`
+  Container: styled.TouchableOpacity`
     justify-content: center;
     margin-left: 0px;
     padding-left: 0px;
