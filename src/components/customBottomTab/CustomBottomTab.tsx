@@ -1,6 +1,7 @@
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
 import { S } from './CustomBottomTab.style';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const tabIcons = {
   home: require('@/assets/images/bottomTab/Home.png'),
@@ -10,8 +11,9 @@ const tabIcons = {
 };
 
 export default function CustomBottomTab({ state, descriptors, navigation }: BottomTabBarProps) {
+  const inset = useSafeAreaInsets();
   return (
-    <S.CustomBottomTabContainer>
+    <S.CustomBottomTabContainer insetBottom={inset.bottom}>
       {state.routes.map((tab, idx) => {
         const { options } = descriptors[tab.key];
         const title = options.title !== undefined ? options.title : tab.name;
