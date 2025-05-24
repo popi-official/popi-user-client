@@ -8,6 +8,7 @@ const HOME_OPTIONS: NativeStackNavigationOptions = {
   ...DEFAULT_STACK_OPTIONS,
   headerLeft: () => <HomeLeftBtn />,
   headerRight: () => <HomeRightBtn />,
+  title: '',
 };
 
 export default function HomeLayout() {
