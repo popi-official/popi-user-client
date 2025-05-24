@@ -17,11 +17,12 @@ export default function CommonLayout() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="onBoarding/index" />
         <Stack.Screen name="login/index" />
+        <Stack.Screen name="search/index" />
+        <Stack.Screen name="qrCamera/index" />
+        <Stack.Screen name="popUpEntry/index" options={QR_ENTRY_OPTIONS} />
+
         <Stack.Screen name="popUpDetail" />
         <Stack.Screen name="signUp" />
-        <Stack.Screen name="popUpEntry/index" options={QR_ENTRY_OPTIONS} />
-        <Stack.Screen name="search" />
-        <Stack.Screen name="qrCamera" />
       </Stack>
     </>
   );
