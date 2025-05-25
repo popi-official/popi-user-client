@@ -77,7 +77,7 @@ export const popUpItems: PopUpItemType[] = [
   {
     popupId: 2,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp01,
+    imageUrl: Images.popUp02,
     popupOpenDate: '2025-05-01',
     popupCloseDate: '2025-06-09',
     address: '서울 영등포구 여의대로 108 더현대서울',
@@ -85,7 +85,7 @@ export const popUpItems: PopUpItemType[] = [
   {
     popupId: 3,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp01,
+    imageUrl: Images.popUp03,
     popupOpenDate: '2025-05-01',
     popupCloseDate: '2025-06-09',
     address: '서울 영등포구 여의대로 108 더현대서울',
@@ -101,7 +101,7 @@ export const popUpItems: PopUpItemType[] = [
   {
     popupId: 5,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp01,
+    imageUrl: Images.popUp02,
     popupOpenDate: '2025-05-01',
     popupCloseDate: '2025-06-09',
     address: '서울 영등포구 여의대로 108 더현대서울',
@@ -109,7 +109,7 @@ export const popUpItems: PopUpItemType[] = [
   {
     popupId: 6,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp01,
+    imageUrl: Images.popUp03,
     popupOpenDate: '2025-05-01',
     popupCloseDate: '2025-06-09',
     address: '서울 영등포구 여의대로 108 더현대서울',
@@ -125,7 +125,7 @@ export const popUpItems: PopUpItemType[] = [
   {
     popupId: 8,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp01,
+    imageUrl: Images.popUp02,
     popupOpenDate: '2025-05-01',
     popupCloseDate: '2025-06-09',
     address: '서울 영등포구 여의대로 108 더현대서울',

@@ -69,13 +69,26 @@ export type GetItemSearchResponse = {
 };
 
 export type GetSurveyQuestionsResponse = SurveyChoice[];
+
 export type GetReservationInfoResponse = {
   popupOpenDate: string;
   popupCloseDate: string;
   reservableDate: ReservableDate[];
 };
 
-export type GetPopUDetailAllItemsResponse = {
+export type GetPopUpDetailAllItemsResponse = {
   content: ItemUrlType[];
   isLast: boolean;
+};
+
+export type popUpMarkerItemsResponse = popUpMarkerItem[];
+
+export type popUpMarkerItem = {
+  popupName: string;
+  imageUrl: number; // 추후 string 으로 변경 예정
+  popupOpenDate: string;
+  popupCloseDate: string;
+  address: string;
+  latitude: number;
+  longitude: number;
 };
