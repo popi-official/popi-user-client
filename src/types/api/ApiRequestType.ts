@@ -10,3 +10,14 @@ export type PostSignUpRequest = {
   age: AgeOption;
   gender: GenderOption;
 };
+
+export type PostSearchPopUpRequest = {
+  keyword: string;
+  lastPopUpId: number | undefined;
+};
+
+export type PostSearchItemReqeust = {
+  keyword: string;
+  selectedPopUpId: number;
+  lastItemId: number | undefined;
+};

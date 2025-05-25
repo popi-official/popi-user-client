@@ -2,6 +2,7 @@ import { PopUpDetailItem } from '@/types/DetailScreenType';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import { S } from './EntirePageItem.style';
+import { PADDING } from '@/constants/Options';
 
 type Props = {
   item: PopUpDetailItem;
@@ -10,7 +11,6 @@ type Props = {
 const screenWidth = Dimensions.get('window').width;
 
 const EntirePageItem = ({ item }: Props) => {
-  const PADDING = 12;
   const GAP = 12;
   const itemWidth = (screenWidth - 2 * PADDING - GAP) / 2;
   if (!item) {
