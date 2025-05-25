@@ -1,4 +1,4 @@
-import { popUpMarkerItem } from '@/types/api/ApiResponseType';
+import { GetPopUpMarkerItemsResponse } from '@/types/api/ApiResponseType';
 
 const Images = {
   popUp01: require('@/assets/images/home/popUp01.webp'),
@@ -6,7 +6,7 @@ const Images = {
   popUp03: require('@/assets/images/home/popUp03.webp'),
 };
 
-export const popUpMarkerItems: popUpMarkerItem[] = [
+export const popUpMarkerItems: GetPopUpMarkerItemsResponse = [
   {
     popupName: '블랙핑크 팝업',
     imageUrl: Images.popUp01,

@@ -83,12 +83,63 @@ export type GetPopUpDetailAllItemsResponse = {
 
 export type popUpMarkerItemsResponse = popUpMarkerItem[];
 
+export type GetPopUpMarkerItemsResponse = popUpMarkerItem[];
+
 export type popUpMarkerItem = {
   popupName: string;
-  imageUrl: number; // 추후 string 으로 변경 예정
+  imageUrl: number; // 추후 string으로 변경
   popupOpenDate: string;
   popupCloseDate: string;
   address: string;
   latitude: number;
   longitude: number;
+};
+
+export type GetHotPopUpItemsResponse = HotPopUpItem[];
+
+export type HotPopUpItem = {
+  popupId: number;
+  popupName: string;
+  imageUrl: number; // 추후 string으로 변경
+  popupOpenDate: string;
+  popupCloseDate: string;
+  address: string;
+};
+
+export type GetPopUpItemsResponse = PopUpItem[];
+
+export type PopUpItem = {
+  popupId: number;
+  popupName: string;
+  imageUrl: number; // 추후 string으로 변경
+  popupOpenDate: string;
+  popupCloseDate: string;
+  address: string;
+};
+
+export type GetReservationDetailResponse = {
+  popupName: string;
+  popupDate: string;
+  popupDay: string;
+  popupTime: string;
+  address: string;
+  qrCodeBase64: string;
+};
+
+export type GetRecommendedItemsResponse = RecommendedItem[];
+
+export type RecommendedItem = {
+  itemId: number;
+  title: string;
+  imagePath: number; // 추후 string으로 변경
+  price: number;
+};
+
+export type GetPopularItemsResponse = PopularItem[];
+
+export type PopularItem = {
+  itemId: number;
+  title: string;
+  imagePath: number; // 추후 string으로 변경
+  price: number;
 };
