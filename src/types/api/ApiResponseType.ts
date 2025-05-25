@@ -1,4 +1,4 @@
-import { PopUpDetailItem } from '../DetailScreenType';
+import { ItemPathType, ItemUrlType } from '../DetailScreen';
 import { PostItemSearch, PostPopUpSearch } from '../SearchScreenType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 
@@ -35,7 +35,12 @@ export type GetProfileResponse = {
   gender: GenderOption | null;
 };
 
-export type GetHotItemsResponse = PopUpDetailItem[];
+export type GetHotItemsResponse = ItemPathType[];
+
+export type GetItemsResponse = {
+  content: PostItemSearch;
+  isLast: boolean;
+};
 
 export type GetPopUpDetailResponse = {
   popupId: number;
@@ -58,6 +63,6 @@ export type PostPopUpSearchResponse = {
 };
 
 export type PostItemSearchResponse = {
-  content: PostItemSearch[];
+  content: ItemUrlType[];
   isLast: boolean;
 };

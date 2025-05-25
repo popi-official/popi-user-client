@@ -1,9 +1,11 @@
 import { SearchFlagType, useSearchStore } from '@/store/useSearchStore';
 import { useEffect, useRef, useState } from 'react';
-import { Image, Pressable, TextInput, View } from 'react-native';
+import { TextInput } from 'react-native';
+import { S } from './SearchBarTextInput.style';
 
 type Props = {
   flag: SearchFlagType;
+  placeholder?: string;
 };
 
 const images = {
@@ -11,7 +13,7 @@ const images = {
   closeIcon: require('@/assets/images/signUp/close.png'),
 };
 
-export default function SearchBarTextInput({ flag }: Props) {
+export default function SearchBarTextInput({ flag, placeholder = '검색어를 입력해주세요' }: Props) {
   const { keyword, updateField, clearSearch } = useSearchStore();
   const searchRef = useRef<TextInput>(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -25,52 +27,26 @@ export default function SearchBarTextInput({ flag }: Props) {
   }, []);
 
   return (
-    <View
-      style={{
-        backgroundColor: '#202020',
-        borderRadius: 25,
-        overflow: 'hidden',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 16,
-        flex: 1,
-        marginHorizontal: 12,
-        borderWidth: 1,
-        borderColor: isFocused ? '#D9D9D9' : '#5C5C5C',
-      }}
-    >
-      <TextInput
+    <S.SearchContainer style={{ borderColor: isFocused ? '#D9D9D9' : '#5C5C5C' }}>
+      <S.SearchInput
         ref={searchRef}
-        placeholder="검색어를 입력해주세요"
+        placeholder={placeholder}
         placeholderTextColor={'#999999'}
-        style={{
-          color: 'white',
-          flex: 1,
-          fontSize: 18,
-        }}
         value={keyword}
-        onChangeText={input => updateField({ keyword: input })}
+        onChangeText={(input: string) => updateField({ keyword: input })}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
 
       {keyword ? (
-        <Pressable onPress={() => clearSearch()} style={{ marginLeft: 8 }}>
-          <Image source={images.closeIcon} style={{ width: 15, height: 15 }} resizeMode="cover" />
-        </Pressable>
+        <S.CloseButton onPress={() => clearSearch()}>
+          <S.CloseIcon source={images.closeIcon} resizeMode="cover" />
+        </S.CloseButton>
       ) : null}
 
-      <Pressable style={{ marginLeft: 8 }}>
-        <Image
-          source={images.searchIcon}
-          style={{
-            width: 20,
-            height: 20,
-            tintColor: 'white',
-          }}
-        />
-      </Pressable>
-    </View>
+      <S.SearchButton>
+        <S.SearchIcon source={images.searchIcon} />
+      </S.SearchButton>
+    </S.SearchContainer>
   );
 }

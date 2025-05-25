@@ -6,6 +6,7 @@ type SearchStore = {
   keyword: string;
   page: number;
   flag: SearchFlagType | null;
+  searchMode: boolean;
   updateField: (field: Partial<SearchStore>) => void;
   clearSearch: () => void;
 };
@@ -14,12 +15,14 @@ const initialState = {
   keyword: '',
   page: 1,
   flag: null,
+  searchMode: false,
 };
 
 export const useSearchStore = create<SearchStore>()(set => ({
   keyword: '',
   page: 1,
   flag: null,
+  searchMode: false,
   updateField: (field: Partial<SearchStore>) =>
     set(state => ({
       ...state,

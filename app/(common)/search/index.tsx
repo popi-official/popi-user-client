@@ -2,42 +2,81 @@ import SearchResultPopUpItem from '@/components/searchScreen/searchResultPopUp/S
 import useSearch from '@/hooks/useSearch';
 import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import { PostPopUpSearch } from '@/types/SearchScreenType';
+import NoItem from '@/components/searchScreen/noItem/NoItem';
+import { useSearchStore } from '@/store/useSearchStore';
+import { useCallback } from 'react';
 
 export default function SearchScreen() {
   const { searchResult, isLoading, hasMore, loadMore } = useSearch();
+  const { keyword } = useSearchStore();
+  const searchMode = keyword.trim().length > 0 && true;
 
-  const renderItem = ({ item }: { item: PostPopUpSearch }) => <SearchResultPopUpItem {...item} />;
-
-  const renderHeader = () => (
-    <Text
-      style={{
-        color: 'white',
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 16,
-        marginTop: 12,
-      }}
-    >
-      검색 결과
-    </Text>
+  const renderItem = useCallback(
+    ({ item }: { item: PostPopUpSearch }) => <SearchResultPopUpItem {...item} />,
+    [],
   );
 
-  const renderFooter = () => {
+  const renderHeader = useCallback(() => {
+    if (searchResult.length > 0 && !isLoading) {
+      return (
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 18,
+            fontWeight: 'bold',
+            marginBottom: 16,
+            marginTop: 12,
+          }}
+        >
+          검색 결과
+        </Text>
+      );
+    }
+    return null;
+  }, [isLoading, searchResult]);
+
+  const renderFooter = useCallback(() => {
     if (!isLoading) return null;
     return (
       <View style={{ padding: 20, alignItems: 'center' }}>
         <ActivityIndicator size="large" color="white" />
-        <Text style={{ color: 'white', marginTop: 8 }}>로딩 중...</Text>
       </View>
     );
-  };
+  }, [isLoading]);
 
-  const handleEndReached = () => {
+  const handleEndReached = useCallback(() => {
     if (hasMore && !isLoading) {
-      console.log('🔄 다음 페이지 로딩...');
       loadMore();
     }
-  };
+  }, [hasMore, isLoading, loadMore]);
+
+  const keyExtractor = useCallback(
+    (item: PostPopUpSearch, index: number) => `${item.popupId}-${index}`,
+    [],
+  );
+
+  const itemSeparatorComponent = useCallback(() => <View style={{ height: 12 }} />, []);
+
+  const listEmptyComponent = useCallback(() => {
+    if (!isLoading && searchMode) {
+      return <NoItem title="검색 결과와 일치하는 팝업이 없어요" />;
+    }
+    return null;
+  }, [isLoading, searchMode]);
+
+  const columnWrapperStyle = useCallback(
+    () => ({
+      justifyContent: 'space-between' as const,
+    }),
+    [],
+  );
+
+  const contentContainerStyle = useCallback(
+    () => ({
+      paddingBottom: 100,
+    }),
+    [],
+  );
 
   return (
     <View style={{ flex: 1, paddingHorizontal: 12, backgroundColor: 'black' }}>
@@ -45,15 +84,16 @@ export default function SearchScreen() {
         data={searchResult as PostPopUpSearch[]}
         renderItem={renderItem}
         numColumns={2}
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
+        columnWrapperStyle={columnWrapperStyle()}
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
         onEndReached={handleEndReached}
+        ListEmptyComponent={listEmptyComponent}
         onEndReachedThreshold={0.3}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100 }}
-        keyExtractor={(item, index) => `${item.popupId}-${index}`}
-        ItemSeparatorComponent={() => <View style={{ height: 12 }} />} // 세로 간격
+        contentContainerStyle={contentContainerStyle()}
+        keyExtractor={keyExtractor}
+        ItemSeparatorComponent={itemSeparatorComponent}
       />
     </View>
   );

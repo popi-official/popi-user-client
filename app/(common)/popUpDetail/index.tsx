@@ -4,9 +4,9 @@ import { S } from './PopUpDetail.style';
 import { PopUpDetailMock } from '@/mocks/PopUpDetailMocks';
 import { useRouter } from 'expo-router';
 import { ParseJsonToString } from '@/utils/JsonParser';
-import { PopUpDetailItem } from '@/types/DetailScreenType';
 import HotItems from '@/components/entireItems/hotItems/HotItems';
-import { PopUpDetailItemsMock } from '@/mocks/PopUpDetailItemMocks';
+import { HotItemMocks, ItemMocks } from '@/mocks/PopUpDetailItemMocks';
+import { ItemPathType } from '@/types/DetailScreen';
 
 export default function PopUpDetailScreen() {
   const data = PopUpDetailMock;
@@ -38,7 +38,7 @@ export default function PopUpDetailScreen() {
         </S.SubInfoRow>
 
         <S.SectionTitle style={{ marginTop: 20, marginBottom: 12 }}>위치정보</S.SectionTitle>
-        <S.MapImage source={{ uri: /* 나중에 지도로 변경 */ data.imageUrl }} />
+        <S.MapImage source={{ uri: data.imageUrl }} />
       </S.PopUpContentBox>
 
       <S.DividerWide />
@@ -46,7 +46,7 @@ export default function PopUpDetailScreen() {
       <S.ItemContentBox>
         <S.ItemCategory style={{ marginTop: 40, marginBottom: 20 }}>WHAT’S HOT</S.ItemCategory>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {PopUpDetailItemsMock.map((item, index) => (
+          {HotItemMocks.map((item, index) => (
             <HotItems key={index} item={item} index={index} />
           ))}
         </ScrollView>
@@ -60,7 +60,7 @@ export default function PopUpDetailScreen() {
               router.push({
                 pathname: '/(common)/popUpDetail/entireItems',
                 params: {
-                  hotItems: ParseJsonToString(PopUpDetailItemsMock),
+                  hotItems: ParseJsonToString(ItemMocks),
                   title: data.popupName,
                 },
               })
@@ -74,9 +74,9 @@ export default function PopUpDetailScreen() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingRight: 24 }}
         >
-          {PopUpDetailItemsMock.slice(0, 4).map((item: PopUpDetailItem, idx: number) => (
+          {ItemMocks.slice(0, 4).map((item: ItemPathType, idx: number) => (
             <S.ItemCard key={idx}>
-              <S.ItemImage source={{ uri: item.imagePath }} style={item.imagePath} />
+              <S.ItemImage source={{ uri: item.imagePath }} />
               <S.ItemTitle numberOfLines={1}>{item.title}</S.ItemTitle>
               <S.ItemPrice>{item.price}</S.ItemPrice>
             </S.ItemCard>
