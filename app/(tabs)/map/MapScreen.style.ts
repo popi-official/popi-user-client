@@ -7,4 +7,10 @@ export const S = {
     flex: 1;
     background-color: ${getThemeColor('gray11')};
   `,
+
+  // Bottom
+  BottomArea: styled.View`
+    height: 48px;
+    width: 100%;
+  `,
 };

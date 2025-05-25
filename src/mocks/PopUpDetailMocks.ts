@@ -12,6 +12,6 @@ export const PopUpDetailMock: GetPopUpDetailResponse = {
   address: '서울특별시 영등포구 여의대로 108 3층',
   runOpenTime: '10:00:00',
   runCloseTime: '20:00:00',
-  latitude: 37.123456,
-  longitude: 127.123456,
+  latitude: 37.525682,
+  longitude: 126.928446,
 };
