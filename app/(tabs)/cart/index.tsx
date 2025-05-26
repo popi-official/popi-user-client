@@ -29,18 +29,14 @@ export default function CartScreen() {
 
   const toggleSelect = (id: number) => {
     setCartItems(prev =>
-      prev.map(item =>
-        item.itemId === id ? { ...item, selected: !item.selected } : item,
-      ),
+      prev.map(item => (item.itemId === id ? { ...item, selected: !item.selected } : item)),
     );
   };
 
   const changeQuantity = (id: number, delta: number) => {
     setCartItems(prev =>
       prev.map(item =>
-        item.itemId === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item,
+        item.itemId === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item,
       ),
     );
   };
@@ -74,7 +70,6 @@ export default function CartScreen() {
             <S.EmptySubText>QR을 찍어 상품을 추가해주세요</S.EmptySubText>
             <S.EmptyImage source={EmptyImage} />
           </S.EmptyContainer>
-
         </>
       ) : (
         <>
@@ -126,9 +121,7 @@ export default function CartScreen() {
                     </S.QuantityButton>
                   </S.QuantityWrapper>
                   <View style={{ flex: 1 }} />
-                  <S.PriceText>
-                    {(item.price * item.quantity).toLocaleString()}원
-                  </S.PriceText>
+                  <S.PriceText>{(item.price * item.quantity).toLocaleString()}원</S.PriceText>
                 </S.ItemBottomRow>
 
                 <S.DividerCart />
@@ -143,7 +136,12 @@ export default function CartScreen() {
           />
 
           <S.BottomButtonWrapper>
-            <CustomGradientBtn title="구매하기" onPress={() => {}} />
+            <CustomGradientBtn
+              title="구매하기"
+              onPress={() => {
+                // TODO: 결제!
+              }}
+            />
           </S.BottomButtonWrapper>
         </>
       )}
