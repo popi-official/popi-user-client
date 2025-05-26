@@ -48,7 +48,7 @@ export const postLogout = async (): ApiResponse<NoResponse> => {
 };
 
 export const deleteProfile = async (): ApiResponse<NoResponse> => {
-  const response = await api.delete('/auth/withdrawal');
+  const response = await api.delete('/members/withdrawal');
   return response.data;
 };
 

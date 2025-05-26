@@ -1,11 +1,17 @@
 import styled from 'styled-components/native';
 import { getThemeColor, getThemeInterFont, getThemePretendardFont } from '@/types';
 import { LinearGradient } from 'expo-linear-gradient';
+import { EdgeInsets } from 'react-native-safe-area-context';
+
+type ContainerProps = {
+  inset: EdgeInsets;
+};
 
 export const S = {
-  Container: styled.ScrollView`
+  Container: styled.ScrollView<ContainerProps>`
     flex: 1;
     background-color: ${getThemeColor('gray11')};
+    margin-bottom: ${({ inset }: ContainerProps) => inset.bottom};
   `,
 
   Banner: styled.Image`
@@ -20,6 +26,7 @@ export const S = {
 
   ItemContentBox: styled.View`
     padding-left: 12px;
+    padding-bottom: 12px;
   `,
 
   PopupTitle: styled.Text`
@@ -134,6 +141,7 @@ export const S = {
     border-radius: 10px;
     z-index: 1;
   `,
+
   HotItemTitle: styled.Text`
     position: absolute;
     bottom: 30px;
@@ -182,8 +190,49 @@ export const S = {
     align-self: flex-end;
   `,
 
-  BottomButtonWrapper: styled.View`
+  // BottomSheet 관련 새로운 스타일드 컴포넌트들
+  CalendarSection: styled.View`
+    border-bottom-width: 1px;
+    border-bottom-color: white;
+    padding-bottom: 16px;
+  `,
+
+  CalendarContainer: styled.View`
+    padding-horizontal: 12px;
+  `,
+
+  ScrollView: styled.ScrollView``,
+
+  TimeSlotScrollView: styled.ScrollView`
+    margin-top: 24px;
+    margin-left: 24px;
     margin-right: 12px;
-    margin-top: 62px;
+  `,
+
+  TimeSlotButton: styled.TouchableOpacity`
+    align-self: flex-start;
+  `,
+
+  TimeSlotGradient: styled(LinearGradient)<{ isSelected: boolean; isPossible: boolean }>`
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: ${({ isSelected, isPossible }) =>
+      isSelected ? 'transparent' : isPossible ? 'white' : '#383838'};
+    background-color: #2e2e2e;
+    padding-horizontal: 14px;
+    padding-vertical: 10px;
+    flex-direction: row;
+    margin-right: 12px;
+  `,
+
+  TimeSlotText: styled.Text<{ isSelected: boolean; isPossible: boolean }>`
+    color: ${({ isSelected, isPossible }) =>
+      isSelected ? 'black' : isPossible ? 'white' : 'gray'};
+    font-family: ${({ isSelected }) => (isSelected ? 'Pretendard-Medium' : 'Pretendard-Regular')};
+  `,
+
+  ReservationButtonContainer: styled.View`
+    height: 46px;
+    margin-horizontal: 24px;
   `,
 };

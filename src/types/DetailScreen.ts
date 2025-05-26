@@ -11,3 +11,15 @@ export type ItemUrlType = {
   imageUrl: string;
   price: number;
 };
+
+export interface TimeSlot {
+  reservationId: number;
+  time: string;
+  isPossible: boolean;
+}
+
+export interface ReservableDate {
+  date: string;
+  isReservable: boolean;
+  timeSlots: TimeSlot[];
+}
