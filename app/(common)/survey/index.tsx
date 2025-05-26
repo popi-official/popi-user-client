@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as S from './SurveyQuestion.style';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import CustomGrayBtn from '@/components/customGrayBtn/CustomGrayBtn';
 import { Dimensions, View } from 'react-native';
 import { SurveyQuestionsMock } from '@/mocks/SurveyQuestionsMocks';
+import { Animated } from 'react-native';
 
 const QUESTIONS = [
   '어떤 종류의 굿즈를\n가장 선호하시나요?',
@@ -14,13 +15,33 @@ const QUESTIONS = [
 const TOTAL = QUESTIONS.length;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const BUTTON_WIDTH = (SCREEN_WIDTH - 66) / 2;
+const PROGRESS_WIDTH = SCREEN_WIDTH - 90;
 
 const SurveyQuestionPage: React.FC = () => {
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState<string | null>(null);
-  const progressPercent = `${((step - 1) / (TOTAL - 1)) * 100}%`;
-  const dotLeft = (SCREEN_WIDTH - 90) * ((step - 1) / (TOTAL - 1)) - 11;
   const answers = SurveyQuestionsMock[step - 1].options;
+
+  // 애니메이션
+  const progress = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(progress, {
+      toValue: (step - 1) / (TOTAL - 1),
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  }, [progress, step]);
+
+  const fillWidth = progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0%', '100%'],
+  });
+
+  const dotLeft = progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, PROGRESS_WIDTH - 22],
+  });
 
   return (
     <S.Container>
@@ -31,10 +52,10 @@ const SurveyQuestionPage: React.FC = () => {
         <View>
           <S.ProgressBarContainer>
             <S.ProgressBar />
-            <S.ProgressFill width={progressPercent} />
-            <S.ProgressDot left={dotLeft} isActive>
+            <S.AnimatedProgressFill style={{ width: fillWidth }} />
+            <S.AnimatedProgressDot style={{ left: dotLeft }}>
               <S.StepText>{step}</S.StepText>
-            </S.ProgressDot>
+            </S.AnimatedProgressDot>
           </S.ProgressBarContainer>
 
           <S.QuestionText>{QUESTIONS[step - 1]}</S.QuestionText>

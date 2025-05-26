@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { getThemeColor, getThemePretendardFont } from '@/types';
 import { Dimensions } from 'react-native';
+import { Animated } from 'react-native';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -14,14 +15,14 @@ export const Container = styled.View`
 export const Title = styled.Text`
   color: ${getThemeColor('gray01')};
   font-family: ${getThemePretendardFont('bold')};
-  font-size: 16px;
-  margin-bottom: -10px;
+  font-size: 18px;
+  margin-bottom: -20px;
 `;
 
 export const GiftImage = styled.Image`
   width: 328px;
   height: 228px;
-  margin-bottom: -20px;
+  margin-bottom: -10px;
   z-index: 2;
 `;
 
@@ -35,6 +36,7 @@ export const Card = styled.View`
   padding: 40px 30px 24px;
   align-items: center;
   margin-bottom: -2px;
+  justify-content: space-between;
 `;
 
 export const ProgressBarContainer = styled.View`
@@ -45,7 +47,7 @@ export const ProgressBarContainer = styled.View`
   margin-right: 15px;
 `;
 
-//프로세스바 회색
+// 프로그레스 바 보라색
 export const ProgressBar = styled.View`
   position: absolute;
   width: 100%;
@@ -54,20 +56,19 @@ export const ProgressBar = styled.View`
   border-radius: 2px;
 `;
 
-export const ProgressFill = styled.View<{ width: string }>`
+// 프로그레스 바 보라색
+export const AnimatedProgressFill = styled(Animated.View)`
   position: absolute;
   top: 0;
   left: 0;
-  width: ${(props: { width: string }) => props.width};
   height: 4px;
   background-color: #b7c8ff;
   border-radius: 2px;
 `;
 
 // 진행 중 도트
-export const ProgressDot = styled.View<{ left: number; isActive: boolean }>`
+export const AnimatedProgressDot = styled(Animated.View)`
   position: absolute;
-  left: ${(props: { left: number; isActive: boolean }) => props.left};
   top: -10px;
   width: 22px;
   height: 22px;
