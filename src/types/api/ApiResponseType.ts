@@ -67,4 +67,5 @@ export type PostItemSearchResponse = {
   content: ItemUrlType[];
   isLast: boolean;
 };
+
 export type SurveyQuestionsResponse = SurveyChoice[];

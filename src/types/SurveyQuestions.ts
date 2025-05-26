@@ -1,11 +1,9 @@
 export type SurveyOption = {
-  number: number;
+  choiceId: number;
   content: string;
 };
 
 export type SurveyChoice = {
   surveyId: number;
-  surveyNumber: number;
   options: SurveyOption[];
 };
-

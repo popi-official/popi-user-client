@@ -20,8 +20,8 @@ const PROGRESS_WIDTH = SCREEN_WIDTH - 90;
 
 const SurveyQuestionPage: React.FC = () => {
   const [step, setStep] = useState(1);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string | null>>({});
+  const [selected, setSelected] = useState<number | null>(null);
+  const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number | null>>({});
   const answers = SurveyQuestionsMock[step - 1].options;
   const router = useRouter();
 
@@ -29,6 +29,22 @@ const SurveyQuestionPage: React.FC = () => {
   useEffect(() => {
     setSelected(selectedAnswers[step] ?? null);
   }, [selectedAnswers, step]);
+
+  // 선택값 불러오기
+  useEffect(() => {
+    const currentSurvey = SurveyQuestionsMock[step - 1];
+    const saved = selectedAnswers[currentSurvey.surveyId] ?? null;
+    setSelected(saved);
+  }, [step, selectedAnswers]);
+
+  // const requestBody = {
+  //   memberAnswerCreateRequest: SurveyQuestionsMock.map(survey => ({
+  //     surveyId: survey.surveyId,
+  //     choiceId: selectedAnswers[survey.surveyId],
+  //   })),
+  // };
+
+  // console.log(requestBody);
 
   // 애니메이션
   const progress = useRef(new Animated.Value(0)).current;
@@ -70,19 +86,23 @@ const SurveyQuestionPage: React.FC = () => {
 
           {answers.map(answer => (
             <S.OptionButton
-              key={answer.number}
-              isSelected={selected === answer.content}
+              key={answer.choiceId}
+              isSelected={selected === answer.choiceId}
               onPress={() => {
-                const isSame = selected === answer.content; // 토글
-                const newAnswer = isSame ? null : answer.content;
-                setSelected(newAnswer);
+                const isSame = selected === answer.choiceId; // 토글
+                const newChoiceId = isSame ? null : answer.choiceId;
+                const currentSurveyId = SurveyQuestionsMock[step - 1].surveyId;
+
+                setSelected(newChoiceId);
                 setSelectedAnswers(prev => ({
                   ...prev,
-                  [step]: newAnswer,
+                  [currentSurveyId]: newChoiceId,
                 }));
               }}
             >
-              <S.OptionText isSelected={selected === answer.content}>{answer.content}</S.OptionText>
+              <S.OptionText isSelected={selected === answer.choiceId}>
+                {answer.content}
+              </S.OptionText>
             </S.OptionButton>
           ))}
         </View>
