@@ -16,7 +16,7 @@ export const S = {
 
   PopUpName: styled.Text`
     color: ${getThemeColor('gray01')};
-    font-size: 12px;
+    font-size: 15px;
     font-family: ${getThemePretendardFont('semibold')};
     margin-bottom: 2px;
     flex-shrink: 1;
@@ -25,19 +25,19 @@ export const S = {
   DateRow: styled.View`
     flex-direction: row;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
   `,
 
   DateIcon: styled.Image`
-    width: 11px;
-    height: 11px;
+    width: 15px;
+    height: 15px;
     tint-color: ${getThemeColor('gray04')};
   `,
 
   DateText: styled.Text`
     color: ${getThemeColor('gray04')};
-    font-family: ${getThemePretendardFont('regular')};
-    font-size: 10px;
+    font-family: ${getThemePretendardFont('light')};
+    font-size: 13px;
     margin-bottom: 2px;
     align-items: center;
   `,
@@ -45,20 +45,20 @@ export const S = {
   AddressRow: styled.View`
     flex-direction: row;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
     max-width: 100%;
   `,
 
   AddressIcon: styled.Image`
-    width: 11px;
-    height: 11px;
+    width: 15px;
+    height: 15px;
     tint-color: ${getThemeColor('gray04')};
   `,
 
   AddressText: styled.Text`
     color: ${getThemeColor('gray04')};
-    font-size: 10px;
-    font-family: ${getThemePretendardFont('regular')};
+    font-family: ${getThemePretendardFont('light')};
+    font-size: 13px;
     flex-shrink: 1;
   `,
 };

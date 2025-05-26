@@ -20,5 +20,4 @@ export const DEFAULT_STACK_OPTIONS: NativeStackNavigationOptions = {
 };
 
 export const PADDING = 12;
-
 export const SEARCH_SIZE = 6;

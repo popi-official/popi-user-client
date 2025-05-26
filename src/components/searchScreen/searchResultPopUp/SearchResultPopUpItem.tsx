@@ -32,7 +32,7 @@ export default function SearchResultPopUpItem({
         source={imageUrl as ImageSourcePropType}
         style={{
           width: realWidth,
-          height: realWidth * 1.4,
+          height: realWidth * (4 / 3),
         }}
         resizeMode="cover"
       />
