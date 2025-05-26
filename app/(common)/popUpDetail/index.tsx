@@ -7,13 +7,12 @@ import { ParseJsonToString } from '@/utils/JsonParser';
 import HotItems from '@/components/entireItems/hotItems/HotItems';
 import { HotItemMocks, ItemMocks } from '@/mocks/PopUpDetailItemMocks';
 import { ItemPathType, TimeSlot } from '@/types/DetailScreen';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
-import { Calendar, DateData, LocaleConfig } from 'react-native-calendars';
+import { Calendar, DateData } from 'react-native-calendars';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Direction } from 'react-native-calendars/src/types';
 import { ReservationInfoMock } from '@/mocks/ReservationMocks';
-import { useAuthStore } from '@/store/useAuthStore';
 import { usePopUpStore } from '@/store/usePopUpStore';
 import { useGetReservationInfoApi } from '@/hooks/api/useReserviationApi';
 
@@ -190,7 +189,9 @@ export default function PopUpDetailScreen() {
   }, []);
 
   // TODO: 예약하기 버튼을 눌렀을 때 실행할 예약 API를 구현해야합니다.
-  const handleReservation = useCallback(() => {}, []);
+  const handleReservation = useCallback(() => {
+    return undefined;
+  }, []);
 
   // 전체 상품을 보는 버튼을 클릭했을 때, 인기있는 상품 데이터를 넘겨줍니다.
   // TODO : 어차피 중복되는 데이터라 그냥 API Call을 줄이려고 만들어놨는데, 코드가 너무 번잡해서 그냥 없애는것도 괜찮을 것 같습니다.

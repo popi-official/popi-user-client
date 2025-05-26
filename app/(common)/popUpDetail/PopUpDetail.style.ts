@@ -190,7 +190,6 @@ export const S = {
     align-self: flex-end;
   `,
 
-  // BottomSheet 관련 새로운 스타일드 컴포넌트들
   CalendarSection: styled.View`
     border-bottom-width: 1px;
     border-bottom-color: white;
@@ -198,7 +197,8 @@ export const S = {
   `,
 
   CalendarContainer: styled.View`
-    padding-horizontal: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
   `,
 
   ScrollView: styled.ScrollView``,
@@ -216,23 +216,35 @@ export const S = {
   TimeSlotGradient: styled(LinearGradient)<{ isSelected: boolean; isPossible: boolean }>`
     border-width: 1px;
     border-radius: 10px;
-    border-color: ${({ isSelected, isPossible }) =>
-      isSelected ? 'transparent' : isPossible ? 'white' : '#383838'};
-    background-color: #2e2e2e;
-    padding-horizontal: 14px;
-    padding-vertical: 10px;
+    border-color: ${({ isSelected, isPossible }: { isSelected: boolean; isPossible: boolean }) =>
+      isSelected
+        ? 'transparent'
+        : isPossible
+          ? `${getThemeColor('gray01')}`
+          : `${getThemeColor('gray08')}`};
+    background-color: ${getThemeColor('gray09')};
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     flex-direction: row;
     margin-right: 12px;
   `,
 
   TimeSlotText: styled.Text<{ isSelected: boolean; isPossible: boolean }>`
-    color: ${({ isSelected, isPossible }) =>
-      isSelected ? 'black' : isPossible ? 'white' : 'gray'};
-    font-family: ${({ isSelected }) => (isSelected ? 'Pretendard-Medium' : 'Pretendard-Regular')};
+    color: ${({ isSelected, isPossible }: { isSelected: boolean; isPossible: boolean }) =>
+      isSelected
+        ? `${getThemeColor('gray11')}`
+        : isPossible
+          ? `${getThemeColor('gray01')}`
+          : `${getThemeColor('gray06')}`};
+    font-family: ${({ isSelected }: { isSelected: boolean }) =>
+      isSelected ? `${getThemePretendardFont('medium')}` : `${getThemePretendardFont('regular')}`};
   `,
 
   ReservationButtonContainer: styled.View`
     height: 46px;
-    margin-horizontal: 24px;
+    margin-left: 24px;
+    margin-right: 24px;
   `,
 };
