@@ -1,6 +1,7 @@
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 import { S } from './PopUpEntry.style';
 import { popularItemList, recommendedItemList, reservationDetail } from '@/mocks/PopUpEntryMocks';
+import { useLocalSearchParams } from 'expo-router';
 
 const Images = {
   cameraBoy: require('@/assets/images/popUpEntry/camera-boy.webp'),
@@ -12,6 +13,8 @@ const Images = {
 };
 
 const PopUpEntryScreen = () => {
+  const { isSurvey } = useLocalSearchParams();
+
   return (
     <S.Container>
       <S.PopUpEntryScreenContainer showsVerticalScrollIndicator={false}>
@@ -55,24 +58,28 @@ const PopUpEntryScreen = () => {
           </S.QrCard>
         </S.Card>
 
-        {/* 취향저격 */}
-        <S.SectionTitle>몽몽님의 취향 저격</S.SectionTitle>
-        <S.SectionDescription>
-          예약하실 때 작성하셨던 설문지 내용을 기반으로 추천드려요
-        </S.SectionDescription>
-        <S.GoodsContainer>
-          {recommendedItemList.map(item => (
-            <S.GoodsItem key={item.itemId}>
-              <S.GoodsImage source={item.imagePath} />
-              <S.GoodsName numberOfLines={1} ellipsizeMode="tail">
-                {item.title}
-              </S.GoodsName>
-              <S.GoodsPrice numberOfLines={1} ellipsizeMode="tail">
-                {item.price.toLocaleString()}원
-              </S.GoodsPrice>
-            </S.GoodsItem>
-          ))}
-        </S.GoodsContainer>
+        {isSurvey === '1' && (
+          <View>
+            {/* 취향저격 */}
+            <S.SectionTitle>몽몽님의 취향 저격</S.SectionTitle>
+            <S.SectionDescription>
+              예약하실 때 작성하셨던 설문지 내용을 기반으로 추천드려요
+            </S.SectionDescription>
+            <S.GoodsContainer>
+              {recommendedItemList.map(item => (
+                <S.GoodsItem key={item.itemId}>
+                  <S.GoodsImage source={item.imagePath} />
+                  <S.GoodsName numberOfLines={1} ellipsizeMode="tail">
+                    {item.title}
+                  </S.GoodsName>
+                  <S.GoodsPrice numberOfLines={1} ellipsizeMode="tail">
+                    {item.price.toLocaleString()}원
+                  </S.GoodsPrice>
+                </S.GoodsItem>
+              ))}
+            </S.GoodsContainer>
+          </View>
+        )}
 
         {/* 인기 상품 TOP 3 */}
         <S.SectionTitle>인기 상품 TOP 3</S.SectionTitle>

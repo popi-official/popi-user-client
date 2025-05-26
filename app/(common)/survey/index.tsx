@@ -22,7 +22,9 @@ const SurveyQuestionPage: React.FC = () => {
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState<number | null>(null);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number | null>>({});
-  const answers = SurveyQuestionsMock[step - 1].options;
+  // const { surveyData } = getSurveyApi;
+  const surveyData = SurveyQuestionsMock; // mock data
+  const answers = surveyData[step - 1].options;
   const router = useRouter();
 
   // step 변경될 때 해당 step의 기존 답변 불러오기
@@ -32,18 +34,18 @@ const SurveyQuestionPage: React.FC = () => {
 
   // 선택값 불러오기
   useEffect(() => {
-    const currentSurvey = SurveyQuestionsMock[step - 1];
+    const currentSurvey = surveyData[step - 1];
     const saved = selectedAnswers[currentSurvey.surveyId] ?? null;
     setSelected(saved);
-  }, [step, selectedAnswers]);
+  }, [step, selectedAnswers, surveyData]);
 
+  // 추후 POST 요청 Body
   // const requestBody = {
-  //   memberAnswerCreateRequest: SurveyQuestionsMock.map(survey => ({
+  //   memberAnswerCreateRequest: surveyData.map(survey => ({
   //     surveyId: survey.surveyId,
   //     choiceId: selectedAnswers[survey.surveyId],
   //   })),
   // };
-
   // console.log(requestBody);
 
   // 애니메이션
@@ -91,7 +93,7 @@ const SurveyQuestionPage: React.FC = () => {
               onPress={() => {
                 const isSame = selected === answer.choiceId; // 토글
                 const newChoiceId = isSame ? null : answer.choiceId;
-                const currentSurveyId = SurveyQuestionsMock[step - 1].surveyId;
+                const currentSurveyId = surveyData[step - 1].surveyId;
 
                 setSelected(newChoiceId);
                 setSelectedAnswers(prev => ({
@@ -130,7 +132,7 @@ const SurveyQuestionPage: React.FC = () => {
                 setSelected(null);
               } else {
                 // 수정: 마지막일 때 제출 로직 호출
-                //handleSubmit();
+                //handleSubmit(); POST API 호출
                 router.push({ pathname: '/(common)/popUpEntry', params: { isSurvey: 1 } });
               }
             }}
