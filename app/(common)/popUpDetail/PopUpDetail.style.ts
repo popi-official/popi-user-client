@@ -168,8 +168,8 @@ export const S = {
   `,
 
   ItemTitle: styled.Text`
-    font-size: 14px;
     font-family: ${getThemePretendardFont('semibold')};
+    font-size: 14px;
     color: ${getThemeColor('gray01')};
     margin-bottom: 4px;
   `,
