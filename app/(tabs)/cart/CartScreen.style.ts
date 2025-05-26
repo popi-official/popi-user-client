@@ -114,7 +114,7 @@ export const S = {
     align-items: center;
     justify-content: space-between;
     padding: 0 12px;
-    margin-top: 5px
+    margin-top: 5px;
   `,
 
   TotalText: styled.Text`
@@ -134,7 +134,6 @@ export const S = {
   ItemBottomRow: styled.View`
     flex-direction: row;
     align-items: center;
-
   `,
 
   BottomButtonWrapper: styled.View`
@@ -142,5 +141,34 @@ export const S = {
     align-items: center;
     margin-left: 12px;
     margin-right: 12px;
+    margin-bottom: 24px;
+  `,
+
+  EmptyContainer: styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    padding-bottom: 32px;
+  `,
+
+  EmptyText: styled.Text`
+    font-size: 19px;
+    color: ${getThemeColor('gray01')};
+    font-family: ${getThemePretendardFont('bold')};
+    margin-bottom: 6px;
+  `,
+
+  EmptySubText: styled.Text`
+    font-size: 16px;
+    color: ${getThemeColor('gray04')};
+    font-family: ${getThemePretendardFont('bold')};
+    margin-bottom: 6px;
+  `,
+
+  EmptyImage: styled.Image`
+    width: 328px;
+    height: 228px;
+    margin-bottom: 32px;
   `,
 };

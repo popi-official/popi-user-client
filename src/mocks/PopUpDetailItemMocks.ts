@@ -26,76 +26,25 @@ export const ItemMocks: ItemPathType[] = [
     imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
   },
   {
-    itemId: 1,
+    itemId: 5,
     title: '[BLACKPINK THE GAME COUPON CARD COLLECTION] MOON ...',
     price: 14800,
     imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
   },
   {
-    itemId: 2,
+    itemId: 6,
     title: '[BLACKPINK THE GAME COUPON CARD COLLECTION] 2024 ...',
     price: 22000,
     imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
   },
   {
-    itemId: 3,
+    itemId: 7,
     title: '[WELCOMEBACKENCODE] 2NE WIND BREAKER...',
     price: 22000,
     imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
   },
   {
-    itemId: 4,
-    title: '[WELCOMEBACKENCODE] 2NE WIND BREAKER...',
-    price: 22000,
-    imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
-  },
-  {
-    itemId: 1,
-    title: '[BLACKPINK THE GAME COUPON CARD COLLECTION] MOON ...',
-    price: 14800,
-    imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
-  },
-  {
-    itemId: 2,
-    title: '[BLACKPINK THE GAME COUPON CARD COLLECTION] 2024 ...',
-    price: 22000,
-    imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
-  },
-  {
-    itemId: 3,
-    title: '[WELCOMEBACKENCODE] 2NE WIND BREAKER...',
-    price: 22000,
-    imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
-  },
-  {
-    itemId: 4,
-    title: '[WELCOMEBACKENCODE] 2NE WIND BREAKER...',
-    price: 22000,
-    imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
-  },
-];
-
-export const HotItemMocks: ItemPathType[] = [
-  {
-    itemId: 1,
-    title: '[BLACKPINK THE GAME COUPON CARD COLLECTION] MOON ...',
-    price: 14800,
-    imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
-  },
-  {
-    itemId: 2,
-    title: '[BLACKPINK THE GAME COUPON CARD COLLECTION] 2024 ...',
-    price: 22000,
-    imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
-  },
-  {
-    itemId: 3,
-    title: '[WELCOMEBACKENCODE] 2NE WIND BREAKER...',
-    price: 22000,
-    imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
-  },
-  {
-    itemId: 4,
+    itemId: 8,
     title: '[WELCOMEBACKENCODE] 2NE WIND BREAKER...',
     price: 22000,
     imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
