@@ -38,7 +38,7 @@ export const Card = styled.View`
 `;
 
 export const ProgressBarContainer = styled.View`
-  width: calc(100% - 30px);
+  width: calc(100% - 90px);
   position: relative;
   margin-bottom: 50px;
   margin-left: 15px;
@@ -65,9 +65,9 @@ export const ProgressFill = styled.View<{ width: string }>`
 `;
 
 // 진행 중 도트
-export const ProgressDot = styled.View<{ position: string; isActive: boolean }>`
+export const ProgressDot = styled.View<{ left: number; isActive: boolean }>`
   position: absolute;
-  left: ${(props: { position: string; isActive: boolean }) => props.position};
+  left: ${(props: { left: number; isActive: boolean }) => props.left};
   top: -10px;
   width: 22px;
   height: 22px;

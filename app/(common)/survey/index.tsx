@@ -19,8 +19,8 @@ const SurveyQuestionPage: React.FC = () => {
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState<string | null>(null);
   const progressPercent = `${((step - 1) / (TOTAL - 1)) * 100}%`;
-
-  const answers = SurveyQuestionsMock[step].options;
+  const dotLeft = (SCREEN_WIDTH - 90) * ((step - 1) / (TOTAL - 1)) - 11;
+  const answers = SurveyQuestionsMock[step - 1].options;
 
   return (
     <S.Container>
@@ -32,7 +32,7 @@ const SurveyQuestionPage: React.FC = () => {
           <S.ProgressBarContainer>
             <S.ProgressBar />
             <S.ProgressFill width={progressPercent} />
-            <S.ProgressDot position={progressPercent} isActive>
+            <S.ProgressDot left={dotLeft} isActive>
               <S.StepText>{step}</S.StepText>
             </S.ProgressDot>
           </S.ProgressBarContainer>
