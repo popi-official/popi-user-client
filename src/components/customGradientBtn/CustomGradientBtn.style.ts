@@ -13,7 +13,6 @@ export const S = {
   `,
 
   GradientBackground: styled(LinearGradient)`
-    padding: 16px;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -26,6 +25,7 @@ export const S = {
     font-weight: ${(props: ButtonTextProps) =>
       props.fontWeight ? props.fontWeight : getThemeFontWeight('semibold')(props)};
     color: ${getThemeColor('gray11')};
+    text-align: center;
   `,
 
   ButtonContent: styled.View`
