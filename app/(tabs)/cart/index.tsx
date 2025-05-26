@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FlatList, Image, View, TouchableOpacity } from 'react-native';
 import { S } from './CartScreen.style';
 import { ItemPathType } from '@/types/DetailScreen';
-import { ItemMocks } from '@/mocks/PopUpDetailItemMocks';
+import { HotItemMocks } from '@/mocks/PopUpDetailItemMocks';
 
 import MinusIcon from '@/assets/images/cart/minus.webp';
 import PlusIcon from '@/assets/images/cart/plus.webp';
@@ -19,7 +19,7 @@ type ExtendedItem = ItemPathType & {
 
 export default function CartScreen() {
   const [cartItems, setCartItems] = useState<ExtendedItem[]>(
-    ItemMocks.map(item => ({
+    HotItemMocks.map(item => ({
       ...item,
       selected: false,
       quantity: 1,
