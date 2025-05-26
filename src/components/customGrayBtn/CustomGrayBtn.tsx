@@ -1,7 +1,5 @@
-import React, { useMemo } from 'react';
 import { ViewStyle, TextStyle } from 'react-native';
 import { S } from './CustomGrayBtn.style';
-import { Theme } from '@/theme/Theme';
 import { ImageSourcePropType } from 'react-native';
 
 type Props = {
@@ -31,15 +29,12 @@ export default function CustomGrayBtn({
   borderRadius = 30,
   fontSize,
   fontWeight,
-  noPadding = false,
 }: Props) {
-  const gradient = useMemo(() => Theme.gradients.button, []);
   return (
     <S.ButtonContainer
       onPress={onPress}
       disabled={disabled}
       style={[{ width, height, borderRadius }, style]}
-      
     >
       <S.ButtonText style={textStyle} fontSize={fontSize} fontWeight={fontWeight}>
         {title}
