@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import * as S from './SurveyQuestion.style';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import CustomGrayBtn from '@/components/customGrayBtn/CustomGrayBtn';
-import { View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { SurveyQuestionsMock } from '@/mocks/SurveyQuestionsMocks';
 
 const QUESTIONS = [
   '어떤 종류의 굿즈를\n가장 선호하시나요?',
-  '두 번째 질문 텍스트를\n여기에 넣어주세요',
-  '세 번째 질문 텍스트를\n여기에 넣어주세요',
-  '네 번째 질문 텍스트를\n여기에 넣어주세요',
+  '어떤 경로로 팝업스토어\n오픈 소식을 접하셨나요?',
+  '이번 팝업스토어에 방문한\n가장 큰 이유는 무엇인가요?',
+  '구매 시 중요하게 고려하는\n요소는 무엇인가요?',
 ];
 const TOTAL = QUESTIONS.length;
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const BUTTON_WIDTH = (SCREEN_WIDTH - 66) / 2;
 
 const SurveyQuestionPage: React.FC = () => {
   const [step, setStep] = useState(1);
@@ -56,7 +58,7 @@ const SurveyQuestionPage: React.FC = () => {
               setSelected(null);
             }}
             disabled={step === 1}
-            style={{ width: '50%' }}
+            style={{ width: BUTTON_WIDTH }}
             fontSize={18}
           />
           <CustomGradientBtn
@@ -70,7 +72,7 @@ const SurveyQuestionPage: React.FC = () => {
                 //handleSubmit();
               }
             }}
-            style={{ flex: 1 }}
+            style={{ width: BUTTON_WIDTH }}
             fontSize={18}
           />
         </S.BottomActions>
