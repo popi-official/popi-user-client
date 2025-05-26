@@ -28,7 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>popiuserclient</string>
-          <string>com.chik2chik.popiuserclient</string>
+          <string>com.suyeon.popiuserclient</string>
         </array>
       </dict>
       <dict>
@@ -42,8 +42,6 @@
     <string>1</string>
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
-    <key>KAKAO_APP_KEY</key>
-    <string>kakao901478f25e364a7e04b4b22ff7b6d957</string>
     <key>LSMinimumSystemVersion</key>
     <string>12.0</string>
     <key>LSRequiresIPhoneOS</key>
@@ -72,6 +70,8 @@
       <key>RouteNavigation</key>
       <string>길찾기 기능을 위해 현재 위치를 사용합니다.</string>
     </dict>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to access your location</string>
     <key>NSUserActivityTypes</key>
     <array>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
