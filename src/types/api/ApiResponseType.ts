@@ -1,4 +1,5 @@
-import { PopUpDetailItem } from '../DetailScreenType';
+import { ItemPathType, ItemUrlType } from '../DetailScreen';
+import { PostItemSearch, PostPopUpSearch } from '../SearchScreenType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 
 export type ApiResponse<T> = Promise<GlobalResponse<T>>;
@@ -34,7 +35,12 @@ export type GetProfileResponse = {
   gender: GenderOption | null;
 };
 
-export type GetHotItemsResponse = PopUpDetailItem[];
+export type GetHotItemsResponse = ItemPathType[];
+
+export type GetItemsResponse = {
+  content: PostItemSearch;
+  isLast: boolean;
+};
 
 export type GetPopUpDetailResponse = {
   popupId: number;
@@ -49,4 +55,14 @@ export type GetPopUpDetailResponse = {
   runCloseTime: string;
   latitude: number;
   longitude: number;
+};
+
+export type PostPopUpSearchResponse = {
+  content: PostPopUpSearch[];
+  isLast: boolean;
+};
+
+export type PostItemSearchResponse = {
+  content: ItemUrlType[];
+  isLast: boolean;
 };

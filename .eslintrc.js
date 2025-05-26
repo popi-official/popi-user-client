@@ -18,6 +18,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
+    'react-hooks/exhaustive-deps': 'warn',
     'react-native/no-inline-styles': 'off',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'no-console': ['error', { allow: ['warn', 'error'] }],
