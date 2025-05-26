@@ -5,6 +5,7 @@ import CustomGrayBtn from '@/components/customGrayBtn/CustomGrayBtn';
 import { Dimensions, View } from 'react-native';
 import { SurveyQuestionsMock } from '@/mocks/SurveyQuestionsMocks';
 import { Animated } from 'react-native';
+import { useRouter } from 'expo-router';
 
 const QUESTIONS = [
   '어떤 종류의 굿즈를\n가장 선호하시나요?',
@@ -20,7 +21,14 @@ const PROGRESS_WIDTH = SCREEN_WIDTH - 90;
 const SurveyQuestionPage: React.FC = () => {
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState<string | null>(null);
+  const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string | null>>({});
   const answers = SurveyQuestionsMock[step - 1].options;
+  const router = useRouter();
+
+  // step 변경될 때 해당 step의 기존 답변 불러오기
+  useEffect(() => {
+    setSelected(selectedAnswers[step] ?? null);
+  }, [selectedAnswers, step]);
 
   // 애니메이션
   const progress = useRef(new Animated.Value(0)).current;
@@ -64,7 +72,15 @@ const SurveyQuestionPage: React.FC = () => {
             <S.OptionButton
               key={answer.number}
               isSelected={selected === answer.content}
-              onPress={() => setSelected(answer.content)}
+              onPress={() => {
+                const isSame = selected === answer.content; // 토글
+                const newAnswer = isSame ? null : answer.content;
+                setSelected(newAnswer);
+                setSelectedAnswers(prev => ({
+                  ...prev,
+                  [step]: newAnswer,
+                }));
+              }}
             >
               <S.OptionText isSelected={selected === answer.content}>{answer.content}</S.OptionText>
             </S.OptionButton>
@@ -75,15 +91,19 @@ const SurveyQuestionPage: React.FC = () => {
           <CustomGrayBtn
             title="이전"
             onPress={() => {
-              setStep(prev => Math.max(1, prev - 1));
-              setSelected(null);
+              if (step === 1) {
+                router.push('/(tabs)/my');
+              } else {
+                setStep(prev => Math.max(1, prev - 1));
+                setSelected(null);
+              }
             }}
-            disabled={step === 1}
             style={{ width: BUTTON_WIDTH }}
             fontSize={18}
           />
           <CustomGradientBtn
             title={step === TOTAL ? '완료' : '다음'}
+            disabled={!selected}
             onPress={() => {
               if (step < TOTAL) {
                 setStep(prev => prev + 1);
@@ -91,6 +111,7 @@ const SurveyQuestionPage: React.FC = () => {
               } else {
                 // 수정: 마지막일 때 제출 로직 호출
                 //handleSubmit();
+                router.push({ pathname: '/(common)/popUpEntry', params: { isSurvey: 1 } });
               }
             }}
             style={{ width: BUTTON_WIDTH }}
