@@ -8,17 +8,12 @@ export const S = {
     padding-bottom: 72px;
   `,
 
-  AllCheckbox: styled.TouchableOpacity`
-    width: 18px;
-    height: 18px;
-    margin-right: 6px;
-    margin-top: 2px;
-  `,
   AllSelectRow: styled.View`
     flex-direction: row;
     align-items: center;
     padding: 0 12px;
   `,
+
   AllCheckText: styled.Text`
     color: ${getThemeColor('gray01')};
     font-family: ${getThemePretendardFont('medium')};
@@ -36,15 +31,13 @@ export const S = {
     width: 100%;
     background-color: #404040;
     height: 1px;
-    margin-top: 20px;
-    margin-bottom: 5px;
   `,
 
   ItemContainer: styled.View`
     flex-direction: row;
     align-items: flex-start;
-    padding: 12px 12px;
-    margin-top: 5px;
+    padding: 0 12px;
+    margin: 24px 0 10px;
   `,
 
   Checkbox: styled.TouchableOpacity`
@@ -77,10 +70,6 @@ export const S = {
     font-family: ${getThemePretendardFont('semibold')};
   `,
 
-  DeleteButton: styled.TouchableOpacity`
-    padding: 4px;
-  `,
-
   QuantityWrapper: styled.View`
     flex-direction: row;
     align-items: center;
@@ -98,13 +87,14 @@ export const S = {
 
   QuantityText: styled.Text`
     color: ${getThemeColor('gray01')};
+    font-family: ${getThemePretendardFont('semibold')};
     font-size: 16px;
   `,
 
   PriceText: styled.Text`
     align-self: flex-end;
     color: ${getThemeColor('gray01')};
-    font-size: 15px;
+    font-size: 17px;
     font-family: ${getThemePretendardFont('semibold')};
     margin-right: 12px;
   `,
@@ -114,26 +104,26 @@ export const S = {
     align-items: center;
     justify-content: space-between;
     padding: 0 12px;
-    margin-top: 5px;
+    margin-top: 20px;
+    margin-bottom: 40px;
   `,
 
   TotalText: styled.Text`
     color: ${getThemeColor('gray01')};
     font-family: ${getThemePretendardFont('semibold')};
     font-size: 18px;
-    margin-left: 10px;
-    margin-bottom: 2px;
   `,
 
   TotalPrice: styled.Text`
     color: ${getThemeColor('gray01')};
     font-size: 20px;
     font-family: ${getThemePretendardFont('semibold')};
-    margin-bottom: 1px;
   `,
+
   ItemBottomRow: styled.View`
     flex-direction: row;
     align-items: center;
+    margin-bottom: 20px;
   `,
 
   BottomButtonWrapper: styled.View`

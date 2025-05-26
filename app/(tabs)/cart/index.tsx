@@ -103,9 +103,9 @@ export default function CartScreen() {
                   <S.ItemInfoWrapper>
                     <S.ItemTitleRow>
                       <S.ItemTitle numberOfLines={2}>{item.title}</S.ItemTitle>
-                      <S.DeleteButton onPress={() => deleteItem(item.itemId)}>
+                      <TouchableOpacity onPress={() => deleteItem(item.itemId)}>
                         <Image source={DeleteIcon} style={{ width: 18, height: 18 }} />
-                      </S.DeleteButton>
+                      </TouchableOpacity>
                     </S.ItemTitleRow>
                   </S.ItemInfoWrapper>
                 </S.ItemContainer>
