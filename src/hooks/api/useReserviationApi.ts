@@ -6,7 +6,6 @@ export const useGetReservationInfoApi = ({ popupId, yyyyMM }: GetReservationInfo
   const query = useQuery({
     queryKey: ['reservation', popupId, yyyyMM],
     queryFn: () => getReservationInfo({ popupId, yyyyMM }),
-    enabled: !!popupId && !!yyyyMM,
   });
 
   return {
