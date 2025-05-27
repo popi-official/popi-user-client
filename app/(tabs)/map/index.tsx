@@ -1,46 +1,46 @@
 import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
 import { S } from './MapScreen.style';
 import { popUpMarkerItems } from '@/mocks/MapMocks';
-import * as Location from 'expo-location';
-import { useEffect, useState } from 'react';
-import { Alert } from 'react-native';
+// import * as Location from 'expo-location';
+// import { useEffect, useState } from 'react';
+// import { Alert } from 'react-native';
 
 const Images = {
   marker: require('@/assets/images/common/marker.webp'),
 };
 
-// const jejuRegion: Region = {
-//   latitude: 33.20530773,
-//   longitude: 126.14656715029,
-//   latitudeDelta: 0.38,
-//   longitudeDelta: 0.8,
-// };
+const jejuRegion: Region = {
+  latitude: 33.20530773,
+  longitude: 126.14656715029,
+  latitudeDelta: 0.38,
+  longitudeDelta: 0.8,
+};
 
 const MapScreen = () => {
-  const [region, setRegion] = useState<Region | null>(null);
+  // const [region, setRegion] = useState<Region | null>(null);
 
-  useEffect(() => {
-    const getLocation = async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('위치 권한 오류', '위치 권한이 필요합니다.');
-        return;
-      }
+  // useEffect(() => {
+  //   const getLocation = async () => {
+  //     const { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== 'granted') {
+  //       Alert.alert('위치 권한 오류', '위치 권한이 필요합니다.');
+  //       return;
+  //     }
 
-      const location = await Location.getCurrentPositionAsync({});
-      const { latitude, longitude } = location.coords;
-      setRegion({
-        latitude: latitude,
-        longitude: longitude,
-        latitudeDelta: 0.03,
-        longitudeDelta: 0.05,
-      });
-    };
+  //     const location = await Location.getCurrentPositionAsync({});
+  //     const { latitude, longitude } = location.coords;
+  //     setRegion({
+  //       latitude: latitude,
+  //       longitude: longitude,
+  //       latitudeDelta: 0.03,
+  //       longitudeDelta: 0.05,
+  //     });
+  //   };
 
-    getLocation();
-  }, []);
+  //   getLocation();
+  // }, []);
 
-  if (!region) return null;
+  // if (!region) return null;
 
   return (
     <S.MapScreenContainer showsVerticalScrollIndicator={false}>
@@ -54,7 +54,7 @@ const MapScreen = () => {
           TRAFFIC: false,
           TRANSIT: false,
         }}
-        initialRegion={region}
+        initialRegion={jejuRegion}
         isExtentBoundedInKorea={true}
       >
         {popUpMarkerItems.map((item, idx) => (
