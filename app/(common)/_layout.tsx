@@ -28,6 +28,7 @@ export default function CommonLayout() {
         <Stack.Screen name="qrCamera/index" />
         <Stack.Screen name="popUpEntry/index" options={QR_ENTRY_OPTIONS} />
 
+        <Stack.Screen name="payment/index" />
         <Stack.Screen name="popUpDetail" />
         <Stack.Screen name="signUp" />
       </Stack>
