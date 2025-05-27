@@ -4,6 +4,7 @@ import { useCameraPermissions } from 'expo-camera';
 import { useRouter } from 'expo-router';
 import { Text } from 'react-native';
 import { useState } from 'react';
+import { useCartStore } from '@/store/useCartStore';
 import { QRCameraItemData } from '@/types/QrCameraItemType';
 
 const Images = {
@@ -20,22 +21,25 @@ export default function QRCameraScreen() {
   const [permission, requestPermission] = useCameraPermissions();
   const [scanned, setScanned] = useState(false);
 
+  const addToCart = useCartStore.getState().addToCart;
+
+  // QR code 스캔 이후 데이터 장바구니에 추가
   const handleBarCodeScanned = ({ data }: { data: string }) => {
     setScanned(true);
 
     try {
-      const parsedData: QRCameraItemData = JSON.parse(data);
-      router.replace({
-        pathname: '/(tabs)/cart',
-        params: {
-          itemId: parsedData.itemId.toString(),
-          title: parsedData.title,
-          imagePath: parsedData.imagePath,
-          price: parsedData.price.toString(),
-        },
+      const parsed: QRCameraItemData = JSON.parse(data);
+
+      addToCart({
+        itemId: Number(parsed.itemId),
+        title: parsed.title,
+        imagePath: parsed.imagePath,
+        price: Number(parsed.price),
       });
+
+      router.replace('/(tabs)/cart');
     } catch (e) {
-      console.error('QR 데이터 파싱 실패:', e);
+      console.error('QR 파싱 오류', e);
     }
   };
 

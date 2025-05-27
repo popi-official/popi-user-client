@@ -1,15 +1,7 @@
-import { useState, useEffect } from 'react';
 import { FlatList, Image, View, TouchableOpacity } from 'react-native';
 import { S } from './CartScreen.style';
-import { ItemPathType } from '@/types/DetailScreen';
-import { HotItemMocks } from '@/mocks/PopUpDetailItemMocks';
-import { useLocalSearchParams } from 'expo-router';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
-
-type ExtendedItem = ItemPathType & {
-  selected: boolean;
-  quantity: number;
-};
+import { useCartStore } from '@/store/useCartStore';
 
 const Images = {
   minusIcon: require('@/assets/images/cart/minus.webp'),
@@ -22,67 +14,10 @@ const Images = {
 };
 
 export default function CartScreen() {
-  const [cartItems, setCartItems] = useState<ExtendedItem[]>(
-    HotItemMocks.map(item => ({
-      ...item,
-      selected: false,
-      quantity: 1,
-    })),
-  );
-  const [allSelected, setAllSelected] = useState(false);
+  const { cartItems, changeQuantity, toggleSelect, toggleSelectAll, deleteItem } = useCartStore();
 
-  const params = useLocalSearchParams();
-
-  useEffect(() => {
-    if (params?.itemId) {
-      const newItem: ExtendedItem = {
-        itemId: Number(params.itemId),
-        title: params.title as string,
-        imagePath: params.imagePath as string,
-        price: Number(params.price),
-        quantity: 1,
-        selected: true,
-      };
-
-      setCartItems(prev => {
-        const existingIndex = prev.findIndex(item => item.itemId === newItem.itemId);
-
-        // 이미 있으면 수량 +1
-        if (existingIndex !== -1) {
-          const updated = [...prev];
-          updated[existingIndex].quantity += 1;
-          return updated;
-        }
-
-        // 없으면 새로 추가
-        return [...prev, newItem];
-      });
-    }
-  }, [params]);
-
-  const toggleSelect = (id: number) => {
-    setCartItems(prev =>
-      prev.map(item => (item.itemId === id ? { ...item, selected: !item.selected } : item)),
-    );
-  };
-
-  const changeQuantity = (id: number, delta: number) => {
-    setCartItems(prev =>
-      prev.map(item =>
-        item.itemId === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item,
-      ),
-    );
-  };
-
-  const deleteItem = (id: number) => {
-    setCartItems(prev => prev.filter(item => item.itemId !== id));
-  };
-
-  const toggleSelectAll = () => {
-    const newState = !allSelected;
-    setAllSelected(newState);
-    setCartItems(prev => prev.map(item => ({ ...item, selected: newState })));
-  };
+  const allSelected = cartItems.length > 0 && cartItems.every(item => item.selected);
+  const isEmpty = cartItems.length === 0;
 
   const getTotalPrice = () =>
     cartItems.reduce((sum, item) => {
@@ -91,8 +26,6 @@ export default function CartScreen() {
       }
       return sum;
     }, 0);
-
-  const isEmpty = cartItems.length === 0;
 
   return (
     <S.Container>
