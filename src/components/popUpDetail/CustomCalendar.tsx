@@ -17,7 +17,6 @@ const Images = {
 };
 
 export default function CustomCalendar() {
-  // const inset = useSafeAreaInsets();
   const selectedPopUpId = usePopUpStore(state => state.selectedPopUpId);
   const isLogin = useAuthStore.getState().isLogin;
 
@@ -37,23 +36,17 @@ export default function CustomCalendar() {
   // 예약 가능 날짜를 조회하는 API입니다.
   // 위에서 정의한 currentYearMonth가 수정될때마다 같이 호출되어 캘린더 데이터를 채웁니다.
   const { reservationInfo, isLoading, isError } = useGetReservationInfoApi({
-    popupId: 1,
+    popupId: selectedPopUpId,
     yyyyMM: currentYearMonth,
   });
 
   if (isLoading) {
-    return (
-      // <S.Container inset={inset}>
-      <ActivityIndicator size="large" color="white" />
-      // </S.Container>
-    );
+    return <ActivityIndicator size="large" color="white" />;
   }
 
   if (isError || !reservationInfo) {
     return (
-      // <S.Container inset={inset}>
       <Text style={{ color: 'white', textAlign: 'center' }}>예약 정보를 불러올 수 없습니다.</Text>
-      // </S.Container>
     );
   }
 
@@ -165,27 +158,45 @@ export default function CustomCalendar() {
               disabled={!item.isPossible}
               onPress={() => handleTimeSlotPress(item.reservationId)}
             >
-              <View
-                style={{
-                  borderRadius: 10,
-                  paddingHorizontal: 14,
-                  paddingVertical: 10,
-                  marginRight: idx === timeSlots.length - 1 ? 24 : 0,
-                  borderWidth: 1,
-                  borderColor: !item.isPossible
-                    ? '#383838'
-                    : item.reservationId === selectedId
-                      ? 'none'
-                      : '#929292',
-                  backgroundColor: item.reservationId === selectedId ? LinearGradient() : '#2E2E2E',
-                  overflow: 'hidden',
-                }}
-              >
-                <Text style={{ color: 'white' }}>
-                  {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
-                  {item.time.slice(0, 5)}
-                </Text>
-              </View>
+              {/* 선택된 아이템이면 LinearGradient 사용, 아니면 일반 View */}
+              {item.reservationId === selectedId && item.isPossible ? (
+                <LinearGradient
+                  colors={['#BFF0F5', '#E0D9FF']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={{
+                    borderRadius: 10,
+                    paddingHorizontal: 14,
+                    paddingVertical: 10,
+                    marginRight: idx === timeSlots.length - 1 ? 24 : 0,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text style={{ color: item.reservationId === selectedId ? 'black' : 'white' }}>
+                    {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
+                    {item.time.slice(0, 5)}
+                  </Text>
+                </LinearGradient>
+              ) : (
+                <View
+                  style={{
+                    borderRadius: 10,
+                    paddingHorizontal: 14,
+                    paddingVertical: 10,
+                    marginRight: idx === timeSlots.length - 1 ? 24 : 0,
+                    borderWidth: 1,
+                    borderColor: !item.isPossible ? '#383838' : '#929292',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text style={{ color: !item.isPossible ? '#767676' : 'white' }}>
+                    {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
+                    {item.time.slice(0, 5)}
+                  </Text>
+                </View>
+              )}
             </TouchableOpacity>
           ))}
         </View>

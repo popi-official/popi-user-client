@@ -5,11 +5,19 @@ import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from '@gor
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import PopUpDetailInfo from '@/components/popUpDetail/PopUpDetailInfo';
 import CustomCalendar from '@/components/popUpDetail/CustomCalendar';
+import { Image, View } from 'react-native';
+import { useAuthStore } from '@/store/useAuthStore';
+import { TouchableOpacity } from 'react-native';
+
+const Images = {
+  closeIcon: require('@/assets/images/signUp/close.png'),
+};
 
 export default function PopUpDetailScreen() {
   const inset = useSafeAreaInsets();
   const calenderBottomSheetRef = useRef<BottomSheet>(null);
   const snapShotPoint = useMemo(() => ['35%'], []);
+  const isLogin = useAuthStore(state => state.isLogin);
 
   const handleCalendarPress = (index: number) => {
     calenderBottomSheetRef.current?.snapToIndex(index);
@@ -28,12 +36,15 @@ export default function PopUpDetailScreen() {
   return (
     <S.Container inset={inset}>
       <PopUpDetailInfo />
-      <CustomGradientBtn
-        title="팝업 예약하기"
-        height={54}
-        onPress={() => handleCalendarPress(0)}
-        icon={require('@/assets/images/common/store-gray.webp')}
-      />
+      <View style={{ marginHorizontal: 12 }}>
+        <CustomGradientBtn
+          title={isLogin ? '팝업 예약하기' : '로그인 이후 이용해주세요'}
+          height={54}
+          onPress={() => handleCalendarPress(0)}
+          icon={require('@/assets/images/common/store-gray.webp')}
+          disabled={!isLogin}
+        />
+      </View>
       <BottomSheet
         ref={calenderBottomSheetRef}
         snapPoints={snapShotPoint}
@@ -60,6 +71,13 @@ export default function PopUpDetailScreen() {
         }}
         handleIndicatorStyle={{ backgroundColor: '#555555', width: 60 }}
       >
+        <TouchableOpacity onPress={() => calenderBottomSheetRef.current?.close()}>
+          <Image
+            source={Images.closeIcon}
+            style={{ width: 15, height: 15, alignSelf: 'flex-end', marginRight: 20 }}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
         <CustomCalendar />
       </BottomSheet>
     </S.Container>
