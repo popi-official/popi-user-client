@@ -129,11 +129,37 @@ export const S = {
     font-weight: 700;
   `,
 
+  // 지도
+  MapTitle: styled.Text`
+    font-family: ${getThemePretendardFont('bold')};
+    color: ${getThemeColor('gray01')};
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 26px;
+  `,
+
+  MapContainer: styled.View`
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+  `,
+
+  // 구분선
+  Divider: styled.View`
+    width: ${Dimensions.get('window').width}px;
+    background-color: #323232;
+    height: 1px;
+    margin-top: 24px;
+    margin-left: -12px;
+  `,
+
+  // 취향저격 & 인기 상품 TOP 3
   SectionTitle: styled.Text`
     font-family: ${getThemePretendardFont('extrabold')};
     color: ${getThemeColor('gray01')};
     font-size: 26px;
-    margin-top: 46px;
+    margin-top: 26px;
   `,
 
   SectionDescription: styled.Text`
@@ -151,6 +177,7 @@ export const S = {
     flex-direction: row;
     justify-content: space-between;
     gap: 12px;
+    margin-bottom: 20px;
   `,
 
   GoodsItem: styled.View`
@@ -185,7 +212,7 @@ export const S = {
 
   // Bottom
   BottomArea: styled.View`
-    height: 72px;
+    height: 52px;
     width: 100%;
   `,
 };

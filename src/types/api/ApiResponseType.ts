@@ -124,6 +124,8 @@ export type GetReservationDetailResponse = {
   popupTime: string;
   address: string;
   qrCodeBase64: string;
+  latitude: number;
+  longitude: number;
 };
 
 export type GetRecommendedItemsResponse = RecommendedItem[];
