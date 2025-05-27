@@ -4,11 +4,11 @@ export const myReservationsMock: MyReservation[] = [
   {
     reservationId: 23,
     popupId: 1,
-    popupName: '블랙핑크 팝업스토어',
+    popupName: '블랙핑크 팝업스토어asdfasdfasdfasdfasdf',
     reservationDate: '2025-05-26',
     reservationTime: '11:00',
     reservationDay: 'MON',
-    address: '서울 영등포구 여의대로 108, 더현대서울',
+    address: '서울 영등포구 여의대로 108, 더현대서울asdfasdfadsfasdf',
     latitude: 37.1234561234567,
     longitude: 127.37123456123456,
     qrImage:

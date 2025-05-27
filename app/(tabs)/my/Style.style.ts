@@ -120,14 +120,6 @@ export const S = {
     z-index: 10;
   `,
 
-  //아이콘
-  Icon: styled.Image`
-    width: 13px;
-    height: 13px;
-    margin-right: 3px;
-    justify-content: center;
-  `,
-
   /* 티켓 상단 정보 박스 */
   TicketInfoWrapper: styled.View`
     position: absolute;
@@ -144,18 +136,15 @@ export const S = {
     font-size: 20px;
     color: ${getThemeColor('gray10')};
     margin-top: 15px;
-    margin-left: 20px;
     margin-bottom: 9px;
+    flex-shrink: 1;
   `,
 
   /* 박스 내부 공연 정보(날짜/시간 등) */
-  TicketPopupInfo: styled.Text`
-    font-family: ${getThemePretendardFont('semibold')};
-    font-size: 13px;
-    color: ${getThemeColor('gray05')};
-    margin-left: 20px;
-
-    justify-content: center;
+  TicketPopupInfo: styled.View`
+    gap: 3px;
+    flex-direction: row;
+    align-items: center;
   `,
 
   /*--------하단 -------*/
