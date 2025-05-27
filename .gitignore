@@ -39,3 +39,6 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+app.json
+eas.json
+expo-env.d.ts

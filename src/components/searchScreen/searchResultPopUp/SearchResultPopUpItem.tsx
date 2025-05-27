@@ -1,7 +1,7 @@
 import { PADDING } from '@/constants/Options';
 import { PostPopUpSearch } from '@/types/SearchScreenType';
 import { useRouter } from 'expo-router';
-import { Dimensions, ImageSourcePropType } from 'react-native';
+import { Dimensions } from 'react-native';
 import { S } from './SearchResultPopUpItem.style';
 
 const { width } = Dimensions.get('window');
@@ -29,7 +29,7 @@ export default function SearchResultPopUpItem({
       onPress={() => router.replace({ pathname: '/(common)/popUpDetail', params: { popupId } })}
     >
       <S.PopUpImage
-        source={imageUrl as ImageSourcePropType}
+        source={{ uri: imageUrl }}
         style={{
           width: realWidth,
           height: realWidth * (4 / 3),

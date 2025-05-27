@@ -21,3 +21,8 @@ export type PostSearchItemReqeust = {
   selectedPopUpId: number;
   lastItemId: number | undefined;
 };
+
+export type GetReservationInfoRequest = {
+  popupId: number;
+  yyyyMM: string; // 2025-05 형식
+};

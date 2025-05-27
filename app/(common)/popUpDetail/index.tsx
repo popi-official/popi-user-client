@@ -1,100 +1,85 @@
-import { ScrollView, TouchableOpacity } from 'react-native';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { S } from './PopUpDetail.style';
-import { PopUpDetailMock } from '@/mocks/PopUpDetailMocks';
-import { useRouter } from 'expo-router';
-import { ParseJsonToString } from '@/utils/JsonParser';
-import HotItems from '@/components/entireItems/hotItems/HotItems';
-import { HotItemMocks, ItemMocks } from '@/mocks/PopUpDetailItemMocks';
-import { ItemPathType } from '@/types/DetailScreen';
+import { useMemo, useRef } from 'react';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import PopUpDetailInfo from '@/components/popUpDetail/PopUpDetailInfo';
+import CustomCalendar from '@/components/popUpDetail/CustomCalendar';
+import { Image, View } from 'react-native';
+import { useAuthStore } from '@/store/useAuthStore';
+import { TouchableOpacity } from 'react-native';
+
+const Images = {
+  closeIcon: require('@/assets/images/signUp/close.png'),
+};
 
 export default function PopUpDetailScreen() {
-  const data = PopUpDetailMock;
-  const router = useRouter();
+  const inset = useSafeAreaInsets();
+  const calenderBottomSheetRef = useRef<BottomSheet>(null);
+  const snapShotPoint = useMemo(() => ['35%'], []);
+  const isLogin = useAuthStore(state => state.isLogin);
+
+  const handleCalendarPress = (index: number) => {
+    calenderBottomSheetRef.current?.snapToIndex(index);
+  };
+
+  const renderBackdrop = (props: BottomSheetBackdropProps) => (
+    <BottomSheetBackdrop
+      {...props}
+      disappearsOnIndex={-1}
+      appearsOnIndex={0}
+      opacity={0.5}
+      pressBehavior="close"
+    />
+  );
 
   return (
-    <S.Container>
-      <S.Banner source={require('@/assets/images/common/popupimg.png')} />
-
-      <S.PopUpContentBox>
-        <S.PopupTitle>{data.popupName}</S.PopupTitle>
-        <S.SubInfoRow>
-          <S.Icon source={require('@/assets/images/common/location-gray.webp')} />
-          <S.PopupInfo>{`${data.popupOpenDate} - ${data.popupCloseDate}`}</S.PopupInfo>
-        </S.SubInfoRow>
-        <S.SubInfoRow>
-          <S.Icon source={require('@/assets/images/common/calendar-gray.webp')} />
-          <S.PopupInfo>{data.address}</S.PopupInfo>
-        </S.SubInfoRow>
-      </S.PopUpContentBox>
-
-      <S.Divider />
-
-      <S.PopUpContentBox>
-        <S.SectionTitle style={{ marginBottom: 8 }}>운영시간</S.SectionTitle>
-        <S.SubInfoRow>
-          <S.Icon source={require('@/assets/images/common/clock-gray.webp')} />
-          <S.PopupInfo>{`${data.runOpenTime.slice(0, 5)} - ${data.runCloseTime.slice(0, 5)}`}</S.PopupInfo>
-        </S.SubInfoRow>
-
-        <S.SectionTitle style={{ marginTop: 20, marginBottom: 12 }}>위치정보</S.SectionTitle>
-        <S.MapImage source={{ uri: data.imageUrl }} />
-      </S.PopUpContentBox>
-
-      <S.DividerWide />
-
-      <S.ItemContentBox>
-        <S.ItemCategory style={{ marginTop: 40, marginBottom: 20 }}>WHAT’S HOT</S.ItemCategory>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {HotItemMocks.map((item, index) => (
-            <HotItems key={index} item={item} index={index} />
-          ))}
-        </ScrollView>
-      </S.ItemContentBox>
-
-      <S.ItemContentBox>
-        <S.RowBetween>
-          <S.ItemCategoryAll>전체 상품</S.ItemCategoryAll>
-          <TouchableOpacity
-            onPress={() =>
-              router.push({
-                pathname: '/(common)/popUpDetail/entireItems',
-                params: {
-                  hotItems: ParseJsonToString(ItemMocks),
-                  title: data.popupName,
-                },
-              })
-            }
-          >
-            <S.RightArrow source={require('@/assets/images/common/right-arrow.webp')} />
-          </TouchableOpacity>
-        </S.RowBetween>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingRight: 24 }}
-        >
-          {ItemMocks.slice(0, 4).map((item: ItemPathType, idx: number) => (
-            <S.ItemCard key={idx}>
-              <S.ItemImage source={{ uri: item.imagePath }} />
-              <S.ItemTitle numberOfLines={1}>{item.title}</S.ItemTitle>
-              <S.ItemPrice>{item.price}</S.ItemPrice>
-            </S.ItemCard>
-          ))}
-        </ScrollView>
-
-        <S.BottomButtonWrapper>
-          <CustomGradientBtn
-            title="팝업 예약하기"
-            height={54}
-            onPress={() => {
-              // TODO: 라우팅 구현 후 아래 줄 주석 해제
-              // navigation.navigate('PopupReservation');
-            }}
-            icon={require('@/assets/images/common/store-gray.webp')}
+    <S.Container inset={inset}>
+      <PopUpDetailInfo />
+      <View style={{ marginHorizontal: 12 }}>
+        <CustomGradientBtn
+          title={isLogin ? '팝업 예약하기' : '로그인 이후 이용해주세요'}
+          height={54}
+          onPress={() => handleCalendarPress(0)}
+          icon={require('@/assets/images/common/store-gray.webp')}
+          disabled={!isLogin}
+        />
+      </View>
+      <BottomSheet
+        ref={calenderBottomSheetRef}
+        snapPoints={snapShotPoint}
+        enableDynamicSizing={false}
+        enablePanDownToClose={true}
+        index={-1}
+        backdropComponent={renderBackdrop}
+        backgroundStyle={{
+          backgroundColor: '#1B1B1C',
+          borderBottomWidth: 0,
+        }}
+        handleStyle={{
+          backgroundColor: '#1B1B1C',
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
+          borderColor: '#D9D9D9',
+          borderTopWidth: 1,
+          borderLeftWidth: 1,
+          borderRightWidth: 1,
+        }}
+        containerStyle={{
+          width: '101%',
+          transform: [{ translateX: '-0.5%' }],
+        }}
+        handleIndicatorStyle={{ backgroundColor: '#555555', width: 60 }}
+      >
+        <TouchableOpacity onPress={() => calenderBottomSheetRef.current?.close()}>
+          <Image
+            source={Images.closeIcon}
+            style={{ width: 15, height: 15, alignSelf: 'flex-end', marginRight: 20 }}
+            resizeMode="contain"
           />
-        </S.BottomButtonWrapper>
-      </S.ItemContentBox>
+        </TouchableOpacity>
+        <CustomCalendar />
+      </BottomSheet>
     </S.Container>
   );
 }

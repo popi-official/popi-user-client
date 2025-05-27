@@ -1,4 +1,4 @@
-import { ItemPathType, ItemUrlType } from '../DetailScreen';
+import { ItemPathType, ItemUrlType, ReservableDate } from '../DetailScreen';
 import { PostItemSearch, PostPopUpSearch } from '../SearchScreenType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 import { SurveyChoice } from '../SurveyQuestions';
@@ -69,3 +69,8 @@ export type PostItemSearchResponse = {
 };
 
 export type SurveyQuestionsResponse = SurveyChoice[];
+export type GetReservationInfoResponse = {
+  popupOpenDate: string;
+  popupCloseDate: string;
+  reservableDate: ReservableDate[];
+};
