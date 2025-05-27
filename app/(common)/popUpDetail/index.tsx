@@ -4,7 +4,7 @@ import { useMemo, useRef } from 'react';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import PopUpDetailInfo from '@/components/popUpDetail/PopUpDetailInfo';
-import CustomCalendar from '@/components/popUpDetail/Calendar';
+import CustomCalendar from '@/components/popUpDetail/CustomCalendar';
 
 export default function PopUpDetailScreen() {
   const inset = useSafeAreaInsets();

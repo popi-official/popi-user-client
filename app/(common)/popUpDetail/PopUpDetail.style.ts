@@ -11,7 +11,7 @@ export const S = {
   Container: styled.ScrollView<ContainerProps>`
     flex: 1;
     background-color: ${getThemeColor('gray11')};
-    margin-bottom: ${({ inset }: ContainerProps) => inset.bottom};
+    margin-bottom: ${(props: ContainerProps) => props.inset.bottom}px;
   `,
 
   Banner: styled.Image`

@@ -1,19 +1,23 @@
 import { Calendar } from 'react-native-calendars';
 import { S } from '../../../app/(common)/popUpDetail/PopUpDetail.style';
 import { CALENDAR_THEME } from '@/constants/Options';
-import { MarkedDates } from 'react-native-calendars/src/types';
+import { DateData, Direction, MarkedDates } from 'react-native-calendars/src/types';
 import { TimeSlot } from '@/types/DetailScreen';
 import { useState } from 'react';
-import { ActivityIndicator, Text } from 'react-native';
+import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native';
 import { useGetReservationInfoApi } from '@/hooks/api/useReserviationApi';
 import { usePopUpStore } from '@/store/usePopUpStore';
 import { useAuthStore } from '@/store/useAuthStore';
+import CustomGradientBtn from '../customGradientBtn/CustomGradientBtn';
+import { TouchableOpacity } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const Images = {
   rightArrow: require('@/assets/images/common/right-arrow.webp'),
 };
 
 export default function CustomCalendar() {
+  // const inset = useSafeAreaInsets();
   const selectedPopUpId = usePopUpStore(state => state.selectedPopUpId);
   const isLogin = useAuthStore.getState().isLogin;
 
@@ -26,7 +30,9 @@ export default function CustomCalendar() {
 
   // 캘린더에서 예약 가능 날짜를 보여주기 위해 사용합니다.
   // API 명세에서 YYYY-MM을 요청하기 때문에, 캘린더의 Month가 변경되면 이 부분이 추출되어 상태로 저장됩니다.
-  const [currentYearMonth, setCurrentYearMonth] = useState('2025-06');
+  const today = new Date();
+  const todayYearMonth = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+  const [currentYearMonth, setCurrentYearMonth] = useState(todayYearMonth);
 
   // 예약 가능 날짜를 조회하는 API입니다.
   // 위에서 정의한 currentYearMonth가 수정될때마다 같이 호출되어 캘린더 데이터를 채웁니다.
@@ -37,21 +43,32 @@ export default function CustomCalendar() {
 
   if (isLoading) {
     return (
-      <S.Container inset={inset}>
-        <ActivityIndicator size="large" color="white" />
-      </S.Container>
+      // <S.Container inset={inset}>
+      <ActivityIndicator size="large" color="white" />
+      // </S.Container>
     );
   }
 
   if (isError || !reservationInfo) {
     return (
-      <S.Container inset={inset}>
-        <Text style={{ color: 'white', textAlign: 'center' }}>예약 정보를 불러올 수 없습니다.</Text>
-      </S.Container>
+      // <S.Container inset={inset}>
+      <Text style={{ color: 'white', textAlign: 'center' }}>예약 정보를 불러올 수 없습니다.</Text>
+      // </S.Container>
     );
   }
 
   const reservableDate = reservationInfo.reservableDate;
+  const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1);
+
+  const minDate =
+    reservableDate.length === 0
+      ? `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}-01`
+      : reservationInfo.reservableDate[0].date;
+
+  const maxDate =
+    reservableDate.length === 0
+      ? `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}-02`
+      : reservationInfo.reservableDate[reservationInfo.reservableDate.length - 1].date;
 
   const parseTimeSlotFromDate = (date: string) => {
     setTimeSlots(reservableDate.filter(d => d.date === date)[0].timeSlots);
@@ -101,32 +118,6 @@ export default function CustomCalendar() {
     return undefined;
   };
 
-  // 바텀시트 캘린더 하단에 나타나는 예약가능한 시간대 영역입니다.
-  const renderTimeSlot = (item: TimeSlot) => {
-    const isSelected = item.reservationId === selectedId;
-
-    return (
-      <S.TimeSlotButton
-        onPress={() => handleTimeSlotPress(item.reservationId)}
-        key={item.time}
-        disabled={!item.isPossible}
-      >
-        <S.TimeSlotGradient
-          colors={isSelected ? ['#BFF0F5', '#E0D9FF'] : ['transparent', 'transparent']}
-          isSelected={isSelected}
-          isPossible={item.isPossible}
-        >
-          <S.TimeSlotText isSelected={isSelected} isPossible={item.isPossible}>
-            {Number(item.time.slice(0, 2)) < 12 ? 'AM' : 'PM'}{' '}
-          </S.TimeSlotText>
-          <S.TimeSlotText isSelected={isSelected} isPossible={item.isPossible}>
-            {item.time}
-          </S.TimeSlotText>
-        </S.TimeSlotGradient>
-      </S.TimeSlotButton>
-    );
-  };
-
   const markedDates: MarkedDates = selectedDate
     ? {
         [selectedDate]: {
@@ -151,8 +142,8 @@ export default function CustomCalendar() {
           <Calendar
             onDayPress={onDayPress}
             markingType={'custom'}
-            minDate={reservationInfo.reservableDate[0].date}
-            maxDate={reservationInfo.reservableDate[reservationInfo.reservableDate.length - 1].date}
+            minDate={minDate}
+            maxDate={maxDate}
             monthFormat={'yyyy년 MM월'}
             theme={CALENDAR_THEME}
             renderArrow={renderArrow}
@@ -162,13 +153,47 @@ export default function CustomCalendar() {
         </S.CalendarContainer>
       </S.CalendarSection>
 
-      <S.TimeSlotScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {timeSlots.map(renderTimeSlot)}
-      </S.TimeSlotScrollView>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={{ flexDirection: 'row', marginLeft: 24 }}
+      >
+        <View style={{ flexDirection: 'row', gap: 14, marginTop: 24 }}>
+          {timeSlots.map((item: TimeSlot, idx: number) => (
+            <TouchableOpacity
+              key={item.reservationId}
+              disabled={!item.isPossible}
+              onPress={() => handleTimeSlotPress(item.reservationId)}
+            >
+              <View
+                style={{
+                  borderRadius: 10,
+                  paddingHorizontal: 14,
+                  paddingVertical: 10,
+                  marginRight: idx === timeSlots.length - 1 ? 24 : 0,
+                  borderWidth: 1,
+                  borderColor: !item.isPossible
+                    ? '#383838'
+                    : item.reservationId === selectedId
+                      ? 'none'
+                      : '#929292',
+                  backgroundColor: item.reservationId === selectedId ? LinearGradient() : '#2E2E2E',
+                  overflow: 'hidden',
+                }}
+              >
+                <Text style={{ color: 'white' }}>
+                  {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
+                  {item.time.slice(0, 5)}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
 
       <S.ReservationButtonContainer>
         <CustomGradientBtn
-          title={isLogin ? '예약하기' : '로그인 후 이용해주세요'}
+          title={'예약하기'}
           onPress={handleReservation}
           disabled={!selectedId || !isLogin}
         />
