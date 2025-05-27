@@ -114,7 +114,7 @@ const SurveyQuestionPage: React.FC = () => {
             title="이전"
             onPress={() => {
               if (step === 1) {
-                router.push('/(tabs)/my');
+                router.replace('/(tabs)/my');
               } else {
                 setStep(prev => Math.max(1, prev - 1));
                 setSelected(null);
