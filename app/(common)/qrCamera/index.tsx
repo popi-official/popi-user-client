@@ -1,11 +1,12 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { S } from './QrCamera.style';
-import { useCameraPermissions } from 'expo-camera';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useRouter } from 'expo-router';
 import { Text } from 'react-native';
 import { useState } from 'react';
 import { useCartStore } from '@/store/useCartStore';
 import { QRCameraItemData } from '@/types/QrCameraItemType';
+import { StyleSheet } from 'react-native';
 
 const Images = {
   qrTopLeft: require('@/assets/images/qrCamera/qr-top-left.webp'),
@@ -14,6 +15,17 @@ const Images = {
   qrBottomRight: require('@/assets/images/qrCamera/qr-bottom-right.webp'),
   rightArrow: require('@/assets/images/common/right-arrow.webp'),
 };
+
+const styles = StyleSheet.create({
+  camera: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
+  },
+});
 
 export default function QRCameraScreen() {
   const inset = useSafeAreaInsets();
@@ -55,7 +67,8 @@ export default function QRCameraScreen() {
   }
   return (
     <S.QrCameraScreenContainer>
-      <S.CameraWrapper
+      <CameraView
+        style={styles.camera}
         facing="back"
         onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
         barcodeScannerSettings={{
@@ -90,7 +103,7 @@ export default function QRCameraScreen() {
           </S.InstructionText>
           <S.QrBox />
         </S.OverlayWrapper>
-      </S.CameraWrapper>
+      </CameraView>
     </S.QrCameraScreenContainer>
   );
 }
