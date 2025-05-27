@@ -86,7 +86,7 @@ export const S = {
   `,
 
   // Hot Card
-  HotCardContainer: styled.View<{ isFirst: boolean }>`
+  HotCardContainer: styled.TouchableOpacity<{ isFirst: boolean }>`
     width: 228px;
     height: 287px;
     border-radius: 10px;

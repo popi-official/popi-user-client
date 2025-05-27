@@ -60,7 +60,10 @@ const HomeScreen = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
-          <S.HotCardContainer isFirst={index === 0}>
+          <S.HotCardContainer
+            onPress={() => router.push('/(common)/popUpDetail')}
+            isFirst={index === 0}
+          >
             <Image
               source={item.imageUrl}
               style={{ width: 228, height: undefined, aspectRatio: 3 / 4 }}

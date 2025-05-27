@@ -7,6 +7,11 @@ import { useCallback } from 'react';
 import { ItemPathType } from '@/types/DetailScreen';
 import { useRouter } from 'expo-router';
 import { ParseJsonToString } from '@/utils/JsonParser';
+import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
+
+const Images = {
+  marker: require('@/assets/images/common/marker.webp'),
+};
 
 export default function PopUpDetailInfo() {
   const popupDetailInfo = PopUpDetailMock;
@@ -37,7 +42,14 @@ export default function PopUpDetailInfo() {
         title: popupDetailInfo.popupName,
       },
     });
-  }, [router, popupDetailInfo.popupName]);
+  }, [hotItems, router, popupDetailInfo.popupName]);
+
+  const region: Region = {
+    latitude: popupDetailInfo.latitude - 0.01 / 2,
+    longitude: popupDetailInfo.longitude - 0.01 / 2,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  };
 
   return (
     <View>
@@ -64,7 +76,30 @@ export default function PopUpDetailInfo() {
         </S.SubInfoRow>
 
         <S.SectionTitle style={{ marginTop: 20, marginBottom: 12 }}>위치정보</S.SectionTitle>
-        <S.MapImage source={{ uri: popupDetailInfo.imageUrl }} />
+        <S.MapContainer>
+          <NaverMapView
+            layerGroups={{
+              BUILDING: true,
+              BICYCLE: false,
+              CADASTRAL: false,
+              MOUNTAIN: false,
+              TRAFFIC: false,
+              TRANSIT: false,
+            }}
+            style={{ flex: 1 }}
+            initialRegion={region}
+            isExtentBoundedInKorea={true}
+          >
+            <NaverMapMarkerOverlay
+              latitude={popupDetailInfo.latitude}
+              longitude={popupDetailInfo.longitude}
+              anchor={{ x: 0.5, y: 1 }}
+              width={32}
+              height={47}
+              image={Images.marker}
+            />
+          </NaverMapView>
+        </S.MapContainer>
       </S.PopUpContentBox>
 
       <S.DividerWide />
