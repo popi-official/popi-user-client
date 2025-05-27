@@ -65,7 +65,7 @@ export const S = {
   Icon: styled.Image`
     width: 16px;
     height: 16px;
-    margin-right: 4px;
+    margin-right: 3px;
   `,
 
   RightArrow: styled.Image`
