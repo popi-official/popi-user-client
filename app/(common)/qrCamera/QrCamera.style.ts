@@ -93,6 +93,7 @@ export const S = {
     font-size: 24px;
     font-family: ${getThemePretendardFont('bold')};
     text-align: center;
+    line-height: 32px;
   `,
 
   QrFrameLeftTop: styled.View`
