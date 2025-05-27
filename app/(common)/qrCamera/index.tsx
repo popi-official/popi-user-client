@@ -1,13 +1,18 @@
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { S } from './QrCamera.style';
 // import { Camera } from 'expo-camera';
 import { useRouter } from 'expo-router';
 
 const Images = {
-  qrFrame: require('@/assets/images/qrCamera/qr-frame.webp'),
+  qrTopLeft: require('@/assets/images/qrCamera/qr-top-left.webp'),
+  qrTopRight: require('@/assets/images/qrCamera/qr-top-right.webp'),
+  qrBottomLeft: require('@/assets/images/qrCamera/qr-bottom-left.webp'),
+  qrBottomRight: require('@/assets/images/qrCamera/qr-bottom-right.webp'),
   rightArrow: require('@/assets/images/common/right-arrow.webp'),
 };
 
 export default function QRCameraScreen() {
+  const inset = useSafeAreaInsets();
   const router = useRouter();
   // const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   // const [scanned, setScanned] = useState(false);
@@ -22,7 +27,7 @@ export default function QRCameraScreen() {
   // const handleBarCodeScanned = ({ data }: any) => {
   //   setScanned(true);
   //   console.log('QR 인식됨:', data);
-  //   router.replace('/(tab)')
+  //   router.replace('/(tab)/cart')
   // };
 
   // if (hasPermission === null) return <Text>카메라 권한 확인 중...</Text>;
@@ -41,22 +46,22 @@ export default function QRCameraScreen() {
           <S.TopOverlay />
           <S.LeftOverlay>
             <S.QrFrameLeftTop>
-              <S.QrFrameImage source={Images.qrFrame} />
+              <S.QrFrameImage source={Images.qrTopLeft} />
             </S.QrFrameLeftTop>
             <S.QrFrameLeftBottom>
-              <S.QrFrameImage source={Images.qrFrame} />
+              <S.QrFrameImage source={Images.qrBottomLeft} />
             </S.QrFrameLeftBottom>
           </S.LeftOverlay>
           <S.RightOverlay>
             <S.QrFrameRightTop>
-              <S.QrFrameImage source={Images.qrFrame} />
+              <S.QrFrameImage source={Images.qrTopRight} />
             </S.QrFrameRightTop>
             <S.QrFrameRightBottom>
-              <S.QrFrameImage source={Images.qrFrame} />
+              <S.QrFrameImage source={Images.qrBottomRight} />
             </S.QrFrameRightBottom>
           </S.RightOverlay>
           <S.BottomOverlay />
-          <S.BackButtonWrapper onPress={() => router.back()}>
+          <S.BackButtonWrapper onPress={() => router.back()} style={{ top: inset.top + 8 }}>
             <S.BackButton source={Images.rightArrow} />
           </S.BackButtonWrapper>
           <S.InstructionText>
@@ -72,7 +77,6 @@ export default function QRCameraScreen() {
           </S.ShutterButtonGray>
           <S.QrBox />
         </S.OverlayWrapper>
-        {/* </S.CameraWrapper> */}
       </S.CameraWrapper>
     </S.QrCameraScreenContainer>
   );

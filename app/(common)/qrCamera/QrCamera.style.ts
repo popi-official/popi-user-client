@@ -11,7 +11,6 @@ export const S = {
 
   BackButtonWrapper: styled.TouchableOpacity`
     position: absolute;
-    top: 32px;
     left: 4px;
     width: 26px;
     height: 26px;
@@ -105,26 +104,23 @@ export const S = {
 
   QrFrameLeftBottom: styled.View`
     position: absolute;
-    bottom: -14px;
+    bottom: 50px;
     right: 14px;
     z-index: 10;
-    transform: scaleY(-1);
   `,
 
   QrFrameRightTop: styled.View`
     position: absolute;
     top: -14px;
-    left: 14px;
+    left: -50px;
     z-index: 10;
-    transform: scaleX(-1);
   `,
 
   QrFrameRightBottom: styled.View`
     position: absolute;
-    bottom: -14px;
-    left: 14px;
+    bottom: 50px;
+    left: -50px;
     z-index: 10;
-    transform: rotate(180deg);
   `,
 
   QrFrameImage: styled.Image`
