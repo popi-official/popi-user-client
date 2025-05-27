@@ -129,24 +129,4 @@ export const S = {
     height: 64px;
     z-index: 10;
   `,
-
-  ShutterButtonGray: styled.TouchableOpacity`
-    position: absolute;
-    align-items: center;
-    width: 60px;
-    height: 60px;
-    background-color: ${getThemeColor('gray03')};
-    border-radius: 50%;
-    bottom: 40px;
-  `,
-
-  ShutterButtonWhite: styled.View`
-    position: absolute;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    background-color: ${getThemeColor('gray01')};
-    border-radius: 50%;
-    bottom: 5px;
-  `,
 };

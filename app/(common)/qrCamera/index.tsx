@@ -67,14 +67,6 @@ export default function QRCameraScreen() {
           <S.InstructionText>
             구매하실 상품의 QR을 찍어{'\n'}장바구니에 담아주세요
           </S.InstructionText>
-          <S.ShutterButtonGray
-            onPress={
-              // TODO: QR 정보 담아서 라우팅
-              () => router.replace('/(tabs)/cart')
-            }
-          >
-            <S.ShutterButtonWhite />
-          </S.ShutterButtonGray>
           <S.QrBox />
         </S.OverlayWrapper>
       </S.CameraWrapper>
