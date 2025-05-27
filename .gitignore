@@ -41,3 +41,4 @@ yarn-error.*
 
 app.json
 eas.json
+expo-env.d.ts
