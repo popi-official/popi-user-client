@@ -96,7 +96,7 @@ const MapScreen = () => {
     setSelectedPopupId(popupId);
     setIsMarkerTriggered(true);
 
-    // 마커로 열릴 땐 1개이므로 37% ['12%', '37%']
+    // 마커로 열릴 땐 1개이므로 37%
     setSnapPoints(['12%', '37%']);
 
     bottomSheetRef.current?.snapToIndex(1);
@@ -117,6 +117,7 @@ const MapScreen = () => {
         }}
         initialRegion={initialRegion}
         isExtentBoundedInKorea={true}
+        mapPadding={{ bottom: 120 }}
         onTapMap={() => {
           setSelectedPopupId(null);
           setIsMarkerTriggered(false);
@@ -128,7 +129,6 @@ const MapScreen = () => {
           } else {
             setSnapPoints(['12%', '50%']);
           }
-
           // 바텀시트 내리기
           bottomSheetRef.current?.snapToIndex(0);
         }}
