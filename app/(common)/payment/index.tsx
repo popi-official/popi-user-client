@@ -73,7 +73,7 @@ export default function PaymentScreen() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <IMP.Payment
-          userCode={'imp42514282'}
+          userCode={'imp14735503'}
           loading={
             <View>
               <Text>결제 페이지 로딩 중...</Text>
