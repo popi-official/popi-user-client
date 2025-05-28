@@ -1,7 +1,10 @@
+import { popUpMarkerItem } from '@/types/MapScreenType';
 import { ItemPathType, ItemUrlType, ReservableDate } from '../DetailScreen';
 import { PostItemSearch, PostPopUpSearch } from '../SearchScreenType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 import { SurveyChoice } from '../SurveyQuestions';
+import { PopUpItem } from '@/types/HomeScreenType';
+import { PopularItem, RecommendedItem } from '@/types/PopUpEntryScreen';
 
 export type ApiResponse<T> = Promise<GlobalResponse<T>>;
 export type ApiResult<T> = Promise<T>;
@@ -85,17 +88,6 @@ export type popUpMarkerItemsResponse = popUpMarkerItem[];
 
 export type GetPopUpMarkerItemsResponse = popUpMarkerItem[];
 
-export type popUpMarkerItem = {
-  popupId: number;
-  popupName: string;
-  imageUrl: number; // 추후 string으로 변경
-  popupOpenDate: string;
-  popupCloseDate: string;
-  address: string;
-  latitude: number;
-  longitude: number;
-};
-
 export type GetHotPopUpItemsResponse = HotPopUpItem[];
 
 export type HotPopUpItem = {
@@ -108,15 +100,6 @@ export type HotPopUpItem = {
 };
 
 export type GetPopUpItemsResponse = PopUpItem[];
-
-export type PopUpItem = {
-  popupId: number;
-  popupName: string;
-  imageUrl: number; // 추후 string으로 변경
-  popupOpenDate: string;
-  popupCloseDate: string;
-  address: string;
-};
 
 export type GetReservationDetailResponse = {
   popupName: string;
@@ -131,18 +114,4 @@ export type GetReservationDetailResponse = {
 
 export type GetRecommendedItemsResponse = RecommendedItem[];
 
-export type RecommendedItem = {
-  itemId: number;
-  title: string;
-  imagePath: number; // 추후 string으로 변경
-  price: number;
-};
-
 export type GetPopularItemsResponse = PopularItem[];
-
-export type PopularItem = {
-  itemId: number;
-  title: string;
-  imagePath: number; // 추후 string으로 변경
-  price: number;
-};

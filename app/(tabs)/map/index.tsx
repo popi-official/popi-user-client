@@ -4,11 +4,11 @@ import { popUpMarkerItems } from '@/mocks/MapMocks';
 import { useEffect, useRef, useState } from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { Image, View } from 'react-native';
-import { popUpMarkerItem } from '@/types/api/ApiResponseType';
 import { useRouter } from 'expo-router';
 import { ScrollView } from 'react-native-gesture-handler';
 import { formatDateRange } from '@/utils/FormatDate';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
+import { popUpMarkerItem } from '@/types/MapScreenType';
 
 const Images = {
   marker: require('@/assets/images/common/marker.webp'),
