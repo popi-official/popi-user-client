@@ -40,11 +40,17 @@ const MarkerListCard = ({ item, onPress }: Props) => {
           <S.TextGroup>
             <S.Title>{item.popupName}</S.Title>
             <S.SubTextContainer>
-              <Image source={Images.calendarGray} style={{ width: 15, height: 15, marginTop: 2 }} />
+              <Image
+                source={Images.calendarGray}
+                style={{ width: 14, height: 14, marginTop: 2, marginRight: 4 }}
+              />
               <S.SubText>{formatDateRange(item.popupOpenDate, item.popupCloseDate)}</S.SubText>
             </S.SubTextContainer>
             <S.SubTextContainer>
-              <Image source={Images.calendarGray} style={{ width: 15, height: 15, marginTop: 2 }} />
+              <Image
+                source={Images.locationGray}
+                style={{ width: 15, height: 15, marginTop: 2, marginRight: 2 }}
+              />
               <S.SubText numberOfLines={2}>{item.address}</S.SubText>
             </S.SubTextContainer>
           </S.TextGroup>
@@ -66,7 +72,9 @@ const MarkerListCard = ({ item, onPress }: Props) => {
 const MapScreen = () => {
   const router = useRouter();
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ['50%'], []);
+  const snapPoints = useMemo(() => {
+    return [popUpMarkerItems.length === 1 ? '37%' : '50%'];
+  }, [popUpMarkerItems.length]);
   // const [isOpen, setIsOpen] = useState(false);
 
   // const handleOpen = () => {
