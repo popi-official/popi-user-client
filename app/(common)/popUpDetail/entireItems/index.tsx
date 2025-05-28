@@ -16,12 +16,12 @@ import { usePopUpStore } from '@/store/usePopUpStore';
 
 export default function EntireItemsScreen() {
   const { hotItems } = useLocalSearchParams<{ hotItems: string }>();
-  // const { selectedPopUpId } = usePopUpStore();
+  const { selectedPopUpId } = usePopUpStore();
   const formattedPopularItems = ParseStringToJson(hotItems) as ItemPathType[];
   const { searchResult, isLoading, hasMore, loadMore } = useSearch();
   const { keyword } = useSearchStore();
   const { allItems, isItemLoading, isItemError, allItemsQuery } = usePopUpDetailAllItemsApi({
-    popupId: 1,
+    popupId: selectedPopUpId,
   });
 
   const isSearchMode = keyword.trim().length > 0;
