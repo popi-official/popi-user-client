@@ -28,7 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>popiuserclient</string>
-          <string>com.suyeon.popiuserclient</string>
+          <string>com.chik2chik.popiuserclient</string>
         </array>
       </dict>
       <dict>
