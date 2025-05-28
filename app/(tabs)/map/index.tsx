@@ -1,7 +1,7 @@
 import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
 import { S } from './MapScreen.style';
 import { popUpMarkerItems } from '@/mocks/MapMocks';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { Image, View } from 'react-native';
 import { useRouter } from 'expo-router';
@@ -17,6 +17,7 @@ const Images = {
   locationGray: require('@/assets/images/common/location-gray.webp'),
 };
 
+// TODO: 현재 위치 받아오기
 const initialRegion: Region = {
   latitude: 37.544783 - 0.01 / 2,
   longitude: 127.055991 - 0.01 / 2,
@@ -78,19 +79,7 @@ const MapScreen = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const selectedItem = popUpMarkerItems.find(p => p.popupId === selectedPopupId);
-
-  useEffect(() => {
-    if (popUpMarkerItems.length === 0) return;
-
-    // 초기 상태: 전체 아이템 수 기준
-    if (!isMarkerTriggered) {
-      if (popUpMarkerItems.length === 1) {
-        setSnapPoints(['12%', '37%']);
-      } else {
-        setSnapPoints(['12%', '50%']);
-      }
-    }
-  }, [popUpMarkerItems.length, isMarkerTriggered]);
+  const [visibleRegion, setVisibleRegion] = useState<Region | null>(null);
 
   const handleMarkerPress = (popupId: number) => {
     setSelectedPopupId(popupId);
@@ -101,6 +90,59 @@ const MapScreen = () => {
 
     bottomSheetRef.current?.snapToIndex(1);
   };
+
+  // 카메라 뷰 안에 있는 마커만 띄우기
+  const visibleMarkers = useMemo(() => {
+    if (!visibleRegion) return popUpMarkerItems;
+
+    const MARGIN_RATIO = 0.1;
+    const latDelta = visibleRegion.latitudeDelta * (1 + MARGIN_RATIO);
+    const lngDelta = visibleRegion.longitudeDelta * (1 + MARGIN_RATIO);
+
+    // 중심점 보정
+    const centerLat = visibleRegion.latitude + visibleRegion.latitudeDelta / 2;
+    const centerLng = visibleRegion.longitude + visibleRegion.longitudeDelta / 2;
+
+    const latMin = centerLat - latDelta / 2;
+    const latMax = centerLat + latDelta / 2;
+    const lngMin = centerLng - lngDelta / 2;
+    const lngMax = centerLng + lngDelta / 2;
+
+    return popUpMarkerItems.filter(
+      item =>
+        item.latitude >= latMin &&
+        item.latitude <= latMax &&
+        item.longitude >= lngMin &&
+        item.longitude <= lngMax,
+    );
+  }, [visibleRegion, popUpMarkerItems]);
+
+  // TODO: 서버 연결할 때 보낼 params
+  // const buildRegionBounds = (region: Region) => {
+  //   // region.latitude / longitude는 남서쪽 꼭짓점이 기준
+  //   const centerLat = region.latitude + region.latitudeDelta / 2;
+  //   const centerLng = region.longitude + region.longitudeDelta / 2;
+
+  //   const latMin = centerLat - region.latitudeDelta / 2;
+  //   const latMax = centerLat + region.latitudeDelta / 2;
+  //   const lngMin = centerLng - region.longitudeDelta / 2;
+  //   const lngMax = centerLng + region.longitudeDelta / 2;
+
+  //   return { latMin, latMax, lngMin, lngMax };
+  // };
+
+  useEffect(() => {
+    if (visibleMarkers.length === 0) return;
+
+    // 초기 상태: 전체 아이템 수 기준
+    if (!isMarkerTriggered) {
+      if (visibleMarkers.length === 1) {
+        setSnapPoints(['12%', '37%']);
+      } else {
+        setSnapPoints(['12%', '50%']);
+      }
+    }
+  }, [visibleMarkers.length, isMarkerTriggered]);
 
   return (
     <S.MapScreenContainer showsVerticalScrollIndicator={false}>
@@ -118,13 +160,16 @@ const MapScreen = () => {
         initialRegion={initialRegion}
         isExtentBoundedInKorea={true}
         mapPadding={{ bottom: 120 }}
+        onCameraIdle={info => {
+          setVisibleRegion(info.region); // 현재 카메라 영역
+        }}
         onTapMap={() => {
           setSelectedPopupId(null);
           setIsMarkerTriggered(false);
           setIsBottomSheetOpen(false);
 
           // snapPoints도 다시 전체 목록 기준으로 되돌리기
-          if (popUpMarkerItems.length === 1) {
+          if (visibleMarkers.length === 1) {
             setSnapPoints(['12%', '37%']);
           } else {
             setSnapPoints(['12%', '50%']);
@@ -133,7 +178,7 @@ const MapScreen = () => {
           bottomSheetRef.current?.snapToIndex(0);
         }}
       >
-        {popUpMarkerItems.map(item => (
+        {visibleMarkers.map(item => (
           <NaverMapMarkerOverlay
             key={item.popupId}
             latitude={item.latitude}
@@ -148,7 +193,7 @@ const MapScreen = () => {
       </NaverMapView>
 
       {/* 바텀시트 */}
-      {popUpMarkerItems.length > 0 && (
+      {visibleMarkers.length > 0 && (
         <BottomSheet
           ref={bottomSheetRef}
           snapPoints={snapPoints}
@@ -175,8 +220,8 @@ const MapScreen = () => {
               setSelectedPopupId(null);
               setIsMarkerTriggered(false);
 
-              // 다시 전체 목록 기준으로 snapPoints 복구
-              if (popUpMarkerItems.length === 1) {
+              // 다시 snapPoints 복구
+              if (visibleMarkers.length === 1) {
                 setSnapPoints(['12%', '37%']);
               } else {
                 setSnapPoints(['12%', '50%']);
@@ -200,7 +245,7 @@ const MapScreen = () => {
               />
             ) : (
               // 평소엔 전체 목록
-              popUpMarkerItems.map((item, idx) => (
+              visibleMarkers.map((item, idx) => (
                 <MarkerListCard
                   key={idx}
                   item={item}
