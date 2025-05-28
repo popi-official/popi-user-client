@@ -8,6 +8,7 @@ const Images = {
 
 export const popUpMarkerItems: GetPopUpMarkerItemsResponse = [
   {
+    popupId: 1,
     popupName: '블랙핑크 팝업',
     imageUrl: Images.popUp01,
     popupOpenDate: '2025-05-01',
@@ -17,6 +18,7 @@ export const popUpMarkerItems: GetPopUpMarkerItemsResponse = [
     longitude: 127.056323,
   },
   {
+    popupId: 2,
     popupName: '빅뱅 팝업',
     imageUrl: Images.popUp02,
     popupOpenDate: '2025-05-01',
@@ -26,6 +28,7 @@ export const popUpMarkerItems: GetPopUpMarkerItemsResponse = [
     longitude: 127.056191,
   },
   {
+    popupId: 3,
     popupName: '아이브 팝업',
     imageUrl: Images.popUp03,
     popupOpenDate: '2025-05-01',

@@ -1,7 +1,7 @@
 import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
 import { S } from './MapScreen.style';
 import { popUpMarkerItems } from '@/mocks/MapMocks';
-import { useMemo, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { Image, View } from 'react-native';
 import { popUpMarkerItem } from '@/types/api/ApiResponseType';
@@ -72,20 +72,36 @@ const MarkerListCard = ({ item, onPress }: Props) => {
 const MapScreen = () => {
   const router = useRouter();
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => {
-    return [popUpMarkerItems.length === 1 ? '37%' : '50%'];
-  }, [popUpMarkerItems.length]);
-  // const [isOpen, setIsOpen] = useState(false);
+  const [snapPoints, setSnapPoints] = useState<string[]>(['12%']);
+  const [selectedPopupId, setSelectedPopupId] = useState<number | null>(null);
+  const [isMarkerTriggered, setIsMarkerTriggered] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const selectedItem = popUpMarkerItems.find(p => p.popupId === selectedPopupId);
 
-  // const handleOpen = () => {
-  //   bottomSheetRef.current?.snapToIndex(0);
-  //   setIsOpen(true);
-  // };
+  useEffect(() => {
+    if (popUpMarkerItems.length === 0) return;
 
-  // const handleClose = () => {
-  //   bottomSheetRef.current?.close();
-  //   setIsOpen(false);
-  // };
+    // 초기 상태: 전체 아이템 수 기준
+    if (!isMarkerTriggered) {
+      if (popUpMarkerItems.length === 1) {
+        setSnapPoints(['12%', '37%']);
+      } else {
+        setSnapPoints(['12%', '50%']);
+      }
+    }
+  }, [popUpMarkerItems.length, isMarkerTriggered]);
+
+  const handleMarkerPress = (popupId: number) => {
+    setSelectedPopupId(popupId);
+    setIsMarkerTriggered(true);
+
+    // 마커로 열릴 땐 1개이므로 37% ['12%', '37%']
+    setSnapPoints(['12%', '37%']);
+
+    bottomSheetRef.current?.snapToIndex(1);
+  };
+
   return (
     <S.MapScreenContainer showsVerticalScrollIndicator={false}>
       {/* 지도 */}
@@ -102,57 +118,84 @@ const MapScreen = () => {
         initialRegion={initialRegion}
         isExtentBoundedInKorea={true}
       >
-        {popUpMarkerItems.map((item, idx) => (
+        {popUpMarkerItems.map(item => (
           <NaverMapMarkerOverlay
-            key={idx}
+            key={item.popupId}
             latitude={item.latitude}
             longitude={item.longitude}
             anchor={{ x: 0.5, y: 1 }}
-            width={32}
-            height={47}
+            width={selectedPopupId === item.popupId ? 48 : 32}
+            height={selectedPopupId === item.popupId ? 63 : 47}
             image={Images.marker}
+            onTap={() => handleMarkerPress(item.popupId)}
           />
         ))}
       </NaverMapView>
 
       {/* 바텀시트 */}
-      <BottomSheet
-        ref={bottomSheetRef}
-        snapPoints={snapPoints}
-        enableDynamicSizing={false}
-        enablePanDownToClose={true}
-        index={0}
-        backgroundStyle={{
-          backgroundColor: '#000000',
-          borderBottomWidth: 0,
-        }}
-        handleStyle={{
-          backgroundColor: '#000000',
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-        }}
-        containerStyle={{
-          width: '100%',
-        }}
-        handleIndicatorStyle={{ backgroundColor: '#BCBCBE', width: 60 }}
-      >
-        <ScrollView
-          contentContainerStyle={{ paddingHorizontal: 12, paddingBottom: 90 }}
-          showsVerticalScrollIndicator={false}
+      {popUpMarkerItems.length > 0 && (
+        <BottomSheet
+          ref={bottomSheetRef}
+          snapPoints={snapPoints}
+          enableDynamicSizing={false}
+          enablePanDownToClose={false}
+          index={0}
+          detached={true}
+          backgroundStyle={{
+            backgroundColor: '#000000',
+            borderBottomWidth: 0,
+          }}
+          handleStyle={{
+            backgroundColor: '#000000',
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+          }}
+          containerStyle={{
+            width: '100%',
+          }}
+          handleIndicatorStyle={{ backgroundColor: '#BCBCBE', width: 60 }}
+          onChange={index => {
+            if (index === 0) {
+              setIsBottomSheetOpen(false);
+              setSelectedPopupId(null);
+              setIsMarkerTriggered(false);
+
+              // 다시 전체 목록 기준으로 snapPoints 복구
+              if (popUpMarkerItems.length === 1) {
+                setSnapPoints(['12%', '37%']);
+              } else {
+                setSnapPoints(['12%', '50%']);
+              }
+            } else {
+              setIsBottomSheetOpen(true);
+            }
+          }}
         >
-          <S.BottomSheetTitle>근처 팝업</S.BottomSheetTitle>
-          <S.Divider />
-          {popUpMarkerItems.map((item, idx) => (
-            <MarkerListCard
-              key={idx}
-              item={item}
-              onPress={() => {
-                router.push('/(common)/popUpDetail');
-              }}
-            />
-          ))}
-        </ScrollView>
-      </BottomSheet>
+          <ScrollView
+            contentContainerStyle={{ paddingHorizontal: 12, paddingBottom: 90, minHeight: 50 }}
+            showsVerticalScrollIndicator={false}
+          >
+            <S.BottomSheetTitle>근처 팝업</S.BottomSheetTitle>
+            <S.Divider />
+            {isMarkerTriggered && selectedPopupId !== null && selectedItem ? (
+              // 마커 눌렀을 때 하나만 보여줌
+              <MarkerListCard
+                item={selectedItem}
+                onPress={() => router.push('/(common)/popUpDetail')}
+              />
+            ) : (
+              // 평소엔 전체 목록
+              popUpMarkerItems.map((item, idx) => (
+                <MarkerListCard
+                  key={idx}
+                  item={item}
+                  onPress={() => router.push('/(common)/popUpDetail')}
+                />
+              ))
+            )}
+          </ScrollView>
+        </BottomSheet>
+      )}
     </S.MapScreenContainer>
   );
 };

@@ -86,6 +86,7 @@ export type popUpMarkerItemsResponse = popUpMarkerItem[];
 export type GetPopUpMarkerItemsResponse = popUpMarkerItem[];
 
 export type popUpMarkerItem = {
+  popupId: number;
   popupName: string;
   imageUrl: number; // 추후 string으로 변경
   popupOpenDate: string;
