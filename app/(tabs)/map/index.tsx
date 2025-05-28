@@ -117,6 +117,21 @@ const MapScreen = () => {
         }}
         initialRegion={initialRegion}
         isExtentBoundedInKorea={true}
+        onTapMap={() => {
+          setSelectedPopupId(null);
+          setIsMarkerTriggered(false);
+          setIsBottomSheetOpen(false);
+
+          // snapPoints도 다시 전체 목록 기준으로 되돌리기
+          if (popUpMarkerItems.length === 1) {
+            setSnapPoints(['12%', '37%']);
+          } else {
+            setSnapPoints(['12%', '50%']);
+          }
+
+          // 바텀시트 내리기
+          bottomSheetRef.current?.snapToIndex(0);
+        }}
       >
         {popUpMarkerItems.map(item => (
           <NaverMapMarkerOverlay
@@ -124,8 +139,8 @@ const MapScreen = () => {
             latitude={item.latitude}
             longitude={item.longitude}
             anchor={{ x: 0.5, y: 1 }}
-            width={selectedPopupId === item.popupId ? 48 : 32}
-            height={selectedPopupId === item.popupId ? 63 : 47}
+            width={selectedPopupId === item.popupId ? 55 : 32}
+            height={selectedPopupId === item.popupId ? 81 : 47}
             image={Images.marker}
             onTap={() => handleMarkerPress(item.popupId)}
           />
