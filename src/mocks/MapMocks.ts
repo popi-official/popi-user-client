@@ -13,8 +13,8 @@ export const popUpMarkerItems: GetPopUpMarkerItemsResponse = [
     popupOpenDate: '2025-05-01',
     popupCloseDate: '2025-06-09',
     address: '서울특별시 영등포구 여의대로 108 3층',
-    latitude: 37.123456,
-    longitude: 127.123456,
+    latitude: 37.544723,
+    longitude: 127.056323,
   },
   {
     popupName: '빅뱅 팝업',
@@ -22,8 +22,8 @@ export const popUpMarkerItems: GetPopUpMarkerItemsResponse = [
     popupOpenDate: '2025-05-01',
     popupCloseDate: '2025-06-09',
     address: '서울특별시 영등포구 여의대로 108 3층',
-    latitude: 37.124456,
-    longitude: 127.124456,
+    latitude: 37.544783,
+    longitude: 127.056191,
   },
   {
     popupName: '아이브 팝업',
@@ -31,7 +31,7 @@ export const popUpMarkerItems: GetPopUpMarkerItemsResponse = [
     popupOpenDate: '2025-05-01',
     popupCloseDate: '2025-06-09',
     address: '서울특별시 영등포구 여의대로 108 3층',
-    latitude: 37.124256,
-    longitude: 127.124956,
+    latitude: 37.544473,
+    longitude: 127.055701,
   },
 ];
