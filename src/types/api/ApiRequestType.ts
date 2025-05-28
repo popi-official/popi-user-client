@@ -11,12 +11,12 @@ export type PostSignUpRequest = {
   gender: GenderOption;
 };
 
-export type PostSearchPopUpRequest = {
+export type GetSearchPopUpRequest = {
   keyword: string;
   lastPopUpId: number | undefined;
 };
 
-export type PostSearchItemReqeust = {
+export type GetSearchItemReqeust = {
   keyword: string;
   selectedPopUpId: number;
   lastItemId: number | undefined;

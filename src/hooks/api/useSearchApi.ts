@@ -1,10 +1,10 @@
-import { postSearchPopUp, postSearchPopUpItem } from '@/apis/search/SearchApi';
+import { getSearchPopUp, getSearchPopUpItem } from '@/apis/search/SearchApi';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 export const usePopUpSearch = (keyword: string, enabled: boolean) => {
   return useInfiniteQuery({
     queryFn: ({ pageParam }) =>
-      postSearchPopUp({
+      getSearchPopUp({
         keyword,
         lastPopUpId: pageParam,
       }),
@@ -28,7 +28,7 @@ export const useItemSearch = (keyword: string, selectedPopUpId: number, enabled:
   return useInfiniteQuery({
     queryKey: ['itemSearch', keyword],
     queryFn: ({ pageParam }) =>
-      postSearchPopUpItem({ keyword, selectedPopUpId, lastItemId: pageParam }),
+      getSearchPopUpItem({ keyword, selectedPopUpId, lastItemId: pageParam }),
     getNextPageParam: response => {
       const lastPage = response.data;
 

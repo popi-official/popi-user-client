@@ -1,27 +1,27 @@
 import {
   ApiResponse,
-  PostItemSearchResponse,
-  PostPopUpSearchResponse,
+  GetItemSearchResponse,
+  GetPopUpSearchResponse,
 } from '@/types/api/ApiResponseType';
 import { api } from '../config/Axios';
-import { PostSearchItemReqeust, PostSearchPopUpRequest } from '@/types/api/ApiRequestType';
 import { SEARCH_SIZE } from '@/constants/Options';
+import { GetSearchItemReqeust, GetSearchPopUpRequest } from '@/types/api/ApiRequestType';
 
-export const postSearchPopUp = async ({
+export const getSearchPopUp = async ({
   keyword,
   lastPopUpId,
-}: PostSearchPopUpRequest): ApiResponse<PostPopUpSearchResponse> => {
+}: GetSearchPopUpRequest): ApiResponse<GetPopUpSearchResponse> => {
   const response = await api.get(
     `/popups?keyword=${keyword}${lastPopUpId ? `&lastPopUpId=${lastPopUpId}` : ''}&size=${SEARCH_SIZE}`,
   );
   return response.data;
 };
 
-export const postSearchPopUpItem = async ({
+export const getSearchPopUpItem = async ({
   keyword,
   selectedPopUpId,
   lastItemId,
-}: PostSearchItemReqeust): ApiResponse<PostItemSearchResponse> => {
+}: GetSearchItemReqeust): ApiResponse<GetItemSearchResponse> => {
   const response = await api.get(
     `/popups/${selectedPopUpId}/items?keyword=${keyword}${lastItemId ? `&lastItemId=${lastItemId}` : ''}&size=${SEARCH_SIZE}`,
   );
