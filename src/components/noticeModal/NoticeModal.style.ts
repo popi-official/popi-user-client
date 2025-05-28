@@ -6,7 +6,7 @@ import { getThemeColor, getThemePretendardFont } from '@/types';
 export const S = {
   Backdrop: styled.View`
     flex: 1;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
   `,
   Container: styled.View`
     position: absolute;
