@@ -1,40 +1,168 @@
+import { useState } from 'react';
 import { useRouter } from 'expo-router';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import IMP from 'iamport-react-native';
-import { ActivityIndicator } from 'react-native';
 
-export function PaymentScreen() {
+const PGS = [
+  { label: 'KG이니시스', value: 'html5_inicis' },
+  { label: '토스페이먼츠', value: 'tosspay' },
+  { label: '카카오페이', value: 'kakaopay' },
+  // { label: '나이스페이먼츠', value: 'nice' },
+  // { label: 'KCP', value: 'kcp' },
+];
+
+const METHODS = [
+  { label: '신용카드', value: 'card' },
+  // { label: '실시간계좌이체', value: 'trans' },
+  // { label: '가상계좌', value: 'vbank' },
+  // { label: '휴대폰', value: 'phone' },
+];
+
+export default function PaymentScreen() {
   const router = useRouter();
 
-  /* [필수입력] 결제 종료 후, 라우터를 변경하고 결과를 전달합니다. */
-  const callBack = (response: any) => {
-    router.replace({ pathname: '/home', params: { response } });
+  const [pg, setPg] = useState('html5_inicis');
+  const [method, setMethod] = useState('card');
+  const [merchantUid, setMerchantUid] = useState(`popi_${new Date().getTime()}`);
+  const [name, setName] = useState('POPI 팝업스토어 예약');
+  const [amount, setAmount] = useState('39000');
+  const [buyerName, setBuyerName] = useState('테스트유저');
+  const [buyerTel, setBuyerTel] = useState('01012345678');
+  const [buyerEmail, setBuyerEmail] = useState('test@test.com');
+  const [showPayment, setShowPayment] = useState(false);
+  // const [escrow, setEscrow] = useState(false);
+
+  const paymentData = {
+    pg,
+    pay_method: method,
+    merchant_uid: merchantUid,
+    name,
+    amount,
+    buyer_name: buyerName,
+    buyer_tel: buyerTel,
+    buyer_email: buyerEmail,
+    app_scheme: 'popiuserclient',
+    escrow: false,
   };
 
-  /* [필수입력] 결제에 필요한 데이터를 입력합니다. */
-  const data = {
-    pg: 'html5_inicis',
-    pay_method: 'card',
-    name: '아임포트 결제데이터 분석',
-    merchant_uid: `mid_${new Date().getTime()}`,
-    amount: '39000',
-    buyer_name: '홍길동',
-    buyer_tel: '01012345678',
-    buyer_email: 'example@naver.com',
-    buyer_addr: '서울시 강남구 신사동 661-16',
-    buyer_postcode: '06018',
-    app_scheme: 'example',
-    escrow: false, // 에스크로 사용 여부 추가
+  const handlePaymentCallback = (response: any) => {
+    router.replace({
+      pathname: '/(common)/payment/PaymentResult',
+      params: {
+        impSuccess: response.imp_success?.toString(),
+        success: response.success?.toString(),
+        impUid: response.imp_uid,
+        merchantUid: response.merchant_uid,
+        errorCode: response.error_code,
+        errorMsg: response.error_msg,
+        message: response.message,
+      },
+    });
   };
+
+  const handleStartPayment = () => {
+    if (!buyerName || !buyerTel || !amount) {
+      Alert.alert('오류', '필수 정보를 입력해주세요.');
+      return;
+    }
+    setShowPayment(true);
+  };
+
+  if (showPayment) {
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <IMP.Payment
+          userCode={'imp42514282'}
+          loading={
+            <View>
+              <Text>결제 페이지 로딩 중...</Text>
+            </View>
+          }
+          data={paymentData}
+          callback={handlePaymentCallback}
+        />
+        <TouchableOpacity onPress={() => setShowPayment(false)}>
+          <Text>취소</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  }
 
   return (
-    <IMP.Payment
-      userCode={'iamport'} // 가맹점 식별코드
-      tierCode={'AAA'} // 티어 코드: agency 기능 사용자에 한함
-      loading={<ActivityIndicator />} // 로딩 컴포넌트
-      data={data} // 결제 데이터
-      callback={callBack} // 결제 종료 후 콜백
-    />
+    <SafeAreaView>
+      <ScrollView>
+        <View>
+          <View>
+            <Text>PG사</Text>
+            <View>
+              {PGS.map(item => (
+                <TouchableOpacity key={item.value} onPress={() => setPg(item.value)}>
+                  <Text>{item.label}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+          <View>
+            <View>
+              {METHODS.map(item => (
+                <TouchableOpacity key={item.value} onPress={() => setMethod(item.value)}>
+                  <Text>{item.label}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+          <View>
+            <Text>상품명</Text>
+            <Text>{name}</Text>
+          </View>
+          <View>
+            <Text>결제금액</Text>
+            <TextInput
+              value={amount}
+              keyboardType="number-pad"
+              onChangeText={string => setAmount(string)}
+            />
+          </View>
+          <View>
+            <Text>구매자 이름</Text>
+            <TextInput
+              value={buyerName}
+              onChangeText={setBuyerName}
+              placeholder="이름을 입력하세요"
+              placeholderTextColor="#999"
+            />
+          </View>
+          <View>
+            <Text>전화번호</Text>
+            <TextInput
+              value={buyerTel}
+              onChangeText={setBuyerTel}
+              placeholder="전화번호를 입력하세요"
+              placeholderTextColor="#999"
+              keyboardType="number-pad"
+            />
+          </View>
+          <View>
+            <Text>이메일</Text>
+            <TextInput
+              value={buyerEmail}
+              onChangeText={setBuyerEmail}
+              placeholder="이메일을 입력하세요"
+              placeholderTextColor="#999"
+              keyboardType="email-address"
+            />
+          </View>
+
+          <TouchableOpacity onPress={handleStartPayment}>
+            <Text>{parseInt(amount).toLocaleString()}원 결제하기</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => router.back()}>
+            <Text>취소</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
-export default PaymentScreen;
