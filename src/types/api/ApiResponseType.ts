@@ -58,12 +58,12 @@ export type GetPopUpDetailResponse = {
   longitude: number;
 };
 
-export type PostPopUpSearchResponse = {
+export type GetPopUpSearchResponse = {
   content: PostPopUpSearch[];
   isLast: boolean;
 };
 
-export type PostItemSearchResponse = {
+export type GetItemSearchResponse = {
   content: ItemUrlType[];
   isLast: boolean;
 };
@@ -73,4 +73,9 @@ export type GetReservationInfoResponse = {
   popupOpenDate: string;
   popupCloseDate: string;
   reservableDate: ReservableDate[];
+};
+
+export type GetPopUDetailAllItemsResponse = {
+  content: ItemUrlType[];
+  isLast: boolean;
 };
