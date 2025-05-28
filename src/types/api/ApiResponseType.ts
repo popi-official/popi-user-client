@@ -3,7 +3,7 @@ import { ItemPathType, ItemUrlType, ReservableDate } from '../DetailScreen';
 import { PostItemSearch, PostPopUpSearch } from '../SearchScreenType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 import { SurveyChoice } from '../SurveyQuestions';
-import { PopUpItem } from '@/types/HomeScreenType';
+import { HotPopUpItem, PopUpItem } from '@/types/HomeScreenType';
 import { PopularItem, RecommendedItem } from '@/types/PopUpEntryScreen';
 
 export type ApiResponse<T> = Promise<GlobalResponse<T>>;
@@ -89,15 +89,6 @@ export type popUpMarkerItemsResponse = popUpMarkerItem[];
 export type GetPopUpMarkerItemsResponse = popUpMarkerItem[];
 
 export type GetHotPopUpItemsResponse = HotPopUpItem[];
-
-export type HotPopUpItem = {
-  popupId: number;
-  popupName: string;
-  imageUrl: number; // 추후 string으로 변경
-  popupOpenDate: string;
-  popupCloseDate: string;
-  address: string;
-};
 
 export type GetPopUpItemsResponse = PopUpItem[];
 
