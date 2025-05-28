@@ -106,3 +106,7 @@ export type GetReservationDetailResponse = {
 export type GetRecommendedItemsResponse = RecommendedItem[];
 
 export type GetPopularItemsResponse = PopularItem[];
+export type GetPopUDetailAllItemsResponse = {
+  content: ItemUrlType[];
+  isLast: boolean;
+};

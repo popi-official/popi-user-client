@@ -1,3 +1,4 @@
+import { ItemUrlType } from '../DetailScreen';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 
 export type PostLoginRequest = {
