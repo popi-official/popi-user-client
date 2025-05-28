@@ -26,3 +26,7 @@ export type GetReservationInfoRequest = {
   popupId: number;
   yyyyMM: string; // 2025-05 형식
 };
+
+export type GetSurveyQuestionsRequest = {
+  popupId: number;
+};

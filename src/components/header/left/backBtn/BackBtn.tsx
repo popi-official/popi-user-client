@@ -6,12 +6,18 @@ const images = {
   backButtonIcon: require('@/assets/images/common/right-arrow.webp'),
 };
 
-export default function BackBtn() {
+type Props = {
+  isNavigateHome?: boolean;
+};
+
+export default function BackBtn({ isNavigateHome = false }: Props) {
   const router = useRouter();
 
   return (
     <HeaderLeftWrapper>
-      <S.Container onPress={() => router.back()}>
+      <S.Container
+        onPress={isNavigateHome ? () => router.replace('/(tabs)/home') : () => router.back()}
+      >
         <S.BackButtonIcon source={images.backButtonIcon} />
       </S.Container>
     </HeaderLeftWrapper>

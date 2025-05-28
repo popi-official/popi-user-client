@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as S from './SurveyQuestion.style';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import CustomGrayBtn from '@/components/customGrayBtn/CustomGrayBtn';
-import { Dimensions, View } from 'react-native';
-import { SurveyQuestionsMock } from '@/mocks/SurveyQuestionsMocks';
+import { ActivityIndicator, Dimensions, Text, View } from 'react-native';
 import { Animated } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useSurveyApi } from '@/hooks/api/useSurveyApi';
+import { usePopUpStore } from '@/store/usePopUpStore';
 
 const QUESTIONS = [
   '어떤 종류의 굿즈를\n가장 선호하시나요?',
@@ -22,10 +23,11 @@ const SurveyQuestionPage: React.FC = () => {
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState<number | null>(null);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number | null>>({});
-  // const { surveyData } = getSurveyApi;
-  const surveyData = SurveyQuestionsMock; // mock data
-  const answers = surveyData[step - 1].options;
+
+  const popupId = usePopUpStore.getState().selectedPopUpId;
   const router = useRouter();
+  const { questions, isLoading, isError } = useSurveyApi({ popupId });
+  const progress = useRef(new Animated.Value(0)).current;
 
   // step 변경될 때 해당 step의 기존 답변 불러오기
   useEffect(() => {
@@ -34,23 +36,14 @@ const SurveyQuestionPage: React.FC = () => {
 
   // 선택값 불러오기
   useEffect(() => {
-    const currentSurvey = surveyData[step - 1];
-    const saved = selectedAnswers[currentSurvey.surveyId] ?? null;
-    setSelected(saved);
-  }, [step, selectedAnswers, surveyData]);
-
-  // 추후 POST 요청 Body
-  // const requestBody = {
-  //   memberAnswerCreateRequest: surveyData.map(survey => ({
-  //     surveyId: survey.surveyId,
-  //     choiceId: selectedAnswers[survey.surveyId],
-  //   })),
-  // };
-  // console.log(requestBody);
+    if (questions && questions[step - 1]) {
+      const currentSurvey = questions[step - 1];
+      const saved = selectedAnswers[currentSurvey.surveyId] ?? null;
+      setSelected(saved);
+    }
+  }, [step, selectedAnswers, questions]);
 
   // 애니메이션
-  const progress = useRef(new Animated.Value(0)).current;
-
   useEffect(() => {
     Animated.timing(progress, {
       toValue: (step - 1) / (TOTAL - 1),
@@ -58,6 +51,25 @@ const SurveyQuestionPage: React.FC = () => {
       useNativeDriver: false,
     }).start();
   }, [progress, step]);
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+
+  if (isError || !questions) {
+    return <Text>질문지 내용을 불러올 수 없습니다.</Text>;
+  }
+
+  const answers = questions[step - 1].options;
+
+  // 추후 POST 요청 Body
+  // const requestBody = {
+  //   memberAnswerCreateRequest: questions.map(survey => ({
+  //     surveyId: survey.surveyId,
+  //     choiceId: selectedAnswers[survey.surveyId],
+  //   })),
+  // };
+  // console.log(requestBody);
 
   const fillWidth = progress.interpolate({
     inputRange: [0, 1],
@@ -93,7 +105,7 @@ const SurveyQuestionPage: React.FC = () => {
               onPress={() => {
                 const isSame = selected === answer.choiceId; // 토글
                 const newChoiceId = isSame ? null : answer.choiceId;
-                const currentSurveyId = surveyData[step - 1].surveyId;
+                const currentSurveyId = questions[step - 1].surveyId;
 
                 setSelected(newChoiceId);
                 setSelectedAnswers(prev => ({
@@ -133,7 +145,7 @@ const SurveyQuestionPage: React.FC = () => {
               } else {
                 // 수정: 마지막일 때 제출 로직 호출
                 //handleSubmit(); POST API 호출
-                router.push({ pathname: '/(common)/popUpEntry', params: { isSurvey: 1 } });
+                router.replace({ pathname: '/(common)/popUpEntry', params: { isSurvey: 1 } });
               }
             }}
             style={{ width: BUTTON_WIDTH }}
