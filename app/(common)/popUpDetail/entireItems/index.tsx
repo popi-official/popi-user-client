@@ -1,6 +1,6 @@
 import { ParseStringToJson } from '@/utils/JsonParser';
 import { useLocalSearchParams } from 'expo-router';
-import { FlatList, ScrollView, View, ActivityIndicator } from 'react-native';
+import { FlatList, ScrollView, View, ActivityIndicator, Text } from 'react-native';
 import HotItems from '@/components/entireItems/hotItems/HotItems';
 import EntirePageItem from '@/components/entireItems/items/EntirePageItem';
 import { S } from './EntireItems.style';
@@ -8,16 +8,21 @@ import SearchBarTextInput from '@/components/searchScreen/SearchBarTextInput';
 import { useSearchStore } from '@/store/useSearchStore';
 import useSearch from '@/hooks/useSearch';
 import { PostItemSearch } from '@/types/SearchScreenType';
-import { EntireItemMocks } from '@/mocks/PopUpDetailItemMocks';
 import { ItemPathType, ItemUrlType } from '@/types/DetailScreen';
 import NoItem from '@/components/searchScreen/noItem/NoItem';
 import { useCallback } from 'react';
+import { usePopUpDetailAllItemsApi } from '@/hooks/api/usePopUpDetailApi';
+import { usePopUpStore } from '@/store/usePopUpStore';
 
 export default function EntireItemsScreen() {
   const { hotItems } = useLocalSearchParams<{ hotItems: string }>();
+  // const { selectedPopUpId } = usePopUpStore();
   const formattedPopularItems = ParseStringToJson(hotItems) as ItemPathType[];
   const { searchResult, isLoading, hasMore, loadMore } = useSearch();
   const { keyword } = useSearchStore();
+  const { allItems, isItemLoading, isItemError, allItemsQuery } = usePopUpDetailAllItemsApi({
+    popupId: 1,
+  });
 
   const isSearchMode = keyword.trim().length > 0;
 
@@ -94,6 +99,21 @@ export default function EntireItemsScreen() {
     return null;
   }, [searchResult.length, isLoading]);
 
+  const handleDefaultLoadMore = useCallback(() => {
+    if (allItemsQuery.hasNextPage && !allItemsQuery.isFetchingNextPage) {
+      allItemsQuery.fetchNextPage();
+    }
+  }, [allItemsQuery.hasNextPage, allItemsQuery.isFetchingNextPage, allItemsQuery.fetchNextPage]);
+
+  const renderDefaultFooter = useCallback(() => {
+    if (!allItemsQuery.isFetchingNextPage || !allItemsQuery.hasNextPage) return null;
+    return (
+      <View style={{ padding: 20, alignItems: 'center' }}>
+        <ActivityIndicator size="small" color="white" />
+      </View>
+    );
+  }, [allItemsQuery.isFetchingNextPage, allItemsQuery.hasNextPage]);
+
   const renderDefaultHeader = useCallback(
     () => (
       <S.ListHeaderContainer>
@@ -140,19 +160,37 @@ export default function EntireItemsScreen() {
   const renderDefaultContent = useCallback(
     () => (
       <FlatList
-        data={EntireItemMocks}
+        data={allItems}
         style={{ flex: 1 }}
         renderItem={renderDefaultItem}
         numColumns={2}
         columnWrapperStyle={{ justifyContent: 'space-between', gap: 10 }}
-        contentContainerStyle={{ gap: 20, paddingHorizontal: 12 }}
+        contentContainerStyle={{ gap: 20, paddingHorizontal: 12, paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
         keyExtractor={defaultKeyExtractor}
         ListHeaderComponent={renderDefaultHeader}
+        onEndReached={handleDefaultLoadMore}
+        onEndReachedThreshold={0.3}
+        ListFooterComponent={renderDefaultFooter}
       />
     ),
-    [renderDefaultItem, defaultKeyExtractor, renderDefaultHeader],
+    [
+      renderDefaultItem,
+      defaultKeyExtractor,
+      renderDefaultHeader,
+      allItems,
+      handleDefaultLoadMore,
+      renderDefaultFooter,
+    ],
   );
+
+  if (isItemLoading) {
+    return <ActivityIndicator />;
+  }
+
+  if (isItemError || allItems?.length === 0) {
+    return <Text>조회된 데이터가 없습니다.</Text>;
+  }
 
   return (
     <View style={{ backgroundColor: 'black', flex: 1 }}>

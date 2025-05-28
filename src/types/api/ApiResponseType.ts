@@ -74,3 +74,8 @@ export type GetReservationInfoResponse = {
   popupCloseDate: string;
   reservableDate: ReservableDate[];
 };
+
+export type GetPopUDetailAllItemsResponse = {
+  content: ItemUrlType[];
+  isLast: boolean;
+};
