@@ -68,7 +68,7 @@ export type PostItemSearchResponse = {
   isLast: boolean;
 };
 
-export type SurveyQuestionsResponse = SurveyChoice[];
+export type GetSurveyQuestionsResponse = SurveyChoice[];
 export type GetReservationInfoResponse = {
   popupOpenDate: string;
   popupCloseDate: string;
