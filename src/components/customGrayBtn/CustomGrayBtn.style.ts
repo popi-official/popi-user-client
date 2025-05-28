@@ -9,7 +9,6 @@ interface ButtonTextProps {
 export const S = {
   ButtonContainer: styled.TouchableOpacity`
     overflow: hidden;
-    padding: 16px;
     align-items: center;
     justify-content: center;
     width: 100%;
