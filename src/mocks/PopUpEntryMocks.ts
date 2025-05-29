@@ -9,6 +9,7 @@ const Images = {
 };
 
 export const reservationDetail: GetReservationDetailResponse = {
+  reservationId: '23',
   popupName: '블랙핑크 팝업스토어',
   popupDate: '2025-05-26',
   popupDay: 'MON',

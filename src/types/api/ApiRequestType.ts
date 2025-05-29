@@ -52,4 +52,8 @@ export type PostPaymentReadyRequest = {
 
 export type PostPaymentVerifyRequest = {
   impUid: string;
+}
+
+export type DeleteReservationRequest = {
+  memberReservationId: string;
 };
