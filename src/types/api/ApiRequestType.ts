@@ -43,3 +43,7 @@ export type GetPopUpDetailRequest = {
 export type GetPopUpAllItemsRequest = {
   lastPopupId: number | undefined;
 };
+
+export type DeleteReservationRequest = {
+  memberReservationId: string;
+};

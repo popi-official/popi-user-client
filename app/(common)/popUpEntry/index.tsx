@@ -5,6 +5,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import NoticeModal from '@/components/noticeModal/NoticeModal';
 import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
+import { useDeleteReservation } from '@/hooks/api/useReserviationApi';
 
 const Images = {
   cameraBoy: require('@/assets/images/popUpEntry/camera-boy.webp'),
@@ -19,16 +20,16 @@ const Images = {
 const PopUpEntryScreen = () => {
   const { isSurvey } = useLocalSearchParams();
   const [modalVisible, setModalVisible] = useState(false);
+  const { mutate: deleteReservation } = useDeleteReservation();
 
-  // 모달 열기
   const handleCancelPress = () => {
     setModalVisible(true);
   };
 
-  // 실제 예약 취소 로직 + 모달 닫기
-  //  TODO: 예약 취소 API 호출
   const handleConfirmCancel = () => {
-    setModalVisible(false);
+    deleteReservation({
+      memberReservationId: reservationDetail.reservationId,
+    });
   };
 
   const handleCloseModal = () => {
