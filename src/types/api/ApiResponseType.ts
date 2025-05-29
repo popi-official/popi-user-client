@@ -80,6 +80,13 @@ export type GetReservationInfoResponse = {
   reservableDate: ReservableDate[];
 };
 
+export type PostPaymentReadyResponse = {
+  buyerName: string;
+  name: string;
+  amount: number;
+  merchantUid: string;
+};
+
 export type GetPopUpDetailAllItemsResponse = {
   content: ItemUrlType[];
   isLast: boolean;

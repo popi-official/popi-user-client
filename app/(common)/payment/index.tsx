@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import IMP from 'iamport-react-native';
 
 const PGS = [
-  { label: 'KG이니시스', value: 'html5_inicis' },
   { label: '토스페이먼츠', value: 'tosspay' },
   { label: '카카오페이', value: 'kakaopay' },
+  // { label: 'KG이니시스', value: 'html5_inicis' },
   // { label: '나이스페이먼츠', value: 'nice' },
   // { label: 'KCP', value: 'kcp' },
 ];
@@ -19,17 +19,19 @@ const METHODS = [
   // { label: '휴대폰', value: 'phone' },
 ];
 
+type PGLabel = (typeof PGS)[number]['label'];
+
 export default function PaymentScreen() {
   const router = useRouter();
 
-  const [pg, setPg] = useState('html5_inicis');
+  const [pg, setPg] = useState<PGLabel>('');
   const [method, setMethod] = useState('card');
-  const [merchantUid, setMerchantUid] = useState(`popi_${new Date().getTime()}`);
-  const [name, setName] = useState('POPI 팝업스토어 예약');
-  const [amount, setAmount] = useState('39000');
-  const [buyerName, setBuyerName] = useState('테스트유저');
-  const [buyerTel, setBuyerTel] = useState('01012345678');
-  const [buyerEmail, setBuyerEmail] = useState('test@test.com');
+  const [merchantUid, setMerchantUid] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [amount, setAmount] = useState<string>('');
+  const [buyerName, setBuyerName] = useState<string>('');
+  const [buyerTel, setBuyerTel] = useState<string>('');
+  const [buyerEmail, setBuyerEmail] = useState<string>('');
   const [showPayment, setShowPayment] = useState(false);
   // const [escrow, setEscrow] = useState(false);
 
@@ -62,10 +64,6 @@ export default function PaymentScreen() {
   };
 
   const handleStartPayment = () => {
-    if (!buyerName || !buyerTel || !amount) {
-      Alert.alert('오류', '필수 정보를 입력해주세요.');
-      return;
-    }
     setShowPayment(true);
   };
 
@@ -119,7 +117,7 @@ export default function PaymentScreen() {
           <View>
             <Text>결제금액</Text>
             <TextInput
-              value={amount}
+              value={amount || '0'}
               keyboardType="number-pad"
               onChangeText={string => setAmount(string)}
             />
