@@ -1,39 +1,32 @@
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { Alert, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import IMP from 'iamport-react-native';
+import { S } from './Payment.style';
 
 const PGS = [
-  { label: '토스페이먼츠', value: 'tosspay' },
+  {
+    label: '토스페이먼츠',
+    value: 'tosspay',
+    icon: require('@/assets/images/payment/toss-icon.png'),
+  },
   { label: '카카오페이', value: 'kakaopay' },
-  // { label: 'KG이니시스', value: 'html5_inicis' },
-  // { label: '나이스페이먼츠', value: 'nice' },
-  // { label: 'KCP', value: 'kcp' },
 ];
-
-const METHODS = [
-  { label: '신용카드', value: 'card' },
-  // { label: '실시간계좌이체', value: 'trans' },
-  // { label: '가상계좌', value: 'vbank' },
-  // { label: '휴대폰', value: 'phone' },
-];
-
-type PGLabel = (typeof PGS)[number]['label'];
 
 export default function PaymentScreen() {
   const router = useRouter();
 
-  const [pg, setPg] = useState<PGLabel>('');
+  const [pg, setPg] = useState<string>('tosspay');
   const [method, setMethod] = useState('card');
-  const [merchantUid, setMerchantUid] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [amount, setAmount] = useState<string>('');
+  const [merchantUid, setMerchantUid] = useState<string>(`popi_${Date.now()}`);
+  const [name, setName] = useState<string>('상품 외 3건');
+  const amount = 1000;
   const [buyerName, setBuyerName] = useState<string>('');
   const [buyerTel, setBuyerTel] = useState<string>('');
   const [buyerEmail, setBuyerEmail] = useState<string>('');
   const [showPayment, setShowPayment] = useState(false);
-  // const [escrow, setEscrow] = useState(false);
 
   const paymentData = {
     pg,
@@ -64,103 +57,128 @@ export default function PaymentScreen() {
   };
 
   const handleStartPayment = () => {
+    if (!buyerName || !buyerTel || !buyerEmail) {
+      Alert.alert('정보 입력', '필수 정보를 모두 입력해주세요.');
+      return;
+    }
     setShowPayment(true);
   };
 
   if (showPayment) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <IMP.Payment
-          userCode={'imp14735503'}
-          loading={
-            <View>
-              <Text>결제 페이지 로딩 중...</Text>
-            </View>
-          }
-          data={paymentData}
-          callback={handlePaymentCallback}
-        />
-        <TouchableOpacity onPress={() => setShowPayment(false)}>
-          <Text>취소</Text>
-        </TouchableOpacity>
+        <S.PaymentContainer>
+          <S.PaymentHeader>
+            <S.CancelButton onPress={() => setShowPayment(false)}>
+              <Ionicons name="close" size={24} color="white" />
+            </S.CancelButton>
+            <S.PaymentHeaderTitle>결제 진행 중</S.PaymentHeaderTitle>
+          </S.PaymentHeader>
+
+          <IMP.Payment
+            userCode={'imp14735503'}
+            loading={
+              <S.LoadingContainer>
+                <S.LoadingText>결제 페이지 로딩 중...</S.LoadingText>
+              </S.LoadingContainer>
+            }
+            data={paymentData}
+            callback={handlePaymentCallback}
+          />
+        </S.PaymentContainer>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View>
-          <View>
-            <Text>PG사</Text>
-            <View>
+    <View style={{ flex: 1 }}>
+      <S.Container>
+        <S.Content>
+          <S.PaymentInfoCard>
+            <S.SectionTitle>결제 정보</S.SectionTitle>
+            <S.InfoRow>
+              <S.InfoLabel>상품명</S.InfoLabel>
+              <S.InfoValue>{name}</S.InfoValue>
+            </S.InfoRow>
+            <S.InfoRow>
+              <S.InfoLabel>결제금액</S.InfoLabel>
+              <S.AmountText>{parseInt(amount || '0').toLocaleString()}원</S.AmountText>
+            </S.InfoRow>
+          </S.PaymentInfoCard>
+
+          <S.Section>
+            <S.SectionTitle>결제수단 선택</S.SectionTitle>
+            <S.PgContainer>
               {PGS.map(item => (
-                <TouchableOpacity key={item.value} onPress={() => setPg(item.value)}>
-                  <Text>{item.label}</Text>
-                </TouchableOpacity>
+                <S.PgButton
+                  key={item.value}
+                  onPress={() => setPg(item.value)}
+                  isSelected={pg === item.value}
+                >
+                  <S.PgButtonText isSelected={pg === item.value}>{item.label}</S.PgButtonText>
+                  {pg === item.value && (
+                    <Ionicons name="checkmark-circle" size={20} color="#C3E4F5" />
+                  )}
+                </S.PgButton>
               ))}
-            </View>
-          </View>
-          <View>
-            <View>
-              {METHODS.map(item => (
-                <TouchableOpacity key={item.value} onPress={() => setMethod(item.value)}>
-                  <Text>{item.label}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-          <View>
-            <Text>상품명</Text>
-            <Text>{name}</Text>
-          </View>
-          <View>
-            <Text>결제금액</Text>
-            <TextInput
-              value={amount || '0'}
-              keyboardType="number-pad"
-              onChangeText={string => setAmount(string)}
-            />
-          </View>
-          <View>
-            <Text>구매자 이름</Text>
-            <TextInput
-              value={buyerName}
-              onChangeText={setBuyerName}
-              placeholder="이름을 입력하세요"
-              placeholderTextColor="#999"
-            />
-          </View>
-          <View>
-            <Text>전화번호</Text>
-            <TextInput
-              value={buyerTel}
-              onChangeText={setBuyerTel}
-              placeholder="전화번호를 입력하세요"
-              placeholderTextColor="#999"
-              keyboardType="number-pad"
-            />
-          </View>
-          <View>
-            <Text>이메일</Text>
-            <TextInput
-              value={buyerEmail}
-              onChangeText={setBuyerEmail}
-              placeholder="이메일을 입력하세요"
-              placeholderTextColor="#999"
-              keyboardType="email-address"
-            />
-          </View>
+            </S.PgContainer>
+          </S.Section>
 
-          <TouchableOpacity onPress={handleStartPayment}>
-            <Text>{parseInt(amount).toLocaleString()}원 결제하기</Text>
-          </TouchableOpacity>
+          <S.Section>
+            <S.SectionTitle>구매자 정보</S.SectionTitle>
 
-          <TouchableOpacity onPress={() => router.back()}>
-            <Text>취소</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+            <S.InputGroup>
+              <S.InputLabel>이름 *</S.InputLabel>
+              <S.Input
+                value={buyerName}
+                onChangeText={setBuyerName}
+                placeholder="이름을 입력하세요"
+                placeholderTextColor="#666"
+              />
+            </S.InputGroup>
+
+            <S.InputGroup>
+              <S.InputLabel>전화번호 *</S.InputLabel>
+              <S.Input
+                value={buyerTel}
+                onChangeText={setBuyerTel}
+                placeholder="010-0000-0000"
+                placeholderTextColor="#666"
+                keyboardType="number-pad"
+              />
+            </S.InputGroup>
+
+            <S.InputGroup>
+              <S.InputLabel>이메일 *</S.InputLabel>
+              <S.Input
+                value={buyerEmail}
+                onChangeText={setBuyerEmail}
+                placeholder="example@email.com"
+                placeholderTextColor="#666"
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            </S.InputGroup>
+          </S.Section>
+        </S.Content>
+
+        <S.BottomContainer>
+          <S.TotalAmountContainer>
+            <S.TotalLabel>총 결제금액</S.TotalLabel>
+            <S.TotalAmount>{parseInt(amount || '0').toLocaleString()}원</S.TotalAmount>
+          </S.TotalAmountContainer>
+
+          <S.PaymentButton
+            onPress={handleStartPayment}
+            disabled={!buyerName || !buyerTel || !buyerEmail}
+            isDisabled={!buyerName || !buyerTel || !buyerEmail}
+          >
+            <S.PaymentButtonText>
+              {parseInt(amount || '0').toLocaleString()}원 결제하기
+            </S.PaymentButtonText>
+          </S.PaymentButton>
+        </S.BottomContainer>
+      </S.Container>
+    </View>
   );
 }
