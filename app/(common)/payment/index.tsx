@@ -6,6 +6,8 @@ import IMP from 'iamport-react-native';
 import { S } from './Payment.style';
 import { ParseStringToJson } from '@/utils/JsonParser';
 import { PostPaymentReadyResponse } from '@/types/api/ApiResponseType';
+import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const PGS = [
   {
@@ -18,6 +20,7 @@ const PGS = [
 
 export default function PaymentScreen() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const { paymentReadyInfo } = useLocalSearchParams<{ paymentReadyInfo: string }>();
   const { name, merchantUid, amount, buyerName } = ParseStringToJson(
     paymentReadyInfo,
@@ -82,7 +85,7 @@ export default function PaymentScreen() {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, paddingBottom: insets.bottom }}>
       <S.Container>
         <S.Content>
           <S.PaymentInfoCard>
@@ -154,13 +157,11 @@ export default function PaymentScreen() {
             <S.TotalAmount>{Number(amount).toLocaleString()}원</S.TotalAmount>
           </S.TotalAmountContainer>
 
-          <S.PaymentButton
+          <CustomGradientBtn
+            title={`${Number(amount).toLocaleString()}원 결제하기`}
             onPress={handleStartPayment}
             disabled={!buyerName || !buyerTel || !buyerEmail}
-            isDisabled={!buyerName || !buyerTel || !buyerEmail}
-          >
-            <S.PaymentButtonText>{Number(amount).toLocaleString()}원 결제하기</S.PaymentButtonText>
-          </S.PaymentButton>
+          />
         </S.BottomContainer>
       </S.Container>
     </View>
