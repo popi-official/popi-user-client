@@ -5,6 +5,7 @@ import { AgeOption, GenderOption } from '../SignUpScreenType';
 import { SurveyChoice } from '../SurveyQuestions';
 import { HotPopUpItem, PopUpItem } from '@/types/HomeScreenType';
 import { PopularItem, RecommendedItem } from '@/types/PopUpEntryScreen';
+import { MyReservation } from '../MyPageScreen';
 
 export type ApiResponse<T> = Promise<GlobalResponse<T>>;
 export type ApiResult<T> = Promise<T>;
