@@ -1,6 +1,5 @@
 import { popUpMarkerItem } from '@/types/MapScreenType';
 import { ItemPathType, ItemUrlType, ReservableDate } from '../DetailScreen';
-import { HotItemType } from '../HomeScreen';
 import { PostItemSearch, PostPopUpSearch } from '../SearchScreenType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 import { SurveyChoice } from '../SurveyQuestions';
@@ -118,9 +117,13 @@ export type GetReservationDetailResponse = {
 export type GetRecommendedItemsResponse = RecommendedItem[];
 
 export type GetPopularItemsResponse = PopularItem[];
+
 export type GetPopUDetailAllItemsResponse = {
   content: ItemUrlType[];
   isLast: boolean;
 };
 
-export type GetHotItemResponse = HotItemType[];
+export type PostReservationErrorResponse = {
+  errorClassName: string;
+  message: string;
+};
