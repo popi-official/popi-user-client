@@ -131,7 +131,7 @@ export default function CustomCalendar() {
     setSelectedId(reservationId);
   };
 
-  // TODO: 예약하기 버튼을 눌렀을 때 실행할 예약 API를 구현해야합니다.
+  // 예약하기 버튼을 눌렀을 때 실행할 예약 API
   const handleReservation = () => {
     if (!selectedId) return;
     postReservationMutation.mutate({ reservationId: selectedId });
@@ -171,62 +171,76 @@ export default function CustomCalendar() {
           />
         </S.CalendarContainer>
       </S.CalendarSection>
-
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={{ flexDirection: 'row', marginLeft: 24 }}
-      >
-        <View style={{ flexDirection: 'row', gap: 14, marginTop: 24 }}>
-          {timeSlots.map((item: TimeSlot, idx: number) => (
-            <TouchableOpacity
-              key={item.reservationId}
-              disabled={!item.isPossible}
-              onPress={() => handleTimeSlotPress(item.reservationId)}
-            >
-              {/* 선택된 아이템이면 LinearGradient 사용, 아니면 일반 View */}
-              {item.reservationId === selectedId && item.isPossible ? (
-                <LinearGradient
-                  colors={['#BFF0F5', '#E0D9FF']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}
-                  style={{
-                    borderRadius: 10,
-                    paddingHorizontal: 14,
-                    paddingVertical: 10,
-                    marginRight: idx === timeSlots.length - 1 ? 24 : 0,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Text style={{ color: item.reservationId === selectedId ? 'black' : 'white' }}>
-                    {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
-                    {item.time.slice(0, 5)}
-                  </Text>
-                </LinearGradient>
-              ) : (
-                <View
-                  style={{
-                    borderRadius: 10,
-                    paddingHorizontal: 14,
-                    paddingVertical: 10,
-                    marginRight: idx === timeSlots.length - 1 ? 24 : 0,
-                    borderWidth: 1,
-                    borderColor: !item.isPossible ? '#383838' : '#929292',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Text style={{ color: !item.isPossible ? '#767676' : 'white' }}>
-                    {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
-                    {item.time.slice(0, 5)}
-                  </Text>
-                </View>
-              )}
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
+      {selectedDate === '' ? (
+        <Text
+          style={{
+            color: '#D9D9D9',
+            fontSize: 16,
+            textAlign: 'center',
+            fontFamily: 'pretendard-Medium',
+            marginTop: 24,
+            marginBottom: 48,
+          }}
+        >
+          예약 날짜를 선택해주세요
+        </Text>
+      ) : (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ flexDirection: 'row', marginLeft: 24 }}
+        >
+          <View style={{ flexDirection: 'row', gap: 14, marginTop: 24 }}>
+            {timeSlots.map((item: TimeSlot, idx: number) => (
+              <TouchableOpacity
+                key={item.reservationId}
+                disabled={!item.isPossible}
+                onPress={() => handleTimeSlotPress(item.reservationId)}
+              >
+                {/* 선택된 아이템이면 LinearGradient 사용, 아니면 일반 View */}
+                {item.reservationId === selectedId && item.isPossible ? (
+                  <LinearGradient
+                    colors={['#BFF0F5', '#E0D9FF']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={{
+                      borderRadius: 10,
+                      paddingHorizontal: 14,
+                      paddingVertical: 10,
+                      marginRight: idx === timeSlots.length - 1 ? 24 : 0,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Text style={{ color: item.reservationId === selectedId ? 'black' : 'white' }}>
+                      {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
+                      {item.time.slice(0, 5)}
+                    </Text>
+                  </LinearGradient>
+                ) : (
+                  <View
+                    style={{
+                      borderRadius: 10,
+                      paddingHorizontal: 13,
+                      paddingVertical: 9,
+                      marginRight: idx === timeSlots.length - 1 ? 24 : 0,
+                      borderWidth: 1,
+                      borderColor: !item.isPossible ? '#383838' : '#929292',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Text style={{ color: !item.isPossible ? '#767676' : 'white' }}>
+                      {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
+                      {item.time.slice(0, 5)}
+                    </Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+      )}
 
       <S.ReservationButtonContainer>
         <CustomGradientBtn

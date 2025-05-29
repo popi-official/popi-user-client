@@ -56,7 +56,7 @@ export const S = {
   `,
 
   ButtonContainer: styled.View`
-    width: 90%;
+    width: ${Dimensions.get('window').width - 24}px;
     align-items: center;
   `,
 };

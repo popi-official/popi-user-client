@@ -8,7 +8,7 @@ import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn'
 
 const { width } = Dimensions.get('window');
 const Images = {
-  icon: require('@/assets/images/signUp/success-content.webp'),
+  icon: require('@/assets/images/signUp/icon.webp'),
 };
 
 export default function MyScreen() {
@@ -114,11 +114,9 @@ export default function MyScreen() {
           </S.BottomActions>
         </S.PopUpEntryScreenContainer>
       ) : (
-        <View
-          style={{ justifyContent: 'center', alignItems: 'center', flex: 1, marginHorizontal: 30 }}
-        >
-          <Image source={Images.icon} style={{ width: 147, height: 147 }} resizeMode="contain" />
-          <View style={{ width: '100%', height: 50, marginTop: 30 }}>
+        <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+          <Image source={Images.icon} style={{ width: 480, height: 418 }} resizeMode="contain" />
+          <View style={{ width: 140, height: 50, marginTop: 30 }}>
             <CustomGradientBtn title="로그인" onPress={() => router.push('/(common)/login')} />
           </View>
         </View>

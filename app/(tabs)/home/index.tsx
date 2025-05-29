@@ -128,7 +128,7 @@ const HomeScreen = () => {
       data={allItems}
       keyExtractor={item => String(item.popupId)}
       numColumns={2}
-      columnWrapperStyle={{ gap: cardGap, marginBottom: 12, paddingHorizontal: 12 }}
+      columnWrapperStyle={{ gap: cardGap, marginBottom: 20, paddingHorizontal: 12 }}
       contentContainerStyle={{ paddingBottom: 100 }}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={renderHeader}

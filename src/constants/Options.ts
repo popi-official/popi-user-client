@@ -40,10 +40,11 @@ export const CALENDAR_THEME = {
       flexDirection: 'row',
       justifyContent: 'space-around',
       backgroundColor: '#1B1B1C',
+      marginBottom: 12,
     },
     weekText: {
       fontSize: 20,
-      fontWeight: 600,
+      fontWeight: 700,
       color: '#BCBCBE',
     },
     dayHeader: {
