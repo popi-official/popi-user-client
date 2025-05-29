@@ -1,36 +1,43 @@
 import styled from 'styled-components/native';
-import CustomGrayBtn from '../customGrayBtn/CustomGrayBtn';
-import CustomGradientBtn from '../customGradientBtn/CustomGradientBtn';
 import { getThemeColor, getThemePretendardFont } from '@/types';
+import { Dimensions } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export const S = {
   Backdrop: styled.View`
-    flex: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: rgba(0, 0, 0, 0.7);
   `,
+
   Container: styled.View`
     position: absolute;
     top: 35%;
     align-self: center;
-    width: 342px;
+    width: ${Dimensions.get('window').width - 60}px;
     height: 198px;
     background-color: #000000;
     border: 1px solid #929292;
     border-radius: 20px;
-    padding-top: 55px;
+    padding-top: 53px;
   `,
 
   TitleWrapper: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     margin-bottom: 49px;
   `,
-  Icon: styled.View`
+
+  Icon: styled.Image`
     width: 30px;
     height: 30px;
   `,
+
   Title: styled.Text`
     font-family: ${getThemePretendardFont('semibold')};
     font-size: 20px;
@@ -42,22 +49,43 @@ export const S = {
     flex-direction: row;
     justify-content: center;
   `,
-  ButtonRowBetween: styled.View`
-    flex-direction: row;
-    justify-content: space-between;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-bottom: 10px;
-  `,
-  GrayButton: styled(CustomGrayBtn)`
-    width: 100px;
-    height: 46px;
+
+  GrayButton: styled.TouchableOpacity`
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    min-height: 46px;
+    padding: 10px 16px;
+    font-family: ${getThemePretendardFont('medium')};
     border: 1px solid ${getThemeColor('gray05')};
     font-family: ${getThemePretendardFont('medium')};
+    border-radius: 12px;
+    background-color: ${getThemeColor('gray08')};
   `,
-  GradientButton: styled(CustomGradientBtn)`
-    width: 100px;
-    height: 46px;
+
+  GrayButtonText: styled.Text`
+    font-size: 18px;
     font-family: ${getThemePretendardFont('medium')};
+    color: ${getThemeColor('gray03')};
+  `,
+
+  ButtonContainer: styled.TouchableOpacity`
+    overflow: hidden;
+  `,
+
+  GradientBackground: styled(LinearGradient)`
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    min-height: 46px;
+    padding: 10px 16px;
+    font-family: ${getThemePretendardFont('medium')};
+    border-radius: 12px;
+  `,
+
+  GradientButtonText: styled.Text`
+    font-size: 18px;
+    font-family: ${getThemePretendardFont('medium')};
+    color: ${getThemeColor('gray11')};
   `,
 };

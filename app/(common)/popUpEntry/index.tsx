@@ -80,9 +80,6 @@ const PopUpEntryScreen = () => {
                 <S.Button isCancel onPress={handleCancelPress}>
                   <S.ButtonText isCancel>예약 취소</S.ButtonText>
                 </S.Button>
-                <S.Button>
-                  <S.ButtonText>확인</S.ButtonText>
-                </S.Button>
               </S.ButtonRow>
             </S.QrCard>
           </S.Card>
@@ -163,6 +160,7 @@ const PopUpEntryScreen = () => {
 
       {/* 예약 취소 확인 모달 */}
       <NoticeModal
+        icon={require('@/assets/images/common/check.webp')}
         visible={modalVisible}
         title="예약을 취소하시겠습니까?"
         onClose={handleCloseModal}

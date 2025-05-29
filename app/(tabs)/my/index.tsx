@@ -33,7 +33,7 @@ export default function MyScreen() {
           <S.ReservationTitle>내 예약</S.ReservationTitle>
 
           {[1, 2].map((_, i) => (
-            <S.TicketWrapper key={i}>
+            <S.TicketWrapper key={i} onPress={() => router.push('/(common)/popUpEntry')}>
               <S.LeftCard>
                 <S.TickTitle>POPI TICKET</S.TickTitle>
               </S.LeftCard>

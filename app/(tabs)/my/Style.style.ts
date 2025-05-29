@@ -17,6 +17,7 @@ export const S = {
 
   // 제목
   Title: styled.Text`
+    margin-top: 40px;
     font-family: ${getThemePretendardFont('semibold')};
     font-size: 28px;
     color: ${getThemeColor('gray01')};
@@ -55,7 +56,7 @@ export const S = {
 
   /*-------- 예약티켓  -------*/
   // 티켓 래퍼
-  TicketWrapper: styled.View`
+  TicketWrapper: styled.TouchableOpacity`
     flex-direction: row;
     align-self: center;
     width: ${Dimensions.get('window').width - 24}px;
