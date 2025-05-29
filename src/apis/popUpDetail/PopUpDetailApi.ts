@@ -1,16 +1,16 @@
 import {
   ApiResponse,
-  GetPopUDetailAllItemsResponse,
   GetPopUpDetailResponse,
+  GetPopUpDetailAllItemsResponse,
 } from '@/types/api/ApiResponseType';
 import { api } from '../config/Axios';
-import { GetPopUDetailAllItemsRequest, GetPopUpDetailRequest } from '@/types/api/ApiRequestType';
+import { GetPopUpDetailAllItemsRequest, GetPopUpDetailRequest } from '@/types/api/ApiRequestType';
 import { SEARCH_SIZE } from '@/constants/Options';
 
-export const getPopUDetailAllItems = async ({
+export const getPopUpDetailAllItems = async ({
   popupId,
   lastItemId,
-}: GetPopUDetailAllItemsRequest): ApiResponse<GetPopUDetailAllItemsResponse> => {
+}: GetPopUpDetailAllItemsRequest): ApiResponse<GetPopUpDetailAllItemsResponse> => {
   const response = await api.get(
     `/items/${popupId}?${lastItemId ? `lastItemId=${lastItemId}` : ''}&size=${SEARCH_SIZE}`,
   );

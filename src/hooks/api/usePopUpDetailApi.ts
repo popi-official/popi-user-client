@@ -1,4 +1,4 @@
-import { getPopUDetailAllItems } from '@/apis/popUpDetail/PopUpDetailApi';
+import { getPopUpDetailAllItems } from '@/apis/popUpDetail/PopUpDetailApi';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getPopUpDetailInfo } from '@/apis/popUpDetail/PopUpDetailApi';
 import { GetPopUpDetailRequest } from '@/types/api/ApiRequestType';
@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 export const usePopUpDetailAllItemsApi = ({ popupId }: { popupId: number }) => {
   const query = useInfiniteQuery({
     queryFn: ({ pageParam }) =>
-      getPopUDetailAllItems({
+      getPopUpDetailAllItems({
         popupId,
         lastItemId: pageParam,
       }),

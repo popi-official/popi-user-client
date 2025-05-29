@@ -1,4 +1,4 @@
-import { GetHotPopUpItemsResponse, GetPopUpItemsResponse } from '@/types/api/ApiResponseType';
+import { GetHotPopUpItemsResponse } from '@/types/api/ApiResponseType';
 import { BannerItemType } from '@/types/HomeScreenType';
 
 const Images = {
@@ -60,73 +60,6 @@ export const hotItems: GetHotPopUpItemsResponse = [
     popupId: 4,
     popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
     imageUrl: Images.popUp01,
-    popupOpenDate: '2025-05-01',
-    popupCloseDate: '2025-06-09',
-    address: '서울 영등포구 여의대로 108 더현대서울',
-  },
-];
-
-export const popUpItems: GetPopUpItemsResponse = [
-  {
-    popupId: 1,
-    popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp01,
-    popupOpenDate: '2025-05-01',
-    popupCloseDate: '2025-06-09',
-    address: '서울 영등포구 여의대로 108 더현대서울',
-  },
-  {
-    popupId: 2,
-    popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp02,
-    popupOpenDate: '2025-05-01',
-    popupCloseDate: '2025-06-09',
-    address: '서울 영등포구 여의대로 108 더현대서울',
-  },
-  {
-    popupId: 3,
-    popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp03,
-    popupOpenDate: '2025-05-01',
-    popupCloseDate: '2025-06-09',
-    address: '서울 영등포구 여의대로 108 더현대서울',
-  },
-  {
-    popupId: 4,
-    popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp01,
-    popupOpenDate: '2025-05-01',
-    popupCloseDate: '2025-06-09',
-    address: '서울 영등포구 여의대로 108 더현대서울',
-  },
-  {
-    popupId: 5,
-    popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp02,
-    popupOpenDate: '2025-05-01',
-    popupCloseDate: '2025-06-09',
-    address: '서울 영등포구 여의대로 108 더현대서울',
-  },
-  {
-    popupId: 6,
-    popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp03,
-    popupOpenDate: '2025-05-01',
-    popupCloseDate: '2025-06-09',
-    address: '서울 영등포구 여의대로 108 더현대서울',
-  },
-  {
-    popupId: 7,
-    popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp01,
-    popupOpenDate: '2025-05-01',
-    popupCloseDate: '2025-06-09',
-    address: '서울 영등포구 여의대로 108 더현대서울',
-  },
-  {
-    popupId: 8,
-    popupName: '여자친구 Season of Memories 여자친구 Season of Memories',
-    imageUrl: Images.popUp02,
     popupOpenDate: '2025-05-01',
     popupCloseDate: '2025-06-09',
     address: '서울 영등포구 여의대로 108 더현대서울',

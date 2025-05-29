@@ -5,8 +5,9 @@ import styled from 'styled-components/native';
 
 export const S = {
   // screen
-  HomeScreenContainer: styled.ScrollView`
+  HomeScreenContainer: styled.View`
     background-color: ${getThemeColor('gray11')};
+    flex: 1;
   `,
 
   // swiper

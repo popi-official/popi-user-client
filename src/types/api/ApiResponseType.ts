@@ -90,7 +90,10 @@ export type GetPopUpMarkerItemsResponse = popUpMarkerItem[];
 
 export type GetHotPopUpItemsResponse = HotPopUpItem[];
 
-export type GetPopUpItemsResponse = PopUpItem[];
+export type GetPopUpAllItemsResponse = {
+  content: PopUpItem[];
+  isLast: boolean;
+};
 
 export type GetReservationDetailResponse = {
   popupName: string;
