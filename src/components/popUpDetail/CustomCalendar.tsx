@@ -3,7 +3,7 @@ import { S } from '../../../app/(common)/popUpDetail/PopUpDetail.style';
 import { CALENDAR_THEME } from '@/constants/Options';
 import { DateData, Direction, MarkedDates } from 'react-native-calendars/src/types';
 import { TimeSlot } from '@/types/DetailScreen';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native';
 import { useGetReservationInfoApi } from '@/hooks/api/useReserviationApi';
 import { usePopUpStore } from '@/store/usePopUpStore';
@@ -26,6 +26,8 @@ export default function CustomCalendar() {
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
   // 사용자가 선택한 ReservationId입니다. 실제로 예약하기 버튼을 누르면, 보낼 데이터입니다.
   const [selectedId, setSelectedId] = useState<number>(0);
+  const [minDate, setMinDate] = useState<string>('');
+  const [maxDate, setMaxDate] = useState<string>('');
 
   // 캘린더에서 예약 가능 날짜를 보여주기 위해 사용합니다.
   // API 명세에서 YYYY-MM을 요청하기 때문에, 캘린더의 Month가 변경되면 이 부분이 추출되어 상태로 저장됩니다.
@@ -40,6 +42,21 @@ export default function CustomCalendar() {
     yyyyMM: currentYearMonth,
   });
 
+  useEffect(() => {
+    if (reservationInfo) {
+      setMinDate(
+        reservableDate.length === 0
+          ? `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}-01`
+          : reservationInfo.reservableDate[0].date,
+      );
+      setMaxDate(
+        reservableDate.length === 0
+          ? `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}-02`
+          : reservationInfo.reservableDate[reservationInfo.reservableDate.length - 1].date,
+      );
+    }
+  }, [reservationInfo]);
+
   if (isLoading) {
     return <ActivityIndicator size="large" color="white" />;
   }
@@ -52,16 +69,6 @@ export default function CustomCalendar() {
 
   const reservableDate = reservationInfo.reservableDate;
   const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1);
-
-  const minDate =
-    reservableDate.length === 0
-      ? `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}-01`
-      : reservationInfo.reservableDate[0].date;
-
-  const maxDate =
-    reservableDate.length === 0
-      ? `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}-02`
-      : reservationInfo.reservableDate[reservationInfo.reservableDate.length - 1].date;
 
   const parseTimeSlotFromDate = (date: string) => {
     setTimeSlots(reservableDate.filter(d => d.date === date)[0].timeSlots);

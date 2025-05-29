@@ -49,6 +49,7 @@ export default function PopUpDetailScreen() {
         ref={calenderBottomSheetRef}
         snapPoints={snapShotPoint}
         enableDynamicSizing={false}
+        animateOnMount={false}
         enablePanDownToClose={true}
         index={-1}
         backdropComponent={renderBackdrop}

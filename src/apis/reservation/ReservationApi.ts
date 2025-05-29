@@ -6,6 +6,6 @@ export const getReservationInfo = async ({
   popupId,
   yyyyMM,
 }: GetReservationInfoRequest): ApiResponse<GetReservationInfoResponse> => {
-  const response = await api.get(`/reservations/${popupId}/?date=${yyyyMM}`);
+  const response = await api.get(`/reservations/popups/${popupId}?date=${yyyyMM}`);
   return response.data;
 };

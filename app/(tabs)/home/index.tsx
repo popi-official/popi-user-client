@@ -1,11 +1,12 @@
-import { ActivityIndicator, Dimensions, FlatList, Image, View } from 'react-native';
+import { ActivityIndicator, Dimensions, FlatList, Image, View, Text } from 'react-native';
 import { S } from './HomeScreen.style';
-import { bannerItems, hotItems } from '@/mocks/HomeMocks';
+import { bannerItems } from '@/mocks/HomeMocks';
 import { formatDateRange } from '@/utils/FormatDate';
 import { useRouter } from 'expo-router';
 import { usePopUpStore } from '@/store/usePopUpStore';
 import { usePopUpAllItemsApi } from '@/hooks/api/usePopUpAllItemsApi';
 import Swiper from 'react-native-swiper';
+import { useGetHotPopUpsApi } from '@/hooks/api/useHomeApi';
 
 const Images = {
   calendarGray: require('@/assets/images/common/calendar-gray.webp'),
@@ -19,6 +20,7 @@ const HomeScreen = () => {
   const cardWidth = (screenWidth - horizontalPadding - cardGap) / 2;
   const router = useRouter();
   const setSelectedPopUpId = usePopUpStore(state => state.setSelectedPopUpId);
+  const { hotItems, isLoading, isError } = useGetHotPopUpsApi();
 
   const {
     allItems,
@@ -30,6 +32,14 @@ const HomeScreen = () => {
       fetchNextPage();
     }
   };
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+
+  if (isError || !hotItems) {
+    return <Text>조회 데이터가 없습니다.</Text>;
+  }
 
   const renderItem = ({ item }: { item: any }) => (
     <S.PopUpCard
