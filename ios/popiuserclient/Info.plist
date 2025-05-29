@@ -29,7 +29,7 @@
         <array>
           <string>popiuserclient</string>
           <string>com.chik2chik.popiuserclient</string>
-          <string>901478f25e364a7e04b4b22ff7b6d957</string>
+          <string>kakao901478f25e364a7e04b4b22ff7b6d957</string>
         </array>
       </dict>
       <dict>
@@ -80,6 +80,8 @@
       <string>liivbank</string>
       <string>supertoss</string>
       <string>newsmartpib</string>
+      <string>kakaokompassauth</string>
+      <string>kakaolink</string>
     </array>
     <key>LSMinimumSystemVersion</key>
     <string>12.0</string>

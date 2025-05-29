@@ -25,7 +25,7 @@
               "CFBundleURLSchemes": [
                 "popiuserclient",
                 "com.chik2chik.popiuserclient",
-                "901478f25e364a7e04b4b22ff7b6d957"
+                "kakao901478f25e364a7e04b4b22ff7b6d957"
               ]
             }
           ],
@@ -62,7 +62,9 @@
             "lguthepay-xpay",
             "liivbank",
             "supertoss",
-            "newsmartpib"
+            "newsmartpib",
+            "kakaokompassauth",
+            "kakaolink"
           ],
           "NSAppTransportSecurity": {
             "NSAllowsArbitraryLoads": true,
@@ -109,6 +111,7 @@
       "plugins": [
         "expo-router",
         "expo-web-browser",
+        "expo-dev-client",
         [
           "@mj-studio/react-native-naver-map",
           {
