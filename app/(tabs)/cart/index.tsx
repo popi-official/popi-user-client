@@ -5,7 +5,6 @@ import { useCartStore } from '@/store/useCartStore';
 import { useRouter } from 'expo-router';
 import { usePaymentApi } from '@/hooks/api/usePaymantApi';
 import { ParseJsonToString } from '@/utils/JsonParser';
-import { useEffect } from 'react';
 
 const Images = {
   minusIcon: require('@/assets/images/cart/minus.webp'),
@@ -20,11 +19,6 @@ const Images = {
 export default function CartScreen() {
   const { cartItems, cartPopUpId, changeQuantity, toggleSelect, toggleSelectAll, deleteItem } =
     useCartStore();
-
-  useEffect(() => {
-    console.log(cartItems);
-    console.log('CART POPUP ID : ', cartPopUpId);
-  }, [cartItems]);
   const { postPaymentReadyMutation } = usePaymentApi();
   const router = useRouter();
 
@@ -45,7 +39,7 @@ export default function CartScreen() {
       items: cartItems.map(item => ({ itemId: item.itemId, quantity: item.quantity })),
     });
 
-    router.replace({
+    router.push({
       pathname: '/(common)/payment',
       params: {
         paymentReadyInfo: ParseJsonToString(response.data),

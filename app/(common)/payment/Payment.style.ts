@@ -100,6 +100,12 @@ export const S = {
     margin-bottom: 8px;
   `,
 
+  CommonText: styled.Text`
+    font-size: 20px;
+    color: white;
+    font-family: ${getThemePretendardFont('semibold')};
+  `,
+
   Input: styled.TextInput`
     background-color: #111;
     border-radius: 12px;

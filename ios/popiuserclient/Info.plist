@@ -29,6 +29,7 @@
         <array>
           <string>popiuserclient</string>
           <string>com.chik2chik.popiuserclient</string>
+          <string>901478f25e364a7e04b4b22ff7b6d957</string>
         </array>
       </dict>
       <dict>
@@ -43,7 +44,7 @@
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
     <key>KAKAO_APP_KEY</key>
-    <string>kakao901478f25e364a7e04b4b22ff7b6d957</string>
+    <string>901478f25e364a7e04b4b22ff7b6d957</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>kftc-bankpay</string>

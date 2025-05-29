@@ -4,8 +4,17 @@ import { create } from 'zustand';
 export const useCartStore = create<
   CartState & { cartPopUpId: number; setCartPopUpId: (popUpId: number) => void } & CartActions
 >(set => ({
-  cartItems: [],
-  cartPopUpId: 0,
+  cartItems: [
+    {
+      itemId: 1,
+      title: 'BLACK PINK Figure',
+      imagePath: 'https://image.aladin.co.kr/product/17920/59/cover500/k142534034_1.jpg',
+      price: 8000,
+      quantity: 1,
+      selected: true,
+    },
+  ],
+  cartPopUpId: 1,
 
   setCartPopUpId: (popUpId: number) => set(state => ({ ...state, cartPopUpId: popUpId })),
 

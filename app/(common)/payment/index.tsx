@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Alert, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import IMP from 'iamport-react-native';
 import { S } from './Payment.style';
+import { ParseStringToJson } from '@/utils/JsonParser';
+import { PostPaymentReadyResponse } from '@/types/api/ApiResponseType';
 
 const PGS = [
   {
@@ -17,26 +18,22 @@ const PGS = [
 
 export default function PaymentScreen() {
   const router = useRouter();
-  const params = useLocalSearchParams();
-
-  console.log(params);
+  const { paymentReadyInfo } = useLocalSearchParams<{ paymentReadyInfo: string }>();
+  const { name, merchantUid, amount, buyerName } = ParseStringToJson(
+    paymentReadyInfo,
+  ) as PostPaymentReadyResponse;
 
   const [pg, setPg] = useState<string>('tosspay');
-  const [method, setMethod] = useState('card');
-  const [merchantUid, setMerchantUid] = useState<string>(`popi_${Date.now()}`);
-  const [name, setName] = useState<string>('상품 외 3건');
-  const amount = 1000;
-  const [buyerName, setBuyerName] = useState<string>('');
   const [buyerTel, setBuyerTel] = useState<string>('');
   const [buyerEmail, setBuyerEmail] = useState<string>('');
   const [showPayment, setShowPayment] = useState(false);
 
   const paymentData = {
     pg,
-    pay_method: method,
+    pay_method: 'card',
     merchant_uid: merchantUid,
-    name,
-    amount,
+    name: name,
+    amount: amount,
     buyer_name: buyerName,
     buyer_tel: buyerTel,
     buyer_email: buyerEmail,
@@ -69,27 +66,18 @@ export default function PaymentScreen() {
 
   if (showPayment) {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <S.PaymentContainer>
-          <S.PaymentHeader>
-            <S.CancelButton onPress={() => setShowPayment(false)}>
-              <Ionicons name="close" size={24} color="white" />
-            </S.CancelButton>
-            <S.PaymentHeaderTitle>결제 진행 중</S.PaymentHeaderTitle>
-          </S.PaymentHeader>
-
-          <IMP.Payment
-            userCode={'imp14735503'}
-            loading={
-              <S.LoadingContainer>
-                <S.LoadingText>결제 페이지 로딩 중...</S.LoadingText>
-              </S.LoadingContainer>
-            }
-            data={paymentData}
-            callback={handlePaymentCallback}
-          />
-        </S.PaymentContainer>
-      </SafeAreaView>
+      <View style={{ flex: 1 }}>
+        <IMP.Payment
+          userCode={'imp14735503'}
+          loading={
+            <S.LoadingContainer>
+              <S.LoadingText>결제 페이지 로딩 중...</S.LoadingText>
+            </S.LoadingContainer>
+          }
+          data={paymentData}
+          callback={handlePaymentCallback}
+        />
+      </View>
     );
   }
 
@@ -105,7 +93,7 @@ export default function PaymentScreen() {
             </S.InfoRow>
             <S.InfoRow>
               <S.InfoLabel>결제금액</S.InfoLabel>
-              <S.AmountText>{parseInt(amount || '0').toLocaleString()}원</S.AmountText>
+              <S.AmountText>{Number(amount).toLocaleString()}원</S.AmountText>
             </S.InfoRow>
           </S.PaymentInfoCard>
 
@@ -131,13 +119,8 @@ export default function PaymentScreen() {
             <S.SectionTitle>구매자 정보</S.SectionTitle>
 
             <S.InputGroup>
-              <S.InputLabel>이름 *</S.InputLabel>
-              <S.Input
-                value={buyerName}
-                onChangeText={setBuyerName}
-                placeholder="이름을 입력하세요"
-                placeholderTextColor="#666"
-              />
+              <S.InputLabel>이름</S.InputLabel>
+              <S.CommonText>{buyerName}</S.CommonText>
             </S.InputGroup>
 
             <S.InputGroup>
@@ -168,7 +151,7 @@ export default function PaymentScreen() {
         <S.BottomContainer>
           <S.TotalAmountContainer>
             <S.TotalLabel>총 결제금액</S.TotalLabel>
-            <S.TotalAmount>{parseInt(amount || '0').toLocaleString()}원</S.TotalAmount>
+            <S.TotalAmount>{Number(amount).toLocaleString()}원</S.TotalAmount>
           </S.TotalAmountContainer>
 
           <S.PaymentButton
@@ -176,9 +159,7 @@ export default function PaymentScreen() {
             disabled={!buyerName || !buyerTel || !buyerEmail}
             isDisabled={!buyerName || !buyerTel || !buyerEmail}
           >
-            <S.PaymentButtonText>
-              {parseInt(amount || '0').toLocaleString()}원 결제하기
-            </S.PaymentButtonText>
+            <S.PaymentButtonText>{Number(amount).toLocaleString()}원 결제하기</S.PaymentButtonText>
           </S.PaymentButton>
         </S.BottomContainer>
       </S.Container>
