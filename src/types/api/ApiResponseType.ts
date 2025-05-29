@@ -97,6 +97,7 @@ export type GetPopUpAllItemsResponse = {
 };
 
 export type GetReservationDetailResponse = {
+  reservationId: string;
   popupName: string;
   popupDate: string;
   popupDay: string;
