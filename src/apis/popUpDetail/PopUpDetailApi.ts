@@ -20,6 +20,6 @@ export const getPopUDetailAllItems = async ({
 export const getPopUpDetailInfo = async ({
   popupId,
 }: GetPopUpDetailRequest): ApiResponse<GetPopUpDetailResponse> => {
-  const response = await api.get(`/popups/popups/${popupId}`);
+  const response = await api.get(`/popups/${popupId}`);
   return response.data;
 };
