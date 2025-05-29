@@ -8,6 +8,7 @@ import CustomCalendar from '@/components/popUpDetail/CustomCalendar';
 import { Image, View } from 'react-native';
 import { useAuthStore } from '@/store/useAuthStore';
 import { TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 
 const Images = {
   closeIcon: require('@/assets/images/signUp/close.png'),
@@ -15,6 +16,7 @@ const Images = {
 
 export default function PopUpDetailScreen() {
   const inset = useSafeAreaInsets();
+  const router = useRouter();
   const calenderBottomSheetRef = useRef<BottomSheet>(null);
   const snapShotPoint = useMemo(() => ['35%'], []);
   const isLogin = useAuthStore(state => state.isLogin);
@@ -38,10 +40,10 @@ export default function PopUpDetailScreen() {
       <PopUpDetailInfo />
       <View style={{ marginHorizontal: 12 }}>
         <CustomGradientBtn
-          title={isLogin ? '팝업 예약하기' : '로그인 이후 이용해주세요'}
+          title={isLogin ? '팝업 예약하기' : '로그인하고 예약하기'}
           height={54}
-          onPress={() => handleCalendarPress(0)}
-          icon={require('@/assets/images/common/store-gray.webp')}
+          onPress={() => (isLogin ? handleCalendarPress(0) : router.push('/(common)/login'))}
+          icon={isLogin ? require('@/assets/images/common/store-gray.webp') : undefined}
           disabled={!isLogin}
         />
       </View>

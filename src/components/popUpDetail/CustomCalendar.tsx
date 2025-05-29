@@ -5,12 +5,14 @@ import { DateData, Direction, MarkedDates } from 'react-native-calendars/src/typ
 import { TimeSlot } from '@/types/DetailScreen';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native';
-import { useGetReservationInfoApi } from '@/hooks/api/useReserviationApi';
+import { useGetReservationInfoApi, usePostReservationApi } from '@/hooks/api/useReserviationApi';
 import { usePopUpStore } from '@/store/usePopUpStore';
 import { useAuthStore } from '@/store/useAuthStore';
 import CustomGradientBtn from '../customGradientBtn/CustomGradientBtn';
 import { TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import NoticeModal from '@/components/noticeModal/NoticeModal';
+import { useRouter } from 'expo-router';
 
 const Images = {
   rightArrow: require('@/assets/images/common/right-arrow.webp'),
@@ -19,6 +21,7 @@ const Images = {
 export default function CustomCalendar() {
   const selectedPopUpId = usePopUpStore(state => state.selectedPopUpId);
   const isLogin = useAuthStore.getState().isLogin;
+  const router = useRouter();
 
   // 사용자가 선택한 날짜입니다 -> 하단에 예약 가능한 시간을 보여주기 위해 사용합니다.
   const [selectedDate, setSelectedDate] = useState<string>('');
@@ -28,6 +31,11 @@ export default function CustomCalendar() {
   const [selectedId, setSelectedId] = useState<number>(0);
   const [minDate, setMinDate] = useState<string>('');
   const [maxDate, setMaxDate] = useState<string>('');
+
+  // 모달
+  const [isSuccessModalVisible, setSuccessModalVisible] = useState(false);
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   // 캘린더에서 예약 가능 날짜를 보여주기 위해 사용합니다.
   // API 명세에서 YYYY-MM을 요청하기 때문에, 캘린더의 Month가 변경되면 이 부분이 추출되어 상태로 저장됩니다.
@@ -40,6 +48,16 @@ export default function CustomCalendar() {
   const { reservationInfo, isLoading, isError } = useGetReservationInfoApi({
     popupId: selectedPopUpId,
     yyyyMM: currentYearMonth,
+  });
+
+  const { postReservationMutation } = usePostReservationApi({
+    onSuccess: () => {
+      setSuccessModalVisible(true); // 예약 완료 모달
+    },
+    onError: (message: string) => {
+      setErrorMessage(message); // 예약 실패 메시지
+      setErrorModalVisible(true); // 예약 실패 모달
+    },
   });
 
   useEffect(() => {
@@ -113,9 +131,10 @@ export default function CustomCalendar() {
     setSelectedId(reservationId);
   };
 
-  // TODO: 예약하기 버튼을 눌렀을 때 실행할 예약 API를 구현해야합니다.
+  // 예약하기 버튼을 눌렀을 때 실행할 예약 API
   const handleReservation = () => {
-    return undefined;
+    if (!selectedId) return;
+    postReservationMutation.mutate({ reservationId: selectedId });
   };
 
   const markedDates: MarkedDates = selectedDate
@@ -152,62 +171,76 @@ export default function CustomCalendar() {
           />
         </S.CalendarContainer>
       </S.CalendarSection>
-
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={{ flexDirection: 'row', marginLeft: 24 }}
-      >
-        <View style={{ flexDirection: 'row', gap: 14, marginTop: 24 }}>
-          {timeSlots.map((item: TimeSlot, idx: number) => (
-            <TouchableOpacity
-              key={item.reservationId}
-              disabled={!item.isPossible}
-              onPress={() => handleTimeSlotPress(item.reservationId)}
-            >
-              {/* 선택된 아이템이면 LinearGradient 사용, 아니면 일반 View */}
-              {item.reservationId === selectedId && item.isPossible ? (
-                <LinearGradient
-                  colors={['#BFF0F5', '#E0D9FF']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}
-                  style={{
-                    borderRadius: 10,
-                    paddingHorizontal: 14,
-                    paddingVertical: 10,
-                    marginRight: idx === timeSlots.length - 1 ? 24 : 0,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Text style={{ color: item.reservationId === selectedId ? 'black' : 'white' }}>
-                    {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
-                    {item.time.slice(0, 5)}
-                  </Text>
-                </LinearGradient>
-              ) : (
-                <View
-                  style={{
-                    borderRadius: 10,
-                    paddingHorizontal: 14,
-                    paddingVertical: 10,
-                    marginRight: idx === timeSlots.length - 1 ? 24 : 0,
-                    borderWidth: 1,
-                    borderColor: !item.isPossible ? '#383838' : '#929292',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Text style={{ color: !item.isPossible ? '#767676' : 'white' }}>
-                    {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
-                    {item.time.slice(0, 5)}
-                  </Text>
-                </View>
-              )}
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
+      {selectedDate === '' ? (
+        <Text
+          style={{
+            color: '#D9D9D9',
+            fontSize: 16,
+            textAlign: 'center',
+            fontFamily: 'pretendard-Medium',
+            marginTop: 24,
+            marginBottom: 48,
+          }}
+        >
+          예약 날짜를 선택해주세요
+        </Text>
+      ) : (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ flexDirection: 'row', marginLeft: 24 }}
+        >
+          <View style={{ flexDirection: 'row', gap: 14, marginTop: 24 }}>
+            {timeSlots.map((item: TimeSlot, idx: number) => (
+              <TouchableOpacity
+                key={item.reservationId}
+                disabled={!item.isPossible}
+                onPress={() => handleTimeSlotPress(item.reservationId)}
+              >
+                {/* 선택된 아이템이면 LinearGradient 사용, 아니면 일반 View */}
+                {item.reservationId === selectedId && item.isPossible ? (
+                  <LinearGradient
+                    colors={['#BFF0F5', '#E0D9FF']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={{
+                      borderRadius: 10,
+                      paddingHorizontal: 14,
+                      paddingVertical: 10,
+                      marginRight: idx === timeSlots.length - 1 ? 24 : 0,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Text style={{ color: item.reservationId === selectedId ? 'black' : 'white' }}>
+                      {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
+                      {item.time.slice(0, 5)}
+                    </Text>
+                  </LinearGradient>
+                ) : (
+                  <View
+                    style={{
+                      borderRadius: 10,
+                      paddingHorizontal: 13,
+                      paddingVertical: 9,
+                      marginRight: idx === timeSlots.length - 1 ? 24 : 0,
+                      borderWidth: 1,
+                      borderColor: !item.isPossible ? '#383838' : '#929292',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Text style={{ color: !item.isPossible ? '#767676' : 'white' }}>
+                      {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
+                      {item.time.slice(0, 5)}
+                    </Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+      )}
 
       <S.ReservationButtonContainer>
         <CustomGradientBtn
@@ -216,6 +249,36 @@ export default function CustomCalendar() {
           disabled={!selectedId || !isLogin}
         />
       </S.ReservationButtonContainer>
+
+      <NoticeModal
+        visible={errorModalVisible}
+        title={errorMessage}
+        buttons={[
+          {
+            title: '확인',
+            onPress: () => setErrorModalVisible(false),
+          },
+        ]}
+      />
+
+      <NoticeModal
+        visible={isSuccessModalVisible}
+        title="예약 완료"
+        icon={require('@/assets/images/common/check.webp')}
+        buttons={[
+          {
+            title: '닫기',
+            onPress: () => setSuccessModalVisible(false),
+          },
+          {
+            title: '웰컴 굿즈 받기',
+            onPress: () => {
+              setSuccessModalVisible(false);
+              router.push('/(common)/survey');
+            },
+          },
+        ]}
+      />
     </>
   );
 }

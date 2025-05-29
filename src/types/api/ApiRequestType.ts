@@ -12,6 +12,10 @@ export type PostSignUpRequest = {
   gender: GenderOption;
 };
 
+export type PostReservationRequest = {
+  reservationId: number;
+};
+
 export type GetSearchPopUpRequest = {
   keyword: string;
   lastPopUpId: number | undefined;

@@ -53,13 +53,13 @@ export const S = {
   ButtonContainer: styled.View`
     width: 100%;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 12px;
     margin-bottom: 150px;
     gap: 20px;
   `,
 
   OAuthLoginBtn: styled.TouchableOpacity<BackGroundFill>`
-    width: 330px;
+    width: 100%;
     height: 56px;
     background-color: ${(props: BackGroundFill) => props.color};
     border-radius: 50px;

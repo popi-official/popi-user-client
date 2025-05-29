@@ -83,7 +83,7 @@ export const S = {
     color: ${getThemeColor('gray01')};
     font-size: 26px;
     font-family: ${getThemeInterFont('blackItalic')};
-    margin: 60px 0 30px 12px;
+    margin: 60px 0 24px 12px;
   `,
 
   // Hot Card

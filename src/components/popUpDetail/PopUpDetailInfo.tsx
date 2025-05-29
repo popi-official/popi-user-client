@@ -31,7 +31,7 @@ export default function PopUpDetailInfo() {
       <S.ItemCard key={idx}>
         <S.ItemImage source={{ uri: item.imagePath }} />
         <S.ItemTitle numberOfLines={1}>{item.title}</S.ItemTitle>
-        <S.ItemPrice>{item.price}</S.ItemPrice>
+        <S.ItemPrice>{item.price}원</S.ItemPrice>
       </S.ItemCard>
     ),
     [],
