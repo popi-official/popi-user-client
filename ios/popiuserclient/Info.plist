@@ -96,7 +96,7 @@
       <true/>
     </dict>
     <key>NSCameraUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your camera</string>
+    <string>팝업스토어 사진 촬영을 위해 카메라 권한이 필요합니다.</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>지도를 위해 위치 정보를 사용합니다.</string>
     <key>NSLocationAlwaysUsageDescription</key>

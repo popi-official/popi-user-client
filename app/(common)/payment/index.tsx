@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Alert, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,6 +17,9 @@ const PGS = [
 
 export default function PaymentScreen() {
   const router = useRouter();
+  const params = useLocalSearchParams();
+
+  console.log(params);
 
   const [pg, setPg] = useState<string>('tosspay');
   const [method, setMethod] = useState('card');
@@ -43,7 +46,7 @@ export default function PaymentScreen() {
 
   const handlePaymentCallback = (response: any) => {
     router.replace({
-      pathname: '/(common)/payment/PaymentResult',
+      pathname: '/payment/paymentResult',
       params: {
         impSuccess: response.imp_success?.toString(),
         success: response.success?.toString(),

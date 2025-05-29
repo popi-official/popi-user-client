@@ -1,6 +1,6 @@
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { S } from './PaymentResult.style';
 import { View } from 'react-native';
 

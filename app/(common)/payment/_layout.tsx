@@ -21,11 +21,11 @@ const PAYMENT_OPTIONS: NativeStackNavigationOptions = {
   ),
 };
 
-export default function SignUpLayout() {
+export default function PaymentLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" options={PAYMENT_OPTIONS} />
-      <Stack.Screen name="paymentResult/PaymentResult" />
+      <Stack.Screen name="paymentResult/index" />
     </Stack>
   );
 }

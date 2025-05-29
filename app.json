@@ -18,6 +18,7 @@
         "bundleIdentifier": "com.chik2chik.popiuserclient",
         "infoPlist": {
           "ITSAppUsesNonExemptEncryption": false,
+          "NSCameraUsageDescription": "팝업스토어 사진 촬영을 위해 카메라 권한이 필요합니다.",
           "LSApplicationQueriesSchemes": [
             "kftc-bankpay",
             "ispmobile",
@@ -71,6 +72,12 @@
         },
         "edgeToEdgeEnabled": true,
         "package": "com.chik2chik.popiuserclient",
+        "permissions": [
+          "CAMERA",
+          "RECORD_AUDIO",
+          "READ_EXTERNAL_STORAGE",
+          "WRITE_EXTERNAL_STORAGE"
+        ],
         "intentFilters": [
         {
           "action": "VIEW",

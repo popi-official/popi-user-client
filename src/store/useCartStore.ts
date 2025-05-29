@@ -1,8 +1,13 @@
 import { CartActions, CartState } from '@/types/CartItemType';
 import { create } from 'zustand';
 
-export const useCartStore = create<CartState & CartActions>(set => ({
+export const useCartStore = create<
+  CartState & { cartPopUpId: number; setCartPopUpId: (popUpId: number) => void } & CartActions
+>(set => ({
   cartItems: [],
+  cartPopUpId: 0,
+
+  setCartPopUpId: (popUpId: number) => set(state => ({ ...state, cartPopUpId: popUpId })),
 
   addToCart: item =>
     set(state => {

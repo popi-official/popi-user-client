@@ -2,7 +2,7 @@ import { getThemeColor, getThemePretendardFont } from '@/types';
 import styled from 'styled-components/native';
 
 export const S = {
-  QrCameraScreenContainer: styled.View`
+  QrCameraScreenContainer: styled.SafeAreaView`
     flex: 1;
     background-color: transperant;
     position: relative;

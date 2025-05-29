@@ -34,6 +34,7 @@ export default function QRCameraScreen() {
   const [scanned, setScanned] = useState(false);
 
   const addToCart = useCartStore.getState().addToCart;
+  const setCartPopUpId = useCartStore.getState().setCartPopUpId;
 
   // QR code 스캔 이후 데이터 장바구니에 추가
   const handleBarCodeScanned = ({ data }: { data: string }) => {
@@ -48,6 +49,8 @@ export default function QRCameraScreen() {
         imagePath: parsed.imagePath,
         price: Number(parsed.price),
       });
+
+      setCartPopUpId(parsed.popupId);
 
       router.replace('/(tabs)/cart');
     } catch (e) {
