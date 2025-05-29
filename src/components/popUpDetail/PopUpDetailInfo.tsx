@@ -1,6 +1,5 @@
-import { TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { S } from '../../../app/(common)/popUpDetail/PopUpDetail.style';
-import { PopUpDetailMock } from '@/mocks/PopUpDetailMocks';
 import { HotItemMocks, ItemMocks } from '@/mocks/PopUpDetailItemMocks';
 import HotItems from '../entireItems/hotItems/HotItems';
 import { useCallback } from 'react';
@@ -8,13 +7,17 @@ import { ItemPathType } from '@/types/DetailScreen';
 import { useRouter } from 'expo-router';
 import { ParseJsonToString } from '@/utils/JsonParser';
 import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
+import { usePopUpDetailApi } from '@/hooks/api/usePopUpDetailApi';
+import { usePopUpStore } from '@/store/usePopUpStore';
 
 const Images = {
   marker: require('@/assets/images/common/marker.webp'),
 };
 
 export default function PopUpDetailInfo() {
-  const popupDetailInfo = PopUpDetailMock;
+  const { selectedPopUpId } = usePopUpStore();
+  const { popUpDetailInfo, isLoading, isError } = usePopUpDetailApi({ popupId: selectedPopUpId });
+
   const hotItems = HotItemMocks;
   const router = useRouter();
 
@@ -39,30 +42,38 @@ export default function PopUpDetailInfo() {
       pathname: '/(common)/popUpDetail/entireItems',
       params: {
         hotItems: ParseJsonToString(hotItems),
-        title: popupDetailInfo.popupName,
+        title: popUpDetailInfo && popUpDetailInfo.popupName,
       },
     });
-  }, [hotItems, router, popupDetailInfo.popupName]);
+  }, [hotItems, router, popUpDetailInfo]);
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+
+  if (isError || !popUpDetailInfo) {
+    return <Text>데이터를 불러오지 못했습니다.</Text>;
+  }
 
   const region: Region = {
-    latitude: popupDetailInfo.latitude - 0.01 / 2,
-    longitude: popupDetailInfo.longitude - 0.01 / 2,
+    latitude: popUpDetailInfo.latitude - 0.01 / 2,
+    longitude: popUpDetailInfo.longitude - 0.01 / 2,
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   };
 
   return (
     <View>
-      <S.Banner source={require('@/assets/images/common/popupimg.png')} />
+      <S.Banner source={{ uri: popUpDetailInfo.imageUrl }} />
       <S.PopUpContentBox>
-        <S.PopupTitle>{popupDetailInfo.popupName}</S.PopupTitle>
+        <S.PopupTitle>{popUpDetailInfo.popupName}</S.PopupTitle>
         <S.SubInfoRow>
           <S.Icon source={require('@/assets/images/common/location-gray.webp')} />
-          <S.PopupInfo>{`${popupDetailInfo.popupOpenDate} - ${popupDetailInfo.popupCloseDate}`}</S.PopupInfo>
+          <S.PopupInfo>{`${popUpDetailInfo.popupOpenDate} - ${popUpDetailInfo.popupCloseDate}`}</S.PopupInfo>
         </S.SubInfoRow>
         <S.SubInfoRow>
           <S.Icon source={require('@/assets/images/common/calendar-gray.webp')} />
-          <S.PopupInfo>{popupDetailInfo.address}</S.PopupInfo>
+          <S.PopupInfo>{popUpDetailInfo.address}</S.PopupInfo>
         </S.SubInfoRow>
       </S.PopUpContentBox>
 
@@ -72,7 +83,7 @@ export default function PopUpDetailInfo() {
         <S.SectionTitle style={{ marginBottom: 8 }}>운영시간</S.SectionTitle>
         <S.SubInfoRow>
           <S.Icon source={require('@/assets/images/common/clock-gray.webp')} />
-          <S.PopupInfo>{`${popupDetailInfo.runOpenTime.slice(0, 5)} - ${popupDetailInfo.runCloseTime.slice(0, 5)}`}</S.PopupInfo>
+          <S.PopupInfo>{`${popUpDetailInfo.runOpenTime.slice(0, 5)} - ${popUpDetailInfo.runCloseTime.slice(0, 5)}`}</S.PopupInfo>
         </S.SubInfoRow>
 
         <S.SectionTitle style={{ marginTop: 20, marginBottom: 12 }}>위치정보</S.SectionTitle>
@@ -91,8 +102,8 @@ export default function PopUpDetailInfo() {
             isExtentBoundedInKorea={true}
           >
             <NaverMapMarkerOverlay
-              latitude={popupDetailInfo.latitude}
-              longitude={popupDetailInfo.longitude}
+              latitude={popUpDetailInfo.latitude}
+              longitude={popUpDetailInfo.longitude}
               anchor={{ x: 0.5, y: 1 }}
               width={32}
               height={47}

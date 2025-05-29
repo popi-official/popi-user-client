@@ -35,3 +35,7 @@ export type GetPopUDetailAllItemsRequest = {
   popupId: number;
   lastItemId: number | undefined;
 };
+
+export type GetPopUpDetailRequest = {
+  popupId: number;
+};

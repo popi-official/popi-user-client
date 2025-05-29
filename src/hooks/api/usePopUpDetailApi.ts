@@ -1,5 +1,8 @@
 import { getPopUDetailAllItems } from '@/apis/popUpDetail/PopUpDetailApi';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { getPopUpDetailInfo } from '@/apis/popUpDetail/PopUpDetailApi';
+import { GetPopUpDetailRequest } from '@/types/api/ApiRequestType';
+import { useQuery } from '@tanstack/react-query';
 
 export const usePopUpDetailAllItemsApi = ({ popupId }: { popupId: number }) => {
   const query = useInfiniteQuery({
@@ -27,5 +30,18 @@ export const usePopUpDetailAllItemsApi = ({ popupId }: { popupId: number }) => {
     isItemLoading: query.isLoading,
     isItemError: query.isError,
     allItemsQuery: query,
+  };
+};
+
+export const usePopUpDetailApi = ({ popupId }: GetPopUpDetailRequest) => {
+  const query = useQuery({
+    queryFn: () => getPopUpDetailInfo({ popupId }),
+    queryKey: ['popup', popupId],
+  });
+
+  return {
+    popUpDetailInfo: query.data?.data,
+    isLoading: query.isLoading,
+    isError: query.isError,
   };
 };
