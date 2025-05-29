@@ -64,7 +64,7 @@ export default function PopUpDetailInfo() {
 
   return (
     <View>
-      <S.Banner source={require('@/assets/images/common/popupimg.png')} />
+      <S.Banner source={{ uri: popUpDetailInfo.imageUrl }} />
       <S.PopUpContentBox>
         <S.PopupTitle>{popUpDetailInfo.popupName}</S.PopupTitle>
         <S.SubInfoRow>
