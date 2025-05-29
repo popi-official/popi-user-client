@@ -2,6 +2,9 @@ import { FlatList, Image, View, TouchableOpacity } from 'react-native';
 import { S } from './CartScreen.style';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { useCartStore } from '@/store/useCartStore';
+import { useRouter } from 'expo-router';
+import { usePaymentApi } from '@/hooks/api/usePaymantApi';
+import { ParseJsonToString } from '@/utils/JsonParser';
 
 const Images = {
   minusIcon: require('@/assets/images/cart/minus.webp'),
@@ -14,7 +17,10 @@ const Images = {
 };
 
 export default function CartScreen() {
-  const { cartItems, changeQuantity, toggleSelect, toggleSelectAll, deleteItem } = useCartStore();
+  const { cartItems, cartPopUpId, changeQuantity, toggleSelect, toggleSelectAll, deleteItem } =
+    useCartStore();
+  const { postPaymentReadyMutation } = usePaymentApi();
+  const router = useRouter();
 
   const allSelected = cartItems.length > 0 && cartItems.every(item => item.selected);
   const isEmpty = cartItems.length === 0;
@@ -26,6 +32,20 @@ export default function CartScreen() {
       }
       return sum;
     }, 0);
+
+  const handlePayment = async () => {
+    const response = await postPaymentReadyMutation.mutateAsync({
+      popupId: cartPopUpId,
+      items: cartItems.map(item => ({ itemId: item.itemId, quantity: item.quantity })),
+    });
+
+    router.push({
+      pathname: '/(common)/payment',
+      params: {
+        paymentReadyInfo: ParseJsonToString(response.data),
+      },
+    });
+  };
 
   return (
     <S.Container>
@@ -102,12 +122,7 @@ export default function CartScreen() {
           />
 
           <S.BottomButtonWrapper>
-            <CustomGradientBtn
-              title="구매하기"
-              onPress={() => {
-                // TODO: 결제!
-              }}
-            />
+            <CustomGradientBtn title="구매하기" onPress={handlePayment} />
           </S.BottomButtonWrapper>
         </>
       )}

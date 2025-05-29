@@ -1,3 +1,4 @@
+import { PaymentItemType } from '../PaymentType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 
 export type PostLoginRequest = {
@@ -42,6 +43,15 @@ export type GetPopUpDetailRequest = {
 
 export type GetPopUpAllItemsRequest = {
   lastPopupId: number | undefined;
+};
+
+export type PostPaymentReadyRequest = {
+  popupId: number;
+  items: PaymentItemType[];
+};
+
+export type PostPaymentVerifyRequest = {
+  impUid: string;
 };
 
 export type DeleteReservationRequest = {
