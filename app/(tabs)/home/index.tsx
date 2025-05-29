@@ -1,10 +1,11 @@
-import Swiper from 'react-native-swiper';
-import { FlatList } from 'react-native-gesture-handler';
-import { Dimensions, Image } from 'react-native';
+import { ActivityIndicator, Dimensions, FlatList, Image, View } from 'react-native';
 import { S } from './HomeScreen.style';
-import { bannerItems, hotItems, popUpItems } from '@/mocks/HomeMocks';
+import { bannerItems, hotItems } from '@/mocks/HomeMocks';
 import { formatDateRange } from '@/utils/FormatDate';
 import { useRouter } from 'expo-router';
+import { usePopUpStore } from '@/store/usePopUpStore';
+import { usePopUpAllItemsApi } from '@/hooks/api/usePopUpAllItemsApi';
+import Swiper from 'react-native-swiper';
 
 const Images = {
   calendarGray: require('@/assets/images/common/calendar-gray.webp'),
@@ -17,19 +18,48 @@ const HomeScreen = () => {
   const cardGap = 12;
   const cardWidth = (screenWidth - horizontalPadding - cardGap) / 2;
   const router = useRouter();
+  const setSelectedPopUpId = usePopUpStore(state => state.setSelectedPopUpId);
 
-  const groupedPopUps = popUpItems.reduce(
-    (acc, cur, i) => {
-      const row = Math.floor(i / 2);
-      if (!acc[row]) acc[row] = [];
-      acc[row].push(cur);
-      return acc;
-    },
-    [] as (typeof popUpItems)[],
+  const {
+    allItems,
+    allItemsQuery: { fetchNextPage, hasNextPage, isFetchingNextPage },
+  } = usePopUpAllItemsApi();
+
+  const handleEndReached = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  const renderItem = ({ item }: { item: any }) => (
+    <S.PopUpCard
+      cardWidth={cardWidth}
+      onPress={() => {
+        setSelectedPopUpId(item.popupId);
+        router.push('/(common)/popUpDetail');
+      }}
+    >
+      <S.PopUpImage source={{ uri: item.imageUrl }} cardWidth={cardWidth} resizeMode="cover" />
+      <S.PopUpInfo cardWidth={cardWidth}>
+        <S.PopUpCardTitle numberOfLines={1}>{item.popupName}</S.PopUpCardTitle>
+        <S.PopUpCardSubTextContainer>
+          <Image source={Images.calendarGray} style={{ width: 15, height: 15, marginTop: 2 }} />
+          <S.PopUpCardSubText>
+            {formatDateRange(item.popupOpenDate, item.popupCloseDate)}
+          </S.PopUpCardSubText>
+        </S.PopUpCardSubTextContainer>
+        <S.PopUpCardSubTextContainer>
+          <Image source={Images.locationGray} style={{ width: 15, height: 15, marginTop: 3 }} />
+          <S.PopUpCardSubText numberOfLines={1} ellipsizeMode="tail">
+            {item.address}
+          </S.PopUpCardSubText>
+        </S.PopUpCardSubTextContainer>
+      </S.PopUpInfo>
+    </S.PopUpCard>
   );
 
-  return (
-    <S.HomeScreenContainer showsVerticalScrollIndicator={false}>
+  const renderHeader = () => (
+    <View>
       <S.SwiperContainer>
         <Swiper
           autoplay
@@ -52,16 +82,20 @@ const HomeScreen = () => {
           ))}
         </Swiper>
       </S.SwiperContainer>
-      {/* WHAT'S HOT */}
+
       <S.SectionTitle>WHAT’S HOT</S.SectionTitle>
       <FlatList
         data={hotItems}
         keyExtractor={item => String(item.popupId)}
         horizontal
+        scrollEnabled={false}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
           <S.HotCardContainer
-            onPress={() => router.push('/(common)/popUpDetail')}
+            onPress={() => {
+              setSelectedPopUpId(item.popupId);
+              router.push('/(common)/popUpDetail');
+            }}
             isFirst={index === 0}
           >
             <Image
@@ -75,47 +109,26 @@ const HomeScreen = () => {
           </S.HotCardContainer>
         )}
       />
-      {/* POP-UP NOW! */}
       <S.SectionTitle>POP-UP NOW!</S.SectionTitle>
-      <S.PopUpWrapper>
-        {groupedPopUps.map((row, rowIdx) => (
-          <S.PopUpRow key={`row-${rowIdx}`}>
-            {row.map(item => (
-              <S.PopUpCard
-                key={item.popupId}
-                cardWidth={cardWidth}
-                onPress={() => router.push('/(common)/popUpDetail')}
-              >
-                <S.PopUpImage source={item.imageUrl} cardWidth={cardWidth} resizeMode="cover" />
-                <S.PopUpInfo cardWidth={cardWidth}>
-                  <S.PopUpCardTitle numberOfLines={1}>{item.popupName}</S.PopUpCardTitle>
-                  <S.PopUpCardSubTextContainer>
-                    <Image
-                      source={Images.calendarGray}
-                      style={{ width: 15, height: 15, marginTop: 2 }}
-                    />
-                    <S.PopUpCardSubText>
-                      {formatDateRange(item.popupOpenDate, item.popupCloseDate)}
-                    </S.PopUpCardSubText>
-                  </S.PopUpCardSubTextContainer>
-                  <S.PopUpCardSubTextContainer>
-                    <Image
-                      source={Images.locationGray}
-                      style={{ width: 15, height: 15, marginTop: 3 }}
-                    />
-                    <S.PopUpCardSubText numberOfLines={1} ellipsizeMode="tail">
-                      {item.address}
-                    </S.PopUpCardSubText>
-                  </S.PopUpCardSubTextContainer>
-                </S.PopUpInfo>
-              </S.PopUpCard>
-            ))}
-            {row.length === 1 && <S.PopUpCard cardWidth={cardWidth} />}
-          </S.PopUpRow>
-        ))}
-      </S.PopUpWrapper>
-      <S.BottomArea />
-    </S.HomeScreenContainer>
+    </View>
+  );
+
+  return (
+    <FlatList
+      data={allItems}
+      keyExtractor={item => String(item.popupId)}
+      numColumns={2}
+      columnWrapperStyle={{ gap: cardGap, marginBottom: 12 }}
+      contentContainerStyle={{ paddingHorizontal: 12, paddingBottom: 100 }}
+      showsVerticalScrollIndicator={false}
+      ListHeaderComponent={renderHeader}
+      ListFooterComponent={
+        isFetchingNextPage ? <ActivityIndicator style={{ marginVertical: 20 }} /> : null
+      }
+      onEndReached={handleEndReached}
+      onEndReachedThreshold={0.3}
+      renderItem={renderItem}
+    />
   );
 };
 

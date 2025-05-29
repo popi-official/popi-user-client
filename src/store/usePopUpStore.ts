@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 type StoreType = {
   selectedPopUpId: number;
+  setSelectedPopUpId: (popUpId: number) => void;
 };
 
 export const usePopUpStore = create<StoreType>()(set => ({

@@ -31,11 +31,15 @@ export type GetSurveyQuestionsRequest = {
   popupId: number;
 };
 
-export type GetPopUDetailAllItemsRequest = {
+export type GetPopUpDetailAllItemsRequest = {
   popupId: number;
   lastItemId: number | undefined;
 };
 
 export type GetPopUpDetailRequest = {
   popupId: number;
+};
+
+export type GetPopUpAllItemsRequest = {
+  lastPopupId: number | undefined;
 };
