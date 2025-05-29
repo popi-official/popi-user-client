@@ -1,7 +1,10 @@
+import { popUpMarkerItem } from '@/types/MapScreenType';
 import { ItemPathType, ItemUrlType, ReservableDate } from '../DetailScreen';
 import { PostItemSearch, PostPopUpSearch } from '../SearchScreenType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 import { SurveyChoice } from '../SurveyQuestions';
+import { HotPopUpItem, PopUpItem } from '@/types/HomeScreenType';
+import { PopularItem, RecommendedItem } from '@/types/PopUpEntryScreen';
 
 export type ApiResponse<T> = Promise<GlobalResponse<T>>;
 export type ApiResult<T> = Promise<T>;
@@ -69,13 +72,37 @@ export type GetItemSearchResponse = {
 };
 
 export type GetSurveyQuestionsResponse = SurveyChoice[];
+
 export type GetReservationInfoResponse = {
   popupOpenDate: string;
   popupCloseDate: string;
   reservableDate: ReservableDate[];
 };
 
-export type GetPopUDetailAllItemsResponse = {
+export type GetPopUpDetailAllItemsResponse = {
   content: ItemUrlType[];
   isLast: boolean;
 };
+
+export type popUpMarkerItemsResponse = popUpMarkerItem[];
+
+export type GetPopUpMarkerItemsResponse = popUpMarkerItem[];
+
+export type GetHotPopUpItemsResponse = HotPopUpItem[];
+
+export type GetPopUpItemsResponse = PopUpItem[];
+
+export type GetReservationDetailResponse = {
+  popupName: string;
+  popupDate: string;
+  popupDay: string;
+  popupTime: string;
+  address: string;
+  qrCodeBase64: string;
+  latitude: number;
+  longitude: number;
+};
+
+export type GetRecommendedItemsResponse = RecommendedItem[];
+
+export type GetPopularItemsResponse = PopularItem[];

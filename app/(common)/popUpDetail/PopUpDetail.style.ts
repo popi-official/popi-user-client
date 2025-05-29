@@ -48,10 +48,11 @@ export const S = {
     font-size: 18px;
   `,
 
-  MapImage: styled.Image`
+  MapContainer: styled.View`
     width: 100%;
-    height: 163px;
+    height: 200px;
     border-radius: 10px;
+    overflow: hidden;
   `,
 
   RowBetween: styled.View`

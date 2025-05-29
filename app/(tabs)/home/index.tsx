@@ -2,7 +2,7 @@ import Swiper from 'react-native-swiper';
 import { FlatList } from 'react-native-gesture-handler';
 import { Dimensions, Image } from 'react-native';
 import { S } from './HomeScreen.style';
-import { bannerItems, hotItems, popUpItems } from '@/mocks/HomeScreenMocks';
+import { bannerItems, hotItems, popUpItems } from '@/mocks/HomeMocks';
 import { formatDateRange } from '@/utils/FormatDate';
 import { useRouter } from 'expo-router';
 
@@ -60,7 +60,10 @@ const HomeScreen = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
-          <S.HotCardContainer isFirst={index === 0}>
+          <S.HotCardContainer
+            onPress={() => router.push('/(common)/popUpDetail')}
+            isFirst={index === 0}
+          >
             <Image
               source={item.imageUrl}
               style={{ width: 228, height: undefined, aspectRatio: 3 / 4 }}

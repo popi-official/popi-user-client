@@ -4,6 +4,7 @@ import { popularItemList, recommendedItemList, reservationDetail } from '@/mocks
 import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import NoticeModal from '@/components/noticeModal/NoticeModal';
+import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
 
 const Images = {
   cameraBoy: require('@/assets/images/popUpEntry/camera-boy.webp'),
@@ -12,6 +13,7 @@ const Images = {
   clockDarkGray: require('@/assets/images/popUpEntry/clock-dark-gray.webp'),
   qrCode: require('@/assets/images/popUpEntry/qr-code.webp'),
   item: require('@/assets/images/popUpEntry/item.webp'),
+  marker: require('@/assets/images/common/marker.webp'),
 };
 
 const PopUpEntryScreen = () => {
@@ -31,6 +33,13 @@ const PopUpEntryScreen = () => {
 
   const handleCloseModal = () => {
     setModalVisible(false);
+  };
+
+  const region: Region = {
+    latitude: reservationDetail.latitude - 0.01 / 2,
+    longitude: reservationDetail.longitude - 0.01 / 2,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
   };
 
   return (
@@ -77,9 +86,40 @@ const PopUpEntryScreen = () => {
             </S.QrCard>
           </S.Card>
 
+          {/* 지도 */}
+          <View>
+            <S.MapTitle>위치 정보</S.MapTitle>
+            <S.MapContainer>
+              <NaverMapView
+                layerGroups={{
+                  BUILDING: true,
+                  BICYCLE: false,
+                  CADASTRAL: false,
+                  MOUNTAIN: false,
+                  TRAFFIC: false,
+                  TRANSIT: false,
+                }}
+                style={{ flex: 1 }}
+                initialRegion={region}
+                isExtentBoundedInKorea={true}
+              >
+                <NaverMapMarkerOverlay
+                  latitude={reservationDetail.latitude}
+                  longitude={reservationDetail.longitude}
+                  anchor={{ x: 0.5, y: 1 }}
+                  width={32}
+                  height={47}
+                  image={Images.marker}
+                />
+              </NaverMapView>
+            </S.MapContainer>
+          </View>
+
+          <S.Divider />
+
+          {/* 취향저격 - 설문지 기반 상품 추천 */}
           {isSurvey === '1' && (
             <View>
-              {/* 취향저격 */}
               <S.SectionTitle>몽몽님의 취향 저격</S.SectionTitle>
               <S.SectionDescription>
                 예약하실 때 작성하셨던 설문지 내용을 기반으로 추천드려요

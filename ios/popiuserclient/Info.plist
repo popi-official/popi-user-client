@@ -42,12 +42,14 @@
     <string>1</string>
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
-    <key>KAKAO_APP_KEY</key>
-    <string>kakao901478f25e364a7e04b4b22ff7b6d957</string>
     <key>LSMinimumSystemVersion</key>
     <string>12.0</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
+    <key>NMFClientId</key>
+    <string>j7hwp6hkkf</string>
+    <key>NMFNcpKeyId</key>
+    <string>j7hwp6hkkf</string>
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSAllowsArbitraryLoads</key>
@@ -57,6 +59,17 @@
     </dict>
     <key>NSCameraUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your camera</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>지도를 위해 위치 정보를 사용합니다.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>지도 기능을 위해 위치 정보가 필요합니다.</string>
+    <key>NSLocationTemporaryUsageDescriptionDictionary</key>
+    <dict>
+      <key>RouteNavigation</key>
+      <string>길찾기 기능을 위해 현재 위치를 사용합니다.</string>
+    </dict>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to access your location</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your microphone</string>
     <key>NSUserActivityTypes</key>
