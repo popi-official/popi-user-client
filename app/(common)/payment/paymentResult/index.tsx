@@ -1,5 +1,5 @@
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { S } from './PaymentResult.style';
 import { View } from 'react-native';
@@ -9,17 +9,8 @@ const Images = {
 };
 
 export default function PaymentResult() {
-  const params = useLocalSearchParams();
   const insets = useSafeAreaInsets();
   const router = useRouter();
-
-  const impUid = params.imp_uid;
-  const impSuccess = params.imp_success;
-  const success = params.success;
-  const merchantUid = params.merchantUid;
-  const errorCode = params.errorCode;
-  const errorMsg = params.errorMsg;
-  const message = params.message;
 
   return (
     <View style={{ flex: 1, paddingBottom: insets.bottom, backgroundColor: 'black' }}>

@@ -109,7 +109,7 @@ const HomeScreen = () => {
             isFirst={index === 0}
           >
             <Image
-              source={item.imageUrl}
+              source={{ uri: item.imageUrl }}
               style={{ width: 228, height: undefined, aspectRatio: 3 / 4 }}
             />
             <S.Overlay />
