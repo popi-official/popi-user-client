@@ -1,5 +1,6 @@
 import { useOAuth } from '@/hooks/useOAuth';
 import { S } from './LoginScreen.style';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const Images = {
   logo: require('@/assets/images/splash-icon.png'),
@@ -10,6 +11,16 @@ const Images = {
 
 export default function LoginScreen() {
   const { handleKakaoLogin } = useOAuth();
+
+  const onGoogleLogin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const response = await GoogleSignin.signIn();
+      console.log('response: ', response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <S.LoginScreenContainer>
@@ -27,7 +38,7 @@ export default function LoginScreen() {
             <S.OAuthLogoImg source={Images.kakaoLogo} resizeMode="contain" />
             <S.ButtonText>카카오 로그인</S.ButtonText>
           </S.OAuthLoginBtn>
-          <S.OAuthLoginBtn color={'white'}>
+          <S.OAuthLoginBtn color={'white'} onPress={onGoogleLogin}>
             <S.OAuthLogoImg source={Images.googleLogo} resizeMode="contain" />
             <S.ButtonText>구글 로그인</S.ButtonText>
           </S.OAuthLoginBtn>
