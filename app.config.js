@@ -19,6 +19,7 @@ export default {
       infoPlist: {
         ITSAppUsesNonExemptEncryption: true,
         NSCameraUsageDescription: '팝업스토어 사진 촬영을 위해 카메라 권한이 필요합니다.',
+        GIDClientID: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
         CFBundleURLTypes: [
           {
             CFBundleURLName: 'Default',
