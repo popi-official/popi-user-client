@@ -13,7 +13,7 @@ export default function HomeRightBtn() {
   return (
     <HeaderRightWrapper>
       <S.HomeHeaderContainer>
-        <S.HeaderButton onPress={() => router.push('/(common)/popUpDetail')}>
+        <S.HeaderButton onPress={() => router.push('/(common)/popUpEntry')}>
           <S.TicketIcon source={images.ticketIcon} />
         </S.HeaderButton>
 
