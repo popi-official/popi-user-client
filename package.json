@@ -24,7 +24,6 @@
     "@react-native-google-signin/google-signin": "^14.0.1",
     "@react-native-kakao/core": "^2.4.0",
     "@react-native-kakao/user": "^2.4.0",
-    "@react-native-seoul/kakao-login": "^5.4.1",
     "@react-navigation/bottom-tabs": "^7.3.13",
     "@react-navigation/native": "^7.1.9",
     "@react-oauth/google": "^0.12.2",

@@ -3,7 +3,7 @@ import axios, { AxiosError } from 'axios';
 import { postReissue } from '../auth/Auth';
 
 export const api = axios.create({
-  baseURL: 'https://dev-api.popi.today',
+  baseURL: process.env.EXPO_PUBLIC_API_KEY,
   withCredentials: true,
 });
 

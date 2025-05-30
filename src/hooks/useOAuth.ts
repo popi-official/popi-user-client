@@ -1,17 +1,19 @@
 import { useAuthStore } from '@/store/useAuthStore';
 import {
   login as KakaoLogin,
-  logout as KaKaoLogout,
+  logout as KakaoLogout,
   unlink as KaKaoUnlink,
-} from '@react-native-seoul/kakao-login';
+} from '@react-native-kakao/user';
 import { useOAuthApi } from './api/useOAuthApi';
 import { useRouter } from 'expo-router';
 import { PostSignUpRequest } from '@/types/api/ApiRequestType';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 export const useOAuth = () => {
   const router = useRouter();
   const {
     kakaoOAuthMutation,
+    googleOAuthMutation,
     signUpMutation,
     reIssueAccessTokenMutation,
     postLogoutMutation,
@@ -21,6 +23,9 @@ export const useOAuth = () => {
   const handleKakaoLogin = async () => {
     try {
       const tokenResponse = await KakaoLogin();
+      if (!tokenResponse.idToken) {
+        throw new Error('카카오 토큰이 발급되지 않았습니다.');
+      }
       const response = await kakaoOAuthMutation.mutateAsync(tokenResponse.idToken);
 
       if (response.data.isRegistered) {
@@ -31,6 +36,22 @@ export const useOAuth = () => {
     } catch (error) {
       console.error('카카오 로그인 오류:', error);
       throw error;
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const tokenResponse = await GoogleSignin.signIn();
+      const response = await googleOAuthMutation.mutateAsync(tokenResponse.data?.idToken || '');
+
+      if (response.data.isRegistered) {
+        router.replace('/home');
+      } else {
+        router.replace('/(common)/signUp');
+      }
+    } catch (error) {
+      console.error('구글 로그인 오류 : ', error);
     }
   };
 
@@ -54,7 +75,7 @@ export const useOAuth = () => {
     try {
       const oauth = useAuthStore.getState().oauth;
       if (oauth === 'KAKAO') {
-        await KaKaoLogout();
+        await KakaoLogout();
       }
       await postLogoutMutation.mutateAsync();
     } catch (error) {
@@ -75,6 +96,7 @@ export const useOAuth = () => {
 
   return {
     handleKakaoLogin,
+    handleGoogleLogin,
     handleLogout,
     handleSignUp,
     handleReIssue,

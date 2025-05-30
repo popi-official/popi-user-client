@@ -6,6 +6,8 @@ import 'react-native-gesture-handler';
 import { useFonts } from 'expo-font';
 import RootContext from '@/context';
 import { LocaleConfig } from 'react-native-calendars';
+import { initializeKakaoSDK } from '@react-native-kakao/core';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -79,6 +81,9 @@ export default function RootLayout() {
     'Inter-ThinItalic': require('@/assets/fonts/Inter-ThinItalic.ttf'),
   });
 
+  const kakaoNativeAppKey = process.env.EXPO_PUBLIC_EXPO_PUBLIC_KAKAO_NATIVE_KEY || '';
+  const iosClientId = process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID || '';
+
   useEffect(() => {
     const hideSplash = async () => {
       if (fontsLoaded) {
@@ -89,6 +94,13 @@ export default function RootLayout() {
 
     hideSplash();
   }, [fontsLoaded]);
+
+  useEffect(() => {
+    initializeKakaoSDK(kakaoNativeAppKey);
+    GoogleSignin.configure({
+      iosClientId,
+    });
+  }, []);
 
   if (!fontsLoaded) {
     return null;
