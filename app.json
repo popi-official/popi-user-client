@@ -17,14 +17,11 @@
         "supportsTablet": true,
         "bundleIdentifier": "com.chik2chik.popiuserclient",
         "infoPlist": {
-          "ITSAppUsesNonExemptEncryption": false,
+          "ITSAppUsesNonExemptEncryption": true,
           "NSCameraUsageDescription": "팝업스토어 사진 촬영을 위해 카메라 권한이 필요합니다.",
-          "KAKAO_APP_KEY": "901478f25e364a7e04b4b22ff7b6d957",
           "CFBundleURLTypes": [
             {
               "CFBundleURLSchemes": [
-                "popiuserclient",
-                "com.chik2chik.popiuserclient",
                 "kakao901478f25e364a7e04b4b22ff7b6d957"
               ]
             }
@@ -135,7 +132,25 @@
           "expo-build-properties",
           {
             "android": {
-              "extraMavenRepos": ["https://repository.map.naver.com/archive/maven"]
+              "extraMavenRepos": [
+                "https://repository.map.naver.com/archive/maven",
+                "https://devrepo.kakao.com/nexus/content/groups/public/"
+              ]
+            }
+          }
+        ],
+        [
+          "@react-native-kakao/core",
+          {
+            "nativeAppKey": "901478f25e364a7e04b4b22ff7b6d957",
+            "android": {
+              "authCodeHandlerActivity": true,
+              "followChannelHandlerActivity": true,
+              "forwardKakaoLinkIntentFilterToMainActivity": true
+            },
+            "ios": {
+              "handleKakaoOpenUrl": true, 
+              "naviApplicationQuerySchemes": true
             }
           }
         ]

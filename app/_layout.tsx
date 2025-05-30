@@ -6,6 +6,7 @@ import 'react-native-gesture-handler';
 import { useFonts } from 'expo-font';
 import RootContext from '@/context';
 import { LocaleConfig } from 'react-native-calendars';
+import { initializeKakaoSDK } from '@react-native-kakao/core';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -79,6 +80,8 @@ export default function RootLayout() {
     'Inter-ThinItalic': require('@/assets/fonts/Inter-ThinItalic.ttf'),
   });
 
+  const kakaoNativeAppKey = '901478f25e364a7e04b4b22ff7b6d957';
+
   useEffect(() => {
     const hideSplash = async () => {
       if (fontsLoaded) {
@@ -89,6 +92,10 @@ export default function RootLayout() {
 
     hideSplash();
   }, [fontsLoaded]);
+
+  useEffect(() => {
+    initializeKakaoSDK(kakaoNativeAppKey);
+  }, []);
 
   if (!fontsLoaded) {
     return null;

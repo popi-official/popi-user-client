@@ -1,9 +1,9 @@
 import { useAuthStore } from '@/store/useAuthStore';
 import {
   login as KakaoLogin,
-  logout as KaKaoLogout,
+  logout as KakaoLogout,
   unlink as KaKaoUnlink,
-} from '@react-native-seoul/kakao-login';
+} from '@react-native-kakao/user';
 import { useOAuthApi } from './api/useOAuthApi';
 import { useRouter } from 'expo-router';
 import { PostSignUpRequest } from '@/types/api/ApiRequestType';
@@ -21,6 +21,9 @@ export const useOAuth = () => {
   const handleKakaoLogin = async () => {
     try {
       const tokenResponse = await KakaoLogin();
+      if (!tokenResponse.idToken) {
+        throw new Error('카카오 토큰이 발급되지 않았습니다.');
+      }
       const response = await kakaoOAuthMutation.mutateAsync(tokenResponse.idToken);
 
       if (response.data.isRegistered) {
@@ -54,7 +57,7 @@ export const useOAuth = () => {
     try {
       const oauth = useAuthStore.getState().oauth;
       if (oauth === 'KAKAO') {
-        await KaKaoLogout();
+        await KakaoLogout();
       }
       await postLogoutMutation.mutateAsync();
     } catch (error) {

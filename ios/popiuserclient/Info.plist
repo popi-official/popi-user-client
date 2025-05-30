@@ -29,8 +29,15 @@
         <array>
           <string>popiuserclient</string>
           <string>com.chik2chik.popiuserclient</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
           <string>kakao901478f25e364a7e04b4b22ff7b6d957</string>
         </array>
+        <key>CFBundleURLName</key>
+        <string>Kakao</string>
       </dict>
       <dict>
         <key>CFBundleURLSchemes</key>
@@ -45,6 +52,8 @@
     <false/>
     <key>KAKAO_APP_KEY</key>
     <string>901478f25e364a7e04b4b22ff7b6d957</string>
+    <key>LSApplicationCategoryType</key>
+    <string/>
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>kftc-bankpay</string>
@@ -82,6 +91,8 @@
       <string>newsmartpib</string>
       <string>kakaokompassauth</string>
       <string>kakaolink</string>
+      <string>kakaoplus</string>
+      <string>kakaonavi-sdk</string>
     </array>
     <key>LSMinimumSystemVersion</key>
     <string>12.0</string>
