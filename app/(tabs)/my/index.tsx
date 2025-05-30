@@ -33,7 +33,18 @@ export default function MyScreen() {
           <S.ReservationTitle>내 예약</S.ReservationTitle>
 
           {[1, 2].map((_, i) => (
-            <S.TicketWrapper key={i} onPress={() => router.push('/(common)/popUpEntry')}>
+            <S.TicketWrapper
+              key={i}
+              onPress={() =>
+                router.push({
+                  pathname: '/(common)/popUpEntry',
+                  params: {
+                    source: 'mypage',
+                    // data: JSON.stringify(reservationData), 추후 API 연결하고 data 같이 넘겨주세요
+                  },
+                })
+              }
+            >
               <S.LeftCard>
                 <S.TickTitle>POPI TICKET</S.TickTitle>
               </S.LeftCard>

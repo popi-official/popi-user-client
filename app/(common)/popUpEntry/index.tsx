@@ -1,7 +1,6 @@
 import { Image, View } from 'react-native';
 import { S } from './PopUpEntry.style';
 import { popularItemList, recommendedItemList, reservationDetail } from '@/mocks/PopUpEntryMocks';
-import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import NoticeModal from '@/components/noticeModal/NoticeModal';
 import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
@@ -18,7 +17,6 @@ const Images = {
 };
 
 const PopUpEntryScreen = () => {
-  const { isSurvey } = useLocalSearchParams();
   const [modalVisible, setModalVisible] = useState(false);
   const { mutate: deleteReservation } = useDeleteReservation();
 
@@ -116,27 +114,24 @@ const PopUpEntryScreen = () => {
           <S.Divider />
 
           {/* 취향저격 - 설문지 기반 상품 추천 */}
-          {isSurvey === '1' && (
-            <View>
-              <S.SectionTitle>몽몽님의 취향 저격</S.SectionTitle>
-              <S.SectionDescription>
-                예약하실 때 작성하셨던 설문지 내용을 기반으로 추천드려요
-              </S.SectionDescription>
-              <S.GoodsContainer>
-                {recommendedItemList.map(item => (
-                  <S.GoodsItem key={item.itemId}>
-                    <S.GoodsImage source={item.imagePath} />
-                    <S.GoodsName numberOfLines={1} ellipsizeMode="tail">
-                      {item.title}
-                    </S.GoodsName>
-                    <S.GoodsPrice numberOfLines={1} ellipsizeMode="tail">
-                      {item.price.toLocaleString()}원
-                    </S.GoodsPrice>
-                  </S.GoodsItem>
-                ))}
-              </S.GoodsContainer>
-            </View>
-          )}
+          {/* TODO: API 받아서 있으면 띄우고 없으면 띄우지 말기 */}
+          <S.SectionTitle>몽몽님의 취향 저격</S.SectionTitle>
+          <S.SectionDescription>
+            예약하실 때 작성하셨던 설문지 내용을 기반으로 추천드려요
+          </S.SectionDescription>
+          <S.GoodsContainer>
+            {recommendedItemList.map(item => (
+              <S.GoodsItem key={item.itemId}>
+                <S.GoodsImage source={item.imagePath} />
+                <S.GoodsName numberOfLines={1} ellipsizeMode="tail">
+                  {item.title}
+                </S.GoodsName>
+                <S.GoodsPrice numberOfLines={1} ellipsizeMode="tail">
+                  {item.price.toLocaleString()}원
+                </S.GoodsPrice>
+              </S.GoodsItem>
+            ))}
+          </S.GoodsContainer>
 
           {/* 인기 상품 TOP 3 */}
           <S.SectionTitle>인기 상품 TOP 3</S.SectionTitle>

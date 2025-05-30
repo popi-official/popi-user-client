@@ -145,7 +145,7 @@ const SurveyQuestionPage: React.FC = () => {
               } else {
                 // 수정: 마지막일 때 제출 로직 호출
                 //handleSubmit(); POST API 호출
-                router.replace({ pathname: '/(common)/popUpEntry', params: { isSurvey: 1 } });
+                router.replace({ pathname: '/(tabs)/my' });
               }
             }}
             style={{ width: BUTTON_WIDTH }}
