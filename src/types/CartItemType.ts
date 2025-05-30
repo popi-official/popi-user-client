@@ -9,6 +9,7 @@ export type CartItem = {
 
 export type CartState = {
   cartItems: CartItem[];
+  cartPopUpId: number;
 };
 
 export type CartActions = {
@@ -16,6 +17,7 @@ export type CartActions = {
   changeQuantity: (itemId: number, delta: number) => void;
   toggleSelect: (itemId: number) => void;
   toggleSelectAll: () => void;
+  setCartPopUpId: (popupId: number) => void;
   deleteItem: (itemId: number) => void;
   clearCart: () => void;
 };

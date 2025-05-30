@@ -7,11 +7,13 @@ import {
 import { useOAuthApi } from './api/useOAuthApi';
 import { useRouter } from 'expo-router';
 import { PostSignUpRequest } from '@/types/api/ApiRequestType';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 export const useOAuth = () => {
   const router = useRouter();
   const {
     kakaoOAuthMutation,
+    googleOAuthMutation,
     signUpMutation,
     reIssueAccessTokenMutation,
     postLogoutMutation,
@@ -34,6 +36,22 @@ export const useOAuth = () => {
     } catch (error) {
       console.error('카카오 로그인 오류:', error);
       throw error;
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const tokenResponse = await GoogleSignin.signIn();
+      const response = await googleOAuthMutation.mutateAsync(tokenResponse.data?.idToken || '');
+
+      if (response.data.isRegistered) {
+        router.replace('/home');
+      } else {
+        router.replace('/(common)/signUp');
+      }
+    } catch (error) {
+      console.error('구글 로그인 오류 : ', error);
     }
   };
 
@@ -78,6 +96,7 @@ export const useOAuth = () => {
 
   return {
     handleKakaoLogin,
+    handleGoogleLogin,
     handleLogout,
     handleSignUp,
     handleReIssue,
