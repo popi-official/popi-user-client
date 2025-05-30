@@ -1,4 +1,4 @@
-import { ActivityIndicator, Dimensions, FlatList, Image, View, Text, Button } from 'react-native';
+import { ActivityIndicator, Dimensions, FlatList, Image, View, Text } from 'react-native';
 import { S } from './HomeScreen.style';
 import { bannerItems } from '@/mocks/HomeMocks';
 import { formatDateRange } from '@/utils/FormatDate';
@@ -70,7 +70,6 @@ const HomeScreen = () => {
 
   const renderHeader = () => (
     <View>
-      <Button title="결제 페이지 이동" onPress={() => router.push('/(common)/testPage')} />
       <S.SwiperContainer>
         <Swiper
           autoplay
