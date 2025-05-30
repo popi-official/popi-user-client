@@ -23,7 +23,7 @@ export const S = {
     background-color: #000000;
     border: 1px solid #929292;
     border-radius: 20px;
-    padding-top: ${(props: ContainerProps) => (props.isSubTitle ? '55px' : '55px')};
+    padding-top: ${(props: ContainerProps) => (props.isSubTitle ? '40px' : '55px')};
   `,
 
   TitleWrapper: styled.View<ContainerProps>`
@@ -31,7 +31,7 @@ export const S = {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-bottom: ${(props: ContainerProps) => (props.isSubTitle ? '30px' : '50px')};
+    margin-bottom: ${(props: ContainerProps) => (props.isSubTitle ? '30px' : '49px')};
   `,
 
   Icon: styled.View`

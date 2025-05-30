@@ -1,6 +1,5 @@
 import {
   ApiResponse,
-  GlobalResponse,
   NoResponse,
   PostPaymentReadyErrorResponse,
   PostPaymentReadyResponse,

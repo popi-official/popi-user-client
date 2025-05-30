@@ -2,14 +2,17 @@ import CustomBottomTab from '@/components/customBottomTab/CustomBottomTab';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { Tabs } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import React, { useCallback } from 'react';
 
-const tabBar = (props: BottomTabBarProps) => <CustomBottomTab {...props} />;
+const screenOptions = { headerShown: false };
 
-export default function BottomTabLayout() {
+const BottomTabLayout = () => {
+  const tabBar = useCallback((props: BottomTabBarProps) => <CustomBottomTab {...props} />, []);
+
   return (
     <>
       <StatusBar style="light" />
-      <Tabs tabBar={tabBar} screenOptions={{ headerShown: false }}>
+      <Tabs tabBar={tabBar} screenOptions={screenOptions}>
         <Tabs.Screen name="home" options={{ title: 'HOME' }} />
         <Tabs.Screen name="map" options={{ title: 'MAP' }} />
         <Tabs.Screen name="cart" options={{ title: 'CART' }} />
@@ -17,4 +20,6 @@ export default function BottomTabLayout() {
       </Tabs>
     </>
   );
-}
+};
+
+export default React.memo(BottomTabLayout);
