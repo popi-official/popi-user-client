@@ -26,7 +26,7 @@ export default {
           },
           {
             CFBundleURLName: 'Kakao',
-            CFBundleURLSchemes: ['kakao901478f25e364a7e04b4b22ff7b6d957'],
+            CFBundleURLSchemes: [`kakao${process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY}`],
           },
         ],
         LSApplicationQueriesSchemes: [
@@ -107,7 +107,7 @@ export default {
       [
         '@mj-studio/react-native-naver-map',
         {
-          client_id: 'j7hwp6hkkf',
+          client_id: `${process.env.EXPO_PUBLIC_NAVER_MAP_KEY}`,
           android: {
             ACCESS_FINE_LOCATION: true,
             ACCESS_COARSE_LOCATION: true,
@@ -137,14 +137,14 @@ export default {
       [
         '@react-native-kakao/core',
         {
-          nativeAppKey: '901478f25e364a7e04b4b22ff7b6d957',
+          nativeAppKey: `${process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY}`,
           android: {
             authCodeHandlerActivity: true,
             followChannelHandlerActivity: true,
             forwardKakaoLinkIntentFilterToMainActivity: true,
           },
           ios: {
-            handleKakaoOpenUrl: false, // 수동으로 처리
+            handleKakaoOpenUrl: false,
             naviApplicationQuerySchemes: true,
           },
         },
