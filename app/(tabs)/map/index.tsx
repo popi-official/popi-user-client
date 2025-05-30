@@ -1,6 +1,5 @@
 import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
 import { S } from './MapScreen.style';
-//import { popUpMarkerItems } from '@/mocks/MapMocks';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { Image, View } from 'react-native';
@@ -97,14 +96,14 @@ const MapScreen = () => {
 
   const bounds = visibleRegion ? buildRegionBounds(visibleRegion) : null;
 
-  const { popUpMarkers, isLoading } = useGetMapApi(
+  const { popUpMarkers } = useGetMapApi(
     bounds?.latMin ?? 0,
     bounds?.latMax ?? 0,
     bounds?.lngMin ?? 0,
     bounds?.lngMax ?? 0,
   );
 
-  const selectedItem = popUpMarkers?.find?.(p => p.popupId === selectedPopupId) ?? null;
+  const selectedItem = popUpMarkers?.find?.(p => p.popupId === selectedPopupId);
 
   const handleMarkerPress = (popupId: number) => {
     setSelectedPopupId(popupId);
