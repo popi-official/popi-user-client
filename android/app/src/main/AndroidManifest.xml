@@ -45,7 +45,11 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
+<<<<<<< HEAD
         <data android:host="kakaolink" android:scheme="kakao0d23d343c25a6067fc158472a73de767"/>
+=======
+        <data android:host="kakaolink" android:scheme="kakao901478f25e364a7e04b4b22ff7b6d957"/>
+>>>>>>> 73aaa65 ([LCR-269] fix: KaKao OAuth 라이브러리 수정)
         <data android:scheme="exp+popi-user-client"/>
       </intent-filter>
     </activity>
@@ -63,6 +67,14 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:host="channel" android:scheme="kakao0d23d343c25a6067fc158472a73de767"/>
+      </intent-filter>
+    </activity>
+    <activity android:name="com.kakao.sdk.talk.FollowChannelHandlerActivity" android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:host="channel" android:scheme="kakao901478f25e364a7e04b4b22ff7b6d957"/>
       </intent-filter>
     </activity>
   </application>
