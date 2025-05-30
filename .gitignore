@@ -10,6 +10,7 @@ web-build/
 expo-env.d.ts
 
 # Native
+android
 ios
 .kotlin/
 *.orig.*
@@ -39,3 +40,4 @@ yarn-error.*
 *.tsbuildinfo
 
 expo-env.d.ts
+eas.json

@@ -15,27 +15,11 @@ export const S = {
     padding: 12px;
   `,
 
-  // 제목
-  Title: styled.Text`
-    margin-top: 40px;
-    font-family: ${getThemePretendardFont('semibold')};
-    font-size: 28px;
-    color: ${getThemeColor('gray01')};
-    text-align: left;
-    margin-bottom: 8px;
-  `,
-
-  // 예약일
-  Highlight: styled.Text`
-    color: #c9d1ff;
-  `,
-
   // 인사 문구
   Greeting: styled.Text`
     font-family: ${getThemePretendardFont('semibold')};
     font-size: 23px;
     color: ${getThemeColor('gray01')};
-    margin-bottom: 0;
   `,
 
   // 캐릭터 이미지
@@ -75,12 +59,12 @@ export const S = {
     border-color: ${getThemeColor('gray04')};
   `,
 
-  TickTitle: styled.Text`
+  TicketTitle: styled.Text`
     font-family: ${getThemePretendardFont('semibold')};
     font-size: 13px;
     color: ${getThemeColor('gray01')};
     position: absolute;
-    top: 6px;
+    top: 4px;
     left: 12px;
   `,
 
@@ -131,13 +115,31 @@ export const S = {
     border-radius: 10px;
   `,
 
+  /* TODAY */
+  TodayTag: styled.View`
+    width: 56px;
+    background-color: #907bf9;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    margin-top: 8px;
+  `,
+
+  TodayText: styled.Text`
+    font-family: ${getThemePretendardFont('semibold')};
+    font-size: 12px;
+    color: ${getThemeColor('gray01')};
+  `,
+
   /* 박스 내부 공연 제목 */
-  TicketPopupTitle: styled.Text`
+  TicketPopupTitle: styled.Text<{ hasTodayTag: boolean }>`
     font-family: ${getThemePretendardFont('semibold')};
     font-size: 20px;
     color: ${getThemeColor('gray10')};
-    margin-top: 15px;
-    margin-bottom: 9px;
+    margin-top: ${(props: { hasTodayTag: boolean }) => (props.hasTodayTag ? '3px' : '19px')};
+    margin-bottom: 4px;
     flex-shrink: 1;
   `,
 

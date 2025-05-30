@@ -8,7 +8,10 @@ import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn'
 
 const { width } = Dimensions.get('window');
 const Images = {
-  icon: require('@/assets/images/signUp/icon.webp'),
+  icon: require('@/assets/images/my/my-character.webp'),
+  qrImage: require('@/assets/images/my/qr.webp'),
+  locationGray: require('@/assets/images/common/location-gray.webp'),
+  clockGray: require('@/assets/images/common/clock-gray.webp'),
 };
 
 export default function MyScreen() {
@@ -18,95 +21,129 @@ export default function MyScreen() {
   const data = myReservationsMock;
   const leftWidth = width * 0.55;
 
+  const isTodayReservation = (dateStr: string) => {
+    const today = new Date();
+    const target = new Date(dateStr);
+    return (
+      today.getFullYear() === target.getFullYear() &&
+      today.getMonth() === target.getMonth() &&
+      today.getDate() === target.getDate()
+    );
+  };
+
   return (
     <S.StyleContainer>
       {isLogin ? (
         <S.PopUpEntryScreenContainer>
-          <S.Title>MY POPI</S.Title>
-
           <S.Greeting>
-            {profile.nickname}님, 오늘이 <S.Highlight>예약일</S.Highlight>이에요!
+            {profile.nickname}님, 반가워요{`\n`}오늘은 어떤 팝업을 만나볼까요?
           </S.Greeting>
 
-          <S.Character source={require('@/assets/images/my/my-character.webp')} />
+          <S.Character source={Images.icon} />
 
           <S.ReservationTitle>내 예약</S.ReservationTitle>
 
-          {[1, 2].map((_, i) => (
-            <S.TicketWrapper key={i} onPress={() => router.push('/(common)/popUpEntry')}>
-              <S.LeftCard>
-                <S.TickTitle>POPI TICKET</S.TickTitle>
-              </S.LeftCard>
-              <S.RightCard>
-                <S.Barcode source={require('@/assets/images/my/qr.webp')} />
-              </S.RightCard>
+          {data.map(reservation => {
+            const isToday = isTodayReservation(reservation.reservationDate);
 
-              <S.TicketInfoWrapper>
-                <View
-                  style={{
-                    marginLeft: 20,
-                    maxWidth: leftWidth,
-                    paddingRight: 10,
-                  }}
-                >
-                  <S.TicketPopupTitle numberOfLines={1} ellipsizeMode="tail">
-                    {data[0].popupName}
-                  </S.TicketPopupTitle>
+            return (
+              <S.TicketWrapper
+                key={reservation.reservationId}
+                onPress={() =>
+                  router.push({
+                    pathname: '/(common)/popUpEntry',
+                    params: {
+                      source: 'my',
+                      // data: JSON.stringify(reservationData), 추후 API 연결하고 data 같이 넘겨주세요
+                    },
+                  })
+                }
+              >
+                <S.LeftCard>
+                  <S.TicketTitle>POPI TICKET</S.TicketTitle>
+                </S.LeftCard>
+                <S.RightCard>
+                  <S.Barcode source={Images.qrImage} />
+                </S.RightCard>
 
-                  <S.TicketPopupInfo>
-                    <Image
-                      source={require('@/assets/images/common/location-gray.webp')}
-                      style={{
-                        width: 14,
-                        height: 14,
-                        flexShrink: 0,
-                      }}
-                      resizeMode="cover"
-                    />
-                    <Text
-                      style={{
-                        fontFamily: 'Pretendard-Semibold',
-                        fontSize: 13,
-                        color: '#929292',
-                        flex: 1,
-                        marginLeft: 3,
-                      }}
+                <S.TicketInfoWrapper>
+                  <View
+                    style={{
+                      marginLeft: 20,
+                      maxWidth: leftWidth,
+                      paddingRight: 10,
+                    }}
+                  >
+                    {isToday && (
+                      <S.TodayTag>
+                        <S.TodayText>TODAY</S.TodayText>
+                      </S.TodayTag>
+                    )}
+                    <S.TicketPopupTitle
+                      hasTodayTag={isToday}
                       numberOfLines={1}
                       ellipsizeMode="tail"
                     >
-                      {data[0].address}
-                    </Text>
-                  </S.TicketPopupInfo>
+                      {reservation.popupName}
+                    </S.TicketPopupTitle>
 
-                  <S.TicketPopupInfo>
-                    <Image
-                      source={require('@/assets/images/common/clock-gray.webp')}
-                      style={{
-                        width: 13,
-                        height: 13,
-                        flexShrink: 0,
-                      }}
-                      resizeMode="cover"
-                    />
-                    <Text
-                      style={{
-                        fontFamily: 'Pretendard-Semibold',
-                        fontSize: 13,
-                        color: '#929292',
-                        flex: 1,
-                        marginLeft: 3,
-                      }}
-                      numberOfLines={1}
-                      ellipsizeMode="tail"
-                    >
-                      {data[0].reservationDate} {data[0].reservationDay} {data[0].reservationTime}
-                    </Text>
-                  </S.TicketPopupInfo>
-                </View>
-              </S.TicketInfoWrapper>
-              <S.Separator />
-            </S.TicketWrapper>
-          ))}
+                    <S.TicketPopupInfo>
+                      <Image
+                        source={Images.locationGray}
+                        style={{
+                          width: 16,
+                          height: 16,
+                          flexShrink: 0,
+                          marginLeft: -1,
+                        }}
+                        resizeMode="cover"
+                      />
+                      <Text
+                        style={{
+                          fontFamily: 'Pretendard-Semibold',
+                          fontSize: 13,
+                          color: '#929292',
+                          flex: 1,
+                          marginLeft: 0,
+                        }}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {reservation.address}
+                      </Text>
+                    </S.TicketPopupInfo>
+
+                    <S.TicketPopupInfo>
+                      <Image
+                        source={Images.clockGray}
+                        style={{
+                          width: 13,
+                          height: 13,
+                          flexShrink: 0,
+                        }}
+                        resizeMode="cover"
+                      />
+                      <Text
+                        style={{
+                          fontFamily: 'Pretendard-Semibold',
+                          fontSize: 13,
+                          color: '#929292',
+                          flex: 1,
+                          marginLeft: 3,
+                        }}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {reservation.reservationDate} {reservation.reservationDay}{' '}
+                        {reservation.reservationTime}
+                      </Text>
+                    </S.TicketPopupInfo>
+                  </View>
+                </S.TicketInfoWrapper>
+                <S.Separator />
+              </S.TicketWrapper>
+            );
+          })}
 
           <S.BottomActions>
             <S.BottomButton onPress={handleDeleteProfile}>탈퇴</S.BottomButton>
@@ -115,8 +152,8 @@ export default function MyScreen() {
         </S.PopUpEntryScreenContainer>
       ) : (
         <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-          <Image source={Images.icon} style={{ width: 480, height: 418 }} resizeMode="contain" />
-          <View style={{ width: 140, height: 50, marginTop: 30 }}>
+          <Image source={Images.icon} style={{ width: 256, height: 191 }} resizeMode="contain" />
+          <View style={{ width: 140, height: 50, marginTop: 130 }}>
             <CustomGradientBtn title="로그인" onPress={() => router.push('/(common)/login')} />
           </View>
         </View>

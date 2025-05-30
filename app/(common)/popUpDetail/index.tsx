@@ -44,7 +44,6 @@ export default function PopUpDetailScreen() {
           height={54}
           onPress={() => (isLogin ? handleCalendarPress(0) : router.push('/(common)/login'))}
           icon={isLogin ? require('@/assets/images/common/store-gray.webp') : undefined}
-          disabled={!isLogin}
         />
       </View>
       <BottomSheet

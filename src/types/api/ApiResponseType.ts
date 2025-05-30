@@ -102,18 +102,6 @@ export type GetPopUpAllItemsResponse = {
   isLast: boolean;
 };
 
-export type GetReservationDetailResponse = {
-  reservationId: string;
-  popupName: string;
-  popupDate: string;
-  popupDay: string;
-  popupTime: string;
-  address: string;
-  qrCodeBase64: string;
-  latitude: number;
-  longitude: number;
-};
-
 export type GetRecommendedItemsResponse = RecommendedItem[];
 
 export type GetPopularItemsResponse = PopularItem[];
@@ -126,4 +114,16 @@ export type GetPopUDetailAllItemsResponse = {
 export type PostReservationErrorResponse = {
   errorClassName: string;
   message: string;
+};
+
+export type GetUpComingTicketResponse = {
+  reservationId: string;
+  popupName: string;
+  reservationDate: string;
+  reservationTime: string;
+  reservationDay: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  qrImage: string;
 };

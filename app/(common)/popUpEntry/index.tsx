@@ -1,11 +1,13 @@
 import { Image, View } from 'react-native';
 import { S } from './PopUpEntry.style';
-import { popularItemList, recommendedItemList, reservationDetail } from '@/mocks/PopUpEntryMocks';
-import { useLocalSearchParams } from 'expo-router';
-import { useState } from 'react';
+import { popularItemList, recommendedItemList } from '@/mocks/PopUpEntryMocks';
+import { useEffect, useState } from 'react';
 import NoticeModal from '@/components/noticeModal/NoticeModal';
 import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
 import { useDeleteReservation } from '@/hooks/api/useReserviationApi';
+import { useLocalSearchParams } from 'expo-router';
+import { useUpComingTicketInfoApi } from '@/hooks/api/usePopUpEntryApi';
+import { GetUpComingTicketResponse } from '@/types/api/ApiResponseType';
 
 const Images = {
   cameraBoy: require('@/assets/images/popUpEntry/camera-boy.webp'),
@@ -15,30 +17,64 @@ const Images = {
   qrCode: require('@/assets/images/popUpEntry/qr-code.webp'),
   item: require('@/assets/images/popUpEntry/item.webp'),
   marker: require('@/assets/images/common/marker.webp'),
+  icon: require('@/assets/images/my/my-character.webp'),
 };
 
 const PopUpEntryScreen = () => {
-  const { isSurvey } = useLocalSearchParams();
   const [modalVisible, setModalVisible] = useState(false);
   const { mutate: deleteReservation } = useDeleteReservation();
+  const [ticket, setTicket] = useState<GetUpComingTicketResponse | null>(null);
+
+  const {
+    source,
+    //  data <- 추후 my페이지에서 넘겨주는 data 입니다
+  } = useLocalSearchParams<{
+    source?: 'home' | 'my';
+    // data?: string;
+  }>();
+
+  const { upComingTicketInfo } = useUpComingTicketInfoApi();
+
+  useEffect(() => {
+    if (source === 'home') {
+      if (upComingTicketInfo) setTicket(upComingTicketInfo);
+    } else if (source === 'my') {
+      // data 넘어오면 사용 예정
+      // const parsed = JSON.parse(data) as GetUpComingTicketResponse;
+      // setTicket(parsed);
+    }
+  }, [source, upComingTicketInfo]);
 
   const handleCancelPress = () => {
     setModalVisible(true);
   };
 
   const handleConfirmCancel = () => {
-    deleteReservation({
-      memberReservationId: reservationDetail.reservationId,
-    });
+    if (ticket) {
+      deleteReservation({
+        memberReservationId: ticket.reservationId,
+      });
+    }
   };
 
   const handleCloseModal = () => {
     setModalVisible(false);
   };
 
+  if (!ticket) {
+    return (
+      <S.Container>
+        <S.EmptyWrapper>
+          <S.Content source={Images.icon} />
+          <S.EmptyText>아직 예약된 티켓이 없어요</S.EmptyText>
+        </S.EmptyWrapper>
+      </S.Container>
+    );
+  }
+
   const region: Region = {
-    latitude: reservationDetail.latitude - 0.01 / 2,
-    longitude: reservationDetail.longitude - 0.01 / 2,
+    latitude: ticket.latitude - 0.01 / 2,
+    longitude: ticket.longitude - 0.01 / 2,
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   };
@@ -54,17 +90,16 @@ const PopUpEntryScreen = () => {
               <S.CameraBoy source={Images.cameraBoy} style={{ width: 76, height: 76 }} />
               <S.PopUpTitleContainer>
                 <Image source={Images.store} style={{ width: 18, height: 18, marginTop: 2 }} />
-                <S.PopupTitle>{reservationDetail.popupName}</S.PopupTitle>
+                <S.PopupTitle>{ticket.popupName}</S.PopupTitle>
               </S.PopUpTitleContainer>
               <S.InfoTextContainer>
                 <Image source={Images.locationDarkGray} style={{ width: 15, height: 15 }} />
-                <S.InfoText>{reservationDetail.address}</S.InfoText>
+                <S.InfoText>{ticket.address}</S.InfoText>
               </S.InfoTextContainer>
               <S.InfoTextContainer>
                 <Image source={Images.clockDarkGray} style={{ width: 15, height: 15 }} />
                 <S.InfoText>
-                  {reservationDetail.popupDate} {reservationDetail.popupDay}{' '}
-                  {reservationDetail.popupTime}
+                  {ticket.reservationDate} {ticket.reservationDay} {ticket.reservationTime}
                 </S.InfoText>
               </S.InfoTextContainer>
             </S.TopCard>
@@ -73,7 +108,7 @@ const PopUpEntryScreen = () => {
             <S.QrCard>
               <S.Description>이용하려는 팝업에 QR로 체크인하세요</S.Description>
               <S.QRImage
-                source={{ uri: `data:image/png;base64,${reservationDetail.qrCodeBase64}` }}
+                source={{ uri: `data:image/png;base64,${ticket.qrImage}` }}
                 resizeMode="contain"
               />
               <S.ButtonRow>
@@ -102,8 +137,8 @@ const PopUpEntryScreen = () => {
                 isExtentBoundedInKorea={true}
               >
                 <NaverMapMarkerOverlay
-                  latitude={reservationDetail.latitude}
-                  longitude={reservationDetail.longitude}
+                  latitude={ticket.latitude}
+                  longitude={ticket.longitude}
                   anchor={{ x: 0.5, y: 1 }}
                   width={32}
                   height={47}
@@ -116,27 +151,24 @@ const PopUpEntryScreen = () => {
           <S.Divider />
 
           {/* 취향저격 - 설문지 기반 상품 추천 */}
-          {isSurvey === '1' && (
-            <View>
-              <S.SectionTitle>몽몽님의 취향 저격</S.SectionTitle>
-              <S.SectionDescription>
-                예약하실 때 작성하셨던 설문지 내용을 기반으로 추천드려요
-              </S.SectionDescription>
-              <S.GoodsContainer>
-                {recommendedItemList.map(item => (
-                  <S.GoodsItem key={item.itemId}>
-                    <S.GoodsImage source={item.imagePath} />
-                    <S.GoodsName numberOfLines={1} ellipsizeMode="tail">
-                      {item.title}
-                    </S.GoodsName>
-                    <S.GoodsPrice numberOfLines={1} ellipsizeMode="tail">
-                      {item.price.toLocaleString()}원
-                    </S.GoodsPrice>
-                  </S.GoodsItem>
-                ))}
-              </S.GoodsContainer>
-            </View>
-          )}
+          {/* TODO: API 받아서 있으면 띄우고 없으면 띄우지 말기 */}
+          <S.SectionTitle>몽몽님의 취향 저격</S.SectionTitle>
+          <S.SectionDescription>
+            예약하실 때 작성하셨던 설문지 내용을 기반으로 추천드려요
+          </S.SectionDescription>
+          <S.GoodsContainer>
+            {recommendedItemList.map(item => (
+              <S.GoodsItem key={item.itemId}>
+                <S.GoodsImage source={item.imagePath} />
+                <S.GoodsName numberOfLines={1} ellipsizeMode="tail">
+                  {item.title}
+                </S.GoodsName>
+                <S.GoodsPrice numberOfLines={1} ellipsizeMode="tail">
+                  {item.price.toLocaleString()}원
+                </S.GoodsPrice>
+              </S.GoodsItem>
+            ))}
+          </S.GoodsContainer>
 
           {/* 인기 상품 TOP 3 */}
           <S.SectionTitle>인기 상품 TOP 3</S.SectionTitle>

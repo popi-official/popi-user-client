@@ -8,6 +8,7 @@ export const S = {
     flex: 1;
     background-color: ${getThemeColor('gray11')};
   `,
+
   // screen
   PopUpEntryScreenContainer: styled.ScrollView`
     background-color: ${getThemeColor('gray11')};
@@ -214,5 +215,23 @@ export const S = {
   BottomArea: styled.View`
     height: 52px;
     width: 100%;
+  `,
+
+  // 티켓 없을 때
+  EmptyWrapper: styled.View`
+    flex: 1;
+    align-items: center;
+  `,
+
+  Content: styled.Image`
+    margin-top: 200px;
+    width: 256px;
+    height: 191px;
+  `,
+
+  EmptyText: styled.Text`
+    margin-top: 60px;
+    font-size: 18px;
+    color: ${getThemeColor('gray05')};
   `,
 };

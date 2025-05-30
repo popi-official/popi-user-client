@@ -268,7 +268,10 @@ export default function CustomCalendar() {
         buttons={[
           {
             title: '닫기',
-            onPress: () => setSuccessModalVisible(false),
+            onPress: () => {
+              setSuccessModalVisible(false);
+              router.replace('/(tabs)/my');
+            },
           },
           {
             title: '웰컴 굿즈 받기',
