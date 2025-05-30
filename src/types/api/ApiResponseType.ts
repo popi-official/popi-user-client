@@ -16,6 +16,12 @@ export type GlobalResponse<T> = {
   timestamp: string;
 };
 
+export type ErrorResponse<T> = {
+  errorClassName: T;
+  message: string;
+  itemId: number;
+};
+
 export type NoResponse = null;
 
 export type SignedLoginResponse = {
@@ -110,7 +116,6 @@ export type GetPopUDetailAllItemsResponse = {
   content: ItemUrlType[];
   isLast: boolean;
 };
-<<<<<<< HEAD
 
 export type PostReservationErrorResponse = {
   errorClassName: string;
@@ -128,5 +133,5 @@ export type GetUpComingTicketResponse = {
   longitude: number;
   qrImage: string;
 };
-=======
->>>>>>> 44bc60e ([LCR-250] fix: 사용하지 않는 타입 제거)
+
+export type PostPaymentReadyErrorResponse = ErrorResponse<'ITEM_NOT_FOUND' | 'OUT_OF_STOCK'>;

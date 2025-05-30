@@ -19,7 +19,9 @@ export default {
       infoPlist: {
         ITSAppUsesNonExemptEncryption: true,
         NSCameraUsageDescription: '팝업스토어 사진 촬영을 위해 카메라 권한이 필요합니다.',
-        GIDClientID: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
+        GIDClientID:
+          process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID ||
+          '402112703645-i31ork1j9id82aqd435auot34uh55n6i.apps.googleusercontent.com',
         CFBundleURLTypes: [
           {
             CFBundleURLName: 'Default',
@@ -27,7 +29,11 @@ export default {
           },
           {
             CFBundleURLName: 'Kakao',
-            CFBundleURLSchemes: [`kakao${process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY}`],
+            CFBundleURLSchemes: [
+              process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY
+                ? `kakao${process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY}`
+                : 'kakao901478f25e364a7e04b4b22ff7b6d957',
+            ],
           },
           {
             CFBundleURLName: 'Google',
@@ -112,13 +118,15 @@ export default {
       [
         '@react-native-google-signin/google-signin',
         {
-          iosUrlScheme: process.env.EXPO_PUBLIC_GOOGLE_IOS_URL_SCHEME,
+          iosUrlScheme:
+            process.env.EXPO_PUBLIC_GOOGLE_IOS_URL_SCHEME ||
+            'com.googleusercontent.apps.402112703645-i31ork1j9id82aqd435auot34uh55n6i',
         },
       ],
       [
         '@mj-studio/react-native-naver-map',
         {
-          client_id: process.env.EXPO_PUBLIC_NAVER_MAP_KEY,
+          client_id: process.env.EXPO_PUBLIC_NAVER_MAP_KEY || 'j7hwp6hkkf',
           android: {
             ACCESS_FINE_LOCATION: true,
             ACCESS_COARSE_LOCATION: true,
@@ -148,7 +156,8 @@ export default {
       [
         '@react-native-kakao/core',
         {
-          nativeAppKey: process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY,
+          nativeAppKey:
+            process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY || '901478f25e364a7e04b4b22ff7b6d957',
           android: {
             authCodeHandlerActivity: true,
             followChannelHandlerActivity: true,

@@ -5,6 +5,9 @@ import { useCartStore } from '@/store/useCartStore';
 import { useRouter } from 'expo-router';
 import { usePaymentApi } from '@/hooks/api/usePaymantApi';
 import { ParseJsonToString } from '@/utils/JsonParser';
+import { useState } from 'react';
+import { PostPaymentReadyErrorResponse } from '@/types/api/ApiResponseType';
+import NoticeModal from '@/components/noticeModal/NoticeModal';
 
 const Images = {
   minusIcon: require('@/assets/images/cart/minus.webp'),
@@ -19,8 +22,10 @@ const Images = {
 export default function CartScreen() {
   const { cartItems, cartPopUpId, changeQuantity, toggleSelect, toggleSelectAll, deleteItem } =
     useCartStore();
-  const { postPaymentReadyMutation } = usePaymentApi();
   const router = useRouter();
+  const [errorMsg, setErrorMsg] = useState<string>('');
+  const [errorItemId, setErrorItemId] = useState<number>(0);
+  const { postPaymentReadyMutation } = usePaymentApi();
 
   const allSelected = cartItems.length > 0 && cartItems.every(item => item.selected);
   const isEmpty = cartItems.length === 0;
@@ -34,18 +39,31 @@ export default function CartScreen() {
     }, 0);
 
   const handlePayment = async () => {
-    const response = await postPaymentReadyMutation.mutateAsync({
-      popupId: cartPopUpId,
-      items: cartItems.map(item => ({ itemId: item.itemId, quantity: item.quantity })),
-    });
+    try {
+      setErrorMsg('');
+      const response = await postPaymentReadyMutation.mutateAsync({
+        popupId: cartPopUpId,
+        items: cartItems.map(item => ({ itemId: item.itemId, quantity: item.quantity })),
+      });
 
-    router.push({
-      pathname: '/(common)/payment',
-      params: {
-        paymentReadyInfo: ParseJsonToString(response.data),
-      },
-    });
+      if (response.success) {
+        router.push({
+          pathname: '/(common)/payment',
+          params: {
+            paymentReadyInfo: ParseJsonToString(response.data),
+          },
+        });
+      } else {
+        setErrorMsg((response.data as PostPaymentReadyErrorResponse).message);
+        setErrorItemId((response.data as PostPaymentReadyErrorResponse).itemId);
+      }
+    } catch (error: any) {
+      setErrorMsg('네트워크 오류가 발생했습니다.');
+    }
   };
+
+  const selectedItems = cartItems.filter(item => item.selected);
+  const hasSelectedItems = selectedItems.length > 0;
 
   return (
     <S.Container>
@@ -121,8 +139,28 @@ export default function CartScreen() {
             }
           />
 
+          <NoticeModal
+            title={errorMsg}
+            subTitle="해당 상품은 장바구니에서 사라집니다"
+            visible={!!errorMsg}
+            buttons={[
+              {
+                title: '확인',
+                onPress: () => {
+                  deleteItem(errorItemId);
+                  setErrorItemId(0);
+                },
+              },
+            ]}
+          />
+
           <S.BottomButtonWrapper>
-            <CustomGradientBtn title="구매하기" onPress={handlePayment} />
+            <CustomGradientBtn
+              title="구매하기"
+              onPress={handlePayment}
+              isPending={postPaymentReadyMutation.isPending}
+              disabled={!hasSelectedItems || postPaymentReadyMutation.isPending}
+            />
           </S.BottomButtonWrapper>
         </>
       )}
