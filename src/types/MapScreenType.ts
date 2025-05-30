@@ -8,3 +8,4 @@ export type popUpMarkerItem = {
   latitude: number;
   longitude: number;
 };
+  

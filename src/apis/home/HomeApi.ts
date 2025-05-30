@@ -1,6 +1,6 @@
 import {
   ApiResponse,
-  GetHotItemResponse,
+  GetHotPopUpItemsResponse,
   GetPopUpAllItemsResponse,
 } from '@/types/api/ApiResponseType';
 import { api } from '../config/Axios';
@@ -16,7 +16,7 @@ export const getPopUpAllItems = async ({
   return response.data;
 };
 
-export const getHotItemRequest = async (): ApiResponse<GetHotItemResponse> => {
+export const getHotItemRequest = async (): ApiResponse<GetHotPopUpItemsResponse> => {
   const response = await api.get('/popups/popularity');
   return response.data;
 };

@@ -81,21 +81,20 @@ const MapScreen = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [visibleRegion, setVisibleRegion] = useState<Region | null>(null);
 
+  // TODO: 서버 연결할 때 보낼 params
+  const buildRegionBounds = (region: Region) => {
+    // region.latitude / longitude는 남서쪽 꼭짓점이 기준
+    const centerLat = region.latitude + region.latitudeDelta / 2;
+    const centerLng = region.longitude + region.longitudeDelta / 2;
 
-    // TODO: 서버 연결할 때 보낼 params
-    const buildRegionBounds = (region: Region) => {
-      // region.latitude / longitude는 남서쪽 꼭짓점이 기준
-      const centerLat = region.latitude + region.latitudeDelta / 2;
-      const centerLng = region.longitude + region.longitudeDelta / 2;
-  
-      const latMin = centerLat - region.latitudeDelta / 2;
-      const latMax = centerLat + region.latitudeDelta / 2;
-      const lngMin = centerLng - region.longitudeDelta / 2;
-      const lngMax = centerLng + region.longitudeDelta / 2;
-  
-      return { latMin, latMax, lngMin, lngMax };
-    };
-    
+    const latMin = centerLat - region.latitudeDelta / 2;
+    const latMax = centerLat + region.latitudeDelta / 2;
+    const lngMin = centerLng - region.longitudeDelta / 2;
+    const lngMax = centerLng + region.longitudeDelta / 2;
+
+    return { latMin, latMax, lngMin, lngMax };
+  };
+
   const bounds = visibleRegion ? buildRegionBounds(visibleRegion) : null;
 
   const { popUpMarkers, isLoading } = useGetMapApi(
@@ -105,9 +104,7 @@ const MapScreen = () => {
     bounds?.lngMax ?? 0,
   );
 
-  const selectedItem = popUpMarkers.find(p => p.popupId === selectedPopupId);
-
-
+  const selectedItem = popUpMarkers?.find?.(p => p.popupId === selectedPopupId) ?? null;
 
   const handleMarkerPress = (popupId: number) => {
     setSelectedPopupId(popupId);
@@ -144,8 +141,6 @@ const MapScreen = () => {
         item.longitude <= lngMax,
     );
   }, [visibleRegion, popUpMarkers]);
-
-
 
   useEffect(() => {
     if (visibleMarkers.length === 0) return;

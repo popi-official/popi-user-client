@@ -7,7 +7,7 @@ export const getMapPopUps = async (
     lngMin: number,
     lngMax: number
   ): ApiResponse<GetPopUpMarkerItemsResponse> => {
-    const response = await api.get('/popups?minLat=37.48&maxLat=37.50&minLng=127.02&maxLng=127.06', {
+    const response = await api.get('/popups/map', {
       params: { latMin, latMax, lngMin, lngMax },
     });
     return response.data;

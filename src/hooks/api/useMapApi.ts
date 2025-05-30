@@ -5,7 +5,7 @@ export const useGetMapApi = (latMin: number, latMax: number, lngMin: number, lng
   const query = useQuery({
     queryKey: ['maplist', latMin, latMax, lngMin, lngMax],
     queryFn: () => getMapPopUps(latMin, latMax, lngMin, lngMax),
-    //enabled: latMin !== undefined && lngMin !== undefined, // 처음엔 undefined 방지
+    enabled: latMin !== undefined && lngMin !== undefined, // 처음엔 undefined 방지
     //staleTime: 1000 * 60 * 2, // 캐시 2분
   });
 
