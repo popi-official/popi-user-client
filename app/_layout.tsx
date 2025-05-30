@@ -81,7 +81,7 @@ export default function RootLayout() {
     'Inter-ThinItalic': require('@/assets/fonts/Inter-ThinItalic.ttf'),
   });
 
-  const kakaoNativeAppKey = process.env.EXPO_PUBLIC_EXPO_PUBLIC_KAKAO_NATIVE_KEY || '';
+  const kakaoNativeAppKey = process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY || '';
   const iosClientId = process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID || '';
 
   useEffect(() => {
