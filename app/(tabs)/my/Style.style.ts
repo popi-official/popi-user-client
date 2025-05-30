@@ -15,11 +15,6 @@ export const S = {
     padding: 12px;
   `,
 
-  // 예약일
-  Highlight: styled.Text`
-    color: #c9d1ff;
-  `,
-
   // 인사 문구
   Greeting: styled.Text`
     font-family: ${getThemePretendardFont('semibold')};
