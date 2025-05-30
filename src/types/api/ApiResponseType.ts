@@ -110,6 +110,7 @@ export type GetPopUDetailAllItemsResponse = {
   content: ItemUrlType[];
   isLast: boolean;
 };
+<<<<<<< HEAD
 
 export type PostReservationErrorResponse = {
   errorClassName: string;
@@ -127,3 +128,5 @@ export type GetUpComingTicketResponse = {
   longitude: number;
   qrImage: string;
 };
+=======
+>>>>>>> 44bc60e ([LCR-250] fix: 사용하지 않는 타입 제거)
