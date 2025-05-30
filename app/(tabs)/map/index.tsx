@@ -80,7 +80,6 @@ const MapScreen = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [visibleRegion, setVisibleRegion] = useState<Region | null>(null);
 
-  // TODO: 서버 연결할 때 보낼 params
   const buildRegionBounds = (region: Region) => {
     // region.latitude / longitude는 남서쪽 꼭짓점이 기준
     const centerLat = region.latitude + region.latitudeDelta / 2;
