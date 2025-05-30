@@ -98,7 +98,7 @@ const HomeScreen = () => {
         data={hotItems}
         keyExtractor={item => String(item.popupId)}
         horizontal
-        scrollEnabled={false}
+        scrollEnabled={true}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
           <S.HotCardContainer
