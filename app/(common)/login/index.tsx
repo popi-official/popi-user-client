@@ -1,6 +1,5 @@
 import { useOAuth } from '@/hooks/useOAuth';
 import { S } from './LoginScreen.style';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const Images = {
   logo: require('@/assets/images/splash-icon.png'),
