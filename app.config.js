@@ -27,11 +27,7 @@ export default {
           },
           {
             CFBundleURLName: 'Kakao',
-            CFBundleURLSchemes: [
-              process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY
-                ? `kakao${process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY}`
-                : 'kakao901478f25e364a7e04b4b22ff7b6d957',
-            ],
+            CFBundleURLSchemes: [`kakao${process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY}`],
           },
           {
             CFBundleURLName: 'Google',
