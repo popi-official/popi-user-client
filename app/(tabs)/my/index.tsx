@@ -8,7 +8,7 @@ import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn'
 
 const { width } = Dimensions.get('window');
 const Images = {
-  icon: require('@/assets/images/signUp/icon.webp'),
+  icon: require('@/assets/images/my/my-character.webp'),
 };
 
 export default function MyScreen() {
@@ -22,13 +22,11 @@ export default function MyScreen() {
     <S.StyleContainer>
       {isLogin ? (
         <S.PopUpEntryScreenContainer>
-          <S.Title>MY POPI</S.Title>
-
           <S.Greeting>
-            {profile.nickname}님, 오늘이 <S.Highlight>예약일</S.Highlight>이에요!
+            {profile.nickname}님, 반가워요{`\n`}오늘은 어떤 팝업을 만나볼까요?
           </S.Greeting>
 
-          <S.Character source={require('@/assets/images/my/my-character.webp')} />
+          <S.Character source={Images.icon} />
 
           <S.ReservationTitle>내 예약</S.ReservationTitle>
 
@@ -126,8 +124,8 @@ export default function MyScreen() {
         </S.PopUpEntryScreenContainer>
       ) : (
         <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-          <Image source={Images.icon} style={{ width: 480, height: 418 }} resizeMode="contain" />
-          <View style={{ width: 140, height: 50, marginTop: 30 }}>
+          <Image source={Images.icon} style={{ width: 256, height: 191 }} resizeMode="contain" />
+          <View style={{ width: 140, height: 50, marginTop: 130 }}>
             <CustomGradientBtn title="로그인" onPress={() => router.push('/(common)/login')} />
           </View>
         </View>

@@ -31,11 +31,10 @@ export const S = {
     color: ${getThemeColor('gray02')};
     font-size: 26px;
     font-family: ${getThemePretendardFont('semibold')};
-    margin-bottom: 30px;
     margin-top: 4px;
   `,
   ContentImage: styled(Image)`
-    width: 480px;
-    height: 418px;
+    width: 256px;
+    height: 191px;
   `,
 };

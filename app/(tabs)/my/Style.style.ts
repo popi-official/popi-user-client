@@ -15,16 +15,6 @@ export const S = {
     padding: 12px;
   `,
 
-  // 제목
-  Title: styled.Text`
-    margin-top: 40px;
-    font-family: ${getThemePretendardFont('semibold')};
-    font-size: 28px;
-    color: ${getThemeColor('gray01')};
-    text-align: left;
-    margin-bottom: 8px;
-  `,
-
   // 예약일
   Highlight: styled.Text`
     color: #c9d1ff;

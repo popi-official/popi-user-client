@@ -5,7 +5,7 @@ import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn'
 import { View } from 'react-native';
 
 const images = {
-  content: require('@/assets/images/signUp/icon.webp'),
+  content: require('@/assets/images/my/my-character.webp'),
 };
 
 export default function SuccessScreen() {
