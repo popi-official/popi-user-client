@@ -26,7 +26,15 @@ export default {
           },
           {
             CFBundleURLName: 'Kakao',
-            CFBundleURLSchemes: [`kakao${process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY}`],
+            CFBundleURLSchemes: [
+              process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY
+                ? `kakao${process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY}`
+                : 'kakao901478f25e364a7e04b4b22ff7b6d957',
+            ],
+          },
+          {
+            CFBundleURLName: 'Google',
+            CFBundleURLSchemes: [process.env.EXPO_PUBLIC_GOOGLE_IOS_URL_SCHEME],
           },
         ],
         LSApplicationQueriesSchemes: [
@@ -105,9 +113,15 @@ export default {
       'expo-web-browser',
       'expo-dev-client',
       [
+        '@react-native-google-signin/google-signin',
+        {
+          iosUrlScheme: process.env.EXPO_PUBLIC_GOOGLE_IOS_URL_SCHEME,
+        },
+      ],
+      [
         '@mj-studio/react-native-naver-map',
         {
-          client_id: `${process.env.EXPO_PUBLIC_NAVER_MAP_KEY}`,
+          client_id: process.env.EXPO_PUBLIC_NAVER_MAP_KEY,
           android: {
             ACCESS_FINE_LOCATION: true,
             ACCESS_COARSE_LOCATION: true,
@@ -137,7 +151,7 @@ export default {
       [
         '@react-native-kakao/core',
         {
-          nativeAppKey: `${process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY}`,
+          nativeAppKey: process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY,
           android: {
             authCodeHandlerActivity: true,
             followChannelHandlerActivity: true,
