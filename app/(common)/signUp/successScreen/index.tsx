@@ -5,8 +5,7 @@ import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn'
 import { View } from 'react-native';
 
 const images = {
-  background: require('@/assets/images/signUp/success-background.webp'),
-  content: require('@/assets/images/signUp/success-content.webp'),
+  content: require('@/assets/images/signUp/icon.webp'),
 };
 
 export default function SuccessScreen() {
@@ -16,10 +15,6 @@ export default function SuccessScreen() {
 
   return (
     <S.SuccessScreenContainer>
-      <S.BackgroundImageContainer>
-        <S.BackgroundImage source={images.background} resizeMode="cover" />
-      </S.BackgroundImageContainer>
-
       <SafeAreaView style={{ flex: 1 }}>
         <S.ContentContainer>
           <S.Title>회원가입이 완료되었어요</S.Title>

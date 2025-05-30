@@ -1,30 +1,20 @@
 import { getThemeColor, getThemePretendardFont } from '@/types';
-import { Dimensions, Image } from 'react-native'; // Image 추가
+import { Image } from 'react-native'; // Image 추가
 import styled from 'styled-components/native';
-
-const { width, height } = Dimensions.get('window');
 
 export const S = {
   SuccessScreenContainer: styled.View`
     flex: 1;
     position: relative;
-  `,
-  BackgroundImageContainer: styled.View`
-    position: absolute;
-    width: ${width}px;
-    height: ${height}px;
-  `,
-  BackgroundImage: styled(Image)`
-    width: 100%;
-    height: 100%;
+    background-color: ${getThemeColor('gray11')};
   `,
   ContentContainer: styled.View`
     flex: 1;
     align-items: center;
     justify-content: center;
+    z-index: 1;
     padding-left: 12px;
     padding-right: 12px;
-    z-index: 1;
   `,
   Title: styled.Text`
     color: ${getThemeColor('gray04')};
@@ -45,8 +35,7 @@ export const S = {
     margin-top: 4px;
   `,
   ContentImage: styled(Image)`
-    width: 147;
-    height: 147px;
-    resize-mode: contain;
+    width: 480px;
+    height: 418px;
   `,
 };
