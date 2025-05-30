@@ -45,7 +45,7 @@ export default function OnBoardingScreen() {
       if (currentIndex < OnBoardingData.length - 1) {
         setCurrentIndex(currentIndex + 1);
       } else {
-        router.push('/(tabs)/home');
+        router.replace('/(tabs)/home');
         return;
       }
 

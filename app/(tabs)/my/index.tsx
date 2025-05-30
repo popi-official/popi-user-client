@@ -39,7 +39,7 @@ export default function MyScreen() {
                 router.push({
                   pathname: '/(common)/popUpEntry',
                   params: {
-                    source: 'mypage',
+                    source: 'my',
                     // data: JSON.stringify(reservationData), 추후 API 연결하고 data 같이 넘겨주세요
                   },
                 })
