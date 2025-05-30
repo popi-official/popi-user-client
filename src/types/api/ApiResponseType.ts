@@ -116,6 +116,7 @@ export type PostReservationErrorResponse = {
   errorClassName: string;
   message: string;
 };
+
 export type GetMyReservationResponse = MyReservation[];
 
 export type GetUpComingTicketResponse = {

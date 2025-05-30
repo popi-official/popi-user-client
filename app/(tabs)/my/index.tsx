@@ -16,7 +16,7 @@ const Images = {
 
 export default function MyScreen() {
   const { handleLogout, handleDeleteProfile } = useOAuth();
-  const { isLogin, profile } = useAuthStore();
+  const { isLogin } = useAuthStore();
   const router = useRouter();
   const leftWidth = width * 0.55;
 
@@ -153,7 +153,7 @@ export default function MyScreen() {
                         numberOfLines={1}
                         ellipsizeMode="tail"
                       >
-                        {myReservationData[0].address}
+                        {reservation.address}
                       </Text>
                     </S.TicketPopupInfo>
 
@@ -209,8 +209,8 @@ export default function MyScreen() {
                         numberOfLines={1}
                         ellipsizeMode="tail"
                       >
-                        {myReservationData[0].reservationDate} {myReservationData[0].reservationDay}{' '}
-                        {myReservationData[0].reservationTime}
+                        {reservation.reservationDate} {reservation.reservationDay}{' '}
+                        {reservation.reservationTime}
                       </Text>
                     </S.TicketPopupInfo>
                   </View>

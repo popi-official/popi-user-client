@@ -7,6 +7,7 @@ import {
 import { getReservationInfo, postReservation } from '@/apis/reservation/ReservationApi';
 import { PostReservationErrorResponse } from '@/types/api/ApiResponseType';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getMyReservation } from '@/apis/reservation/MyReservationApi';
 
 export const useGetReservationInfoApi = ({ popupId, yyyyMM }: GetReservationInfoRequest) => {
   const query = useQuery({
@@ -74,4 +75,17 @@ export const usePostReservationApi = ({
   });
 
   return { postReservationMutation };
+};
+
+export const useGetReservationsApi = () => {
+  const query = useQuery({
+    queryKey: ['reservation'],
+    queryFn: getMyReservation,
+  });
+
+  return {
+    myReservationData: query.data?.data,
+    isLoading: query.isLoading,
+    isError: query.isError,
+  };
 };
