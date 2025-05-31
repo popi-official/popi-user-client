@@ -121,13 +121,13 @@ export default function PopUpDetailInfo() {
 
       <S.DividerWide />
 
-      <S.WhatsHotContentBox>
+      <S.ItemContentBox>
         <S.ItemCategory style={{ marginTop: 40, marginBottom: 20 }}>WHAT`S HOT</S.ItemCategory>
         <S.ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {hotItemsIsLoading && <ActivityIndicator />}
           {hotItems && hotItems.map(renderHotItem)}
         </S.ScrollView>
-      </S.WhatsHotContentBox>
+      </S.ItemContentBox>
 
       <S.ItemContentBox>
         <S.RowBetween>

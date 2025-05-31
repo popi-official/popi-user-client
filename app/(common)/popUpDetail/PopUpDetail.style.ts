@@ -10,7 +10,6 @@ type ContainerProps = {
 export const S = {
   Container: styled.ScrollView<ContainerProps>`
     flex: 1;
-    position: relative;
     background-color: ${getThemeColor('gray11')};
     margin-bottom: ${(props: ContainerProps) => props.inset.bottom}px;
   `,
@@ -25,15 +24,9 @@ export const S = {
     padding: 0 12px;
   `,
 
-  WhatsHotContentBox: styled.View`
-    padding-left: 12px;
-    padding-bottom: 12px;
-  `,
-
   ItemContentBox: styled.View`
     padding-left: 12px;
     padding-bottom: 12px;
-    margin-bottom: 72px;
   `,
 
   PopupTitle: styled.Text`

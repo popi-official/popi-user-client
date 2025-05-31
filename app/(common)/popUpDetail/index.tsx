@@ -38,7 +38,7 @@ export default function PopUpDetailScreen() {
   return (
     <S.Container inset={inset}>
       <PopUpDetailInfo />
-      <View style={{ position: 'absolute', bottom: 12, left: 12, right: 12 }}>
+      <View style={{ marginHorizontal: 12 }}>
         <CustomGradientBtn
           title={isLogin ? '팝업 예약하기' : '로그인하고 예약하기'}
           height={54}
