@@ -16,7 +16,7 @@ export type PopUpItem = {
 export type HotPopUpItem = {
   popupId: number;
   popupName: string;
-  imageUrl: string ; 
+  imageUrl: string;
   popupOpenDate: string;
   popupCloseDate: string;
   address: string;

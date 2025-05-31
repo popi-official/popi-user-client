@@ -1,6 +1,5 @@
 import { useAuthStore } from '@/store/useAuthStore';
-import axios, { AxiosError } from 'axios';
-import { postReissue } from '../auth/Auth';
+import axios from 'axios';
 
 export const api = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_KEY,

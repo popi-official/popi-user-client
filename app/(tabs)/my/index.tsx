@@ -19,7 +19,7 @@ export default function MyScreen() {
   const { isLogin, profile } = useAuthStore();
   const router = useRouter();
   const leftWidth = width * 0.55;
-  const { myReservationData, isLoading, isError } = useGetReservationsApi();
+  const { myReservationData } = useGetReservationsApi();
 
   const isTodayReservation = (dateStr: string) => {
     const today = new Date();
