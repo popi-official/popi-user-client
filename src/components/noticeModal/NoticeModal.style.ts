@@ -3,6 +3,10 @@ import { getThemeColor, getThemePretendardFont } from '@/types';
 import { Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+type ContainerProps = {
+  isSubTitle?: boolean;
+};
+
 export const S = {
   Backdrop: styled.View`
     position: absolute;
@@ -12,8 +16,7 @@ export const S = {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.7);
   `,
-
-  Container: styled.View`
+  Container: styled.View<ContainerProps>`
     position: absolute;
     top: 35%;
     align-self: center;
@@ -22,18 +25,18 @@ export const S = {
     background-color: #000000;
     border: 1px solid #929292;
     border-radius: 20px;
-    padding-top: 53px;
+    padding-top: ${(props: ContainerProps) => (props.isSubTitle ? '40px' : '55px')};
   `,
 
-  TitleWrapper: styled.View`
+  TitleWrapper: styled.View<ContainerProps>`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    margin-bottom: 49px;
+    gap: 8px;
+    margin-bottom: ${(props: ContainerProps) => (props.isSubTitle ? '30px' : '49px')};
   `,
 
-  Icon: styled.Image`
+  Icon: styled.View`
     width: 30px;
     height: 30px;
   `,
@@ -42,6 +45,13 @@ export const S = {
     font-family: ${getThemePretendardFont('semibold')};
     font-size: 20px;
     color: #ffffff;
+    text-align: center;
+  `,
+
+  SubTitle: styled.Text`
+    font-family: ${getThemePretendardFont('medium')};
+    font-size: 16px;
+    color: ${getThemeColor('gray05')};
     text-align: center;
   `,
 

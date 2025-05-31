@@ -1,4 +1,4 @@
-import { ImageSourcePropType, Modal, TouchableWithoutFeedback } from 'react-native';
+import { ImageSourcePropType, Modal, TouchableWithoutFeedback, View } from 'react-native';
 import { S } from './NoticeModal.style';
 import { Theme } from '@/theme/Theme';
 
@@ -10,12 +10,13 @@ type ButtonConfig = {
 type Props = {
   visible: boolean;
   title: string;
+  subTitle?: string;
   buttons: ButtonConfig[];
   onClose?: () => void;
   icon?: ImageSourcePropType;
 };
 
-export default function NoticeModal({ visible, title, buttons, onClose, icon }: Props) {
+export default function NoticeModal({ visible, title, subTitle, buttons, onClose, icon }: Props) {
   const isTwo = buttons.length === 2;
   const { colors, start, end } = Theme.gradients.button;
 
@@ -25,10 +26,13 @@ export default function NoticeModal({ visible, title, buttons, onClose, icon }: 
         <S.Backdrop />
       </TouchableWithoutFeedback>
 
-      <S.Container>
-        <S.TitleWrapper>
-          {icon && <S.Icon source={icon} resizeMode="contain" />}
-          <S.Title>{title}</S.Title>
+      <S.Container isSubTitle={!!subTitle}>
+        <S.TitleWrapper isSubTitle={!!subTitle}>
+          {icon && <S.Icon source={icon} />}
+          <View style={{ gap: 4 }}>
+            <S.Title>{title}</S.Title>
+            <S.SubTitle>{subTitle}</S.SubTitle>
+          </View>
         </S.TitleWrapper>
         {isTwo ? (
           <S.ButtonRowCenter>

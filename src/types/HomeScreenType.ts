@@ -16,7 +16,7 @@ export type PopUpItem = {
 export type HotPopUpItem = {
   popupId: number;
   popupName: string;
-  imageUrl: number; // 추후 string으로 변경
+  imageUrl: string;
   popupOpenDate: string;
   popupCloseDate: string;
   address: string;

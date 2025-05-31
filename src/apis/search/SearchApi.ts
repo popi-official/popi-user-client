@@ -23,7 +23,7 @@ export const getSearchPopUpItem = async ({
   lastItemId,
 }: GetSearchItemReqeust): ApiResponse<GetItemSearchResponse> => {
   const response = await api.get(
-    `/popups/${selectedPopUpId}/items?keyword=${keyword}${lastItemId ? `&lastItemId=${lastItemId}` : ''}&size=${SEARCH_SIZE}`,
+    `/items/${selectedPopUpId}?keyword=${keyword}${lastItemId ? `&lastItemId=${lastItemId}` : ''}&size=${SEARCH_SIZE}`,
   );
   return response.data;
 };

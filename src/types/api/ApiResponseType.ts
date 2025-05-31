@@ -16,6 +16,12 @@ export type GlobalResponse<T> = {
   timestamp: string;
 };
 
+export type ErrorResponse<T> = {
+  errorClassName: T;
+  message: string;
+  itemId: number;
+};
+
 export type NoResponse = null;
 
 export type SignedLoginResponse = {
@@ -127,3 +133,5 @@ export type GetUpComingTicketResponse = {
   longitude: number;
   qrImage: string;
 };
+
+export type PostPaymentReadyErrorResponse = ErrorResponse<'ITEM_NOT_FOUND' | 'OUT_OF_STOCK'>;
