@@ -7,6 +7,7 @@ import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn'
 import { useGetReservationsApi } from '@/hooks/api/useReserviationApi';
 
 const { width } = Dimensions.get('window');
+
 const Images = {
   icon: require('@/assets/images/my/my-character.webp'),
   qrImage: require('@/assets/images/my/qr.webp'),
@@ -53,7 +54,7 @@ export default function MyScreen() {
                       pathname: '/(common)/popUpEntry',
                       params: {
                         source: 'my',
-                        // data: JSON.stringify(reservationData), 추후 API 연결하고 data 같이 넘겨주세요
+                        data: JSON.stringify(reservation),
                       },
                     })
                   }

@@ -18,7 +18,7 @@ export default function PopUpDetailScreen() {
   const inset = useSafeAreaInsets();
   const router = useRouter();
   const calenderBottomSheetRef = useRef<BottomSheet>(null);
-  const snapShotPoint = useMemo(() => ['35%'], []);
+  const snapShotPoint = useMemo(() => ['38%'], []);
   const isLogin = useAuthStore(state => state.isLogin);
 
   const handleCalendarPress = (index: number) => {
