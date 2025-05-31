@@ -1,5 +1,5 @@
 export type MyReservation = {
-  reservationId: number;
+  reservationId: string;
   popupId: number;
   popupName: string;
   reservationDate: string;

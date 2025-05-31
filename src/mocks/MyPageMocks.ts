@@ -1,8 +1,8 @@
 import { MyReservation } from '@/types/MyPageScreen';
 
-export const myReservationsMock: MyReservation[] = [
+export const myReservation: MyReservation[] = [
   {
-    reservationId: 23,
+    reservationId: '23',
     popupId: 1,
     popupName: '블랙핑크 팝업스토어asdfasdfasdfasdfasdf',
     reservationDate: '2025-05-30',
