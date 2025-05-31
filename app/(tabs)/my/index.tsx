@@ -7,6 +7,7 @@ import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn'
 import { useGetReservationsApi } from '@/hooks/api/useReserviationApi';
 
 const { width } = Dimensions.get('window');
+
 const Images = {
   icon: require('@/assets/images/my/my-character.webp'),
   qrImage: require('@/assets/images/my/qr.webp'),
@@ -16,7 +17,7 @@ const Images = {
 
 export default function MyScreen() {
   const { handleLogout, handleDeleteProfile } = useOAuth();
-  const { isLogin, profile } = useAuthStore();
+  const { isLogin } = useAuthStore();
   const router = useRouter();
   const leftWidth = width * 0.55;
   const { myReservationData } = useGetReservationsApi();
@@ -35,9 +36,7 @@ export default function MyScreen() {
     <S.StyleContainer>
       {isLogin ? (
         <S.PopUpEntryScreenContainer>
-          <S.Greeting>
-            {profile.nickname}님, 반가워요{`\n`}오늘은 어떤 팝업을 만나볼까요?
-          </S.Greeting>
+          <S.Greeting>몽몽님, 반가워요{`\n`}오늘은 어떤 팝업을 만나볼까요?</S.Greeting>
 
           <S.Character source={Images.icon} />
 
@@ -55,7 +54,7 @@ export default function MyScreen() {
                       pathname: '/(common)/popUpEntry',
                       params: {
                         source: 'my',
-                        // data: JSON.stringify(reservationData), 추후 API 연결하고 data 같이 넘겨주세요
+                        data: JSON.stringify(reservation),
                       },
                     })
                   }

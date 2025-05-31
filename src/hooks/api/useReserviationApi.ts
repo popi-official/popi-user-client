@@ -11,7 +11,7 @@ import { getMyReservation } from '@/apis/reservation/MyReservationApi';
 
 export const useGetReservationInfoApi = ({ popupId, yyyyMM }: GetReservationInfoRequest) => {
   const query = useQuery({
-    queryKey: ['reservation', popupId, yyyyMM],
+    queryKey: ['reservationInfo', popupId, yyyyMM],
     queryFn: () => getReservationInfo({ popupId, yyyyMM }),
   });
 
@@ -79,7 +79,7 @@ export const usePostReservationApi = ({
 
 export const useGetReservationsApi = () => {
   const query = useQuery({
-    queryKey: ['reservation'],
+    queryKey: ['myReservation'],
     queryFn: getMyReservation,
   });
 

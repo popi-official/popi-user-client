@@ -1,13 +1,12 @@
 import { Image, View } from 'react-native';
 import { S } from './PopUpEntry.style';
 import { popularItemList, recommendedItemList } from '@/mocks/PopUpEntryMocks';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import NoticeModal from '@/components/noticeModal/NoticeModal';
 import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
 import { useDeleteReservation } from '@/hooks/api/useReserviationApi';
-import { useLocalSearchParams } from 'expo-router';
-import { useUpComingTicketInfoApi } from '@/hooks/api/usePopUpEntryApi';
-import { GetUpComingTicketResponse } from '@/types/api/ApiResponseType';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useTicketData } from '@/hooks/useTicket';
 
 const Images = {
   cameraBoy: require('@/assets/images/popUpEntry/camera-boy.webp'),
@@ -23,27 +22,13 @@ const Images = {
 const PopUpEntryScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const { mutate: deleteReservation } = useDeleteReservation();
-  const [ticket, setTicket] = useState<GetUpComingTicketResponse | null>(null);
-
-  const {
-    source,
-    //  data <- 추후 my페이지에서 넘겨주는 data 입니다
-  } = useLocalSearchParams<{
+  const { source, data } = useLocalSearchParams<{
     source?: 'home' | 'my';
-    // data?: string;
+    data?: string;
   }>();
+  const router = useRouter();
 
-  const { upComingTicketInfo } = useUpComingTicketInfoApi();
-
-  useEffect(() => {
-    if (source === 'home') {
-      if (upComingTicketInfo) setTicket(upComingTicketInfo);
-    } else if (source === 'my') {
-      // data 넘어오면 사용 예정
-      // const parsed = JSON.parse(data) as GetUpComingTicketResponse;
-      // setTicket(parsed);
-    }
-  }, [source, upComingTicketInfo]);
+  const ticket = useTicketData(source, data);
 
   const handleCancelPress = () => {
     setModalVisible(true);
@@ -51,9 +36,17 @@ const PopUpEntryScreen = () => {
 
   const handleConfirmCancel = () => {
     if (ticket) {
-      deleteReservation({
-        memberReservationId: ticket.reservationId,
-      });
+      deleteReservation(
+        {
+          memberReservationId: ticket.reservationId,
+        },
+        {
+          onSuccess: () => {
+            setModalVisible(false);
+            router.replace('/(tabs)/my');
+          },
+        },
+      );
     }
   };
 
