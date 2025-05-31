@@ -5,8 +5,9 @@ import CustomGrayBtn from '@/components/customGrayBtn/CustomGrayBtn';
 import { ActivityIndicator, Dimensions, Text, View } from 'react-native';
 import { Animated } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useSurveyApi } from '@/hooks/api/useSurveyApi';
+import { useSurveyAnswersApi, useSurveyApi } from '@/hooks/api/useSurveyApi';
 import { usePopUpStore } from '@/store/usePopUpStore';
+import NoticeModal from '@/components/noticeModal/NoticeModal';
 
 const QUESTIONS = [
   '어떤 종류의 굿즈를\n가장 선호하시나요?',
@@ -23,11 +24,27 @@ const SurveyQuestionPage: React.FC = () => {
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState<number | null>(null);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number | null>>({});
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const popupId = usePopUpStore.getState().selectedPopUpId;
   const router = useRouter();
   const { questions, isLoading, isError } = useSurveyApi({ popupId });
   const progress = useRef(new Animated.Value(0)).current;
+
+  const { postSurveyAnswersMutation } = useSurveyAnswersApi({
+    onSuccess: () => {
+      setSuccessMessage('참여해주셔서 감사합니다');
+      setSuccessModalVisible(true);
+    },
+    onError: (message: string) => {
+      setErrorMessage(message);
+      setErrorModalVisible(true);
+    },
+  });
 
   // step 변경될 때 해당 step의 기존 답변 불러오기
   useEffect(() => {
@@ -62,14 +79,18 @@ const SurveyQuestionPage: React.FC = () => {
 
   const answers = questions[step - 1].options;
 
-  // 추후 POST 요청 Body
-  // const requestBody = {
-  //   memberAnswerCreateRequest: questions.map(survey => ({
-  //     surveyId: survey.surveyId,
-  //     choiceId: selectedAnswers[survey.surveyId],
-  //   })),
-  // };
-  // console.log(requestBody);
+  const handleSubmit = () => {
+    if (!popupId) return;
+
+    const surveyAnswers = questions
+      .map(q => ({
+        surveyId: q.surveyId,
+        choiceId: selectedAnswers[q.surveyId] ?? -1, // null이면 -1로 처리
+      }))
+      .filter(a => a.choiceId !== -1); // null 제거
+
+    postSurveyAnswersMutation.mutate({ popupId, answers: surveyAnswers });
+  };
 
   const fillWidth = progress.interpolate({
     inputRange: [0, 1],
@@ -143,9 +164,7 @@ const SurveyQuestionPage: React.FC = () => {
                 setStep(prev => prev + 1);
                 setSelected(null);
               } else {
-                // 수정: 마지막일 때 제출 로직 호출
-                //handleSubmit(); POST API 호출
-                router.replace({ pathname: '/(tabs)/my' });
+                handleSubmit();
               }
             }}
             style={{ width: BUTTON_WIDTH }}
@@ -153,6 +172,29 @@ const SurveyQuestionPage: React.FC = () => {
           />
         </S.BottomActions>
       </S.Card>
+      <NoticeModal
+        visible={successModalVisible}
+        title={successMessage}
+        buttons={[
+          {
+            title: '확인',
+            onPress: () => {
+              setSuccessModalVisible(false);
+              router.replace({ pathname: '/(tabs)/my' });
+            },
+          },
+        ]}
+      />
+      <NoticeModal
+        visible={errorModalVisible}
+        title={errorMessage}
+        buttons={[
+          {
+            title: '확인',
+            onPress: () => setErrorModalVisible(false),
+          },
+        ]}
+      />
     </S.Container>
   );
 };

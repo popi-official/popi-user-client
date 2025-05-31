@@ -1,3 +1,4 @@
+import { SurveyItem } from '@/types/SurveyQuestions';
 import { PaymentItemType } from '../PaymentType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 
@@ -69,3 +70,5 @@ export type GetHotItemsRequest = {
 export type GetDefaultItemsRequest = {
   popupId: number;
 };
+
+export type PostSurveyAnswersRequest = SurveyItem[];
