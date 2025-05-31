@@ -16,9 +16,10 @@ const Images = {
 
 export default function MyScreen() {
   const { handleLogout, handleDeleteProfile } = useOAuth();
-  const { isLogin } = useAuthStore();
+  const { isLogin, profile } = useAuthStore();
   const router = useRouter();
   const leftWidth = width * 0.55;
+  const { myReservationData, isLoading, isError } = useGetReservationsApi();
 
   const isTodayReservation = (dateStr: string) => {
     const today = new Date();
@@ -29,7 +30,6 @@ export default function MyScreen() {
       today.getDate() === target.getDate()
     );
   };
-  const { myReservationData, isLoading, isError } = useGetReservationsApi();
 
   return (
     <S.StyleContainer>
@@ -43,181 +43,108 @@ export default function MyScreen() {
 
           <S.ReservationTitle>내 예약</S.ReservationTitle>
 
-          {data.map(reservation => {
-            const isToday = isTodayReservation(reservation.reservationDate);
-
-            return (
-              <S.TicketWrapper
-                key={reservation.reservationId}
-                onPress={() =>
-                  router.push({
-                    pathname: '/(common)/popUpEntry',
-                    params: {
-                      source: 'my',
-                      // data: JSON.stringify(reservationData), 추후 API 연결하고 data 같이 넘겨주세요
-                    },
-                  })
-                }
-              >
-                <S.LeftCard>
-                  <S.TicketTitle>POPI TICKET</S.TicketTitle>
-                </S.LeftCard>
-                <S.RightCard>
-                  <S.Barcode source={Images.qrImage} />
-                </S.RightCard>
           {myReservationData &&
-            myReservationData.map((reservation, i) => (
-              <S.TicketWrapper key={i}>
-                <S.LeftCard>
-                  <S.TickTitle>POPI TICKET</S.TickTitle>
-                </S.LeftCard>
-                <S.RightCard>
-                  <S.Barcode source={require('@/assets/images/my/qr.webp')} />
-                </S.RightCard>
+            myReservationData.map(reservation => {
+              const isToday = isTodayReservation(reservation.reservationDate);
 
-                <S.TicketInfoWrapper>
-                  <View
-                    style={{
-                      marginLeft: 20,
-                      maxWidth: leftWidth,
-                      paddingRight: 10,
-                    }}
-                  >
-                    {isToday && (
-                      <S.TodayTag>
-                        <S.TodayText>TODAY</S.TodayText>
-                      </S.TodayTag>
-                    )}
-                    <S.TicketPopupTitle
-                      hasTodayTag={isToday}
-                      numberOfLines={1}
-                      ellipsizeMode="tail"
+              return (
+                <S.TicketWrapper
+                  key={reservation.reservationId}
+                  onPress={() =>
+                    router.push({
+                      pathname: '/(common)/popUpEntry',
+                      params: {
+                        source: 'my',
+                        // data: JSON.stringify(reservationData), 추후 API 연결하고 data 같이 넘겨주세요
+                      },
+                    })
+                  }
+                >
+                  <S.LeftCard>
+                    <S.TicketTitle>POPI TICKET</S.TicketTitle>
+                  </S.LeftCard>
+                  <S.RightCard>
+                    <S.Barcode source={Images.qrImage} />
+                  </S.RightCard>
+
+                  <S.TicketInfoWrapper>
+                    <View
+                      style={{
+                        marginLeft: 20,
+                        maxWidth: leftWidth,
+                        paddingRight: 10,
+                      }}
                     >
-                      {reservation.popupName}
-                    </S.TicketPopupTitle>
-                <S.TicketInfoWrapper>
-                  <View
-                    style={{
-                      marginLeft: 20,
-                      maxWidth: leftWidth,
-                      paddingRight: 10,
-                    }}
-                  >
-                    <S.TicketPopupTitle numberOfLines={1} ellipsizeMode="tail">
-                      {reservation.popupName}
-                    </S.TicketPopupTitle>
+                      {isToday && (
+                        <S.TodayTag>
+                          <S.TodayText>TODAY</S.TodayText>
+                        </S.TodayTag>
+                      )}
+                      <S.TicketPopupTitle
+                        hasTodayTag={isToday}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {reservation.popupName}
+                      </S.TicketPopupTitle>
 
-                    <S.TicketPopupInfo>
-                      <Image
-                        source={Images.locationGray}
-                        style={{
-                          width: 16,
-                          height: 16,
-                          flexShrink: 0,
-                          marginLeft: -1,
-                        }}
-                        resizeMode="cover"
-                      />
-                      <Text
-                        style={{
-                          fontFamily: 'Pretendard-Semibold',
-                          fontSize: 13,
-                          color: '#929292',
-                          flex: 1,
-                          marginLeft: 0,
-                        }}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                      >
-                        {reservation.address}
-                      </Text>
-                    </S.TicketPopupInfo>
-                    <S.TicketPopupInfo>
-                      <Image
-                        source={require('@/assets/images/common/location-gray.webp')}
-                        style={{
-                          width: 14,
-                          height: 14,
-                          flexShrink: 0,
-                        }}
-                        resizeMode="cover"
-                      />
-                      <Text
-                        style={{
-                          fontFamily: 'Pretendard-Semibold',
-                          fontSize: 13,
-                          color: '#929292',
-                          flex: 1,
-                          marginLeft: 3,
-                        }}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                      >
-                        {reservation.address}
-                      </Text>
-                    </S.TicketPopupInfo>
+                      <S.TicketPopupInfo>
+                        <Image
+                          source={Images.locationGray}
+                          style={{
+                            width: 16,
+                            height: 16,
+                            flexShrink: 0,
+                            marginLeft: -1,
+                          }}
+                          resizeMode="cover"
+                        />
+                        <Text
+                          style={{
+                            fontFamily: 'Pretendard-Semibold',
+                            fontSize: 13,
+                            color: '#929292',
+                            flex: 1,
+                            marginLeft: 0,
+                          }}
+                          numberOfLines={1}
+                          ellipsizeMode="tail"
+                        >
+                          {reservation.address}
+                        </Text>
+                      </S.TicketPopupInfo>
 
-                    <S.TicketPopupInfo>
-                      <Image
-                        source={Images.clockGray}
-                        style={{
-                          width: 13,
-                          height: 13,
-                          flexShrink: 0,
-                        }}
-                        resizeMode="cover"
-                      />
-                      <Text
-                        style={{
-                          fontFamily: 'Pretendard-Semibold',
-                          fontSize: 13,
-                          color: '#929292',
-                          flex: 1,
-                          marginLeft: 3,
-                        }}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                      >
-                        {reservation.reservationDate} {reservation.reservationDay}{' '}
-                        {reservation.reservationTime}
-                      </Text>
-                    </S.TicketPopupInfo>
-                  </View>
-                </S.TicketInfoWrapper>
-                <S.Separator />
-              </S.TicketWrapper>
-            );
-          })}
-                    <S.TicketPopupInfo>
-                      <Image
-                        source={require('@/assets/images/common/clock-gray.webp')}
-                        style={{
-                          width: 13,
-                          height: 13,
-                          flexShrink: 0,
-                        }}
-                        resizeMode="cover"
-                      />
-                      <Text
-                        style={{
-                          fontFamily: 'Pretendard-Semibold',
-                          fontSize: 13,
-                          color: '#929292',
-                          flex: 1,
-                          marginLeft: 3,
-                        }}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                      >
-                        {reservation.reservationDate} {reservation.reservationDay}{' '}
-                        {reservation.reservationTime}
-                      </Text>
-                    </S.TicketPopupInfo>
-                  </View>
-                </S.TicketInfoWrapper>
-                <S.Separator />
-              </S.TicketWrapper>
-            ))}
+                      <S.TicketPopupInfo>
+                        <Image
+                          source={Images.clockGray}
+                          style={{
+                            width: 13,
+                            height: 13,
+                            flexShrink: 0,
+                          }}
+                          resizeMode="cover"
+                        />
+                        <Text
+                          style={{
+                            fontFamily: 'Pretendard-Semibold',
+                            fontSize: 13,
+                            color: '#929292',
+                            flex: 1,
+                            marginLeft: 3,
+                          }}
+                          numberOfLines={1}
+                          ellipsizeMode="tail"
+                        >
+                          {reservation.reservationDate} {reservation.reservationDay}{' '}
+                          {reservation.reservationTime}
+                        </Text>
+                      </S.TicketPopupInfo>
+                    </View>
+                  </S.TicketInfoWrapper>
+                  <S.Separator />
+                </S.TicketWrapper>
+              );
+            })}
 
           <S.BottomActions>
             <S.BottomButton onPress={handleDeleteProfile}>탈퇴</S.BottomButton>
