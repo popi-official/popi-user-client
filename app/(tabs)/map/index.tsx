@@ -9,6 +9,7 @@ import { formatDateRange } from '@/utils/FormatDate';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { popUpMarkerItem } from '@/types/MapScreenType';
 import { useGetMapApi } from '@/hooks/api/useMapApi';
+import { usePopUpStore } from '@/store/usePopUpStore';
 
 const Images = {
   marker: require('@/assets/images/common/marker.webp'),
@@ -36,7 +37,7 @@ const MarkerListCard = ({ item, onPress }: Props) => {
   return (
     <View>
       <S.CardContainer onPress={onPress}>
-        <S.StyledImage source={item.imageUrl} />
+        <S.StyledImage source={{ uri: item.imageUrl }} />
         <S.RightWrapper>
           <S.TextGroup>
             <S.Title>{item.popupName}</S.Title>
@@ -86,9 +87,9 @@ const MapScreen = () => {
     const centerLng = region.longitude + region.longitudeDelta / 2;
 
     const latMin = (centerLat - region.latitudeDelta / 2).toFixed(6);
-  const latMax = (centerLat + region.latitudeDelta / 2).toFixed(6);
-  const lngMin = (centerLng - region.longitudeDelta / 2).toFixed(6);
-  const lngMax = (centerLng + region.longitudeDelta / 2).toFixed(6);
+    const latMax = (centerLat + region.latitudeDelta / 2).toFixed(6);
+    const lngMin = (centerLng - region.longitudeDelta / 2).toFixed(6);
+    const lngMax = (centerLng + region.longitudeDelta / 2).toFixed(6);
 
     return { latMin, latMax, lngMin, lngMax };
   };
@@ -250,7 +251,10 @@ const MapScreen = () => {
               // 마커 눌렀을 때 하나만 보여줌
               <MarkerListCard
                 item={selectedItem}
-                onPress={() => router.push('/(common)/popUpDetail')}
+                onPress={() => {
+                  usePopUpStore.getState().setSelectedPopUpId(selectedItem.popupId);
+                  router.push('/(common)/popUpDetail');
+                }}
               />
             ) : (
               // 평소엔 전체 목록
