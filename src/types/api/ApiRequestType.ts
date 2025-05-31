@@ -61,3 +61,11 @@ export type PostPaymentVerifyRequest = {
 export type DeleteReservationRequest = {
   memberReservationId: string;
 };
+
+export type GetHotItemsRequest = {
+  popupId: number;
+};
+
+export type GetDefaultItemsRequest = {
+  popupId: number;
+};

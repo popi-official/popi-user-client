@@ -16,7 +16,7 @@ const Images = {
 
 export default function MyScreen() {
   const { handleLogout, handleDeleteProfile } = useOAuth();
-  const { isLogin, profile } = useAuthStore();
+  const { isLogin } = useAuthStore();
   const router = useRouter();
   const leftWidth = width * 0.55;
   const { myReservationData } = useGetReservationsApi();
@@ -35,9 +35,7 @@ export default function MyScreen() {
     <S.StyleContainer>
       {isLogin ? (
         <S.PopUpEntryScreenContainer>
-          <S.Greeting>
-            {profile.nickname}님, 반가워요{`\n`}오늘은 어떤 팝업을 만나볼까요?
-          </S.Greeting>
+          <S.Greeting>몽몽님, 반가워요{`\n`}오늘은 어떤 팝업을 만나볼까요?</S.Greeting>
 
           <S.Character source={Images.icon} />
 

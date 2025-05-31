@@ -47,6 +47,7 @@ export type GetProfileResponse = {
 };
 
 export type GetHotItemsResponse = ItemPathType[];
+export type GetDefaultItemsResponse = ItemUrlType[];
 
 export type GetItemsResponse = {
   content: PostItemSearch;
