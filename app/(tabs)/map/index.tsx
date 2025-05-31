@@ -1,6 +1,5 @@
 import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
 import { S } from './MapScreen.style';
-import { popUpMarkerItems } from '@/mocks/MapMocks';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { Image, View } from 'react-native';
@@ -9,6 +8,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { formatDateRange } from '@/utils/FormatDate';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { popUpMarkerItem } from '@/types/MapScreenType';
+import { useGetMapApi } from '@/hooks/api/useMapApi';
+import { usePopUpStore } from '@/store/usePopUpStore';
 
 const Images = {
   marker: require('@/assets/images/common/marker.webp'),
@@ -36,7 +37,7 @@ const MarkerListCard = ({ item, onPress }: Props) => {
   return (
     <View>
       <S.CardContainer onPress={onPress}>
-        <S.StyledImage source={item.imageUrl} />
+        <S.StyledImage source={{ uri: item.imageUrl }} />
         <S.RightWrapper>
           <S.TextGroup>
             <S.Title>{item.popupName}</S.Title>
@@ -57,7 +58,10 @@ const MarkerListCard = ({ item, onPress }: Props) => {
           </S.TextGroup>
           <CustomGradientBtn
             title={'상세보기'}
-            onPress={() => router.push('/(common)/popUpDetail')}
+            onPress={() => {
+              usePopUpStore.getState().setSelectedPopUpId(item.popupId);
+              router.push('/(common)/popUpDetail');
+            }}
             height={38}
             width={'100%'}
             fontSize={14}
@@ -78,8 +82,31 @@ const MapScreen = () => {
   const [isMarkerTriggered, setIsMarkerTriggered] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-  const selectedItem = popUpMarkerItems.find(p => p.popupId === selectedPopupId);
   const [visibleRegion, setVisibleRegion] = useState<Region | null>(null);
+
+  const buildRegionBounds = (region: Region) => {
+    // region.latitude / longitude는 남서쪽 꼭짓점이 기준
+    const centerLat = region.latitude + region.latitudeDelta / 2;
+    const centerLng = region.longitude + region.longitudeDelta / 2;
+
+    const latMin = (centerLat - region.latitudeDelta / 2).toFixed(6);
+    const latMax = (centerLat + region.latitudeDelta / 2).toFixed(6);
+    const lngMin = (centerLng - region.longitudeDelta / 2).toFixed(6);
+    const lngMax = (centerLng + region.longitudeDelta / 2).toFixed(6);
+
+    return { latMin, latMax, lngMin, lngMax };
+  };
+
+  const bounds = visibleRegion ? buildRegionBounds(visibleRegion) : null;
+
+  const { popUpMarkers } = useGetMapApi(
+    Number(bounds?.latMin ?? 0),
+    Number(bounds?.latMax ?? 0),
+    Number(bounds?.lngMin ?? 0),
+    Number(bounds?.lngMax ?? 0),
+  );
+
+  const selectedItem = popUpMarkers?.find?.(p => p.popupId === selectedPopupId);
 
   const handleMarkerPress = (popupId: number) => {
     setSelectedPopupId(popupId);
@@ -93,7 +120,7 @@ const MapScreen = () => {
 
   // 카메라 뷰 안에 있는 마커만 띄우기
   const visibleMarkers = useMemo(() => {
-    if (!visibleRegion) return popUpMarkerItems;
+    if (!visibleRegion) return popUpMarkers;
 
     const MARGIN_RATIO = 0.1;
     const latDelta = visibleRegion.latitudeDelta * (1 + MARGIN_RATIO);
@@ -108,28 +135,14 @@ const MapScreen = () => {
     const lngMin = centerLng - lngDelta / 2;
     const lngMax = centerLng + lngDelta / 2;
 
-    return popUpMarkerItems.filter(
+    return popUpMarkers.filter(
       item =>
         item.latitude >= latMin &&
         item.latitude <= latMax &&
         item.longitude >= lngMin &&
         item.longitude <= lngMax,
     );
-  }, [visibleRegion, popUpMarkerItems]);
-
-  // TODO: 서버 연결할 때 보낼 params
-  // const buildRegionBounds = (region: Region) => {
-  //   // region.latitude / longitude는 남서쪽 꼭짓점이 기준
-  //   const centerLat = region.latitude + region.latitudeDelta / 2;
-  //   const centerLng = region.longitude + region.longitudeDelta / 2;
-
-  //   const latMin = centerLat - region.latitudeDelta / 2;
-  //   const latMax = centerLat + region.latitudeDelta / 2;
-  //   const lngMin = centerLng - region.longitudeDelta / 2;
-  //   const lngMax = centerLng + region.longitudeDelta / 2;
-
-  //   return { latMin, latMax, lngMin, lngMax };
-  // };
+  }, [visibleRegion, popUpMarkers]);
 
   useEffect(() => {
     if (visibleMarkers.length === 0) return;
@@ -241,7 +254,10 @@ const MapScreen = () => {
               // 마커 눌렀을 때 하나만 보여줌
               <MarkerListCard
                 item={selectedItem}
-                onPress={() => router.push('/(common)/popUpDetail')}
+                onPress={() => {
+                  usePopUpStore.getState().setSelectedPopUpId(selectedItem.popupId);
+                  router.push('/(common)/popUpDetail');
+                }}
               />
             ) : (
               // 평소엔 전체 목록
