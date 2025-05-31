@@ -1,13 +1,16 @@
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { S } from '../../../app/(common)/popUpDetail/PopUpDetail.style';
-import { HotItemMocks, ItemMocks } from '@/mocks/PopUpDetailItemMocks';
 import HotItems from '../entireItems/hotItems/HotItems';
 import { useCallback } from 'react';
-import { ItemPathType } from '@/types/DetailScreen';
+import { ItemUrlType } from '@/types/DetailScreen';
 import { useRouter } from 'expo-router';
 import { ParseJsonToString } from '@/utils/JsonParser';
 import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
-import { usePopUpDetailApi } from '@/hooks/api/usePopUpDetailApi';
+import {
+  useGetDefaultItemsApi,
+  useGetHotItemsApi,
+  usePopUpDetailApi,
+} from '@/hooks/api/usePopUpDetailApi';
 import { usePopUpStore } from '@/store/usePopUpStore';
 
 const Images = {
@@ -16,9 +19,14 @@ const Images = {
 
 export default function PopUpDetailInfo() {
   const { selectedPopUpId } = usePopUpStore();
-  const { popUpDetailInfo, isLoading, isError } = usePopUpDetailApi({ popupId: selectedPopUpId });
+  const {
+    popUpDetailInfo,
+    isLoading: hotItemsIsLoading,
+    isError,
+  } = usePopUpDetailApi({ popupId: selectedPopUpId });
+  const { hotItems } = useGetHotItemsApi({ popupId: selectedPopUpId });
+  const { defaultItems } = useGetDefaultItemsApi({ popupId: selectedPopUpId });
 
-  const hotItems = HotItemMocks;
   const router = useRouter();
 
   const renderHotItem = useCallback(
@@ -27,10 +35,10 @@ export default function PopUpDetailInfo() {
   );
 
   const renderItem = useCallback(
-    (item: ItemPathType, idx: number) => (
+    (item: ItemUrlType, idx: number) => (
       <S.ItemCard key={idx}>
-        <S.ItemImage source={{ uri: item.imagePath }} />
-        <S.ItemTitle numberOfLines={1}>{item.title}</S.ItemTitle>
+        <S.ItemImage source={{ uri: item.imageUrl }} />
+        <S.ItemTitle numberOfLines={1}>{item.name}</S.ItemTitle>
         <S.ItemPrice>{item.price}원</S.ItemPrice>
       </S.ItemCard>
     ),
@@ -38,18 +46,16 @@ export default function PopUpDetailInfo() {
   );
 
   const navigateToEntireItems = useCallback(() => {
-    router.push({
-      pathname: '/(common)/popUpDetail/entireItems',
-      params: {
-        hotItems: ParseJsonToString(hotItems),
-        title: popUpDetailInfo && popUpDetailInfo.popupName,
-      },
-    });
+    if (hotItems) {
+      router.push({
+        pathname: '/(common)/popUpDetail/entireItems',
+        params: {
+          hotItems: ParseJsonToString(hotItems),
+          title: popUpDetailInfo && popUpDetailInfo.popupName,
+        },
+      });
+    }
   }, [hotItems, router, popUpDetailInfo]);
-
-  if (isLoading) {
-    return <ActivityIndicator />;
-  }
 
   if (isError || !popUpDetailInfo) {
     return <Text>데이터를 불러오지 못했습니다.</Text>;
@@ -118,7 +124,8 @@ export default function PopUpDetailInfo() {
       <S.ItemContentBox>
         <S.ItemCategory style={{ marginTop: 40, marginBottom: 20 }}>WHAT`S HOT</S.ItemCategory>
         <S.ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {hotItems.map(renderHotItem)}
+          {hotItemsIsLoading && <ActivityIndicator />}
+          {hotItems && hotItems.map(renderHotItem)}
         </S.ScrollView>
       </S.ItemContentBox>
 
@@ -135,7 +142,7 @@ export default function PopUpDetailInfo() {
           contentContainerStyle={{ paddingRight: 24 }}
           style={{ marginBottom: 12 }}
         >
-          {ItemMocks.slice(0, 4).map(renderItem)}
+          {defaultItems && defaultItems.slice(0, 4).map(renderItem)}
         </S.ScrollView>
       </S.ItemContentBox>
     </View>

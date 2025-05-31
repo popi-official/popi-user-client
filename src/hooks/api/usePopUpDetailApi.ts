@@ -1,7 +1,15 @@
-import { getPopUpDetailAllItems } from '@/apis/popUpDetail/PopUpDetailApi';
+import {
+  getDefaultItems,
+  getHotItems,
+  getPopUpDetailAllItems,
+} from '@/apis/popUpDetail/PopUpDetailApi';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getPopUpDetailInfo } from '@/apis/popUpDetail/PopUpDetailApi';
-import { GetPopUpDetailRequest } from '@/types/api/ApiRequestType';
+import {
+  GetDefaultItemsRequest,
+  GetHotItemsRequest,
+  GetPopUpDetailRequest,
+} from '@/types/api/ApiRequestType';
 import { useQuery } from '@tanstack/react-query';
 
 export const usePopUpDetailAllItemsApi = ({ popupId }: { popupId: number }) => {
@@ -41,6 +49,32 @@ export const usePopUpDetailApi = ({ popupId }: GetPopUpDetailRequest) => {
 
   return {
     popUpDetailInfo: query.data?.data,
+    isLoading: query.isLoading,
+    isError: query.isError,
+  };
+};
+
+export const useGetHotItemsApi = ({ popupId }: GetHotItemsRequest) => {
+  const query = useQuery({
+    queryFn: () => getHotItems({ popupId }),
+    queryKey: ['hotItems', popupId],
+  });
+
+  return {
+    hotItems: query.data?.data,
+    isLoading: query.isLoading,
+    isError: query.isError,
+  };
+};
+
+export const useGetDefaultItemsApi = ({ popupId }: GetDefaultItemsRequest) => {
+  const query = useQuery({
+    queryFn: () => getDefaultItems({ popupId }),
+    queryKey: ['defaultItems', popupId],
+  });
+
+  return {
+    defaultItems: query.data?.data,
     isLoading: query.isLoading,
     isError: query.isError,
   };

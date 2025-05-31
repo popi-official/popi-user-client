@@ -1,9 +1,9 @@
-import { getHotItemRequest } from '@/apis/home/HomeApi';
+import { getHotPopUps } from '@/apis/home/HomeApi';
 import { useQuery } from '@tanstack/react-query';
 
 export const useGetHotPopUpsApi = () => {
   const query = useQuery({
-    queryFn: getHotItemRequest,
+    queryFn: getHotPopUps,
     queryKey: ['khug', 'hoiu'],
   });
 

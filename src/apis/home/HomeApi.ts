@@ -16,7 +16,7 @@ export const getPopUpAllItems = async ({
   return response.data;
 };
 
-export const getHotItemRequest = async (): ApiResponse<GetHotPopUpItemsResponse> => {
+export const getHotPopUps = async (): ApiResponse<GetHotPopUpItemsResponse> => {
   const response = await api.get('/popups/popularity');
   return response.data;
 };
