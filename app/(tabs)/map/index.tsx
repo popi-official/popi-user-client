@@ -58,7 +58,10 @@ const MarkerListCard = ({ item, onPress }: Props) => {
           </S.TextGroup>
           <CustomGradientBtn
             title={'상세보기'}
-            onPress={() => router.push('/(common)/popUpDetail')}
+            onPress={() => {
+              usePopUpStore.getState().setSelectedPopUpId(item.popupId);
+              router.push('/(common)/popUpDetail');
+            }}
             height={38}
             width={'100%'}
             fontSize={14}
