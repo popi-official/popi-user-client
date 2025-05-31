@@ -18,14 +18,14 @@ const Images = {
   emptyImage: require('@/assets/images/cart/survey-gift.webp'),
 } as const;
 
-interface CartItem {
+type CartItem = {
   itemId: number;
   selected: boolean;
   imagePath: string;
   title: string;
   quantity: number;
   price: number;
-}
+};
 
 export default function CartScreen() {
   const { cartItems, cartPopUpId, changeQuantity, toggleSelect, toggleSelectAll, deleteItem } =
