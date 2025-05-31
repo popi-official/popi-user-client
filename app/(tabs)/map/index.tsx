@@ -85,10 +85,10 @@ const MapScreen = () => {
     const centerLat = region.latitude + region.latitudeDelta / 2;
     const centerLng = region.longitude + region.longitudeDelta / 2;
 
-    const latMin = centerLat - region.latitudeDelta / 2;
-    const latMax = centerLat + region.latitudeDelta / 2;
-    const lngMin = centerLng - region.longitudeDelta / 2;
-    const lngMax = centerLng + region.longitudeDelta / 2;
+    const latMin = (centerLat - region.latitudeDelta / 2).toFixed(6);
+  const latMax = (centerLat + region.latitudeDelta / 2).toFixed(6);
+  const lngMin = (centerLng - region.longitudeDelta / 2).toFixed(6);
+  const lngMax = (centerLng + region.longitudeDelta / 2).toFixed(6);
 
     return { latMin, latMax, lngMin, lngMax };
   };
@@ -96,10 +96,10 @@ const MapScreen = () => {
   const bounds = visibleRegion ? buildRegionBounds(visibleRegion) : null;
 
   const { popUpMarkers } = useGetMapApi(
-    bounds?.latMin ?? 0,
-    bounds?.latMax ?? 0,
-    bounds?.lngMin ?? 0,
-    bounds?.lngMax ?? 0,
+    Number(bounds?.latMin ?? 0),
+    Number(bounds?.latMax ?? 0),
+    Number(bounds?.lngMin ?? 0),
+    Number(bounds?.lngMax ?? 0),
   );
 
   const selectedItem = popUpMarkers?.find?.(p => p.popupId === selectedPopupId);
