@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
 import { getThemeColor, getThemePretendardFont } from '@/types';
+import { Dimensions } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 type ContainerProps = {
   isSubTitle?: boolean;
