@@ -11,10 +11,7 @@ export default function SearchScreen() {
   const { keyword } = useSearchStore();
   const searchMode = keyword.trim().length > 0 && true;
 
-  const renderItem = useCallback(
-    ({ item }: { item: PostPopUpSearch }) => <SearchResultPopUpItem {...item} />,
-    [],
-  );
+  const renderItem = ({ item }: { item: PostPopUpSearch }) => <SearchResultPopUpItem {...item} />;
 
   const renderHeader = useCallback(() => {
     if (searchResult.length > 0 && !isLoading) {
