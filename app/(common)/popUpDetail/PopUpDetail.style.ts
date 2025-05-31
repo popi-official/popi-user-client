@@ -8,7 +8,7 @@ type ContainerProps = {
 };
 
 export const S = {
-  PopUpDetailScreenContainer: styled.View<ContainerProps>`
+  Container: styled.ScrollView<ContainerProps>`
     flex: 1;
     position: relative;
     background-color: ${getThemeColor('gray11')};

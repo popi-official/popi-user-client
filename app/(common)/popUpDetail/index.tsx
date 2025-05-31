@@ -9,7 +9,6 @@ import { Image, View } from 'react-native';
 import { useAuthStore } from '@/store/useAuthStore';
 import { TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const Images = {
   closeIcon: require('@/assets/images/signUp/close.png'),
@@ -37,47 +36,8 @@ export default function PopUpDetailScreen() {
   );
 
   return (
-    <S.PopUpDetailScreenContainer inset={inset}>
-      <ScrollView>
-        <PopUpDetailInfo />
-
-        <BottomSheet
-          ref={calenderBottomSheetRef}
-          snapPoints={snapShotPoint}
-          enableDynamicSizing={false}
-          animateOnMount={false}
-          enablePanDownToClose={true}
-          index={-1}
-          backdropComponent={renderBackdrop}
-          backgroundStyle={{
-            backgroundColor: '#1B1B1C',
-            borderBottomWidth: 0,
-          }}
-          handleStyle={{
-            backgroundColor: '#1B1B1C',
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-            borderColor: '#D9D9D9',
-            borderTopWidth: 1,
-            borderLeftWidth: 1,
-            borderRightWidth: 1,
-          }}
-          containerStyle={{
-            width: '101%',
-            transform: [{ translateX: '-0.5%' }],
-          }}
-          handleIndicatorStyle={{ backgroundColor: '#555555', width: 60 }}
-        >
-          <TouchableOpacity onPress={() => calenderBottomSheetRef.current?.close()}>
-            <Image
-              source={Images.closeIcon}
-              style={{ width: 15, height: 15, alignSelf: 'flex-end', marginRight: 20 }}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-          <CustomCalendar />
-        </BottomSheet>
-      </ScrollView>
+    <S.Container inset={inset}>
+      <PopUpDetailInfo />
       <View style={{ position: 'absolute', bottom: 12, left: 12, right: 12 }}>
         <CustomGradientBtn
           title={isLogin ? '팝업 예약하기' : '로그인하고 예약하기'}
@@ -86,6 +46,42 @@ export default function PopUpDetailScreen() {
           icon={isLogin ? require('@/assets/images/common/store-gray.webp') : undefined}
         />
       </View>
-    </S.PopUpDetailScreenContainer>
+      <BottomSheet
+        ref={calenderBottomSheetRef}
+        snapPoints={snapShotPoint}
+        enableDynamicSizing={false}
+        animateOnMount={false}
+        enablePanDownToClose={true}
+        index={-1}
+        backdropComponent={renderBackdrop}
+        backgroundStyle={{
+          backgroundColor: '#1B1B1C',
+          borderBottomWidth: 0,
+        }}
+        handleStyle={{
+          backgroundColor: '#1B1B1C',
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
+          borderColor: '#D9D9D9',
+          borderTopWidth: 1,
+          borderLeftWidth: 1,
+          borderRightWidth: 1,
+        }}
+        containerStyle={{
+          width: '101%',
+          transform: [{ translateX: '-0.5%' }],
+        }}
+        handleIndicatorStyle={{ backgroundColor: '#555555', width: 60 }}
+      >
+        <TouchableOpacity onPress={() => calenderBottomSheetRef.current?.close()}>
+          <Image
+            source={Images.closeIcon}
+            style={{ width: 15, height: 15, alignSelf: 'flex-end', marginRight: 20 }}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        <CustomCalendar />
+      </BottomSheet>
+    </S.Container>
   );
 }
