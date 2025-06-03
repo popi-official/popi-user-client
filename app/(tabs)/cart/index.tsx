@@ -43,6 +43,14 @@ export default function CartScreen() {
   const getTotalPrice = () =>
     cartItems.reduce((sum, item) => (item.selected ? sum + item.price * item.quantity : sum), 0);
 
+  const canPlusItem = (item: CartItem) => {
+    return item.quantity < 3;
+  };
+
+  const canMinusItem = (item: CartItem) => {
+    return item.quantity > 1;
+  };
+
   const handlePaymentResponse = (response: any) => {
     if (response.success) {
       router.push({
@@ -54,8 +62,8 @@ export default function CartScreen() {
     } else {
       const errorData = response.data as PostPaymentReadyErrorResponse;
       setErrorMsg(errorData.message);
-      // 에러 API 명세에 따라 수정 필요
-      setErrorItemId(1);
+      // TODO : 에러 API 명세 수정시 변경 필요
+      setErrorItemId(errorData.itemId);
     }
   };
 
@@ -102,11 +110,25 @@ export default function CartScreen() {
       <S.ItemBottomRow>
         <S.QuantityWrapper>
           <S.QuantityButton onPress={() => changeQuantity(item.itemId, -1)}>
-            <Image source={Images.minusIcon} style={{ width: 14, height: 14 }} />
+            <Image
+              source={Images.minusIcon}
+              style={{
+                width: 14,
+                height: 14,
+                tintColor: canMinusItem(item) ? '' : 'gray',
+              }}
+            />
           </S.QuantityButton>
           <S.QuantityText>{item.quantity}</S.QuantityText>
           <S.QuantityButton onPress={() => changeQuantity(item.itemId, 1)}>
-            <Image source={Images.plusIcon} style={{ width: 14, height: 14 }} />
+            <Image
+              source={Images.plusIcon}
+              style={{
+                width: 14,
+                height: 14,
+                tintColor: canPlusItem(item) ? '' : 'gray',
+              }}
+            />
           </S.QuantityButton>
         </S.QuantityWrapper>
         <View style={{ flex: 1 }} />
