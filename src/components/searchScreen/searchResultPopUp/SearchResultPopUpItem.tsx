@@ -3,6 +3,7 @@ import { PostPopUpSearch } from '@/types/SearchScreenType';
 import { useRouter } from 'expo-router';
 import { Dimensions } from 'react-native';
 import { S } from './SearchResultPopUpItem.style';
+import { usePopUpStore } from '@/store/usePopUpStore';
 
 const { width } = Dimensions.get('window');
 
@@ -23,10 +24,12 @@ export default function SearchResultPopUpItem({
   const GAP = 12;
   const realWidth = (width - 2 * PADDING - GAP) / 2;
 
+  usePopUpStore.getState().setSelectedPopUpId(popupId);
+
   return (
     <S.PopUpContainer
       style={{ width: realWidth }}
-      onPress={() => router.replace({ pathname: '/(common)/popUpDetail', params: { popupId } })}
+      onPress={() => router.replace({ pathname: '/(common)/popUpDetail' })}
     >
       <S.PopUpImage
         source={{ uri: imageUrl }}

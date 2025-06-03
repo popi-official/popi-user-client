@@ -44,7 +44,7 @@ export const usePopUpDetailAllItemsApi = ({ popupId }: { popupId: number }) => {
 export const usePopUpDetailApi = ({ popupId }: GetPopUpDetailRequest) => {
   const query = useQuery({
     queryFn: () => getPopUpDetailInfo({ popupId }),
-    queryKey: ['popup', popupId],
+    queryKey: ['popupDetail', popupId],
   });
 
   return {
