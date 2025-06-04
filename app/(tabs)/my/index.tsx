@@ -5,6 +5,9 @@ import { useAuthStore } from '@/store/useAuthStore';
 import { useRouter } from 'expo-router';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { useGetReservationsApi } from '@/hooks/api/useReserviationApi';
+import { useState } from 'react';
+import { myPayment } from '@/mocks/MyPageChecks';
+import { useGetMyPaymentsApi } from '@/hooks/api/usePaymantApi';
 
 const { width } = Dimensions.get('window');
 
@@ -21,6 +24,15 @@ export default function MyScreen() {
   const router = useRouter();
   const leftWidth = width * 0.55;
   const { myReservationData } = useGetReservationsApi();
+  const [activeTab, setActiveTab] = useState<'reservation' | 'payment'>('reservation');
+  const {
+    data: paymentList,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGetMyPaymentsApi();
+
+  const filteredPaymentList = paymentList?.pages.flatMap(item => item.data.content);
 
   const isTodayReservation = (dateStr: string) => {
     const today = new Date();
@@ -40,10 +52,27 @@ export default function MyScreen() {
 
           <S.Character source={Images.icon} />
 
-          <S.ReservationTitle>내 예약</S.ReservationTitle>
+          {/* ────────────────────────────────────────
+              1) 탭바 영역
+          ──────────────────────────────────────── */}
+          <S.TabContainer>
+            <S.Tab onPress={() => setActiveTab('reservation')}>
+              <S.TabText isActive={activeTab === 'reservation'}>내 예약</S.TabText>
+              {activeTab === 'reservation' && <S.TabIndicator />}
+            </S.Tab>
+            <S.Tab onPress={() => setActiveTab('payment')}>
+              <S.TabText isActive={activeTab === 'payment'}>결제 내역</S.TabText>
+              {activeTab === 'payment' && <S.TabIndicator />}
+            </S.Tab>
+          </S.TabContainer>
 
-          {myReservationData &&
-            myReservationData.map(reservation => {
+          {/* ────────────────────────────────────────
+              2) 탭별 내용 분기 렌더링
+              - reservation 탭: 예약 리스트
+              - payment 탭: 결제 내역 준비 메시지(추후 구현)
+          ──────────────────────────────────────── */}
+          {activeTab === 'reservation' ? (
+            myReservationData?.map(reservation => {
               const isToday = isTodayReservation(reservation.reservationDate);
 
               return (
@@ -143,7 +172,38 @@ export default function MyScreen() {
                   <S.Separator />
                 </S.TicketWrapper>
               );
-            })}
+            })
+          ) : (
+            <View style={{ paddingHorizontal: 20 }}>
+              {myPayment.content.map(({ paymentId, popupId, paidAt, items }) => (
+                <View key={paymentId}>
+                  <S.PaymentDateText>{new Date(paidAt).toLocaleDateString()}</S.PaymentDateText>
+
+                  <S.PaymentDivider />
+                  <S.PopupNameBox>
+                    <S.PopupNameText numberOfLines={1} ellipsizeMode="tail">
+                      팝업스토어 #{popupId}
+                    </S.PopupNameText>
+                  </S.PopupNameBox>
+
+                  {items.map((item, index) => (
+                    <S.PurchasedItem key={index}>
+                      {/* <S.ItemImage source={{uri : }} /> */}
+                      <View style={{ flex: 1, marginLeft: 14 }}>
+                        <S.ItemTitle numberOfLines={1} ellipsizeMode="tail">
+                          {item.itemName}
+                        </S.ItemTitle>
+                        <S.ItemDetail>
+                          수량 : {item.quantity}개{'\n'}
+                          {item.price.toLocaleString()}원
+                        </S.ItemDetail>
+                      </View>
+                    </S.PurchasedItem>
+                  ))}
+                </View>
+              ))}
+            </View>
+          )}
 
           <S.BottomActions>
             <S.BottomButton onPress={handleDeleteProfile}>탈퇴</S.BottomButton>

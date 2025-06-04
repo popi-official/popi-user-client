@@ -166,4 +166,86 @@ export const S = {
     font-size: 14px;
     color: ${getThemeColor('gray05')};
   `,
+
+  TabContainer: styled.View`
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom-width: 1px;
+    border-bottom-color: ${getThemeColor('gray06')};
+  `,
+
+  Tab: styled.TouchableOpacity`
+    flex: 1;
+    align-items: center;
+    padding-bottom: 10px;
+  `,
+
+  TabText: styled.Text<{ isActive: boolean }>`
+    font-family: ${getThemePretendardFont('semibold')};
+    font-size: 18px;
+    color: ${(props: { isActive: boolean }) =>
+      props.isActive ? getThemeColor('gray01') : getThemeColor('gray04')};
+  `,
+
+  TabIndicator: styled.View`
+    position: absolute;
+    bottom: -1px;
+    width: 100%;
+    height: 3px;
+    background-color: #c0d9ff;
+  `,
+
+/*   결제 데이터  */
+PaymentDateText: styled.Text`
+  font-size: 15px;
+  font-family: ${getThemePretendardFont('medium')};
+  color: ${getThemeColor('gray01')};
+  margin: 0px 0 7px 0;
+`,
+
+PaymentDivider: styled.View`
+  height: 1px;
+  background-color: ${getThemeColor('gray06')};
+  margin-bottom: 10px;
+`,
+
+PopupNameBox: styled.View`
+  background-color: ${getThemeColor('gray09')};
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+`,
+
+PopupNameText: styled.Text`
+  font-size: 16px;
+  font-family: ${getThemePretendardFont('semibold')};
+  color: ${getThemeColor('gray01')};
+`,
+
+PurchasedItem: styled.View`
+  flex-direction: row;
+  margin-bottom: 20px;
+`,
+
+ItemImage: styled.Image`
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+`,
+
+ItemTitle: styled.Text`
+  font-family: ${getThemePretendardFont('semibold')};
+  font-size: 14px;
+  color: ${getThemeColor('gray01')};
+  margin-bottom: 6px;
+`,
+
+ItemDetail: styled.Text`
+  font-family: ${getThemePretendardFont('medium')};
+  font-size: 13px;
+  color: ${getThemeColor('gray01')};
+`,
+
 };
