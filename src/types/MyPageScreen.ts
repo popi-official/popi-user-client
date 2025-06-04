@@ -11,7 +11,6 @@ export type MyReservation = {
   qrImage: string;
 };
 
-
 export type PaymentRecord = {
   paymentId: number;
   popupId: number;

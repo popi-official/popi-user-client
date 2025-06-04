@@ -25,14 +25,9 @@ export default function MyScreen() {
   const leftWidth = width * 0.55;
   const { myReservationData } = useGetReservationsApi();
   const [activeTab, setActiveTab] = useState<'reservation' | 'payment'>('reservation');
-  const {
-    data: paymentList,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useGetMyPaymentsApi();
+  const { data: paymentList } = useGetMyPaymentsApi();
 
-  const filteredPaymentList = paymentList?.pages.flatMap(item => item.data.content);
+  //const filteredPaymentList = paymentList?.pages.flatMap(item => item.data.content);
 
   const isTodayReservation = (dateStr: string) => {
     const today = new Date();
@@ -52,9 +47,6 @@ export default function MyScreen() {
 
           <S.Character source={Images.icon} />
 
-          {/* ────────────────────────────────────────
-              1) 탭바 영역
-          ──────────────────────────────────────── */}
           <S.TabContainer>
             <S.Tab onPress={() => setActiveTab('reservation')}>
               <S.TabText isActive={activeTab === 'reservation'}>내 예약</S.TabText>
@@ -66,11 +58,6 @@ export default function MyScreen() {
             </S.Tab>
           </S.TabContainer>
 
-          {/* ────────────────────────────────────────
-              2) 탭별 내용 분기 렌더링
-              - reservation 탭: 예약 리스트
-              - payment 탭: 결제 내역 준비 메시지(추후 구현)
-          ──────────────────────────────────────── */}
           {activeTab === 'reservation' ? (
             myReservationData?.map(reservation => {
               const isToday = isTodayReservation(reservation.reservationDate);

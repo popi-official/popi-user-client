@@ -140,9 +140,7 @@ export type GetUpComingTicketResponse = {
 
 export type PostPaymentReadyErrorResponse = ErrorResponse<'ITEM_NOT_FOUND' | 'OUT_OF_STOCK'>;
 
-
 export type GetMyPaymentsResponse = {
   content: PaymentRecord[];
   isLast: boolean;
 };
-

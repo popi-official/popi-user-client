@@ -1,6 +1,5 @@
 import { getMyPayments, postPaymentReady, postPaymentVerify } from '@/apis/payment/PaymentApi';
 import { PostPaymentReadyRequest, PostPaymentVerifyRequest } from '@/types/api/ApiRequestType';
-import { GetMyPaymentsResponse } from '@/types/api/ApiResponseType';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 
 export const usePaymentApi = () => {
