@@ -17,7 +17,7 @@ export const usePaymentApi = () => {
 export const useGetMyPaymentsApi = () => {
   return useInfiniteQuery({
     queryKey: ['myPayments'],
-    queryFn: ({ pageParam }) => getMyPayments(Number(pageParam)),
+    queryFn: ({ pageParam }) => getMyPayments(pageParam),
     getNextPageParam: response => {
       const lastPage = response.data;
       const last = lastPage.content[lastPage.content.length - 1];
