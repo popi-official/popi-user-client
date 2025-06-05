@@ -205,8 +205,8 @@ export const S = {
   `,
 
   PaymentDivider: styled.View`
-    height: 1px;
-    background-color: ${getThemeColor('gray06')};
+    height: 2px;
+    background-color: ${getThemeColor('gray04')};
     margin-bottom: 10px;
   `,
 
@@ -224,26 +224,28 @@ export const S = {
   `,
 
   PurchasedItem: styled.View`
-    flex-direction: row;
-    margin-bottom: 20px;
-  `,
-
-  ItemImage: styled.Image`
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
+    flex-direction: column;
+    margin-bottom: 13px;
   `,
 
   ItemTitle: styled.Text`
     font-family: ${getThemePretendardFont('semibold')};
-    font-size: 14px;
+    font-size: 20px;
     color: ${getThemeColor('gray01')};
     margin-bottom: 6px;
+    margin-left: 6px;
   `,
 
   ItemDetail: styled.Text`
     font-family: ${getThemePretendardFont('medium')};
     font-size: 13px;
     color: ${getThemeColor('gray01')};
+    text-align: right;
+  `,
+
+  ItemDivider: styled.View`
+    height: 1px;
+    background-color: ${getThemeColor('gray07')};
+    margin-top: 12px;
   `,
 };

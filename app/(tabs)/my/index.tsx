@@ -6,7 +6,6 @@ import { useRouter } from 'expo-router';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { useGetReservationsApi } from '@/hooks/api/useReserviationApi';
 import { useState } from 'react';
-import { myPayment } from '@/mocks/MyPageChecks';
 import { useGetMyPaymentsApi } from '@/hooks/api/usePaymantApi';
 
 const { width } = Dimensions.get('window');
@@ -27,7 +26,7 @@ export default function MyScreen() {
   const [activeTab, setActiveTab] = useState<'reservation' | 'payment'>('reservation');
   const { data: paymentList } = useGetMyPaymentsApi();
 
-  //const filteredPaymentList = paymentList?.pages.flatMap(item => item.data.content);
+  const filteredPaymentList = paymentList?.pages.flatMap(item => item.data.content);
 
   const isTodayReservation = (dateStr: string) => {
     const today = new Date();
@@ -162,7 +161,7 @@ export default function MyScreen() {
             })
           ) : (
             <View style={{ paddingHorizontal: 20 }}>
-              {myPayment.content.map(({ paymentId, popupId, paidAt, items }) => (
+              {filteredPaymentList?.map(({ paymentId, popupId, paidAt, items }) => (
                 <View key={paymentId}>
                   <S.PaymentDateText>{new Date(paidAt).toLocaleDateString()}</S.PaymentDateText>
 
@@ -175,8 +174,7 @@ export default function MyScreen() {
 
                   {items.map((item, index) => (
                     <S.PurchasedItem key={index}>
-                      {/* <S.ItemImage source={{uri : }} /> */}
-                      <View style={{ flex: 1, marginLeft: 14 }}>
+                      <View style={{ flex: 1 }}>
                         <S.ItemTitle numberOfLines={1} ellipsizeMode="tail">
                           {item.itemName}
                         </S.ItemTitle>
@@ -184,7 +182,8 @@ export default function MyScreen() {
                           수량 : {item.quantity}개{'\n'}
                           {item.price.toLocaleString()}원
                         </S.ItemDetail>
-                      </View>
+                        {index !== items.length - 1 && <S.ItemDivider />}
+                      </View> 
                     </S.PurchasedItem>
                   ))}
                 </View>
