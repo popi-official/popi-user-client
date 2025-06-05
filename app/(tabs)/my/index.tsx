@@ -183,7 +183,7 @@ export default function MyScreen() {
                           {item.price.toLocaleString()}원
                         </S.ItemDetail>
                         {index !== items.length - 1 && <S.ItemDivider />}
-                      </View> 
+                      </View>
                     </S.PurchasedItem>
                   ))}
                 </View>
