@@ -7,6 +7,7 @@ import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn'
 import { useGetReservationsApi } from '@/hooks/api/useReserviationApi';
 import { useState } from 'react';
 import { useGetMyPaymentsApi } from '@/hooks/api/usePaymantApi';
+import { useGetProfileApi } from '@/hooks/api/useProfileApi';
 
 const { width } = Dimensions.get('window');
 
@@ -19,12 +20,13 @@ const Images = {
 
 export default function MyScreen() {
   const { handleLogout, handleDeleteProfile } = useOAuth();
-  const { isLogin } = useAuthStore();
+  const isLogin = useAuthStore(state => state.isLogin);
   const router = useRouter();
   const leftWidth = width * 0.55;
   const { myReservationData } = useGetReservationsApi();
   const [activeTab, setActiveTab] = useState<'reservation' | 'payment'>('reservation');
   const { data: paymentList } = useGetMyPaymentsApi();
+  const { data: profile } = useGetProfileApi();
 
   const filteredPaymentList = paymentList?.pages.flatMap(item => item.data.content);
 
@@ -40,9 +42,11 @@ export default function MyScreen() {
 
   return (
     <S.StyleContainer>
-      {isLogin ? (
+      {isLogin && profile ? (
         <S.PopUpEntryScreenContainer>
-          <S.Greeting>몽몽님, 반가워요{`\n`}오늘은 어떤 팝업을 만나볼까요?</S.Greeting>
+          <S.Greeting>
+            {profile.nickname}님, 반가워요{`\n`}오늘은 어떤 팝업을 만나볼까요?
+          </S.Greeting>
 
           <S.Character source={Images.icon} />
 
@@ -163,7 +167,9 @@ export default function MyScreen() {
             <View style={{ paddingHorizontal: 20 }}>
               {filteredPaymentList?.map(({ paymentId, popupId, paidAt, items }) => (
                 <View key={paymentId}>
-                  <S.PaymentDateText>{new Date(paidAt).toLocaleDateString()}</S.PaymentDateText>
+                  <S.PaymentDateText>
+                    {new Date(paidAt).toLocaleDateString('en-CA').replace(/-/g, '/')}
+                  </S.PaymentDateText>
 
                   <S.PaymentDivider />
                   <S.PopupNameBox>

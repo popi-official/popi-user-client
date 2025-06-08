@@ -12,7 +12,7 @@ const BottomTabLayout = () => {
   return (
     <>
       <StatusBar style="light" />
-      <Tabs tabBar={tabBar} screenOptions={screenOptions}>
+      <Tabs tabBar={tabBar} screenOptions={screenOptions} initialRouteName="home">
         <Tabs.Screen name="home" options={{ title: 'HOME' }} />
         <Tabs.Screen name="map" options={{ title: 'MAP' }} />
         <Tabs.Screen name="cart" options={{ title: 'CART' }} />

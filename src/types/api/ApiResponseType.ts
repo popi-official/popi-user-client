@@ -40,10 +40,12 @@ export type ReIssueTokenResponse = {
 };
 
 export type GetProfileResponse = {
-  memberId: number | null;
-  nickname: string | null;
-  age: AgeOption | null;
-  gender: GenderOption | null;
+  memberId: number;
+  nickname: string;
+  age: AgeOption;
+  gender: GenderOption;
+  status: string;
+  role: 'USER';
 };
 
 export type GetHotItemsResponse = ItemPathType[];
