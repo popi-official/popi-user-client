@@ -16,7 +16,6 @@ import NoPopularItem from './NoPopularItem';
 
 const Images = {
   marker: require('@/assets/images/common/marker.webp'),
-  chart: require('@/assets/images/common/chart.webp'),
 };
 
 export default function PopUpDetailInfo() {
