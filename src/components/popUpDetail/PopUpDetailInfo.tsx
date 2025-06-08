@@ -1,4 +1,4 @@
-import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { S } from '../../../app/(common)/popUpDetail/PopUpDetail.style';
 import HotItems from '../entireItems/hotItems/HotItems';
 import { useCallback } from 'react';
@@ -12,10 +12,10 @@ import {
   usePopUpDetailApi,
 } from '@/hooks/api/usePopUpDetailApi';
 import { usePopUpStore } from '@/store/usePopUpStore';
+import NoPopularItem from './NoPopularItem';
 
 const Images = {
   marker: require('@/assets/images/common/marker.webp'),
-  chart: require('@/assets/images/common/chart.webp'),
 };
 
 export default function PopUpDetailInfo() {
@@ -47,15 +47,13 @@ export default function PopUpDetailInfo() {
   );
 
   const navigateToEntireItems = useCallback(() => {
-    if (hotItems) {
-      router.push({
-        pathname: '/(common)/popUpDetail/entireItems',
-        params: {
-          hotItems: ParseJsonToString(hotItems),
-          title: popUpDetailInfo && popUpDetailInfo.popupName,
-        },
-      });
-    }
+    router.push({
+      pathname: '/(common)/popUpDetail/entireItems',
+      params: {
+        hotItems: ParseJsonToString(hotItems || []),
+        title: popUpDetailInfo && popUpDetailInfo.popupName,
+      },
+    });
   }, [hotItems, router, popUpDetailInfo]);
 
   if (isError || !popUpDetailInfo) {
@@ -126,19 +124,7 @@ export default function PopUpDetailInfo() {
         <S.ItemCategory style={{ marginTop: 40, marginBottom: 20 }}>WHAT`S HOT</S.ItemCategory>
         <S.ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {hotItemsIsLoading && <ActivityIndicator />}
-          {hotItems && hotItems.length > 0 ? (
-            hotItems.map(renderHotItem)
-          ) : (
-            <S.EmptyContainer>
-              <Image
-                source={Images.chart}
-                resizeMode="cover"
-                style={{ width: 20, aspectRatio: 1, tintColor: 'white' }}
-              />
-              <S.EmptyTitle>아직 인기상품 데이터가 없어요</S.EmptyTitle>
-              <S.EmptyContent>지금은 모든 상품이 똑같이 특별해요!</S.EmptyContent>
-            </S.EmptyContainer>
-          )}
+          {hotItems && hotItems.length > 0 ? hotItems.map(renderHotItem) : <NoPopularItem />}
         </S.ScrollView>
       </S.ItemContentBox>
 

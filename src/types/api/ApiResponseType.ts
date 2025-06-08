@@ -128,6 +128,7 @@ export type GetMyReservationResponse = MyReservation[];
 
 export type GetUpComingTicketResponse = {
   reservationId: string;
+  popupId: number;
   popupName: string;
   reservationDate: string;
   reservationTime: string;

@@ -1,12 +1,14 @@
 import { Image, View } from 'react-native';
 import { S } from './PopUpEntry.style';
-import { popularItemList, recommendedItemList } from '@/mocks/PopUpEntryMocks';
+import { recommendedItemList } from '@/mocks/PopUpEntryMocks';
 import { useState } from 'react';
 import NoticeModal from '@/components/noticeModal/NoticeModal';
 import { NaverMapMarkerOverlay, NaverMapView, Region } from '@mj-studio/react-native-naver-map';
 import { useDeleteReservation } from '@/hooks/api/useReserviationApi';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useTicketData } from '@/hooks/useTicket';
+import { useGetHotItemsApi } from '@/hooks/api/usePopUpDetailApi';
+import NoPopularItem from '@/components/popUpDetail/NoPopularItem';
 
 const Images = {
   cameraBoy: require('@/assets/images/popUpEntry/camera-boy.webp'),
@@ -29,6 +31,10 @@ const PopUpEntryScreen = () => {
   const router = useRouter();
 
   const ticket = useTicketData(source, data);
+  const { hotItems } = useGetHotItemsApi({
+    popupId: ticket?.popupId || 0,
+    enabled: !!ticket?.popupId,
+  });
 
   const handleCancelPress = () => {
     setModalVisible(true);
@@ -167,17 +173,21 @@ const PopUpEntryScreen = () => {
           <S.SectionTitle>인기 상품 TOP 3</S.SectionTitle>
           <S.SectionDescription>매장 방문 전에 인기있는 상품을 확인해보세요</S.SectionDescription>
           <S.GoodsContainer>
-            {popularItemList.map(item => (
-              <S.GoodsItem key={item.itemId}>
-                <S.GoodsImage source={Images.item} />
-                <S.GoodsName numbernumberOfLines={1} ellipsizeMode="tail">
-                  {item.title}
-                </S.GoodsName>
-                <S.GoodsPrice numberOfLines={1} ellipsizeMode="tail">
-                  {item.price.toLocaleString()}원
-                </S.GoodsPrice>
-              </S.GoodsItem>
-            ))}
+            {hotItems ? (
+              hotItems.map(item => (
+                <S.GoodsItem key={item.itemId}>
+                  <S.GoodsImage source={Images.item} />
+                  <S.GoodsName numbernumberOfLines={1} ellipsizeMode="tail">
+                    {item.title}
+                  </S.GoodsName>
+                  <S.GoodsPrice numberOfLines={1} ellipsizeMode="tail">
+                    {item.price.toLocaleString()}원
+                  </S.GoodsPrice>
+                </S.GoodsItem>
+              ))
+            ) : (
+              <NoPopularItem />
+            )}
           </S.GoodsContainer>
           <S.BottomArea />
         </S.PopUpEntryScreenContainer>
