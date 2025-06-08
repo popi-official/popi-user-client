@@ -1,5 +1,6 @@
 import {
   ApiResponse,
+  GetMyPaymentsResponse,
   NoResponse,
   PostPaymentReadyErrorResponse,
   PostPaymentReadyResponse,
@@ -25,5 +26,11 @@ export const postPaymentVerify = async ({
   impUid,
 }: PostPaymentVerifyRequest): ApiResponse<NoResponse> => {
   const response = await api.post(`/payments/verify/${impUid}`);
+  return response.data;
+};
+
+export const getMyPayments = async (lastPaymentId?: number): ApiResponse<GetMyPaymentsResponse> => {
+  const params = { size: 4, ...(lastPaymentId !== undefined && { lastPaymentId }) };
+  const response = await api.get('/payments', { params });
   return response.data;
 };

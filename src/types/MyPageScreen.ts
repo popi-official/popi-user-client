@@ -10,3 +10,16 @@ export type MyReservation = {
   longitude: number;
   qrImage: string;
 };
+
+export type PaymentRecord = {
+  paymentId: number;
+  popupId: number;
+  paidAt: string;
+  items: PaymentItem[];
+};
+
+export type PaymentItem = {
+  itemName: string;
+  quantity: number;
+  price: number;
+};

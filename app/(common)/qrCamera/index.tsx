@@ -61,13 +61,9 @@ export default function QRCameraScreen() {
   if (!permission) return <Text>카메라 권한 확인 중...</Text>;
 
   if (!permission.granted) {
-    return (
-      <S.QrCameraScreenContainer>
-        <Text>카메라 권한이 필요합니다</Text>
-        <Text onPress={requestPermission}>권한 요청</Text>
-      </S.QrCameraScreenContainer>
-    );
+    requestPermission();
   }
+
   return (
     <S.QrCameraScreenContainer>
       <CameraView

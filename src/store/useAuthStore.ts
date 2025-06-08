@@ -1,4 +1,3 @@
-import { GetProfileResponse } from '@/types/api/ApiResponseType';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
@@ -7,11 +6,9 @@ type AuthState = {
   isLogin: boolean;
   oauth: 'KAKAO' | 'GOOGLE' | null;
   registorToken?: string | null;
-  profile: GetProfileResponse;
   setLogin: ({ token, oauth }: { token: string; oauth: 'KAKAO' | 'GOOGLE' }) => void;
   setRegistorToken: ({ token, oauth }: { token: string; oauth: 'KAKAO' | 'GOOGLE' }) => void;
   setLogout: () => void;
-  setProfile: (profile: GetProfileResponse) => void;
 };
 
 export const useAuthStore = create<AuthState>()(
@@ -20,14 +17,6 @@ export const useAuthStore = create<AuthState>()(
       accessToken: null,
       isLogin: false,
       oauth: null,
-      profile: {
-        memberId: null,
-        nickname: null,
-        age: null,
-        gender: null,
-        status: null,
-        role: null,
-      },
       registorToken: null,
       setLogin: ({ token, oauth }) =>
         set(prev => ({
@@ -36,12 +25,6 @@ export const useAuthStore = create<AuthState>()(
           isLogin: true,
           oauth: oauth,
         })),
-      setProfile: (profile: GetProfileResponse) => {
-        set(prev => ({
-          ...prev,
-          profile,
-        }));
-      },
       setRegistorToken: ({ token, oauth }) =>
         set(prev => ({ ...prev, registorToken: token, oauth })),
       setLogout: () =>
@@ -50,7 +33,6 @@ export const useAuthStore = create<AuthState>()(
           isLogin: false,
           registorToken: null,
           oauth: null,
-          profile: undefined,
         }),
     }),
     {

@@ -108,7 +108,11 @@ export default function RootLayout() {
 
   return (
     <RootContext>
-      <Stack>
+      <Stack
+        screenOptions={{
+          gestureEnabled: false,
+        }}
+      >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(common)" options={{ headerShown: false }} />
       </Stack>
