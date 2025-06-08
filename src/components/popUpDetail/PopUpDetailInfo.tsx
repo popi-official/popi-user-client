@@ -1,4 +1,4 @@
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-native';
 import { S } from '../../../app/(common)/popUpDetail/PopUpDetail.style';
 import HotItems from '../entireItems/hotItems/HotItems';
 import { useCallback } from 'react';
@@ -15,6 +15,7 @@ import { usePopUpStore } from '@/store/usePopUpStore';
 
 const Images = {
   marker: require('@/assets/images/common/marker.webp'),
+  chart: require('@/assets/images/common/chart.webp'),
 };
 
 export default function PopUpDetailInfo() {
@@ -125,7 +126,19 @@ export default function PopUpDetailInfo() {
         <S.ItemCategory style={{ marginTop: 40, marginBottom: 20 }}>WHAT`S HOT</S.ItemCategory>
         <S.ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {hotItemsIsLoading && <ActivityIndicator />}
-          {hotItems && hotItems.map(renderHotItem)}
+          {hotItems && hotItems.length > 0 ? (
+            hotItems.map(renderHotItem)
+          ) : (
+            <S.EmptyContainer>
+              <Image
+                source={Images.chart}
+                resizeMode="cover"
+                style={{ width: 20, aspectRatio: 1, tintColor: 'white' }}
+              />
+              <S.EmptyTitle>아직 인기상품 데이터가 없어요</S.EmptyTitle>
+              <S.EmptyContent>지금은 모든 상품이 똑같이 특별해요!</S.EmptyContent>
+            </S.EmptyContainer>
+          )}
         </S.ScrollView>
       </S.ItemContentBox>
 
