@@ -55,18 +55,13 @@ export const S = {
   `,
 
   ButtonRowCenter: styled.View`
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50px);
+    top: 30%;
     flex-direction: row;
     justify-content: center;
   `,
 
   ButtonTowRowCenter: styled.View`
-    position: absolute;
-    bottom: 20px;
-    left: 17%;
+    top: 30%;
     flex-direction: row;
     justify-content: center;
   `,
