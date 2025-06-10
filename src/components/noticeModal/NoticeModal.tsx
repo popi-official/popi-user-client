@@ -29,13 +29,29 @@ export default function NoticeModal({ visible, title, subTitle, buttons, onClose
       <S.Container isSubTitle={!!subTitle}>
         <S.TitleWrapper isSubTitle={!!subTitle}>
           {icon && <S.Icon source={icon} />}
-          <View style={{ gap: 4 }}>
-            <S.Title>{title}</S.Title>
-            <S.SubTitle>{subTitle}</S.SubTitle>
-          </View>
+          {subTitle ? (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <S.Title>{title}</S.Title>
+              <S.SubTitle>{subTitle}</S.SubTitle>
+            </View>
+          ) : (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <S.Title>{title}</S.Title>
+            </View>
+          )}
         </S.TitleWrapper>
         {isTwo ? (
-          <S.ButtonRowCenter>
+          <S.ButtonTowRowCenter>
             <S.GrayButton onPress={buttons[0].onPress} style={{ marginRight: 13 }}>
               <S.GrayButtonText>{buttons[0].title}</S.GrayButtonText>
             </S.GrayButton>
@@ -49,7 +65,7 @@ export default function NoticeModal({ visible, title, subTitle, buttons, onClose
                 <S.GradientButtonText>{buttons[1].title}</S.GradientButtonText>
               </S.GradientBackground>
             </S.ButtonContainer>
-          </S.ButtonRowCenter>
+          </S.ButtonTowRowCenter>
         ) : (
           <S.ButtonRowCenter>
             <S.ButtonContainer onPress={buttons[0].onPress}>

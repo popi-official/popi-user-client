@@ -18,6 +18,7 @@ const Images = {
   item: require('@/assets/images/popUpEntry/item.webp'),
   marker: require('@/assets/images/common/marker.webp'),
   icon: require('@/assets/images/my/my-character.webp'),
+  check: require('@/assets/images/common/check.webp'),
 };
 
 const PopUpEntryScreen = () => {
@@ -174,7 +175,7 @@ const PopUpEntryScreen = () => {
 
       {/* 예약 취소 확인 모달 */}
       <NoticeModal
-        icon={require('@/assets/images/common/check.webp')}
+        icon={Images.check}
         visible={modalVisible}
         title="예약을 취소하시겠습니까?"
         onClose={handleCloseModal}
