@@ -255,13 +255,14 @@ export const S = {
     justify-content: center;
     align-items: center;
     width: ${Dimensions.get('window').width - 2 * PADDING};
-    gap: 4px;
+    padding-top: 12px;
   `,
   EmptyTitle: styled.Text`
     color: ${getThemeColor('gray01')};
     font-family: ${getThemePretendardFont('semibold')};
     font-size: 16px;
     text-align: center;
+    margin-top: 12px;
   `,
   EmptyContent: styled.Text`
     color: ${getThemeColor('gray03')};

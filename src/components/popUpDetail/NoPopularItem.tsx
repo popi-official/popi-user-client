@@ -10,8 +10,8 @@ export default function NoPopularItem() {
     <S.EmptyContainer>
       <Image
         source={Images.chart}
-        resizeMode="cover"
-        style={{ width: 20, aspectRatio: 1, tintColor: 'white' }}
+        resizeMode="contain"
+        style={{ width: 100, tintColor: 'white', tintColor: 'gray' }}
       />
       <S.EmptyTitle>아직 인기상품 데이터가 없어요</S.EmptyTitle>
       <S.EmptyContent>지금은 모든 상품이 똑같이 특별해요!</S.EmptyContent>
