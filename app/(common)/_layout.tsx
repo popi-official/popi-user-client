@@ -8,7 +8,7 @@ import SearchBarTextInput from '@/components/searchScreen/SearchBarTextInput';
 const QR_ENTRY_OPTIONS: NativeStackNavigationOptions = {
   ...DEFAULT_STACK_OPTIONS,
   title: '',
-  headerLeft: () => <BackBtn isNavigateHome={true} />,
+  headerLeft: () => <BackBtn />,
 };
 
 const SEARCH_OPTIONS: NativeStackNavigationOptions = {

@@ -28,8 +28,15 @@ type CartItem = {
 };
 
 export default function CartScreen() {
-  const { cartItems, cartPopUpId, changeQuantity, toggleSelect, toggleSelectAll, deleteItem } =
-    useCartStore();
+  const {
+    cartItems,
+    cartPopUpId,
+    changeQuantity,
+    toggleSelect,
+    toggleSelectAll,
+    deleteItem,
+    clearCart,
+  } = useCartStore();
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [errorItemId, setErrorItemId] = useState<number>(0);
@@ -81,8 +88,10 @@ export default function CartScreen() {
   };
 
   const handleErrorConfirm = () => {
+    clearCart();
     deleteItem(errorItemId);
     setErrorItemId(0);
+    setErrorMsg('');
   };
 
   const renderCartItem = ({ item }: { item: CartItem }) => (

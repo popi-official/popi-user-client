@@ -4,7 +4,7 @@ import { Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 type ContainerProps = {
-  isSubTitle?: boolean;
+  isSubTitle: boolean;
 };
 
 export const S = {
@@ -17,7 +17,7 @@ export const S = {
     background-color: rgba(0, 0, 0, 0.7);
   `,
   Container: styled.View<ContainerProps>`
-    position: absolute;
+    position: relative;
     top: 35%;
     align-self: center;
     width: ${Dimensions.get('window').width - 60}px;
@@ -33,10 +33,9 @@ export const S = {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-bottom: ${(props: ContainerProps) => (props.isSubTitle ? '30px' : '49px')};
   `,
 
-  Icon: styled.View`
+  Icon: styled.Image`
     width: 30px;
     height: 30px;
   `,
@@ -56,6 +55,18 @@ export const S = {
   `,
 
   ButtonRowCenter: styled.View`
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50px);
+    flex-direction: row;
+    justify-content: center;
+  `,
+
+  ButtonTowRowCenter: styled.View`
+    position: absolute;
+    bottom: 20px;
+    left: 17%;
     flex-direction: row;
     justify-content: center;
   `,
