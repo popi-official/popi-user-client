@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  ignores: ['expo-env.d.ts'],
+  ignorePatterns: ['expo-env.d.ts', 'node_modules/', 'dist/', '*.config.js'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
