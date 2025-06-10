@@ -13,6 +13,7 @@ import NoItem from '@/components/searchScreen/noItem/NoItem';
 import { useCallback } from 'react';
 import { usePopUpDetailAllItemsApi } from '@/hooks/api/usePopUpDetailApi';
 import { usePopUpStore } from '@/store/usePopUpStore';
+import NoPopularItem from '@/components/popUpDetail/NoPopularItem';
 
 export default function EntireItemsScreen() {
   const { hotItems } = useLocalSearchParams<{ hotItems: string }>();
@@ -119,7 +120,11 @@ export default function EntireItemsScreen() {
       <S.ListHeaderContainer>
         <S.ItemCategory style={{ marginTop: 20, marginBottom: 20 }}>WHAT`S HOT</S.ItemCategory>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {formattedPopularItems.map((item, index) => renderHotItem(item, index))}
+          {formattedPopularItems.length > 0 ? (
+            formattedPopularItems.map((item, index) => renderHotItem(item, index))
+          ) : (
+            <NoPopularItem />
+          )}
         </ScrollView>
         <S.ListHeaderLabel>전체 상품</S.ListHeaderLabel>
       </S.ListHeaderContainer>

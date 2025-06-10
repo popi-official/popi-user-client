@@ -54,10 +54,14 @@ export const usePopUpDetailApi = ({ popupId }: GetPopUpDetailRequest) => {
   };
 };
 
-export const useGetHotItemsApi = ({ popupId }: GetHotItemsRequest) => {
+export const useGetHotItemsApi = ({
+  popupId,
+  enabled = true,
+}: GetHotItemsRequest & { enabled?: boolean }) => {
   const query = useQuery({
     queryFn: () => getHotItems({ popupId }),
     queryKey: ['hotItems', popupId],
+    enabled,
   });
 
   return {

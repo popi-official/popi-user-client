@@ -12,6 +12,7 @@ import {
   usePopUpDetailApi,
 } from '@/hooks/api/usePopUpDetailApi';
 import { usePopUpStore } from '@/store/usePopUpStore';
+import NoPopularItem from './NoPopularItem';
 
 const Images = {
   marker: require('@/assets/images/common/marker.webp'),
@@ -46,15 +47,13 @@ export default function PopUpDetailInfo() {
   );
 
   const navigateToEntireItems = useCallback(() => {
-    if (hotItems) {
-      router.push({
-        pathname: '/(common)/popUpDetail/entireItems',
-        params: {
-          hotItems: ParseJsonToString(hotItems),
-          title: popUpDetailInfo && popUpDetailInfo.popupName,
-        },
-      });
-    }
+    router.push({
+      pathname: '/(common)/popUpDetail/entireItems',
+      params: {
+        hotItems: ParseJsonToString(hotItems || []),
+        title: popUpDetailInfo && popUpDetailInfo.popupName,
+      },
+    });
   }, [hotItems, router, popUpDetailInfo]);
 
   if (isError || !popUpDetailInfo) {
@@ -125,7 +124,7 @@ export default function PopUpDetailInfo() {
         <S.ItemCategory style={{ marginTop: 40, marginBottom: 20 }}>WHAT`S HOT</S.ItemCategory>
         <S.ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {hotItemsIsLoading && <ActivityIndicator />}
-          {hotItems && hotItems.map(renderHotItem)}
+          {hotItems && hotItems.length > 0 ? hotItems.map(renderHotItem) : <NoPopularItem />}
         </S.ScrollView>
       </S.ItemContentBox>
 

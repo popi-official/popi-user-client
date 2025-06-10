@@ -2,6 +2,8 @@ import styled from 'styled-components/native';
 import { getThemeColor, getThemeInterFont, getThemePretendardFont } from '@/types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { EdgeInsets } from 'react-native-safe-area-context';
+import { Dimensions } from 'react-native';
+import { PADDING } from '@/constants/Options';
 
 type ContainerProps = {
   inset: EdgeInsets;
@@ -247,5 +249,24 @@ export const S = {
     height: 46px;
     margin-left: 24px;
     margin-right: 24px;
+  `,
+
+  EmptyContainer: styled.View`
+    justify-content: center;
+    align-items: center;
+    width: ${Dimensions.get('window').width - 2 * PADDING};
+    gap: 4px;
+  `,
+  EmptyTitle: styled.Text`
+    color: ${getThemeColor('gray01')};
+    font-family: ${getThemePretendardFont('semibold')};
+    font-size: 16px;
+    text-align: center;
+  `,
+  EmptyContent: styled.Text`
+    color: ${getThemeColor('gray03')};
+    font-family: ${getThemePretendardFont('regular')};
+    font-size: 14px;
+    text-align: center;
   `,
 };
