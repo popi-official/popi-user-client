@@ -13,6 +13,7 @@ import {
 } from '@/hooks/api/usePopUpDetailApi';
 import { usePopUpStore } from '@/store/usePopUpStore';
 import NoPopularItem from './NoPopularItem';
+import NoEntireItem from './NoEntireItem';
 
 const Images = {
   marker: require('@/assets/images/common/marker.webp'),
@@ -131,9 +132,11 @@ export default function PopUpDetailInfo() {
       <S.ItemContentBox>
         <S.RowBetween>
           <S.ItemCategoryAll>전체 상품</S.ItemCategoryAll>
-          <TouchableOpacity onPress={navigateToEntireItems}>
-            <S.RightArrow source={require('@/assets/images/common/right-arrow.webp')} />
-          </TouchableOpacity>
+          {defaultItems?.length !== 0 && (
+            <TouchableOpacity onPress={navigateToEntireItems}>
+              <S.RightArrow source={require('@/assets/images/common/right-arrow.webp')} />
+            </TouchableOpacity>
+          )}
         </S.RowBetween>
         <S.ScrollView
           horizontal
@@ -141,7 +144,11 @@ export default function PopUpDetailInfo() {
           contentContainerStyle={{ paddingRight: 24 }}
           style={{ marginBottom: 12 }}
         >
-          {defaultItems && defaultItems.slice(0, 4).map(renderItem)}
+          {defaultItems && defaultItems.length !== 0 ? (
+            defaultItems.slice(0, 4).map(renderItem)
+          ) : (
+            <NoEntireItem />
+          )}
         </S.ScrollView>
       </S.ItemContentBox>
     </View>
