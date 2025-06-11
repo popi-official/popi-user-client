@@ -121,7 +121,7 @@ export default {
       [
         'expo-notifications',
         {
-          icon: './src/assets/images/common/marker.webp',
+          icon: './src/assets/images/common/itemimg.png',
           defaultChannel: 'default',
         },
       ],
