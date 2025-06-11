@@ -118,6 +118,13 @@ export default {
       'expo-router',
       'expo-web-browser',
       'expo-dev-client',
+      [
+        'expo-notifications',
+        {
+          icon: 'src/assets/images/common/marker.webp',
+          defaultChannel: 'default',
+        },
+      ],
       ...(process.env.EXPO_PUBLIC_GOOGLE_IOS_URL_SCHEME
         ? [
             [
@@ -160,6 +167,7 @@ export default {
               'https://repository.map.naver.com/archive/maven',
               'https://devrepo.kakao.com/nexus/content/groups/public/',
             ],
+            androidGradlePluginVersion: '8.6.0',
           },
         },
       ],
