@@ -8,9 +8,11 @@ import { useOAuthApi } from './api/useOAuthApi';
 import { useRouter } from 'expo-router';
 import { PostSignUpRequest } from '@/types/api/ApiRequestType';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { useFirebasePushNotification } from './useFCM';
 
 export const useOAuth = () => {
   const router = useRouter();
+  const { initializePush } = useFirebasePushNotification();
   const {
     kakaoOAuthMutation,
     googleOAuthMutation,
@@ -61,9 +63,14 @@ export const useOAuth = () => {
       if (!registerToken) {
         return false;
       }
+
       await signUpMutation.mutateAsync({ nickname, age, gender, registerToken });
+      await initializePush();
+
+      return true;
     } catch (error) {
-      console.error(error);
+      console.error('회원가입 오류:', error);
+      throw error;
     }
   };
 
