@@ -8,8 +8,20 @@ import RootContext from '@/context';
 import { LocaleConfig } from 'react-native-calendars';
 import { initializeKakaoSDK } from '@react-native-kakao/core';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import * as Notifications from 'expo-notifications';
+import { useFCM } from '@/hooks/useFCM';
 
 export { ErrorBoundary } from 'expo-router';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
+    shouldPlaySound: false,
+    shouldSetBadge: true,
+  }),
+});
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
@@ -84,6 +96,7 @@ export default function RootLayout() {
   const kakaoNativeAppKey = process.env.EXPO_PUBLIC_KAKAO_NATIVE_KEY || '';
   const iosClientId = process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID || '';
 
+  useFCM();
   useEffect(() => {
     const hideSplash = async () => {
       if (fontsLoaded) {

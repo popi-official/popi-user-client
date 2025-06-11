@@ -34,19 +34,17 @@
         <data android:scheme="popiuserclient"/>
         <data android:scheme="exp+popi-user-client"/>
       </intent-filter>
-      <intent-filter data-generated="true">
-        <action android:name="android.intent.action.VIEW"/>
-        <data android:scheme="popiuserclient"/>
-        <data android:scheme="exp+popi-user-client"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-      </intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:host="kakaolink" android:scheme="kakao0d23d343c25a6067fc158472a73de767"/>
-        <data android:scheme="exp+popi-user-client"/>
+      </intent-filter>
+      <intent-filter data-generated="true">
+        <action android:name="android.intent.action.VIEW"/>
+        <data android:scheme="popiuserclient"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
       </intent-filter>
     </activity>
     <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity" android:exported="true">
