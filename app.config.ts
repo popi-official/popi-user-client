@@ -95,6 +95,7 @@ export default {
         foregroundImage: './src/assets/images/splash-icon.png',
         backgroundColor: '#ffffff',
       },
+      enablePngCrunchInReleaseBuilds: false,
       edgeToEdgeEnabled: true,
       package: 'com.chik2chik.popiuserclient',
       permissions: ['CAMERA', 'RECORD_AUDIO', 'READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE'],
