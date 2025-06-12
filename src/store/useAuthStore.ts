@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
@@ -37,16 +38,11 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'auth-storage',
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => AsyncStorage),
       partialize: state => ({
         accessToken: state.accessToken,
         isLogin: state.isLogin,
       }),
-      onRehydrateStorage: state => {
-        if (!state.accessToken) {
-          state.isLogin = false;
-        }
-      },
     },
   ),
 );

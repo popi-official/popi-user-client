@@ -20,7 +20,6 @@
     "@expo/vector-icons": "^14.1.0",
     "@gorhom/bottom-sheet": "^5.1.4",
     "@mj-studio/react-native-naver-map": "^2.4.0",
-    "@react-native-async-storage/async-storage": "2.1.2",
     "@react-native-google-signin/google-signin": "^14.0.1",
     "@react-native-kakao/core": "^2.4.0",
     "@react-native-kakao/user": "^2.4.0",
@@ -58,7 +57,8 @@
     "react-native-web": "^0.20.0",
     "react-native-webview": "13.13.5",
     "styled-components": "^6.1.18",
-    "zustand": "^5.0.4"
+    "zustand": "^5.0.4",
+    "@react-native-async-storage/async-storage": "2.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
