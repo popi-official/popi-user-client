@@ -28,7 +28,7 @@ export const useFirebasePushNotification = () => {
   }, [sendTokenToServer]);
 
   useEffect(() => {
-    setupNotificationListeners(sendTokenToServer);
+    setupNotificationListeners();
   }, [sendTokenToServer]);
 
   return {

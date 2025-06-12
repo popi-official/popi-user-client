@@ -4,7 +4,7 @@ import { PostItemSearch, PostPopUpSearch } from '../SearchScreenType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 import { SurveyChoice } from '../SurveyQuestions';
 import { HotPopUpItem, PopUpItem } from '@/types/HomeScreenType';
-import { PopularItem, RecommendedItem } from '@/types/PopUpEntryScreen';
+import { RecommendedItem } from '@/types/PopUpEntryScreen';
 import { MyReservation, PaymentRecord } from '../MyPageScreen';
 
 export type ApiResponse<T> = Promise<GlobalResponse<T>>;
@@ -114,7 +114,7 @@ export type GetPopUpAllItemsResponse = {
 
 export type GetRecommendedItemsResponse = RecommendedItem[];
 
-export type GetPopularItemsResponse = PopularItem[];
+export type GetPopularItemsResponse = ItemUrlType[];
 
 export type GetPopUDetailAllItemsResponse = {
   content: ItemUrlType[];
