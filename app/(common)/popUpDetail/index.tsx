@@ -62,10 +62,6 @@ export default function PopUpDetailScreen() {
           backgroundColor: '#1B1B1C',
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
-          borderColor: '#D9D9D9',
-          borderTopWidth: 1,
-          borderLeftWidth: 1,
-          borderRightWidth: 1,
         }}
         containerStyle={{
           width: '101%',

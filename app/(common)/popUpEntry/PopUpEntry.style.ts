@@ -88,6 +88,7 @@ export const S = {
     position: absolute;
     bottom: 0;
     width: ${Dimensions.get('window').width - 24}px;
+    justify-content: center;
     aspect-ratio: 9 / 10;
     border-radius: 20px 20px 30px 30px;
   `,
@@ -109,7 +110,6 @@ export const S = {
   `,
 
   ButtonRow: styled.View`
-    margin-top: 20px;
     flex-direction: row;
     align-self: center;
     gap: 24px;

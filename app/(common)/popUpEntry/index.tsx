@@ -158,7 +158,7 @@ const PopUpEntryScreen = () => {
                 <S.GoodsItem key={item.itemId}>
                   <S.GoodsImage source={Images.item} />
                   <S.GoodsName numbernumberOfLines={1} ellipsizeMode="tail">
-                    {item.title}
+                    {item.name}
                   </S.GoodsName>
                   <S.GoodsPrice numberOfLines={1} ellipsizeMode="tail">
                     {item.price.toLocaleString()}원
