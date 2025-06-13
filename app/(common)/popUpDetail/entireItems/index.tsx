@@ -55,7 +55,7 @@ export default function EntireItemsScreen() {
         </View>
       );
     }
-    return <NoItem title="검색 결과와 일치하는 팝업이 없어요" />;
+    return <NoItem title="검색 결과와 일치하는 상품이 없어요" />;
   }, [isLoading]);
 
   const itemSeperatorComponent = useCallback(() => <View style={{ height: 12 }} />, []);
