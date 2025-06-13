@@ -138,18 +138,18 @@ export default function PopUpDetailInfo() {
             </TouchableOpacity>
           )}
         </S.RowBetween>
-        <S.ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingRight: 24 }}
-          style={{ marginBottom: 12 }}
-        >
-          {defaultItems && defaultItems.length !== 0 ? (
-            defaultItems.slice(0, 4).map(renderItem)
-          ) : (
-            <NoEntireItem />
-          )}
-        </S.ScrollView>
+        {defaultItems && defaultItems.length !== 0 ? (
+          <S.ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingRight: 24 }}
+            style={{ marginBottom: 12 }}
+          >
+            {defaultItems.slice(0, 4).map(renderItem)}
+          </S.ScrollView>
+        ) : (
+          <NoEntireItem />
+        )}
       </S.ItemContentBox>
     </View>
   );
