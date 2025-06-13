@@ -70,7 +70,7 @@ const HomeScreen = () => {
 
   const renderHeader = () => (
     <View>
-      <Button onPress={() => router.push('/(common)/payment')} title="결제 페이지 이동" />
+      <Button onPress={() => router.push('/(common)/signUp')} title="회원 가입 페이지 이동" />
       <S.SwiperContainer>
         <Swiper
           autoplay
