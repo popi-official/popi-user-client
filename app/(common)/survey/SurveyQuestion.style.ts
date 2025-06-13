@@ -2,14 +2,19 @@ import styled from 'styled-components/native';
 import { getThemeColor, getThemePretendardFont } from '@/types';
 import { Dimensions } from 'react-native';
 import { Animated } from 'react-native';
+import { EdgeInsets } from 'react-native-safe-area-context';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-export const Container = styled.View`
+type InsetProps = {
+  insets: EdgeInsets;
+};
+
+export const Container = styled.View<InsetProps>`
   flex: 1;
   background-color: black;
   align-items: center;
-  padding-top: 74px;
+  padding-top: ${(props: InsetProps) => props.insets.top}px;
 `;
 
 export const Title = styled.Text`

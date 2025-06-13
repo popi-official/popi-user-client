@@ -8,6 +8,7 @@ import { useRouter } from 'expo-router';
 import { useSurveyAnswersApi, useSurveyApi } from '@/hooks/api/useSurveyApi';
 import { usePopUpStore } from '@/store/usePopUpStore';
 import NoticeModal from '@/components/noticeModal/NoticeModal';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const QUESTIONS = [
   '어떤 종류의 굿즈를\n가장 선호하시나요?',
@@ -26,6 +27,7 @@ const SurveyQuestionPage: React.FC = () => {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number | null>>({});
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const insets = useSafeAreaInsets();
 
   const [errorModalVisible, setErrorModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -103,7 +105,7 @@ const SurveyQuestionPage: React.FC = () => {
   });
 
   return (
-    <S.Container>
+    <S.Container insets={insets}>
       <S.Title>설문에 참여하고 굿즈 선물 받아가요!</S.Title>
       <S.GiftImage source={require('@/assets/images/survey/survey-gift.webp')} />
 
