@@ -8,6 +8,7 @@ import { useGetReservationsApi } from '@/hooks/api/useReserviationApi';
 import { useState } from 'react';
 import { useGetMyPaymentsApi } from '@/hooks/api/usePaymantApi';
 import { useGetProfileApi } from '@/hooks/api/useProfileApi';
+import PaymentListItem from '@/components/myScreen/PaymentListItem';
 
 const { width } = Dimensions.get('window');
 
@@ -166,33 +167,7 @@ export default function MyScreen() {
           ) : (
             <View style={{ paddingHorizontal: 20 }}>
               {filteredPaymentList?.map(({ paymentId, popupId, paidAt, items }) => (
-                <View key={paymentId}>
-                  <S.PaymentDateText>
-                    {new Date(paidAt).toLocaleDateString('en-CA').replace(/-/g, '/')}
-                  </S.PaymentDateText>
-
-                  <S.PaymentDivider />
-                  <S.PopupNameBox>
-                    <S.PopupNameText numberOfLines={1} ellipsizeMode="tail">
-                      팝업스토어 #{popupId}
-                    </S.PopupNameText>
-                  </S.PopupNameBox>
-
-                  {items.map((item, index) => (
-                    <S.PurchasedItem key={index}>
-                      <View style={{ flex: 1 }}>
-                        <S.ItemTitle numberOfLines={1} ellipsizeMode="tail">
-                          {item.itemName}
-                        </S.ItemTitle>
-                        <S.ItemDetail>
-                          수량 : {item.quantity}개{'\n'}
-                          {item.price.toLocaleString()}원
-                        </S.ItemDetail>
-                        {index !== items.length - 1 && <S.ItemDivider />}
-                      </View>
-                    </S.PurchasedItem>
-                  ))}
-                </View>
+                <PaymentListItem key={paymentId} popupId={popupId} paidAt={paidAt} items={items} />
               ))}
             </View>
           )}
