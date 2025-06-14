@@ -16,6 +16,7 @@ export const DEFAULT_STACK_OPTIONS: NativeStackNavigationOptions = {
   contentStyle: {
     gap: 8,
     backgroundColor: 'black',
+    overflow: 'visible',
   },
 };
 

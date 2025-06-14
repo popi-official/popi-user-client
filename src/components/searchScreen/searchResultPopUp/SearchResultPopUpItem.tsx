@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { Dimensions } from 'react-native';
 import { S } from './SearchResultPopUpItem.style';
 import { usePopUpStore } from '@/store/usePopUpStore';
+import { useEffect } from 'react';
 
 const { width } = Dimensions.get('window');
 
@@ -23,8 +24,11 @@ export default function SearchResultPopUpItem({
   const router = useRouter();
   const GAP = 12;
   const realWidth = (width - 2 * PADDING - GAP) / 2;
+  const { setSelectedPopUpId } = usePopUpStore();
 
-  usePopUpStore.getState().setSelectedPopUpId(popupId);
+  useEffect(() => {
+    setSelectedPopUpId(popupId);
+  }, []);
 
   return (
     <S.PopUpContainer

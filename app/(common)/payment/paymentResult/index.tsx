@@ -7,7 +7,7 @@ import { usePaymentApi } from '@/hooks/api/usePaymantApi';
 import { useEffect, useState } from 'react';
 
 const Images = {
-  successIcon: require('@/assets/images/payment/success-icon.webp'),
+  successIcon: require('@/assets/images/my/my-character.webp'),
 };
 
 export default function PaymentResult() {
