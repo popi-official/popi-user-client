@@ -8,12 +8,35 @@ import { getReservationInfo, postReservation } from '@/apis/reservation/Reservat
 import { PostReservationErrorResponse } from '@/types/api/ApiResponseType';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getMyReservation } from '@/apis/reservation/MyReservationApi';
+import { useEffect } from 'react';
 
 export const useGetReservationInfoApi = ({ popupId, yyyyMM }: GetReservationInfoRequest) => {
+  const queryClient = useQueryClient();
+
   const query = useQuery({
     queryKey: ['reservationInfo', popupId, yyyyMM],
     queryFn: () => getReservationInfo({ popupId, yyyyMM }),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
+
+  useEffect(() => {
+    if (query.data && !query.isLoading) {
+      const currentDate = new Date(yyyyMM + '-01');
+
+      const nextMonth = new Date(currentDate);
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+      const nextYearMonth = `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}`;
+
+      queryClient.prefetchQuery({
+        queryKey: ['reservationInfo', popupId, nextYearMonth],
+        queryFn: () => getReservationInfo({ popupId, yyyyMM: nextYearMonth }),
+        staleTime: 5 * 60 * 1000,
+      });
+    }
+  }, [query.data, query.isLoading, popupId, yyyyMM, queryClient]);
 
   return {
     reservationInfo: query.data?.data,

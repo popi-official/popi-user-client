@@ -66,13 +66,13 @@ export default function CustomCalendar() {
   useEffect(() => {
     if (reservationInfo) {
       setMinDate(
-        reservableDate.length === 0
-          ? `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}-01`
+        reservationInfo.reservableDate.length === 0
+          ? '2000-01-01'
           : reservationInfo.reservableDate[0].date,
       );
       setMaxDate(
-        reservableDate.length === 0
-          ? `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}-02`
+        reservationInfo.reservableDate.length === 0
+          ? '2000-01-02'
           : reservationInfo.reservableDate[reservationInfo.reservableDate.length - 1].date,
       );
     }
@@ -89,7 +89,6 @@ export default function CustomCalendar() {
   }
 
   const reservableDate = reservationInfo.reservableDate;
-  const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1);
 
   const parseTimeSlotFromDate = (date: string) => {
     setTimeSlots(reservableDate.filter(d => d.date === date)[0].timeSlots);
@@ -200,55 +199,57 @@ export default function CustomCalendar() {
                 alignItems: 'center',
               }}
             >
-              {timeSlots.map((item: TimeSlot, idx: number) => (
-                <TouchableOpacity
-                  key={item.reservationId}
-                  disabled={!item.isPossible}
-                  onPress={() => handleTimeSlotPress(item.reservationId)}
-                >
-                  {/* 선택된 아이템이면 LinearGradient 사용, 아니면 일반 View */}
-                  {item.reservationId === selectedId && item.isPossible ? (
-                    <LinearGradient
-                      colors={['#BFF0F5', '#E0D9FF']}
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 0 }}
-                      style={{
-                        borderRadius: 10,
-                        paddingHorizontal: 14,
-                        paddingVertical: 10,
-                        marginRight: idx === timeSlots.length - 1 ? 24 : 0,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Text
-                        style={{ color: item.reservationId === selectedId ? 'black' : 'white' }}
+              {timeSlots
+                .filter((item: TimeSlot) => item.isPossible)
+                .map((item: TimeSlot, idx: number) => (
+                  <TouchableOpacity
+                    key={item.reservationId}
+                    disabled={!item.isPossible}
+                    onPress={() => handleTimeSlotPress(item.reservationId)}
+                  >
+                    {/* 선택된 아이템이면 LinearGradient 사용, 아니면 일반 View */}
+                    {item.reservationId === selectedId && item.isPossible ? (
+                      <LinearGradient
+                        colors={['#BFF0F5', '#E0D9FF']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{
+                          borderRadius: 10,
+                          paddingHorizontal: 14,
+                          paddingVertical: 10,
+                          marginRight: idx === timeSlots.length - 1 ? 24 : 0,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
                       >
-                        {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
-                        {item.time.slice(0, 5)}
-                      </Text>
-                    </LinearGradient>
-                  ) : (
-                    <View
-                      style={{
-                        borderRadius: 10,
-                        paddingHorizontal: 13,
-                        paddingVertical: 9,
-                        marginRight: idx === timeSlots.length - 1 ? 24 : 0,
-                        borderWidth: 1,
-                        borderColor: !item.isPossible ? '#383838' : '#929292',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Text style={{ color: !item.isPossible ? '#767676' : 'white' }}>
-                        {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
-                        {item.time.slice(0, 5)}
-                      </Text>
-                    </View>
-                  )}
-                </TouchableOpacity>
-              ))}
+                        <Text
+                          style={{ color: item.reservationId === selectedId ? 'black' : 'white' }}
+                        >
+                          {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
+                          {item.time.slice(0, 5)}
+                        </Text>
+                      </LinearGradient>
+                    ) : (
+                      <View
+                        style={{
+                          borderRadius: 10,
+                          paddingHorizontal: 13,
+                          paddingVertical: 9,
+                          marginRight: idx === timeSlots.length - 1 ? 24 : 0,
+                          borderWidth: 1,
+                          borderColor: !item.isPossible ? '#383838' : '#929292',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Text style={{ color: !item.isPossible ? '#767676' : 'white' }}>
+                          {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
+                          {item.time.slice(0, 5)}
+                        </Text>
+                      </View>
+                    )}
+                  </TouchableOpacity>
+                ))}
             </View>
           </ScrollView>
         )}
