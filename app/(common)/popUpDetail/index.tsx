@@ -1,6 +1,6 @@
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { S } from './PopUpDetail.style';
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import PopUpDetailInfo from '@/components/popUpDetail/PopUpDetailInfo';
@@ -9,6 +9,7 @@ import { Image, View } from 'react-native';
 import { useAuthStore } from '@/store/useAuthStore';
 import { TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import { usePopUpStore } from '@/store/usePopUpStore';
 
 const Images = {
   closeIcon: require('@/assets/images/signUp/close.png'),
@@ -17,6 +18,7 @@ const Images = {
 export default function PopUpDetailScreen() {
   const inset = useSafeAreaInsets();
   const router = useRouter();
+  const { clear } = usePopUpStore();
   const calenderBottomSheetRef = useRef<BottomSheet>(null);
   const snapShotPoint = useMemo(() => ['38%'], []);
   const isLogin = useAuthStore(state => state.isLogin);
@@ -34,6 +36,10 @@ export default function PopUpDetailScreen() {
       pressBehavior="close"
     />
   );
+
+  useEffect(() => {
+    return () => clear();
+  }, []);
 
   return (
     <S.Container>

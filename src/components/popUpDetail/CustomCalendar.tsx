@@ -97,10 +97,7 @@ export default function CustomCalendar() {
   const handleMonthChange = (month: any) => {
     const yyyyMM = month.dateString.slice(0, 7);
     setCurrentYearMonth(yyyyMM);
-
-    if (selectedDate) {
-      parseTimeSlotFromDate(selectedDate);
-    }
+    setTimeSlots([]);
   };
 
   // 사용자가 캘린더에서 날짜를 클릭했을 때 실행되는 함수를 정의합니다.
