@@ -30,9 +30,19 @@ export const useGetReservationInfoApi = ({ popupId, yyyyMM }: GetReservationInfo
       nextMonth.setMonth(nextMonth.getMonth() + 1);
       const nextYearMonth = `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}`;
 
+      const prevMonth = new Date(currentDate);
+      prevMonth.setMonth(prevMonth.getMonth() - 1);
+      const prevYearMonth = `${prevMonth.getFullYear()}-${String(prevMonth.getMonth() + 1).padStart(2, '0')}`;
+
       queryClient.prefetchQuery({
         queryKey: ['reservationInfo', popupId, nextYearMonth],
         queryFn: () => getReservationInfo({ popupId, yyyyMM: nextYearMonth }),
+        staleTime: 5 * 60 * 1000,
+      });
+
+      queryClient.prefetchQuery({
+        queryKey: ['reservationInfo', popupId, prevYearMonth],
+        queryFn: () => getReservationInfo({ popupId, yyyyMM: prevYearMonth }),
         staleTime: 5 * 60 * 1000,
       });
     }

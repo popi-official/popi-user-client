@@ -1,6 +1,6 @@
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { S } from './PopUpDetail.style';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import PopUpDetailInfo from '@/components/popUpDetail/PopUpDetailInfo';
@@ -23,8 +23,15 @@ export default function PopUpDetailScreen() {
   const snapShotPoint = useMemo(() => ['38%'], []);
   const isLogin = useAuthStore(state => state.isLogin);
 
+  const [isCalendarMounted, setIsCalendarMounted] = useState(false);
+
   const handleCalendarPress = (index: number) => {
+    setIsCalendarMounted(true);
     calenderBottomSheetRef.current?.snapToIndex(index);
+  };
+
+  const handleBottomSheetClose = () => {
+    setIsCalendarMounted(false);
   };
 
   const renderBackdrop = (props: BottomSheetBackdropProps) => (
@@ -34,6 +41,7 @@ export default function PopUpDetailScreen() {
       appearsOnIndex={0}
       opacity={0.5}
       pressBehavior="close"
+      onPress={handleBottomSheetClose}
     />
   );
 
@@ -75,15 +83,25 @@ export default function PopUpDetailScreen() {
             transform: [{ translateX: '-0.5%' }],
           }}
           handleIndicatorStyle={{ backgroundColor: '#555555', width: 60 }}
+          onChange={index => {
+            if (index === -1) {
+              handleBottomSheetClose();
+            }
+          }}
         >
-          <TouchableOpacity onPress={() => calenderBottomSheetRef.current?.close()}>
+          <TouchableOpacity
+            onPress={() => {
+              calenderBottomSheetRef.current?.close();
+              handleBottomSheetClose();
+            }}
+          >
             <Image
               source={Images.closeIcon}
               style={{ width: 15, height: 15, alignSelf: 'flex-end', marginRight: 20 }}
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <CustomCalendar />
+          {isCalendarMounted && <CustomCalendar />}
         </BottomSheet>
       </View>
     </S.Container>
