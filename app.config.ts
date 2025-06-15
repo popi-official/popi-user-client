@@ -1,6 +1,6 @@
 export default {
   expo: {
-    name: 'popi-user-client',
+    name: 'POPI',
     slug: 'popi-user-client',
     version: '1.0.0',
     orientation: 'portrait',
@@ -9,9 +9,9 @@ export default {
     userInterfaceStyle: 'automatic',
     newArchEnabled: true,
     splash: {
-      image: './src/assets/images/splash-icon.png',
+      image: './src/assets/images/splash-view.png',
       resizeMode: 'contain',
-      backgroundColor: '#ffffff',
+      backgroundColor: '#000000',
     },
     ios: {
       supportsTablet: true,
@@ -85,15 +85,14 @@ export default {
         },
       },
       splash: {
-        image: './src/assets/images/splash-icon.png',
-        resizeMode: 'contain',
-        backgroundColor: '#ffffff',
+        image: './src/assets/images/splash-view.png',
+        backgroundColor: '#000000',
       },
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: './src/assets/images/splash-icon.png',
-        backgroundColor: '#ffffff',
+        foregroundImage: './src/assets/images/splash-view.png',
+        backgroundColor: '#000000',
       },
       enablePngCrunchInReleaseBuilds: false,
       edgeToEdgeEnabled: true,

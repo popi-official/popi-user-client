@@ -1,9 +1,10 @@
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import { useFonts } from 'expo-font';
+import { Asset } from 'expo-asset';
 import RootContext from '@/context';
 import { LocaleConfig } from 'react-native-calendars';
 import { initializeKakaoSDK } from '@react-native-kakao/core';
@@ -13,6 +14,24 @@ export { ErrorBoundary } from 'expo-router';
 
 export const unstable_settings = {
   initialRouteName: '(tabs)',
+};
+
+// 이미지 캐싱 함수
+const cacheImages = async () => {
+  const images = [require('@/assets/images/common/indicator.webp')];
+
+  try {
+    const cachePromises = images.map(image => {
+      const asset = Asset.fromModule(image);
+      return asset.downloadAsync();
+    });
+
+    await Promise.all(cachePromises);
+    return true;
+  } catch (error) {
+    console.error('이미지 캐싱 실패:', error);
+    return false; // 실패해도 앱은 계속 실행
+  }
 };
 
 LocaleConfig.locales.kr = {
@@ -50,7 +69,10 @@ LocaleConfig.locales.kr = {
 LocaleConfig.defaultLocale = 'kr';
 
 SplashScreen.preventAutoHideAsync();
+
 export default function RootLayout() {
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
   const [fontsLoaded] = useFonts({
     'Pretendard-Black': require('@/assets/fonts/Pretendard-Black.otf'),
     'Pretendard-ExtraLight': require('@/assets/fonts/Pretendard-ExtraLight.otf'),
@@ -85,16 +107,26 @@ export default function RootLayout() {
   const iosClientId = process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID || '';
 
   useEffect(() => {
+    const loadImages = async () => {
+      await cacheImages();
+      setImagesLoaded(true);
+    };
+
+    loadImages();
+  }, []);
+
+  useEffect(() => {
     const hideSplash = async () => {
-      if (fontsLoaded) {
-        await new Promise(resolve => setTimeout(resolve, 3000));
+      if (fontsLoaded && imagesLoaded) {
+        await new Promise(resolve => setTimeout(resolve, 1500));
         await SplashScreen.hideAsync();
       }
     };
 
     hideSplash();
-  }, [fontsLoaded]);
+  }, [fontsLoaded, imagesLoaded]);
 
+  // 소셜 로그인 초기화
   useEffect(() => {
     initializeKakaoSDK(kakaoNativeAppKey);
     GoogleSignin.configure({
@@ -102,7 +134,8 @@ export default function RootLayout() {
     });
   }, []);
 
-  if (!fontsLoaded) {
+  // 폰트와 이미지 로딩이 모두 완료될 때까지 대기
+  if (!fontsLoaded || !imagesLoaded) {
     return null;
   }
 
