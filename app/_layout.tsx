@@ -16,6 +16,13 @@ export const unstable_settings = {
   initialRouteName: '(tabs)',
 };
 
+SplashScreen.preventAutoHideAsync();
+
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+});
+
 // 이미지 캐싱 함수
 const cacheImages = async () => {
   const images = [require('@/assets/images/common/indicator.webp')];

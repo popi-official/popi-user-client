@@ -91,7 +91,22 @@ export default function CustomCalendar() {
   const reservableDate = reservationInfo.reservableDate;
 
   const parseTimeSlotFromDate = (date: string) => {
-    setTimeSlots(reservableDate.filter(d => d.date === date)[0].timeSlots);
+    const currentTime = new Date().toLocaleTimeString('ko-KR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+    const currentDate = new Date().toLocaleDateString('en-CA');
+
+    if (currentDate === date) {
+      setTimeSlots(
+        reservableDate
+          .filter(d => d.date === date)[0]
+          .timeSlots.filter(slot => slot.time.slice(0, 2) > currentTime.slice(0, 2)),
+      );
+    } else {
+      setTimeSlots(reservableDate.filter(d => d.date === date)[0].timeSlots);
+    }
   };
 
   const handleMonthChange = (month: any) => {

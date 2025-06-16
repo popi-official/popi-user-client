@@ -8,11 +8,6 @@ export default {
     scheme: 'popiuserclient',
     userInterfaceStyle: 'automatic',
     newArchEnabled: true,
-    splash: {
-      image: './src/assets/images/splash-view.png',
-      resizeMode: 'contain',
-      backgroundColor: '#000000',
-    },
     ios: {
       supportsTablet: true,
       bundleIdentifier: 'com.chik2chik.popiuserclient',
@@ -84,15 +79,11 @@ export default {
           NSAllowsArbitraryLoadsInWebContent: true,
         },
       },
-      splash: {
-        image: './src/assets/images/splash-view.png',
-        backgroundColor: '#000000',
-      },
     },
     android: {
+      icon: './src/assets/images/icon.png',
       adaptiveIcon: {
-        foregroundImage: './src/assets/images/splash-view.png',
-        backgroundColor: '#000000',
+        foregroundImage: './src/assets/images/icon.png',
       },
       enablePngCrunchInReleaseBuilds: false,
       edgeToEdgeEnabled: true,
@@ -151,6 +142,23 @@ export default {
             ],
           ]
         : []),
+      [
+        'expo-splash-screen',
+        {
+          backgroundColor: '#000000',
+          image: './src/assets/images/splash-view.png',
+
+          ios: {
+            backgroundColor: '#000000',
+            image: './src/assets/images/splash-view.png',
+            resizeMode: 'cover',
+          },
+          android: {
+            backgroundColor: '#000000',
+            image: './src/assets/images/splash-view.png',
+          },
+        },
+      ],
       [
         'expo-build-properties',
         {
