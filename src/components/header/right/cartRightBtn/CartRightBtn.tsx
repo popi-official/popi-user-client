@@ -1,6 +1,5 @@
 import { useRouter } from 'expo-router';
 import { Image } from 'react-native';
-import HeaderRightWrapper from '../../headerRightWrapper/HeaderRightWrapper';
 import CustomPressableBtn from '@/components/CustomPressableBtn';
 
 const images = {
@@ -10,10 +9,12 @@ const images = {
 export default function CartRightBtn() {
   const router = useRouter();
   return (
-    <HeaderRightWrapper>
-      <CustomPressableBtn onPress={() => router.push('/(common)/qrCamera')} hitSlop={10}>
-        <Image source={images.qrIcon} style={{ width: 24, height: 24 }} />
-      </CustomPressableBtn>
-    </HeaderRightWrapper>
+    <CustomPressableBtn
+      onPress={() => router.push('/(common)/qrCamera')}
+      hitSlop={13}
+      style={{ marginLeft: 15 }}
+    >
+      <Image source={images.qrIcon} style={{ width: 24, height: 24 }} />
+    </CustomPressableBtn>
   );
 }

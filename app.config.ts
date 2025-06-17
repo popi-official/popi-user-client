@@ -151,11 +151,13 @@ export default {
           ios: {
             backgroundColor: '#000000',
             image: './src/assets/images/splash-view.png',
-            resizeMode: 'cover',
+            imageWidth: 200,
           },
           android: {
             backgroundColor: '#000000',
             image: './src/assets/images/splash-view.png',
+            resizeMode: 'native',
+            imageWidth: 200,
           },
         },
       ],

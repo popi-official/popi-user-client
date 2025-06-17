@@ -8,7 +8,6 @@ type Props = {
   children: ReactNode;
   hitSlop?: number;
   pressedOpacity?: number;
-  disabled?: boolean;
   android_ripple?: {
     color?: string;
     radius?: number;
@@ -22,18 +21,17 @@ const CustomPressableBtn = ({
   children,
   hitSlop = 10,
   pressedOpacity = 0.7,
-  disabled = false,
+
   android_ripple,
 }: Props) => {
   return (
     <Pressable
       hitSlop={hitSlop}
-      onPress={disabled ? undefined : onPress}
-      disabled={disabled}
+      onPress={onPress}
       android_ripple={android_ripple}
       style={({ pressed }) => [
         {
-          opacity: disabled ? 0.5 : pressed ? pressedOpacity : 1,
+          opacity: pressed ? pressedOpacity : 1,
         },
         style,
       ]}
