@@ -66,6 +66,7 @@ export default function QRCameraScreen() {
           {
             text: '취소',
             style: 'cancel',
+            onPress: () => router.replace('/(tabs)/cart'),
           },
           {
             text: '설정으로 이동',

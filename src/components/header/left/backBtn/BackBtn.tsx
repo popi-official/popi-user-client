@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { S } from './BackBtn.style';
 import HeaderLeftWrapper from '../../headerLeftWrapper/HeaderLeftWrapper';
+import CustomPressableBtn from '@/components/CustomPressableBtn';
 
 const images = {
   backButtonIcon: require('@/assets/images/common/right-arrow.webp'),
@@ -15,11 +16,11 @@ export default function BackBtn({ isNavigateHome = false }: Props) {
 
   return (
     <HeaderLeftWrapper>
-      <S.Container
+      <CustomPressableBtn
         onPress={isNavigateHome ? () => router.replace('/(tabs)/home') : () => router.back()}
       >
         <S.BackButtonIcon source={images.backButtonIcon} />
-      </S.Container>
+      </CustomPressableBtn>
     </HeaderLeftWrapper>
   );
 }
