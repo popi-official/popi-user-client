@@ -4,10 +4,10 @@ import { S } from './CustomBottomTab.style';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const tabIcons = {
-  home: require('@/assets/images/bottomTab/Home.png'),
-  map: require('@/assets/images/bottomTab/Map.png'),
-  cart: require('@/assets/images/bottomTab/Cart.png'),
-  my: require('@/assets/images/bottomTab/My.png'),
+  home: require('@/assets/images/bottomTab/Home.webp'),
+  map: require('@/assets/images/bottomTab/Map.webp'),
+  cart: require('@/assets/images/bottomTab/Cart.webp'),
+  my: require('@/assets/images/bottomTab/My.webp'),
 };
 
 export default function CustomBottomTab({ state, descriptors, navigation }: BottomTabBarProps) {

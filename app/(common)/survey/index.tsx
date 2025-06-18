@@ -8,6 +8,8 @@ import { useRouter } from 'expo-router';
 import { useSurveyAnswersApi, useSurveyApi } from '@/hooks/api/useSurveyApi';
 import { usePopUpStore } from '@/store/usePopUpStore';
 import NoticeModal from '@/components/noticeModal/NoticeModal';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const QUESTIONS = [
   '어떤 종류의 굿즈를\n가장 선호하시나요?',
@@ -21,6 +23,7 @@ const BUTTON_WIDTH = (SCREEN_WIDTH - 66) / 2;
 const PROGRESS_WIDTH = SCREEN_WIDTH - 90;
 
 const SurveyQuestionPage: React.FC = () => {
+  const inset = useSafeAreaInsets();
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState<number | null>(null);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number | null>>({});
@@ -117,61 +120,61 @@ const SurveyQuestionPage: React.FC = () => {
             </S.AnimatedProgressDot>
           </S.ProgressBarContainer>
 
-          <S.QuestionText>{QUESTIONS[step - 1]}</S.QuestionText>
+          <ScrollView>
+            <S.QuestionText>{QUESTIONS[step - 1]}</S.QuestionText>
+            {answers.map(answer => (
+              <S.OptionButton
+                key={answer.choiceId}
+                isSelected={selected === answer.choiceId}
+                onPress={() => {
+                  const isSame = selected === answer.choiceId; // 토글
+                  const newChoiceId = isSame ? null : answer.choiceId;
+                  const currentSurveyId = questions[step - 1].surveyId;
 
-          {answers.map(answer => (
-            <S.OptionButton
-              key={answer.choiceId}
-              isSelected={selected === answer.choiceId}
-              onPress={() => {
-                const isSame = selected === answer.choiceId; // 토글
-                const newChoiceId = isSame ? null : answer.choiceId;
-                const currentSurveyId = questions[step - 1].surveyId;
-
-                setSelected(newChoiceId);
-                setSelectedAnswers(prev => ({
-                  ...prev,
-                  [currentSurveyId]: newChoiceId,
-                }));
-              }}
-            >
-              <S.OptionText isSelected={selected === answer.choiceId}>
-                {answer.content}
-              </S.OptionText>
-            </S.OptionButton>
-          ))}
+                  setSelected(newChoiceId);
+                  setSelectedAnswers(prev => ({
+                    ...prev,
+                    [currentSurveyId]: newChoiceId,
+                  }));
+                }}
+              >
+                <S.OptionText isSelected={selected === answer.choiceId}>
+                  {answer.content}
+                </S.OptionText>
+              </S.OptionButton>
+            ))}
+          </ScrollView>
         </View>
-
-        <S.BottomActions>
-          <CustomGrayBtn
-            title="이전"
-            onPress={() => {
-              if (step === 1) {
-                router.replace('/(tabs)/my');
-              } else {
-                setStep(prev => Math.max(1, prev - 1));
-                setSelected(null);
-              }
-            }}
-            style={{ width: BUTTON_WIDTH }}
-            fontSize={18}
-          />
-          <CustomGradientBtn
-            title={step === TOTAL ? '완료' : '다음'}
-            disabled={!selected}
-            onPress={() => {
-              if (step < TOTAL) {
-                setStep(prev => prev + 1);
-                setSelected(null);
-              } else {
-                handleSubmit();
-              }
-            }}
-            style={{ width: BUTTON_WIDTH }}
-            fontSize={18}
-          />
-        </S.BottomActions>
       </S.Card>
+      <S.BottomActions inset={inset}>
+        <CustomGrayBtn
+          title="이전"
+          onPress={() => {
+            if (step === 1) {
+              router.replace('/(tabs)/my');
+            } else {
+              setStep(prev => Math.max(1, prev - 1));
+              setSelected(null);
+            }
+          }}
+          style={{ width: BUTTON_WIDTH }}
+          fontSize={18}
+        />
+        <CustomGradientBtn
+          title={step === TOTAL ? '완료' : '다음'}
+          disabled={!selected}
+          onPress={() => {
+            if (step < TOTAL) {
+              setStep(prev => prev + 1);
+              setSelected(null);
+            } else {
+              handleSubmit();
+            }
+          }}
+          style={{ width: BUTTON_WIDTH }}
+          fontSize={18}
+        />
+      </S.BottomActions>
       <NoticeModal
         visible={successModalVisible}
         title={successMessage}

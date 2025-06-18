@@ -1,4 +1,4 @@
-import { ActivityIndicator, Dimensions, FlatList, Image, View, Text } from 'react-native';
+import { ActivityIndicator, Dimensions, FlatList, Image, View, Text, Button } from 'react-native';
 import { S } from './HomeScreen.style';
 import { bannerItems } from '@/mocks/HomeMocks';
 import { formatDateRange } from '@/utils/FormatDate';
@@ -92,7 +92,6 @@ const HomeScreen = () => {
           ))}
         </Swiper>
       </S.SwiperContainer>
-
       <S.SectionTitle>WHAT’S HOT</S.SectionTitle>
       <FlatList
         data={hotItems}
