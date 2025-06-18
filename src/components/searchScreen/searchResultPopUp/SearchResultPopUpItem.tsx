@@ -23,13 +23,15 @@ export default function SearchResultPopUpItem({
   const router = useRouter();
   const GAP = 12;
   const realWidth = (width - 2 * PADDING - GAP) / 2;
-
-  usePopUpStore.getState().setSelectedPopUpId(popupId);
+  const { setSelectedPopUpId } = usePopUpStore();
 
   return (
     <S.PopUpContainer
       style={{ width: realWidth }}
-      onPress={() => router.replace({ pathname: '/(common)/popUpDetail' })}
+      onPress={() => {
+        setSelectedPopUpId(popupId);
+        router.replace({ pathname: '/(common)/popUpDetail' });
+      }}
     >
       <S.PopUpImage
         source={{ uri: imageUrl }}
