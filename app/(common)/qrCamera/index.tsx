@@ -2,8 +2,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { S } from './QrCamera.style';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useRouter } from 'expo-router';
-import { Text } from 'react-native';
-import { useState } from 'react';
+import { Alert, Linking } from 'react-native';
+import { useEffect, useState } from 'react';
 import { useCartStore } from '@/store/useCartStore';
 import { QRCameraItemData } from '@/types/QrCameraItemType';
 import { StyleSheet } from 'react-native';
@@ -58,11 +58,27 @@ export default function QRCameraScreen() {
     }
   };
 
-  if (!permission) return <Text>카메라 권한 확인 중...</Text>;
+  const handlePermission = async () => {
+    if (!permission || !permission.granted) {
+      const response = await requestPermission();
+      if (response.status === 'denied') {
+        Alert.alert('권한 필요', 'QR 인식을 위해서는 카메라 권한이 필요합니다.', [
+          {
+            text: '취소',
+            style: 'cancel',
+          },
+          {
+            text: '설정으로 이동',
+            onPress: () => Linking.openSettings(),
+          },
+        ]);
+      }
+    }
+  };
 
-  if (!permission.granted) {
-    requestPermission();
-  }
+  useEffect(() => {
+    handlePermission();
+  }, []);
 
   return (
     <S.QrCameraScreenContainer>
