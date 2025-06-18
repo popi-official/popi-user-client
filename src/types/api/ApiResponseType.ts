@@ -48,7 +48,7 @@ export type GetProfileResponse = {
   role: 'USER';
 };
 
-export type GetHotItemsResponse = ItemPathType[];
+export type GetHotItemsResponse = ItemUrlType[];
 export type GetDefaultItemsResponse = ItemUrlType[];
 
 export type GetItemsResponse = {
