@@ -1,6 +1,6 @@
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { S } from './PopUpDetail.style';
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import PopUpDetailInfo from '@/components/popUpDetail/PopUpDetailInfo';
@@ -9,6 +9,7 @@ import { Image, View } from 'react-native';
 import { useAuthStore } from '@/store/useAuthStore';
 import { TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import { usePopUpStore } from '@/store/usePopUpStore';
 
 const Images = {
   closeIcon: require('@/assets/images/signUp/close.png'),
@@ -17,12 +18,20 @@ const Images = {
 export default function PopUpDetailScreen() {
   const inset = useSafeAreaInsets();
   const router = useRouter();
+  const { clear } = usePopUpStore();
   const calenderBottomSheetRef = useRef<BottomSheet>(null);
   const snapShotPoint = useMemo(() => ['38%'], []);
   const isLogin = useAuthStore(state => state.isLogin);
 
+  const [isCalendarMounted, setIsCalendarMounted] = useState(false);
+
   const handleCalendarPress = (index: number) => {
+    setIsCalendarMounted(true);
     calenderBottomSheetRef.current?.snapToIndex(index);
+  };
+
+  const handleBottomSheetClose = () => {
+    setIsCalendarMounted(false);
   };
 
   const renderBackdrop = (props: BottomSheetBackdropProps) => (
@@ -32,56 +41,69 @@ export default function PopUpDetailScreen() {
       appearsOnIndex={0}
       opacity={0.5}
       pressBehavior="close"
+      onPress={handleBottomSheetClose}
     />
   );
 
+  useEffect(() => {
+    return () => clear();
+  }, []);
+
   return (
-    <S.Container inset={inset}>
-      <PopUpDetailInfo />
-      <View style={{ marginHorizontal: 12 }}>
-        <CustomGradientBtn
-          title={isLogin ? '팝업 예약하기' : '로그인하고 예약하기'}
-          height={54}
-          onPress={() => (isLogin ? handleCalendarPress(0) : router.push('/(common)/login'))}
-          icon={isLogin ? require('@/assets/images/common/store-gray.webp') : undefined}
-        />
-      </View>
-      <BottomSheet
-        ref={calenderBottomSheetRef}
-        snapPoints={snapShotPoint}
-        enableDynamicSizing={false}
-        animateOnMount={false}
-        enablePanDownToClose={true}
-        index={-1}
-        backdropComponent={renderBackdrop}
-        backgroundStyle={{
-          backgroundColor: '#1B1B1C',
-          borderBottomWidth: 0,
-        }}
-        handleStyle={{
-          backgroundColor: '#1B1B1C',
-          borderTopLeftRadius: 30,
-          borderTopRightRadius: 30,
-          borderColor: '#D9D9D9',
-          borderTopWidth: 1,
-          borderLeftWidth: 1,
-          borderRightWidth: 1,
-        }}
-        containerStyle={{
-          width: '101%',
-          transform: [{ translateX: '-0.5%' }],
-        }}
-        handleIndicatorStyle={{ backgroundColor: '#555555', width: 60 }}
-      >
-        <TouchableOpacity onPress={() => calenderBottomSheetRef.current?.close()}>
-          <Image
-            source={Images.closeIcon}
-            style={{ width: 15, height: 15, alignSelf: 'flex-end', marginRight: 20 }}
-            resizeMode="contain"
+    <S.Container>
+      <View style={{ paddingBottom: inset.bottom }}>
+        <PopUpDetailInfo />
+        <View style={{ marginHorizontal: 12 }}>
+          <CustomGradientBtn
+            title={isLogin ? '팝업 예약하기' : '로그인하고 예약하기'}
+            height={54}
+            onPress={() => (isLogin ? handleCalendarPress(0) : router.push('/(common)/login'))}
+            icon={isLogin ? require('@/assets/images/common/store-gray.webp') : undefined}
           />
-        </TouchableOpacity>
-        <CustomCalendar />
-      </BottomSheet>
+        </View>
+        <BottomSheet
+          ref={calenderBottomSheetRef}
+          snapPoints={snapShotPoint}
+          enableDynamicSizing={false}
+          animateOnMount={false}
+          enablePanDownToClose={true}
+          index={-1}
+          backdropComponent={renderBackdrop}
+          backgroundStyle={{
+            backgroundColor: '#1B1B1C',
+            borderBottomWidth: 0,
+          }}
+          handleStyle={{
+            backgroundColor: '#1B1B1C',
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 30,
+          }}
+          containerStyle={{
+            width: '101%',
+            transform: [{ translateX: '-0.5%' }],
+          }}
+          handleIndicatorStyle={{ backgroundColor: '#555555', width: 60 }}
+          onChange={index => {
+            if (index === -1) {
+              handleBottomSheetClose();
+            }
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              calenderBottomSheetRef.current?.close();
+              handleBottomSheetClose();
+            }}
+          >
+            <Image
+              source={Images.closeIcon}
+              style={{ width: 15, height: 15, alignSelf: 'flex-end', marginRight: 20 }}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+          {isCalendarMounted && <CustomCalendar />}
+        </BottomSheet>
+      </View>
     </S.Container>
   );
 }

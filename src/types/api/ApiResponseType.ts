@@ -1,5 +1,5 @@
 import { popUpMarkerItem } from '@/types/MapScreenType';
-import { ItemPathType, ItemUrlType, ReservableDate } from '../DetailScreen';
+import { ItemUrlType, ReservableDate } from '../DetailScreen';
 import { PostItemSearch, PostPopUpSearch } from '../SearchScreenType';
 import { AgeOption, GenderOption } from '../SignUpScreenType';
 import { SurveyChoice } from '../SurveyQuestions';
