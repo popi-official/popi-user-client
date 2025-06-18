@@ -1,19 +1,13 @@
 import styled from 'styled-components/native';
 import { getThemeColor, getThemeInterFont, getThemePretendardFont } from '@/types';
 import { LinearGradient } from 'expo-linear-gradient';
-import { EdgeInsets } from 'react-native-safe-area-context';
 import { Dimensions } from 'react-native';
 import { PADDING } from '@/constants/Options';
 
-type ContainerProps = {
-  inset: EdgeInsets;
-};
-
 export const S = {
-  Container: styled.ScrollView<ContainerProps>`
+  Container: styled.ScrollView`
     flex: 1;
     background-color: ${getThemeColor('gray11')};
-    margin-bottom: ${(props: ContainerProps) => props.inset.bottom}px;
   `,
 
   Banner: styled.Image`
@@ -196,7 +190,6 @@ export const S = {
   CalendarSection: styled.View`
     border-bottom-width: 1px;
     border-bottom-color: white;
-    padding-bottom: 16px;
   `,
 
   CalendarContainer: styled.View`
@@ -246,9 +239,9 @@ export const S = {
   `,
 
   ReservationButtonContainer: styled.View`
-    height: 46px;
     margin-left: 24px;
     margin-right: 24px;
+    height: 46px;
   `,
 
   EmptyContainer: styled.View`
