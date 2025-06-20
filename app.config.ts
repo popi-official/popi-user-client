@@ -1,6 +1,6 @@
 export default {
   expo: {
-    name: 'popi-user-client',
+    name: 'POPI',
     slug: 'popi-user-client',
     version: '1.0.0',
     orientation: 'portrait',
@@ -165,6 +165,8 @@ export default {
         'expo-build-properties',
         {
           android: {
+            gradleVersion: '8.7',
+            gradlePluginVersion: '8.6.0',
             extraMavenRepos: [
               'https://repository.map.naver.com/archive/maven',
               'https://devrepo.kakao.com/nexus/content/groups/public/',

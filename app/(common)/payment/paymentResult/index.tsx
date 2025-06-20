@@ -5,9 +5,10 @@ import { S } from './PaymentResult.style';
 import { View } from 'react-native';
 import { usePaymentApi } from '@/hooks/api/usePaymantApi';
 import { useEffect, useState } from 'react';
+import { useCartStore } from '@/store/useCartStore';
 
 const Images = {
-  successIcon: require('@/assets/images/payment/success-icon.webp'),
+  successIcon: require('@/assets/images/popUpEntry/camera-boy.webp'),
 };
 
 export default function PaymentResult() {
@@ -17,6 +18,7 @@ export default function PaymentResult() {
   const { postPaymentVerifyMutation } = usePaymentApi();
   const [isVerified, setIsVerified] = useState(false);
   const [verificationError, setVerificationError] = useState<string>('');
+  const clearCart = useCartStore(state => state.clearCart);
 
   const impSuccess = params.impSuccess as string;
   const success = params.success as string;
@@ -34,13 +36,25 @@ export default function PaymentResult() {
 
   const verifyPayment = async (impUid: string) => {
     try {
-      const response = await postPaymentVerifyMutation.mutateAsync({ impUid });
+      // const response = await postPaymentVerifyMutation.mutateAsync({ impUid });
+      postPaymentVerifyMutation.mutate(
+        { impUid },
+        {
+          onSuccess: () => {
+            setIsVerified(true);
+            clearCart();
+          },
+          onError: () => {
+            setVerificationError('결제 검증에 실패했습니다.');
+          },
+        },
+      );
 
-      if (response.success) {
-        setIsVerified(true);
-      } else {
-        setVerificationError('결제 검증에 실패했습니다.');
-      }
+      // if (response.success) {
+      //   setIsVerified(true);
+      // } else {
+      //   setVerificationError('결제 검증에 실패했습니다.');
+      // }
     } catch (error: any) {
       console.error('Payment verification error:', error);
       setVerificationError('결제 검증 중 오류가 발생했습니다.');
@@ -102,8 +116,10 @@ export default function PaymentResult() {
       <S.PaymentResultContainer>
         <S.ContentContainer>
           <S.SuccessImage source={Images.successIcon} resizeMode="contain" />
-          <S.TitleText>{title}</S.TitleText>
-          <S.SubtitleText>{subtitle}</S.SubtitleText>
+          <View style={{ gap: 10, alignItems: 'center' }}>
+            <S.TitleText>{title}</S.TitleText>
+            <S.SubtitleText>{subtitle}</S.SubtitleText>
+          </View>
         </S.ContentContainer>
 
         <S.ButtonContainer>

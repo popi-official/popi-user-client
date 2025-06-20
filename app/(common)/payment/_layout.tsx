@@ -14,7 +14,6 @@ const PAYMENT_OPTIONS: NativeStackNavigationOptions = {
         textAlign: 'center',
         fontFamily: 'Pretendard-Regular',
         fontSize: 20,
-        left: -10,
       }}
     >
       결제

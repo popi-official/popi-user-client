@@ -11,6 +11,7 @@ export const S = {
 
   ContentContainer: styled.View`
     align-items: center;
+    flex: 1;
   `,
 
   SuccessImage: styled.Image`
@@ -20,13 +21,11 @@ export const S = {
   TitleText: styled.Text`
     color: white;
     font-size: 20px;
-    bottom: 150px;
   `,
 
   SubtitleText: styled.Text`
     color: gray;
     font-size: 16px;
-    bottom: 140px;
   `,
 
   ButtonContainer: styled.TouchableOpacity`
