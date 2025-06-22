@@ -8,6 +8,6 @@ export type RecommendedItem = {
 export type PopularItem = {
   itemId: number;
   title: string;
-  imagePath: number; // 추후 string으로 변경
+  imageUrl: string;
   price: number;
 };

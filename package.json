@@ -21,6 +21,8 @@
     "@gorhom/bottom-sheet": "^5.1.4",
     "@mj-studio/react-native-naver-map": "^2.4.0",
     "@react-native-async-storage/async-storage": "2.1.2",
+    "@react-native-firebase/app": "^22.2.1",
+    "@react-native-firebase/messaging": "^22.2.1",
     "@react-native-google-signin/google-signin": "^14.0.1",
     "@react-native-kakao/core": "^2.4.0",
     "@react-native-kakao/user": "^2.4.0",

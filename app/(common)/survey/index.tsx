@@ -82,7 +82,7 @@ const SurveyQuestionPage: React.FC = () => {
 
   const answers = questions[step - 1].options;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!popupId) return;
 
     const surveyAnswers = questions
@@ -92,7 +92,7 @@ const SurveyQuestionPage: React.FC = () => {
       }))
       .filter(a => a.choiceId !== -1); // null 제거
 
-    postSurveyAnswersMutation.mutate({ popupId, answers: surveyAnswers });
+    await postSurveyAnswersMutation.mutateAsync({ popupId, answers: surveyAnswers });
   };
 
   const fillWidth = progress.interpolate({

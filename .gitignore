@@ -43,3 +43,6 @@ eas.json
 
 expo-env.d.ts
 eas.json
+
+google-services.json
+Googleservice-Info.plist

@@ -8,6 +8,7 @@ import RootContext from '@/context';
 import { LocaleConfig } from 'react-native-calendars';
 import { initializeKakaoSDK } from '@react-native-kakao/core';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { setupNotificationListeners } from '@/utils/FirebasePushNotifications';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -100,6 +101,7 @@ export default function RootLayout() {
     GoogleSignin.configure({
       iosClientId,
     });
+    setupNotificationListeners();
   }, []);
 
   if (!fontsLoaded) {

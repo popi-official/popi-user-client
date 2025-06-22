@@ -16,6 +16,7 @@ export default {
     ios: {
       supportsTablet: true,
       bundleIdentifier: 'com.chik2chik.popiuserclient',
+      googleServicesFile: './GoogleService-Info.plist',
       infoPlist: {
         ITSAppUsesNonExemptEncryption: false,
         NSCameraUsageDescription: '팝업스토어 사진 촬영을 위해 카메라 권한이 필요합니다.',
@@ -107,7 +108,14 @@ export default {
       },
       edgeToEdgeEnabled: true,
       package: 'com.chik2chik.popiuserclient',
-      permissions: ['CAMERA', 'RECORD_AUDIO', 'READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE'],
+      googleServicesFile: './google-services.json',
+      permissions: [
+        'CAMERA',
+        'RECORD_AUDIO',
+        'READ_EXTERNAL_STORAGE',
+        'WRITE_EXTERNAL_STORAGE',
+        'POST_NOTIFICATIONS',
+      ],
       intentFilters: [
         {
           action: 'VIEW',
@@ -127,6 +135,8 @@ export default {
       'expo-router',
       'expo-web-browser',
       'expo-dev-client',
+      '@react-native-firebase/app',
+      '@react-native-firebase/messaging',
       ...(process.env.EXPO_PUBLIC_GOOGLE_IOS_URL_SCHEME
         ? [
             [
@@ -171,6 +181,9 @@ export default {
               'https://repository.map.naver.com/archive/maven',
               'https://devrepo.kakao.com/nexus/content/groups/public/',
             ],
+          },
+          ios: {
+            useFrameworks: 'static',
           },
         },
       ],

@@ -72,3 +72,7 @@ export type GetDefaultItemsRequest = {
 };
 
 export type PostSurveyAnswersRequest = SurveyItem[];
+
+export type PostNotificationRequest = {
+  fcmToken: string;
+};
