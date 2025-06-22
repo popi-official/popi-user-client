@@ -8,7 +8,7 @@ import SearchBarTextInput from '@/components/searchScreen/SearchBarTextInput';
 import { useSearchStore } from '@/store/useSearchStore';
 import useSearch from '@/hooks/useSearch';
 import { PostItemSearch } from '@/types/SearchScreenType';
-import { ItemPathType, ItemUrlType } from '@/types/DetailScreen';
+import { ItemUrlType } from '@/types/DetailScreen';
 import NoItem from '@/components/searchScreen/noItem/NoItem';
 import { useCallback } from 'react';
 import { usePopUpDetailAllItemsApi } from '@/hooks/api/usePopUpDetailApi';
@@ -18,7 +18,7 @@ import NoPopularItem from '@/components/popUpDetail/NoPopularItem';
 export default function EntireItemsScreen() {
   const { hotItems } = useLocalSearchParams<{ hotItems: string }>();
   const { selectedPopUpId } = usePopUpStore();
-  const formattedPopularItems = ParseStringToJson(hotItems) as ItemPathType[];
+  const formattedPopularItems = ParseStringToJson(hotItems) as ItemUrlType[];
   const { searchResult, isLoading, hasMore, loadMore } = useSearch();
   const { keyword } = useSearchStore();
   const { allItems, isItemLoading, isItemError, allItemsQuery } = usePopUpDetailAllItemsApi({
@@ -55,7 +55,7 @@ export default function EntireItemsScreen() {
         </View>
       );
     }
-    return <NoItem title="검색 결과와 일치하는 팝업이 없어요" />;
+    return <NoItem title="검색 결과와 일치하는 상품이 없어요" />;
   }, [isLoading]);
 
   const itemSeperatorComponent = useCallback(() => <View style={{ height: 12 }} />, []);
@@ -75,7 +75,7 @@ export default function EntireItemsScreen() {
   );
 
   const renderHotItem = useCallback(
-    (item: ItemPathType, index: number) => <HotItems item={item} key={index} index={index} />,
+    (item: ItemUrlType, index: number) => <HotItems item={item} key={index} index={index} />,
     [],
   );
 

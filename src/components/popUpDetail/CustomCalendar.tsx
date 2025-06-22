@@ -4,7 +4,7 @@ import { CALENDAR_THEME } from '@/constants/Options';
 import { DateData, Direction, MarkedDates } from 'react-native-calendars/src/types';
 import { TimeSlot } from '@/types/DetailScreen';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { useGetReservationInfoApi, usePostReservationApi } from '@/hooks/api/useReserviationApi';
 import { usePopUpStore } from '@/store/usePopUpStore';
 import { useAuthStore } from '@/store/useAuthStore';
@@ -13,6 +13,8 @@ import { TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import NoticeModal from '@/components/noticeModal/NoticeModal';
 import { useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Images = {
   rightArrow: require('@/assets/images/common/right-arrow.webp'),
@@ -22,6 +24,7 @@ export default function CustomCalendar() {
   const selectedPopUpId = usePopUpStore(state => state.selectedPopUpId);
   const isLogin = useAuthStore.getState().isLogin;
   const router = useRouter();
+  const inset = useSafeAreaInsets();
 
   // 사용자가 선택한 날짜입니다 -> 하단에 예약 가능한 시간을 보여주기 위해 사용합니다.
   const [selectedDate, setSelectedDate] = useState<string>('');
@@ -63,13 +66,13 @@ export default function CustomCalendar() {
   useEffect(() => {
     if (reservationInfo) {
       setMinDate(
-        reservableDate.length === 0
-          ? `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}-01`
+        reservationInfo.reservableDate.length === 0
+          ? '2000-01-01'
           : reservationInfo.reservableDate[0].date,
       );
       setMaxDate(
-        reservableDate.length === 0
-          ? `${nextMonth.getFullYear()}-${String(nextMonth.getMonth() + 1).padStart(2, '0')}-02`
+        reservationInfo.reservableDate.length === 0
+          ? '2000-01-02'
           : reservationInfo.reservableDate[reservationInfo.reservableDate.length - 1].date,
       );
     }
@@ -86,19 +89,30 @@ export default function CustomCalendar() {
   }
 
   const reservableDate = reservationInfo.reservableDate;
-  const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1);
 
   const parseTimeSlotFromDate = (date: string) => {
-    setTimeSlots(reservableDate.filter(d => d.date === date)[0].timeSlots);
+    const currentTime = new Date().toLocaleTimeString('ko-KR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+    const currentDate = new Date().toLocaleDateString('en-CA');
+
+    if (currentDate === date) {
+      setTimeSlots(
+        reservableDate
+          .filter(d => d.date === date)[0]
+          .timeSlots.filter(slot => slot.time.slice(0, 2) > currentTime.slice(0, 2)),
+      );
+    } else {
+      setTimeSlots(reservableDate.filter(d => d.date === date)[0].timeSlots);
+    }
   };
 
   const handleMonthChange = (month: any) => {
     const yyyyMM = month.dateString.slice(0, 7);
     setCurrentYearMonth(yyyyMM);
-
-    if (selectedDate) {
-      parseTimeSlotFromDate(selectedDate);
-    }
+    setTimeSlots([]);
   };
 
   // 사용자가 캘린더에서 날짜를 클릭했을 때 실행되는 함수를 정의합니다.
@@ -155,7 +169,7 @@ export default function CustomCalendar() {
     : {};
 
   return (
-    <>
+    <View style={{ paddingBottom: inset.bottom, flex: 1, justifyContent: 'space-between' }}>
       <S.CalendarSection>
         <S.CalendarContainer>
           <Calendar
@@ -171,76 +185,87 @@ export default function CustomCalendar() {
           />
         </S.CalendarContainer>
       </S.CalendarSection>
-      {selectedDate === '' ? (
-        <Text
-          style={{
-            color: '#D9D9D9',
-            fontSize: 16,
-            textAlign: 'center',
-            fontFamily: 'pretendard-Medium',
-            marginTop: 24,
-            marginBottom: 48,
-          }}
-        >
-          예약 날짜를 선택해주세요
-        </Text>
-      ) : (
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={{ flexDirection: 'row', marginLeft: 24 }}
-        >
-          <View style={{ flexDirection: 'row', gap: 14, marginTop: 24 }}>
-            {timeSlots.map((item: TimeSlot, idx: number) => (
-              <TouchableOpacity
-                key={item.reservationId}
-                disabled={!item.isPossible}
-                onPress={() => handleTimeSlotPress(item.reservationId)}
-              >
-                {/* 선택된 아이템이면 LinearGradient 사용, 아니면 일반 View */}
-                {item.reservationId === selectedId && item.isPossible ? (
-                  <LinearGradient
-                    colors={['#BFF0F5', '#E0D9FF']}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                    style={{
-                      borderRadius: 10,
-                      paddingHorizontal: 14,
-                      paddingVertical: 10,
-                      marginRight: idx === timeSlots.length - 1 ? 24 : 0,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        {selectedDate === '' ? (
+          <Text
+            style={{
+              color: '#D9D9D9',
+              fontSize: 16,
+              textAlign: 'center',
+              fontFamily: 'pretendard-Medium',
+            }}
+          >
+            예약 날짜를 선택해주세요
+          </Text>
+        ) : (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ flexDirection: 'row', marginLeft: 24 }}
+          >
+            <View
+              style={{
+                flexDirection: 'row',
+                gap: 14,
+                flex: 1,
+                alignItems: 'center',
+              }}
+            >
+              {timeSlots
+                .filter((item: TimeSlot) => item.isPossible)
+                .map((item: TimeSlot, idx: number) => (
+                  <TouchableOpacity
+                    key={item.reservationId}
+                    disabled={!item.isPossible}
+                    onPress={() => handleTimeSlotPress(item.reservationId)}
                   >
-                    <Text style={{ color: item.reservationId === selectedId ? 'black' : 'white' }}>
-                      {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
-                      {item.time.slice(0, 5)}
-                    </Text>
-                  </LinearGradient>
-                ) : (
-                  <View
-                    style={{
-                      borderRadius: 10,
-                      paddingHorizontal: 13,
-                      paddingVertical: 9,
-                      marginRight: idx === timeSlots.length - 1 ? 24 : 0,
-                      borderWidth: 1,
-                      borderColor: !item.isPossible ? '#383838' : '#929292',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Text style={{ color: !item.isPossible ? '#767676' : 'white' }}>
-                      {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
-                      {item.time.slice(0, 5)}
-                    </Text>
-                  </View>
-                )}
-              </TouchableOpacity>
-            ))}
-          </View>
-        </ScrollView>
-      )}
+                    {/* 선택된 아이템이면 LinearGradient 사용, 아니면 일반 View */}
+                    {item.reservationId === selectedId && item.isPossible ? (
+                      <LinearGradient
+                        colors={['#BFF0F5', '#E0D9FF']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{
+                          borderRadius: 10,
+                          paddingHorizontal: 14,
+                          paddingVertical: 10,
+                          marginRight: idx === timeSlots.length - 1 ? 24 : 0,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Text
+                          style={{ color: item.reservationId === selectedId ? 'black' : 'white' }}
+                        >
+                          {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
+                          {item.time.slice(0, 5)}
+                        </Text>
+                      </LinearGradient>
+                    ) : (
+                      <View
+                        style={{
+                          borderRadius: 10,
+                          paddingHorizontal: 13,
+                          paddingVertical: 9,
+                          marginRight: idx === timeSlots.length - 1 ? 24 : 0,
+                          borderWidth: 1,
+                          borderColor: !item.isPossible ? '#383838' : '#929292',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Text style={{ color: !item.isPossible ? '#767676' : 'white' }}>
+                          {Number(item.time.slice(0, 2)) < 12 ? 'AM ' : 'PM '}
+                          {item.time.slice(0, 5)}
+                        </Text>
+                      </View>
+                    )}
+                  </TouchableOpacity>
+                ))}
+            </View>
+          </ScrollView>
+        )}
+      </View>
 
       <S.ReservationButtonContainer>
         <CustomGradientBtn
@@ -282,6 +307,6 @@ export default function CustomCalendar() {
           },
         ]}
       />
-    </>
+    </View>
   );
 }

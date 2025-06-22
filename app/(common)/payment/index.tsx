@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Alert, Keyboard, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import IMP from 'iamport-react-native';
 import { S } from './Payment.style';
@@ -8,6 +15,7 @@ import { ParseStringToJson } from '@/utils/JsonParser';
 import { PostPaymentReadyResponse } from '@/types/api/ApiResponseType';
 import CustomGradientBtn from '@/components/customGradientBtn/CustomGradientBtn';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const PGS = [
   {
@@ -85,87 +93,98 @@ export default function PaymentScreen() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={{ flex: 1, paddingBottom: insets.bottom }}>
-        <S.Container>
-          <S.Content>
-            <S.PaymentInfoCard>
-              <S.SectionTitle>결제 정보</S.SectionTitle>
-              <S.InfoRow>
-                <S.InfoLabel>상품명</S.InfoLabel>
-                <S.InfoValue>{name}</S.InfoValue>
-              </S.InfoRow>
-              <S.InfoRow>
-                <S.InfoLabel>결제금액</S.InfoLabel>
-                <S.AmountText>{Number(amount).toLocaleString()}원</S.AmountText>
-              </S.InfoRow>
-            </S.PaymentInfoCard>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={{ flex: 1, paddingBottom: insets.bottom }}>
+          <S.Container>
+            <ScrollView
+              style={{ flex: 1 }}
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}
+            >
+              <S.Content>
+                <S.PaymentInfoCard>
+                  <S.SectionTitle>결제 정보</S.SectionTitle>
+                  <S.InfoRow>
+                    <S.InfoLabel>상품명</S.InfoLabel>
+                    <S.InfoValue>{name}</S.InfoValue>
+                  </S.InfoRow>
+                  <S.InfoRow>
+                    <S.InfoLabel>결제금액</S.InfoLabel>
+                    <S.AmountText>{Number(amount).toLocaleString()}원</S.AmountText>
+                  </S.InfoRow>
+                </S.PaymentInfoCard>
 
-            <S.Section>
-              <S.SectionTitle>결제수단 선택</S.SectionTitle>
-              <S.PgContainer>
-                {PGS.map(item => (
-                  <S.PgButton
-                    key={item.value}
-                    onPress={() => setPg(item.value)}
-                    isSelected={pg === item.value}
-                  >
-                    <S.PgButtonText isSelected={pg === item.value}>{item.label}</S.PgButtonText>
-                    {pg === item.value && (
-                      <Ionicons name="checkmark-circle" size={20} color="#C3E4F5" />
-                    )}
-                  </S.PgButton>
-                ))}
-              </S.PgContainer>
-            </S.Section>
+                <S.Section>
+                  <S.SectionTitle>결제수단 선택</S.SectionTitle>
+                  <S.PgContainer>
+                    {PGS.map(item => (
+                      <S.PgButton
+                        key={item.value}
+                        onPress={() => setPg(item.value)}
+                        isSelected={pg === item.value}
+                      >
+                        <S.PgButtonText isSelected={pg === item.value}>{item.label}</S.PgButtonText>
+                        {pg === item.value && (
+                          <Ionicons name="checkmark-circle" size={20} color="#C3E4F5" />
+                        )}
+                      </S.PgButton>
+                    ))}
+                  </S.PgContainer>
+                </S.Section>
 
-            <S.Section>
-              <S.SectionTitle>구매자 정보</S.SectionTitle>
+                <S.Section>
+                  <S.SectionTitle>구매자 정보</S.SectionTitle>
 
-              <S.InputGroup>
-                <S.InputLabel>이름</S.InputLabel>
-                <S.CommonText>{buyerName}</S.CommonText>
-              </S.InputGroup>
+                  <S.InputGroup>
+                    <S.InputLabel>이름</S.InputLabel>
+                    <S.CommonText>{buyerName}</S.CommonText>
+                  </S.InputGroup>
 
-              <S.InputGroup>
-                <S.InputLabel>전화번호 *</S.InputLabel>
-                <S.Input
-                  value={buyerTel}
-                  onChangeText={setBuyerTel}
-                  placeholder="010-0000-0000"
-                  placeholderTextColor="#666"
-                  keyboardType="number-pad"
-                />
-              </S.InputGroup>
+                  <S.InputGroup>
+                    <S.InputLabel>전화번호 *</S.InputLabel>
+                    <S.Input
+                      value={buyerTel}
+                      onChangeText={setBuyerTel}
+                      placeholder="010-0000-0000"
+                      placeholderTextColor="#666"
+                      keyboardType="number-pad"
+                    />
+                  </S.InputGroup>
 
-              <S.InputGroup>
-                <S.InputLabel>이메일 *</S.InputLabel>
-                <S.Input
-                  value={buyerEmail}
-                  onChangeText={setBuyerEmail}
-                  placeholder="example@email.com"
-                  placeholderTextColor="#666"
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                />
-              </S.InputGroup>
-            </S.Section>
-          </S.Content>
+                  <S.InputGroup>
+                    <S.InputLabel>이메일 *</S.InputLabel>
+                    <S.Input
+                      value={buyerEmail}
+                      onChangeText={setBuyerEmail}
+                      placeholder="example@email.com"
+                      placeholderTextColor="#666"
+                      keyboardType="email-address"
+                      autoCapitalize="none"
+                    />
+                  </S.InputGroup>
+                </S.Section>
+              </S.Content>
+            </ScrollView>
+            <S.BottomContainer>
+              <S.TotalAmountContainer>
+                <S.TotalLabel>총 결제금액</S.TotalLabel>
+                <S.TotalAmount>{Number(amount).toLocaleString()}원</S.TotalAmount>
+              </S.TotalAmountContainer>
 
-          <S.BottomContainer>
-            <S.TotalAmountContainer>
-              <S.TotalLabel>총 결제금액</S.TotalLabel>
-              <S.TotalAmount>{Number(amount).toLocaleString()}원</S.TotalAmount>
-            </S.TotalAmountContainer>
-
-            <CustomGradientBtn
-              title={`${Number(amount).toLocaleString()}원 결제하기`}
-              onPress={handleStartPayment}
-              disabled={!buyerName || !buyerTel || !buyerEmail}
-            />
-          </S.BottomContainer>
-        </S.Container>
-      </View>
-    </TouchableWithoutFeedback>
+              <CustomGradientBtn
+                title={`${Number(amount).toLocaleString()}원 결제하기`}
+                onPress={handleStartPayment}
+                disabled={!buyerName || !buyerTel || !buyerEmail}
+              />
+            </S.BottomContainer>
+          </S.Container>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }

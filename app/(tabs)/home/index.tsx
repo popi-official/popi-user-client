@@ -92,7 +92,6 @@ const HomeScreen = () => {
           ))}
         </Swiper>
       </S.SwiperContainer>
-
       <S.SectionTitle>WHAT’S HOT</S.SectionTitle>
       <FlatList
         data={hotItems}

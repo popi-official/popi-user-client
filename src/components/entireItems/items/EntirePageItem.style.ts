@@ -9,6 +9,7 @@ export const S = {
   Container: styled.View<ContainerProps>`
     flex: 1;
     width: ${(props: ContainerProps) => props.itemWidth}px;
+    max-width: ${(props: ContainerProps) => props.itemWidth}px;
   `,
 
   ItemImage: styled.Image<ContainerProps>`

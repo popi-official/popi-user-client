@@ -2,6 +2,7 @@ import React from 'react';
 import { Dimensions } from 'react-native';
 import { S } from './EntirePageItem.style';
 import { PADDING } from '@/constants/Options';
+import OptimizedImage from '@/components/OptimizedImage';
 
 import { ItemUrlType } from '@/types/DetailScreen';
 
@@ -14,13 +15,22 @@ const screenWidth = Dimensions.get('window').width;
 const EntirePageItem = ({ item }: Props) => {
   const GAP = 12;
   const itemWidth = (screenWidth - 2 * PADDING - GAP) / 2;
+
   if (!item) {
     return null;
   }
 
   return (
     <S.Container itemWidth={itemWidth}>
-      <S.ItemImage source={{ uri: item.imageUrl }} itemWidth={itemWidth} resizeMode="cover" />
+      <OptimizedImage
+        source={{ uri: item.imageUrl }}
+        style={{
+          width: '100%',
+          height: itemWidth,
+          borderRadius: 8,
+        }}
+        resizeMode="cover"
+      />
       <S.TitleText numberOfLines={2} ellipsizeMode="tail">
         {item.name}
       </S.TitleText>

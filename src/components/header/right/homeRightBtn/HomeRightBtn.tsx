@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { S } from './HomeRightBtn.style';
 import HeaderRightWrapper from '../../headerRightWrapper/HeaderRightWrapper';
+import CustomPressableBtn from '@/components/CustomPressableBtn';
 
 const images = {
   searchIcon: require('@/assets/images/popupDetailItems/search-icon.webp'),
@@ -13,7 +14,7 @@ export default function HomeRightBtn() {
   return (
     <HeaderRightWrapper>
       <S.HomeHeaderContainer>
-        <S.HeaderButton
+        <CustomPressableBtn
           onPress={() =>
             router.push({
               pathname: '/(common)/popUpEntry',
@@ -22,11 +23,11 @@ export default function HomeRightBtn() {
           }
         >
           <S.TicketIcon source={images.ticketIcon} />
-        </S.HeaderButton>
+        </CustomPressableBtn>
 
-        <S.HeaderButton onPress={() => router.push('/(common)/search')}>
+        <CustomPressableBtn onPress={() => router.push('/(common)/search')}>
           <S.SearchIcon source={images.searchIcon} resizeMode="contain" />
-        </S.HeaderButton>
+        </CustomPressableBtn>
       </S.HomeHeaderContainer>
     </HeaderRightWrapper>
   );

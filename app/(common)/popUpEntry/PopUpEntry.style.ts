@@ -90,6 +90,7 @@ export const S = {
     width: ${Dimensions.get('window').width - 24}px;
     aspect-ratio: 9 / 10;
     border-radius: 20px 20px 30px 30px;
+    justify-content: center;
   `,
 
   Description: styled.Text`

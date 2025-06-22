@@ -1,10 +1,19 @@
 import SearchResultPopUpItem from '@/components/searchScreen/searchResultPopUp/SearchResultPopUpItem';
 import useSearch from '@/hooks/useSearch';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  View,
+} from 'react-native';
 import { PostPopUpSearch } from '@/types/SearchScreenType';
 import NoItem from '@/components/searchScreen/noItem/NoItem';
 import { useSearchStore } from '@/store/useSearchStore';
 import { useCallback } from 'react';
+import { TouchableWithoutFeedback } from '@gorhom/bottom-sheet';
 
 export default function SearchScreen() {
   const { searchResult, isLoading, hasMore, loadMore } = useSearch();
@@ -77,21 +86,29 @@ export default function SearchScreen() {
 
   return (
     <View style={{ flex: 1, paddingHorizontal: 12, backgroundColor: 'black' }}>
-      <FlatList
-        data={searchResult as PostPopUpSearch[]}
-        renderItem={renderItem}
-        numColumns={2}
-        columnWrapperStyle={columnWrapperStyle()}
-        ListHeaderComponent={renderHeader}
-        ListFooterComponent={renderFooter}
-        onEndReached={handleEndReached}
-        ListEmptyComponent={listEmptyComponent}
-        onEndReachedThreshold={0.3}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={contentContainerStyle()}
-        keyExtractor={keyExtractor}
-        ItemSeparatorComponent={itemSeparatorComponent}
-      />
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <FlatList
+            data={searchResult as PostPopUpSearch[]}
+            renderItem={renderItem}
+            numColumns={2}
+            columnWrapperStyle={columnWrapperStyle()}
+            ListHeaderComponent={renderHeader}
+            ListFooterComponent={renderFooter}
+            onEndReached={handleEndReached}
+            ListEmptyComponent={listEmptyComponent}
+            onEndReachedThreshold={0.3}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={contentContainerStyle()}
+            keyExtractor={keyExtractor}
+            ItemSeparatorComponent={itemSeparatorComponent}
+          />
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </View>
   );
 }

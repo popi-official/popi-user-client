@@ -153,12 +153,12 @@ const PopUpEntryScreen = () => {
           <S.SectionTitle>인기 상품 TOP 3</S.SectionTitle>
           <S.SectionDescription>매장 방문 전에 인기있는 상품을 확인해보세요</S.SectionDescription>
           <S.GoodsContainer>
-            {hotItems ? (
+            {hotItems && hotItems?.length > 0 ? (
               hotItems.map(item => (
                 <S.GoodsItem key={item.itemId}>
                   <S.GoodsImage source={Images.item} />
                   <S.GoodsName numbernumberOfLines={1} ellipsizeMode="tail">
-                    {item.title}
+                    {item.name}
                   </S.GoodsName>
                   <S.GoodsPrice numberOfLines={1} ellipsizeMode="tail">
                     {item.price.toLocaleString()}원

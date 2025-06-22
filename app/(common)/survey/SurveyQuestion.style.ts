@@ -2,8 +2,13 @@ import styled from 'styled-components/native';
 import { getThemeColor, getThemePretendardFont } from '@/types';
 import { Dimensions } from 'react-native';
 import { Animated } from 'react-native';
+import { EdgeInsets } from 'react-native-safe-area-context';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
+
+type ContainerProps = {
+  inset: EdgeInsets;
+};
 
 export const Container = styled.View`
   flex: 1;
@@ -33,10 +38,9 @@ export const Card = styled.View`
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   border: 1px solid ${getThemeColor('gray03')};
+  border-bottom-width: 0;
   padding: 40px 30px 24px;
   align-items: center;
-  margin-bottom: -2px;
-  justify-content: space-between;
 `;
 
 export const ProgressBarContainer = styled.View`
@@ -118,14 +122,15 @@ export const OptionText = styled.Text<{ isSelected: boolean }>`
   font-family: ${getThemePretendardFont('medium')};
 `;
 
-export const BottomActions = styled.SafeAreaView`
+export const BottomActions = styled.View<ContainerProps>`
   display: flex;
   flex-direction: row;
-  width: ${SCREEN_WIDTH - 60}px;
-  margin-top: 20px;
-  margin-bottom: 24px;
+  width: ${SCREEN_WIDTH};
+  justify-content: center;
   gap: 6px;
   height: 56px;
+  background-color: #1a1a1a;
+  margin-bottom: ${(props: ContainerProps) => props.inset.bottom}px;
 `;
 
 export const ButtonText = styled.Text`

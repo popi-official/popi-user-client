@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { Dimensions } from 'react-native';
 import { S } from './SearchResultPopUpItem.style';
 import { usePopUpStore } from '@/store/usePopUpStore';
+import OptimizedImage from '@/components/OptimizedImage';
 
 const { width } = Dimensions.get('window');
 
@@ -23,19 +24,23 @@ export default function SearchResultPopUpItem({
   const router = useRouter();
   const GAP = 12;
   const realWidth = (width - 2 * PADDING - GAP) / 2;
-
-  usePopUpStore.getState().setSelectedPopUpId(popupId);
+  const imageHeight = realWidth * (4 / 3);
+  const { setSelectedPopUpId } = usePopUpStore();
 
   return (
     <S.PopUpContainer
       style={{ width: realWidth }}
-      onPress={() => router.replace({ pathname: '/(common)/popUpDetail' })}
+      onPress={() => {
+        setSelectedPopUpId(popupId);
+        router.replace({ pathname: '/(common)/popUpDetail' });
+      }}
     >
-      <S.PopUpImage
+      <OptimizedImage
         source={{ uri: imageUrl }}
         style={{
           width: realWidth,
-          height: realWidth * (4 / 3),
+          height: imageHeight,
+          borderRadius: 12,
         }}
         resizeMode="cover"
       />

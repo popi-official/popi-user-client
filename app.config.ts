@@ -1,17 +1,17 @@
 export default {
   expo: {
-    name: 'popi-user-client',
+    name: 'POPI',
     slug: 'popi-user-client',
     version: '1.0.0',
     orientation: 'portrait',
-    icon: './src/assets/images/icon.png',
+    icon: './src/assets/images/logo.png',
     scheme: 'popiuserclient',
     userInterfaceStyle: 'automatic',
     newArchEnabled: true,
     splash: {
-      image: './src/assets/images/splash-icon.png',
+      image: './src/assets/images/splash-view.png',
       resizeMode: 'contain',
-      backgroundColor: '#ffffff',
+      backgroundColor: '#000000',
     },
     ios: {
       supportsTablet: true,
@@ -85,15 +85,25 @@ export default {
         },
       },
       splash: {
-        image: './src/assets/images/splash-icon.png',
+        image: './src/assets/images/splash-view.png',
         resizeMode: 'contain',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#000000',
       },
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: './src/assets/images/splash-icon.png',
-        backgroundColor: '#ffffff',
+        foregroundImage: './src/assets/images/logo.png',
+        backgroundColor: '#000000',
+      },
+      splash: {
+        image: './src/assets/images/splash-view.png',
+        resizeMode: 'contain',
+        backgroundColor: '#000000',
+        dark: {
+          image: './src/assets/images/splash-view.png',
+          resizeMode: 'contain',
+          backgroundColor: '#000000',
+        },
       },
       edgeToEdgeEnabled: true,
       package: 'com.chik2chik.popiuserclient',
@@ -155,6 +165,8 @@ export default {
         'expo-build-properties',
         {
           android: {
+            gradleVersion: '8.7',
+            gradlePluginVersion: '8.6.0',
             extraMavenRepos: [
               'https://repository.map.naver.com/archive/maven',
               'https://devrepo.kakao.com/nexus/content/groups/public/',
