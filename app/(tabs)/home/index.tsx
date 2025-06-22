@@ -1,12 +1,12 @@
 import { ActivityIndicator, Dimensions, FlatList, Image, View, Text } from 'react-native';
 import { S } from './HomeScreen.style';
-import { bannerItems } from '@/mocks/HomeMocks';
 import { formatDateRange } from '@/utils/FormatDate';
 import { useRouter } from 'expo-router';
 import { usePopUpStore } from '@/store/usePopUpStore';
 import { usePopUpAllItemsApi } from '@/hooks/api/usePopUpAllItemsApi';
 import Swiper from 'react-native-swiper';
 import { useGetHotPopUpsApi } from '@/hooks/api/useHomeApi';
+import { bannerItems } from '@/constants/OnBoarding';
 
 const Images = {
   calendarGray: require('@/assets/images/common/calendar-gray.webp'),
