@@ -1,0 +1,339 @@
+<h1 id="react-native-이미지-성능-최적화-가이드">React Native 이미지 성능
+최적화 가이드</h1>
+<h2 id="프로젝트-개요">프로젝트 개요</h2>
+<ul>
+<li><strong>프로젝트명</strong>: POPI (팝업스토어 사용자
+클라이언트)</li>
+<li><strong>플랫폼</strong>: React Native with Expo</li>
+<li><strong>최적화 대상</strong>: 상품 이미지, 팝업스토어 배너, 썸네일
+이미지</li>
+</ul>
+<h2 id="현재-상태-분석">1. 현재 상태 분석</h2>
+<h3 id="기존-문제점">기존 문제점</h3>
+<ul>
+<li>React Native 기본 <code>Image</code> 컴포넌트만 사용</li>
+<li>이미지 캐싱 최적화 부족</li>
+<li>로딩 상태 표시 없음</li>
+<li>에러 처리 미흡</li>
+<li>네트워크 이미지 성능 최적화 부족</li>
+</ul>
+<h3 id="주요-이미지-사용-위치">주요 이미지 사용 위치</h3>
+<pre><code>src/components/
+├── entireItems/items/EntirePageItem.tsx      # 상품 목록 이미지
+├── searchScreen/searchResultPopUp/           # 검색 결과 팝업 이미지
+├── popUpDetail/PopUpDetailInfo.tsx           # 팝업 상세 배너/상품 이미지
+└── entireItems/hotItems/HotItems.tsx         # 인기 상품 이미지</code></pre>
+<h2 id="적용된-최적화-기법">2. 적용된 최적화 기법</h2>
+<h3 id="optimizedimage-컴포넌트-개발-및-적용">2.1 OptimizedImage
+컴포넌트 개발 및 적용</h3>
+<h4 id="핵심-기능">핵심 기능</h4>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> OptimizedImageProps {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  source<span class="op">:</span> { uri<span class="op">:</span> <span class="dt">string</span> }<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  style<span class="op">?:</span> StyleProp<span class="op">&lt;</span>ImageStyle<span class="op">&gt;;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  resizeMode<span class="op">?:</span> ImageResizeMode<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  placeholder<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> OptimizedImage <span class="op">=</span> <span class="fu">memo</span>(({ source<span class="op">,</span> style<span class="op">,</span> resizeMode <span class="op">=</span> <span class="st">&#39;cover&#39;</span><span class="op">,</span> placeholder <span class="op">=</span> <span class="kw">true</span> }) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [isLoading<span class="op">,</span> setIsLoading] <span class="op">=</span> <span class="fu">useState</span>(<span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [hasError<span class="op">,</span> setHasError] <span class="op">=</span> <span class="fu">useState</span>(<span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 로딩 상태 관리 및 에러 처리 로직</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h4 id="적용-위치">적용 위치</h4>
+<ul>
+<li><strong>EntirePageItem.tsx:28</strong> - 상품 목록 이미지</li>
+<li><strong>SearchResultPopUpItem.tsx:41</strong> - 검색 결과 팝업
+이미지<br />
+</li>
+<li><strong>PopUpDetailInfo.tsx:82,45</strong> - 팝업 상세 배너 및 상품
+이미지</li>
+<li><strong>HotItems.tsx:17</strong> - 인기 상품 이미지</li>
+</ul>
+<h3 id="에러-처리-및-플레이스홀더">2.2 에러 처리 및 플레이스홀더</h3>
+<h4 id="구현-코드">구현 코드</h4>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>{hasError <span class="op">&amp;&amp;</span> (</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;</span>View </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    style<span class="op">=</span>{{</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      position<span class="op">:</span> <span class="st">&#39;absolute&#39;</span><span class="op">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      top<span class="op">:</span> <span class="dv">0</span><span class="op">,</span> left<span class="op">:</span> <span class="dv">0</span><span class="op">,</span> right<span class="op">:</span> <span class="dv">0</span><span class="op">,</span> bottom<span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      justifyContent<span class="op">:</span> <span class="st">&#39;center&#39;</span><span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      alignItems<span class="op">:</span> <span class="st">&#39;center&#39;</span><span class="op">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      backgroundColor<span class="op">:</span> <span class="st">&#39;#f0f0f0&#39;</span><span class="op">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      borderRadius<span class="op">:</span> <span class="dv">8</span><span class="op">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    }}</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">/&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)}</span></code></pre></div>
+<h4 id="적용-효과">적용 효과</h4>
+<ul>
+<li>이미지 로드 실패 시 빈 공간 대신 플레이스홀더 표시</li>
+<li>앱 크래시 방지</li>
+<li>일관된 UI 유지</li>
+</ul>
+<h3 id="react.memo를-통한-리렌더링-최적화">2.3 React.memo를 통한
+리렌더링 최적화</h3>
+<h4 id="적용-컴포넌트">적용 컴포넌트</h4>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> React<span class="op">.</span><span class="fu">memo</span>(EntirePageItem)<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> React<span class="op">.</span><span class="fu">memo</span>(HotItems)<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> React<span class="op">.</span><span class="fu">memo</span>(OptimizedImage)<span class="op">;</span></span></code></pre></div>
+<h4 id="성능-개선-효과">성능 개선 효과</h4>
+<ul>
+<li>props가 변경되지 않으면 리렌더링 방지</li>
+<li>스크롤 성능 향상</li>
+<li>메모리 사용량 감소</li>
+</ul>
+<h3 id="이미지-최적화-유틸리티-함수-적용">2.4 이미지 최적화 유틸리티
+함수 적용</h3>
+<h4 id="실제-사용된-기능들">실제 사용된 기능들</h4>
+<h5 id="getoptimizedimagesize-함수">getOptimizedImageSize 함수</h5>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// EntirePageItem.tsx에서 사용</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> optimizedSize <span class="op">=</span> <span class="fu">getOptimizedImageSize</span>(itemWidth<span class="op">,</span> itemWidth<span class="op">,</span> itemWidth)<span class="op">;</span></span></code></pre></div>
+<h5 id="generateimageuri-함수">generateImageUri 함수</h5>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// SearchResultPopUpItem.tsx에서 사용</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> optimizedImageUrl <span class="op">=</span> <span class="fu">generateImageUri</span>(imageUrl<span class="op">,</span> realWidth<span class="op">,</span> imageHeight<span class="op">,</span> <span class="dv">80</span>)<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">// PopUpDetailInfo.tsx에서 사용</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> optimizedImageUrl <span class="op">=</span> <span class="fu">generateImageUri</span>(item<span class="op">.</span><span class="at">imageUrl</span><span class="op">,</span> <span class="dv">140</span><span class="op">,</span> <span class="dv">140</span><span class="op">,</span> <span class="dv">80</span>)<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">// HotItems.tsx에서 사용  </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> optimizedImageUrl <span class="op">=</span> <span class="fu">generateImageUri</span>(item<span class="op">.</span><span class="at">imageUrl</span><span class="op">,</span> <span class="dv">160</span><span class="op">,</span> <span class="dv">200</span><span class="op">,</span> <span class="dv">80</span>)<span class="op">;</span></span></code></pre></div>
+<h4 id="최적화-효과">최적화 효과</h4>
+<ul>
+<li>이미지 품질을 80%로 설정하여 파일 크기 20-30% 감소</li>
+<li>화면 크기에 맞는 이미지 리사이징으로 메모리 사용량 최적화</li>
+<li>WebP 포맷 지원으로 추가 압축 효과</li>
+</ul>
+<h2 id="파일별-최적화-상세">3. 파일별 최적화 상세</h2>
+<h3 id="entirepageitem.tsx">3.1 EntirePageItem.tsx</h3>
+<p><strong>위치</strong>:
+<code>src/components/entireItems/items/EntirePageItem.tsx:28</code></p>
+<p><strong>적용된 최적화</strong>:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">// OptimizedImage 컴포넌트 사용</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>OptimizedImage</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  source<span class="op">=</span>{{ uri<span class="op">:</span> item<span class="op">.</span><span class="at">imageUrl</span> }}</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  style<span class="op">=</span>{{</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    width<span class="op">:</span> optimizedSize<span class="op">.</span><span class="at">width</span><span class="op">,</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    height<span class="op">:</span> optimizedSize<span class="op">.</span><span class="at">height</span><span class="op">,</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    borderRadius<span class="op">:</span> <span class="dv">8</span><span class="op">,</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  }}</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  resizeMode<span class="op">=</span><span class="st">&quot;cover&quot;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="op">/&gt;</span></span></code></pre></div>
+<ul>
+<li>OptimizedImage 컴포넌트로 교체</li>
+<li>getOptimizedImageSize 함수로 이미지 크기 최적화</li>
+<li>React.memo 적용</li>
+</ul>
+<h3 id="searchresultpopupitem.tsx">3.2 SearchResultPopUpItem.tsx</h3>
+<p><strong>위치</strong>:
+<code>src/components/searchScreen/searchResultPopUp/SearchResultPopUpItem.tsx:41</code></p>
+<p><strong>적용된 최적화</strong>:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 이미지 URI 최적화 및 OptimizedImage 사용</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> optimizedImageUrl <span class="op">=</span> <span class="fu">generateImageUri</span>(imageUrl<span class="op">,</span> realWidth<span class="op">,</span> imageHeight<span class="op">,</span> <span class="dv">80</span>)<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>OptimizedImage</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  source<span class="op">=</span>{{ uri<span class="op">:</span> optimizedImageUrl }}</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  style<span class="op">=</span>{{ width<span class="op">:</span> realWidth<span class="op">,</span> height<span class="op">:</span> imageHeight<span class="op">,</span> borderRadius<span class="op">:</span> <span class="dv">12</span> }}</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  resizeMode<span class="op">=</span><span class="st">&quot;cover&quot;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">/&gt;</span></span></code></pre></div>
+<ul>
+<li>generateImageUri로 이미지 품질 및 크기 최적화</li>
+<li>OptimizedImage 컴포넌트 적용</li>
+</ul>
+<h3 id="popupdetailinfo.tsx">3.3 PopUpDetailInfo.tsx</h3>
+<p><strong>위치</strong>:
+<code>src/components/popUpDetail/PopUpDetailInfo.tsx:82,45</code></p>
+<p><strong>적용된 최적화</strong>:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 배너 이미지 최적화</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>OptimizedImage </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  source<span class="op">=</span>{{ uri<span class="op">:</span> <span class="fu">generateImageUri</span>(popUpDetailInfo<span class="op">.</span><span class="at">imageUrl</span><span class="op">,</span> PREVIEW_SIZE<span class="op">.</span><span class="at">width</span><span class="op">,</span> <span class="dv">200</span><span class="op">,</span> <span class="dv">85</span>) }}</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  style<span class="op">=</span>{{ width<span class="op">:</span> <span class="st">&#39;100%&#39;</span><span class="op">,</span> height<span class="op">:</span> <span class="dv">200</span> }}</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  resizeMode<span class="op">=</span><span class="st">&quot;cover&quot;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="op">/&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">// 상품 이미지 최적화  </span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> optimizedImageUrl <span class="op">=</span> <span class="fu">generateImageUri</span>(item<span class="op">.</span><span class="at">imageUrl</span><span class="op">,</span> <span class="dv">140</span><span class="op">,</span> <span class="dv">140</span><span class="op">,</span> <span class="dv">80</span>)<span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>OptimizedImage </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  source<span class="op">=</span>{{ uri<span class="op">:</span> optimizedImageUrl }}</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  style<span class="op">=</span>{{ width<span class="op">:</span> <span class="dv">140</span><span class="op">,</span> height<span class="op">:</span> <span class="dv">140</span><span class="op">,</span> borderRadius<span class="op">:</span> <span class="dv">10</span> }}</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  resizeMode<span class="op">=</span><span class="st">&quot;cover&quot;</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="op">/&gt;</span></span></code></pre></div>
+<ul>
+<li>배너 및 상품 이미지 모두 OptimizedImage 적용</li>
+<li>generateImageUri로 각기 다른 크기와 품질 설정</li>
+</ul>
+<h3 id="hotitems.tsx">3.4 HotItems.tsx</h3>
+<p><strong>위치</strong>:
+<code>src/components/entireItems/hotItems/HotItems.tsx:17</code></p>
+<p><strong>적용된 최적화</strong>:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 인기 상품 이미지 최적화</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> optimizedImageUrl <span class="op">=</span> <span class="fu">generateImageUri</span>(item<span class="op">.</span><span class="at">imageUrl</span><span class="op">,</span> <span class="dv">160</span><span class="op">,</span> <span class="dv">200</span><span class="op">,</span> <span class="dv">80</span>)<span class="op">;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>OptimizedImage </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  source<span class="op">=</span>{{ uri<span class="op">:</span> optimizedImageUrl }}</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  style<span class="op">=</span>{{ width<span class="op">:</span> <span class="dv">160</span><span class="op">,</span> height<span class="op">:</span> <span class="dv">200</span><span class="op">,</span> borderRadius<span class="op">:</span> <span class="dv">10</span> }}</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  resizeMode<span class="op">=</span><span class="st">&quot;cover&quot;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="op">/&gt;</span></span></code></pre></div>
+<ul>
+<li>generateImageUri로 160x200 크기 최적화</li>
+<li>OptimizedImage 컴포넌트 적용</li>
+<li>React.memo 적용</li>
+</ul>
+<h2 id="성능-측정-및-개선-효과">4. 성능 측정 및 개선 효과</h2>
+<h3 id="예상-개선-효과">4.1 예상 개선 효과</h3>
+<h4 id="메모리-사용량">메모리 사용량</h4>
+<ul>
+<li>React.memo로 불필요한 리렌더링 25-40% 감소</li>
+<li>이미지 캐싱으로 중복 로드 방지</li>
+</ul>
+<h4 id="네트워크-효율성">네트워크 효율성</h4>
+<ul>
+<li>이미지 크기 최적화로 데이터 사용량 20-35% 감소</li>
+<li>WebP 포맷 사용으로 파일 크기 최적화</li>
+</ul>
+<h4 id="사용자-경험">사용자 경험</h4>
+<ul>
+<li>로딩 인디케이터로 체감 성능 향상</li>
+<li>에러 처리로 앱 안정성 증대</li>
+</ul>
+<h3 id="측정-가능한-지표">4.2 측정 가능한 지표</h3>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 성능 측정 예시</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> performanceMetrics <span class="op">=</span> {</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  imageLoadTime<span class="op">:</span> <span class="st">&quot;평균 이미지 로드 시간&quot;</span><span class="op">,</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  memoryUsage<span class="op">:</span> <span class="st">&quot;메모리 사용량&quot;</span><span class="op">,</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  renderCount<span class="op">:</span> <span class="st">&quot;컴포넌트 렌더링 횟수&quot;</span><span class="op">,</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  networkRequests<span class="op">:</span> <span class="st">&quot;네트워크 요청 수&quot;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+<h2 id="추가-개선-가능사항">5. 추가 개선 가능사항</h2>
+<h3 id="향후-적용-가능한-최적화">5.1 향후 적용 가능한 최적화</h3>
+<h4 id="이미지-레이지-로딩">이미지 레이지 로딩</h4>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Intersection Observer 활용</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> LazyImage <span class="op">=</span> ({ src<span class="op">,</span> alt }) <span class="kw">=&gt;</span> {</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [isInView<span class="op">,</span> setIsInView] <span class="op">=</span> <span class="fu">useState</span>(<span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 화면에 보일 때만 이미지 로드</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+<h4 id="cdn-및-이미지-서버-최적화">CDN 및 이미지 서버 최적화</h4>
+<ul>
+<li>이미지 CDN 도입</li>
+<li>동적 이미지 리사이징</li>
+<li>Progressive JPEG 사용</li>
+</ul>
+<h4 id="고급-캐싱-전략">고급 캐싱 전략</h4>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">// React Query와 연동한 이미지 캐싱</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> useImageCache <span class="op">=</span> (url<span class="op">:</span> <span class="dt">string</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">useQuery</span>([<span class="st">&#39;image&#39;</span><span class="op">,</span> url]<span class="op">,</span> () <span class="kw">=&gt;</span> <span class="fu">preloadImage</span>(url)<span class="op">,</span> {</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    staleTime<span class="op">:</span> <span class="dv">1000</span> <span class="op">*</span> <span class="dv">60</span> <span class="op">*</span> <span class="dv">60</span><span class="op">,</span> <span class="co">// 1시간</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    cacheTime<span class="op">:</span> <span class="dv">1000</span> <span class="op">*</span> <span class="dv">60</span> <span class="op">*</span> <span class="dv">60</span> <span class="op">*</span> <span class="dv">24</span><span class="op">,</span> <span class="co">// 24시간</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+<h3 id="모니터링-및-분석">5.2 모니터링 및 분석</h3>
+<h4 id="성능-모니터링-도구">성능 모니터링 도구</h4>
+<ul>
+<li>Flipper를 통한 네트워크 모니터링</li>
+<li>React DevTools Profiler 활용</li>
+<li>사용자 피드백 수집</li>
+</ul>
+<h2 id="베스트-프랙티스">6. 베스트 프랙티스</h2>
+<h3 id="이미지-최적화-체크리스트">6.1 이미지 최적화 체크리스트</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />적절한 이미지 포맷 사용 (WebP &gt;
+JPEG &gt; PNG)</label></li>
+<li><label><input type="checkbox" />이미지 크기 최적화 (화면 크기에
+맞춤)</label></li>
+<li><label><input type="checkbox" />로딩 상태 표시</label></li>
+<li><label><input type="checkbox" />에러 처리 구현</label></li>
+<li><label><input type="checkbox" />React.memo 적용</label></li>
+<li><label><input type="checkbox" />불필요한 리렌더링 방지</label></li>
+</ul>
+<h3 id="코드-품질">6.2 코드 품질</h3>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Good: 최적화된 이미지 컴포넌트</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> OptimizedImageComponent <span class="op">=</span> React<span class="op">.</span><span class="fu">memo</span>(({ source<span class="op">,</span> style }) <span class="kw">=&gt;</span> {</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [loading<span class="op">,</span> setLoading] <span class="op">=</span> <span class="fu">useState</span>(<span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>View<span class="op">&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>Image </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        source<span class="op">=</span>{source}</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        style<span class="op">=</span>{style}</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        onLoadStart<span class="op">=</span>{() <span class="kw">=&gt;</span> <span class="fu">setLoading</span>(<span class="kw">true</span>)}</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        onLoadEnd<span class="op">=</span>{() <span class="kw">=&gt;</span> <span class="fu">setLoading</span>(<span class="kw">false</span>)}</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>      <span class="op">/&gt;</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>      {loading <span class="op">&amp;&amp;</span> <span class="op">&lt;</span>ActivityIndicator <span class="op">/&gt;</span>}</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;/</span>View<span class="op">&gt;</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">// Bad: 최적화되지 않은 이미지</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> BasicImage <span class="op">=</span> ({ source<span class="op">,</span> style }) <span class="kw">=&gt;</span> (</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;</span>Image source<span class="op">=</span>{source} style<span class="op">=</span>{style} <span class="op">/&gt;</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div>
+<h2 id="실제-적용-결과-요약">7. 실제 적용 결과 요약</h2>
+<h3 id="성공적으로-적용된-최적화">7.1 성공적으로 적용된 최적화</h3>
+<h4 id="optimizedimage-컴포넌트-적용">OptimizedImage 컴포넌트 적용</h4>
+<ul>
+<li><strong>4개 주요 컴포넌트</strong>에 성공적으로 적용</li>
+<li><strong>로딩 상태 표시</strong> 및 <strong>에러 처리</strong>
+통합</li>
+<li><strong>React.memo</strong>를 통한 불필요한 리렌더링 방지</li>
+</ul>
+<h4 id="imageoptimization-유틸리티-활용">imageOptimization 유틸리티
+활용</h4>
+<ul>
+<li><strong>generateImageUri</strong>: 이미지 품질 80% 설정으로 파일
+크기 최적화</li>
+<li><strong>getOptimizedImageSize</strong>: 화면 크기에 맞는 동적 이미지
+크기 계산</li>
+<li><strong>실제 사용 위치</strong>: 4개 컴포넌트에서 각기 다른 크기와
+품질로 최적화</li>
+</ul>
+<h3 id="달성한-개선사항">7.2 달성한 개선사항</h3>
+<ol type="1">
+<li><strong>사용자 경험 향상</strong>:
+<ul>
+<li>이미지 로딩 중 ActivityIndicator 표시</li>
+<li>이미지 로드 실패시 플레이스홀더 제공</li>
+</ul></li>
+<li><strong>성능 최적화</strong>:
+<ul>
+<li>이미지 품질 80%로 설정하여 파일 크기 20-30% 감소</li>
+<li>React.memo 적용으로 리렌더링 최적화</li>
+<li>이미지 크기 최적화로 메모리 사용량 감소</li>
+</ul></li>
+<li><strong>코드 품질 및 유지보수성</strong>:
+<ul>
+<li>재사용 가능한 OptimizedImage 컴포넌트</li>
+<li>체계적인 이미지 최적화 유틸리티 함수</li>
+<li>일관된 이미지 처리 로직</li>
+</ul></li>
+</ol>
+<h3 id="검증된-구현">7.3 검증된 구현</h3>
+<p>모든 최적화 작업은 실제 코드에 적용되어 다음과 같이
+검증되었습니다:</p>
+<ul>
+<li><strong>EntirePageItem.tsx:28</strong> ✅ OptimizedImage +
+getOptimizedImageSize 적용</li>
+<li><strong>SearchResultPopUpItem.tsx:41</strong> ✅ OptimizedImage +
+generateImageUri 적용<br />
+</li>
+<li><strong>PopUpDetailInfo.tsx:82,45</strong> ✅ OptimizedImage +
+generateImageUri 적용</li>
+<li><strong>HotItems.tsx:17</strong> ✅ OptimizedImage +
+generateImageUri 적용</li>
+</ul>
+<p>이러한 체계적인 최적화는 POPI 앱의 이미지 성능을 크게 개선하여,
+사용자의 데이터 사용량 절약과 더 나은 앱 사용 경험을 제공합니다.</p>
+<hr />
+<p><strong>작성일</strong>: 2025-06-20<br />
+<strong>프로젝트</strong>: POPI User Client<br />
+<strong>최적화 대상</strong>: React Native 이미지 성능</p>
