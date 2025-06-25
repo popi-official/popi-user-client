@@ -1,8 +1,7 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, Image } from 'react-native';
 import { S } from './EntirePageItem.style';
 import { PADDING } from '@/constants/Options';
-import OptimizedImage from '@/components/OptimizedImage';
 
 import { ItemUrlType } from '@/types/DetailScreen';
 
@@ -22,13 +21,9 @@ const EntirePageItem = ({ item }: Props) => {
 
   return (
     <S.Container itemWidth={itemWidth}>
-      <OptimizedImage
+      <Image
         source={{ uri: item.imageUrl }}
-        style={{
-          width: '100%',
-          height: itemWidth,
-          borderRadius: 8,
-        }}
+        style={{ height: itemWidth, borderRadius: 8 }}
         resizeMode="cover"
       />
       <S.TitleText numberOfLines={2} ellipsizeMode="tail">

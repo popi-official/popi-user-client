@@ -1,10 +1,9 @@
 import { PADDING } from '@/constants/Options';
 import { PostPopUpSearch } from '@/types/SearchScreenType';
 import { useRouter } from 'expo-router';
-import { Dimensions } from 'react-native';
+import { Dimensions, Image } from 'react-native';
 import { S } from './SearchResultPopUpItem.style';
 import { usePopUpStore } from '@/store/usePopUpStore';
-import OptimizedImage from '@/components/OptimizedImage';
 
 const { width } = Dimensions.get('window');
 
@@ -35,13 +34,18 @@ export default function SearchResultPopUpItem({
         router.replace({ pathname: '/(common)/popUpDetail' });
       }}
     >
-      <OptimizedImage
+      {/* <OptimizedImage
         source={{ uri: imageUrl }}
         style={{
           width: realWidth,
           height: imageHeight,
           borderRadius: 12,
         }}
+        resizeMode="cover"
+      /> */}
+      <Image
+        source={{ uri: imageUrl }}
+        style={{ height: imageHeight, borderRadius: 10 }}
         resizeMode="cover"
       />
       <S.PopUpInfoContainer>
